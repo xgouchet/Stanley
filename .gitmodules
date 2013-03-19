@@ -1,0 +1,6 @@
+[submodule "AndroidLib"]
+	path = AndroidLib
+	url = git://github.com/xgouchet/AndroidLib.git
+[submodule "AXML"]
+	path = AXML
+	url = git://github.com/xgouchet/AXML.git

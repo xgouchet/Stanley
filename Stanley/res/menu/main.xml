@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/group_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_search"/>
+    <item
+        android:id="@+id/menu_settings"
+        android:showAsAction="never"
+        android:title="@string/menu_settings"/>
+    <item
+        android:id="@+id/menu_about"
+        android:showAsAction="never"
+        android:title="@string/menu_about"/>
+
+    <!--
+    <item
+        android:id="@+id/sort_method"
+        android:title="Sort by ...">
+        <menu>
+            <item
+                android:id="@+id/sort_by_name"
+                android:title="Sort by name"/>
+            <item
+                android:id="@+id/sort_by_package"
+                android:title="Sort by package name"/>
+            <item
+                android:id="@+id/sort_by_install"
+                android:title="Last install first"/>
+            <item
+                android:id="@+id/sort_by_update"
+                android:title="Last update first"/>
+        </menu>
+    </item>
+    -->
+
+</menu>

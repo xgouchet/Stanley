@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_package_info"
+        android:title="Display package informations"/>
+    <item
+        android:id="@+id/action_explore_resources"
+        android:title="Explore resources"/>
+    <item
+        android:id="@+id/action_export_manifest"
+        android:title="Export manifest"/>
+
+    <group android:id="@+id/group_installed_apps" >
+        <item
+            android:id="@+id/action_uninstall"
+            android:title="Uninstall"/>
+    </group>
+
+</menu>

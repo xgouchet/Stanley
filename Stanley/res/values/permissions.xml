@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Permissions -->
+    <string name="permlab_billing">purchase in-app content through the GooglePlay application</string>
+    <string name="permlab_checkLicence">check purchased licences through the GooglePlay application</string>
+    <string name="permlab_installShortcut">install shortcut on the Launcher</string>
+    <string name="permlab_uninstallShortcut">uninstall shortcut from the Launcher</string>
+    <string name="permlab_c2dmReceive">receive messages from the Cloud</string>
+    <string name="permlab_readHistoryBookmarks">read your Web bookmarks and history</string>
+    <string name="permlab_writeHistoryBookmarks">write web bookmarks and history</string>
+    <string name="permlab_setAlarm">set an alarm</string>
+    <string name="permlab_addVoicemail">add voicemail</string>
+    <string name="permlab_statusBar">disable or modify status bar</string>
+    <string name="permlab_statusBarService">status bar</string>
+    <string name="permlab_expandStatusBar">expand/collapse status bar</string>
+    <string name="permlab_processOutgoingCalls">reroute outgoing calls</string>
+    <string name="permlab_receiveSms">receive text messages (SMS)</string>
+    <string name="permlab_receiveMms">receive text messages (MMS)</string>
+    <string name="permlab_receiveEmergencyBroadcast">receive emergency broadcasts</string>
+    <string name="permlab_readCellBroadcasts">read cell broadcast messages</string>
+    <string name="permlab_sendSms">send SMS messages</string>
+    <string name="permlab_sendSmsNoConfirmation">send SMS messages with no confirmation</string>
+    <string name="permlab_readSms">read your text messages (SMS or MMS)</string>
+    <string name="permlab_writeSms">edit your text messages (SMS or MMS)</string>
+    <string name="permlab_receiveWapPush">receive text messages (WAP)</string>
+    <string name="permlab_getTasks">retrieve running apps</string>
+    <string name="permlab_getDetailedTasks">retrieve details of running apps</string>
+    <string name="permlab_reorderTasks">reorder running apps</string>
+    <string name="permlab_removeTasks">stop running apps</string>
+    <string name="permlab_startAnyActivity">start any activity</string>
+    <string name="permlab_setScreenCompatibility">set screen compatibility</string>
+    <string name="permlab_setDebugApp">enable app debugging</string>
+    <string name="permlab_changeConfiguration">change system display settings</string>
+    <string name="permlab_enableCarMode">enable car mode</string>
+    <string name="permlab_killBackgroundProcesses">close other apps</string>
+    <string name="permlab_forceStopPackages">force stop other apps</string>
+    <string name="permlab_forceBack">force app to close</string>
+    <string name="permlab_dump">retrieve system internal state</string>
+    <string name="permlab_retrieve_window_content">retrieve screen content</string>
+    <string name="permlab_shutdown">partial shutdown</string>
+    <string name="permlab_stopAppSwitches">prevent app switches</string>
+    <string name="permlab_runSetActivityWatcher">monitor and control all app launching</string>
+    <string name="permlab_broadcastPackageRemoved">send package removed broadcast</string>
+    <string name="permlab_broadcastSmsReceived">send SMS-received broadcast</string>
+    <string name="permlab_broadcastWapPush">send WAP-PUSH-received broadcast</string>
+    <string name="permlab_setProcessLimit">limit number of running processes</string>
+    <string name="permlab_setAlwaysFinish">force background apps to close</string>
+    <string name="permlab_batteryStats">modify battery statistics</string>
+    <string name="permlab_backup">control system backup and restore</string>
+    <string name="permlab_confirm_full_backup">confirm a full backup or restore operation</string>
+    <string name="permlab_internalSystemWindow">display unauthorized windows</string>
+    <string name="permlab_systemAlertWindow">draw over other apps</string>
+    <string name="permlab_setAnimationScale">modify global animation speed</string>
+    <string name="permlab_manageAppTokens">manage app tokens</string>
+    <string name="permlab_injectEvents">press keys and control buttons</string>
+    <string name="permlab_readInputState">record what you type and actions you take</string>
+    <string name="permlab_bindInputMethod">bind to an input method</string>
+    <string name="permlab_bindAccessibilityService">bind to an accessibility service</string>
+    <string name="permlab_bindTextService">bind to a text service</string>
+    <string name="permlab_bindVpnService">bind to a VPN service</string>
+    <string name="permlab_bindWallpaper">bind to a wallpaper</string>
+    <string name="permlab_bindRemoteViews">bind to a widget service</string>
+    <string name="permlab_bindDeviceAdmin">interact with a device admin</string>
+    <string name="permlab_setOrientation">change screen orientation</string>
+    <string name="permlab_setPointerSpeed">change pointer speed</string>
+    <string name="permlab_setKeyboardLayout">change keyboard layout</string>
+    <string name="permlab_signalPersistentProcesses">send Linux signals to apps</string>
+    <string name="permlab_persistentActivity">make app always run</string>
+    <string name="permlab_deletePackages">delete apps</string>
+    <string name="permlab_clearAppUserData">delete other apps\' data</string>
+    <string name="permlab_deleteCacheFiles">delete other apps\' caches</string>
+    <string name="permlab_getPackageSize">measure app storage space</string>
+    <string name="permlab_installPackages">directly install apps</string>
+    <string name="permlab_clearAppCache">delete all app cache data</string>
+    <string name="permlab_movePackage">move app resources</string>
+    <string name="permlab_readLogs">read sensitive log data</string>
+    <string name="permlab_anyCodecForPlayback">use any media decoder for playback</string>
+    <string name="permlab_diagnostic">read/write to resources owned by diag</string>
+    <string name="permlab_changeComponentState">enable or disable app components</string>
+    <string name="permlab_grantRevokePermissions">grant or revoke permissions</string>
+    <string name="permlab_setPreferredApplications">set preferred apps</string>
+    <string name="permlab_writeSettings">modify system settings</string>
+    <string name="permlab_writeGservices">modify the Google services map</string>
+    <string name="permlab_receiveBootCompleted">run at startup</string>
+    <string name="permlab_broadcastSticky">send sticky broadcast</string>
+    <string name="permlab_readContacts">read your contacts</string>
+    <string name="permlab_writeContacts">modify your contacts</string>
+    <string name="permlab_readCallLog">read call log</string>
+    <string name="permlab_writeCallLog">write call log</string>
+    <string name="permlab_readProfile">read your own contact card</string>
+    <string name="permlab_writeProfile">modify your own contact card</string>
+    <string name="permlab_writeSecureSettings">modify secure system settings</string>
+    <string name="permlab_readSocialStream" product="default">read your social stream</string>
+    <string name="permlab_writeSocialStream" product="default">write to your social stream</string>
+    <string name="permlab_readCalendar">read calendar events plus confidential information</string>
+    <string name="permlab_writeCalendar">add or modify calendar events and send email to guests without owners\' knowledge</string>
+    <string name="permlab_accessMockLocation">mock location sources for testing</string>
+    <string name="permlab_accessLocationExtraCommands">access extra location provider commands</string>
+    <string name="permlab_installLocationProvider">permission to install a location provider</string>
+    <string name="permlab_accessFineLocation">precise (GPS) location</string>
+    <string name="permlab_accessCoarseLocation">approximate (network-based) location</string>
+    <string name="permlab_accessSurfaceFlinger">access SurfaceFlinger</string>
+    <string name="permlab_readFrameBuffer">read frame buffer</string>
+    <string name="permlab_modifyAudioSettings">change your audio settings</string>
+    <string name="permlab_recordAudio">record audio</string>
+    <string name="permlab_camera">take pictures and videos</string>
+    <string name="permlab_brick" product="tablet">permanently disable tablet</string>
+    <string name="permlab_brick" product="default">permanently disable phone</string>
+    <string name="permlab_reboot" product="tablet">force tablet reboot</string>
+    <string name="permlab_reboot" product="default">force phone reboot</string>
+    <string name="permlab_mount_unmount_filesystems" product="nosdcard">access USB storage filesystem</string>
+    <string name="permlab_mount_unmount_filesystems" product="default">access SD Card filesystem</string>
+    <string name="permlab_mount_format_filesystems" product="nosdcard">erase USB storage</string>
+    <string name="permlab_mount_format_filesystems" product="default">erase SD Card</string>
+    <string name="permlab_asec_access">get information on internal storage</string>
+    <string name="permlab_asec_create">create internal storage</string>
+    <string name="permlab_asec_destroy">destroy internal storage</string>
+    <string name="permlab_asec_mount_unmount">mount/unmount internal storage</string>
+    <string name="permlab_asec_rename">rename internal storage</string>
+    <string name="permlab_vibrate">control vibration</string>
+    <string name="permlab_flashlight">control flashlight</string>
+    <string name="permlab_manageUsb">manage preferences and permissions for USB devices</string>
+    <string name="permlab_accessMtp">implement MTP protocol</string>
+    <string name="permlab_hardware_test">test hardware</string>
+    <string name="permlab_callPhone">directly call phone numbers</string>
+    <string name="permlab_callPrivileged">directly call any phone numbers</string>
+    <string name="permlab_performCdmaProvisioning" product="tablet">directly start CDMA tablet setup</string>
+    <string name="permlab_performCdmaProvisioning" product="default">directly start CDMA phone setup</string>
+    <string name="permlab_locationUpdates">control location update notifications</string>
+    <string name="permlab_checkinProperties">access checkin properties</string>
+    <string name="permlab_bindGadget">choose widgets</string>
+    <string name="permlab_modifyPhoneState">modify phone state</string>
+    <string name="permlab_readPhoneState">read phone status and identity</string>
+    <string name="permlab_wakeLock" product="tablet">prevent tablet from sleeping</string>
+    <string name="permlab_wakeLock" product="default">prevent phone from sleeping</string>
+    <string name="permlab_devicePower" product="tablet">power tablet on or off</string>
+    <string name="permlab_devicePower" product="default">power phone on or off</string>
+    <string name="permlab_factoryTest">run in factory test mode</string>
+    <string name="permlab_setWallpaper">set wallpaper</string>
+    <string name="permlab_setWallpaperHints">adjust your wallpaper size</string>
+    <string name="permlab_masterClear">reset system to factory defaults</string>
+    <string name="permlab_setTime">set time</string>
+    <string name="permlab_setTimeZone">set time zone</string>
+    <string name="permlab_accountManagerService">act as the AccountManagerService</string>
+    <string name="permlab_getAccounts">find accounts on the device</string>
+    <string name="permlab_authenticateAccounts">create accounts and set passwords</string>
+    <string name="permlab_manageAccounts">add or remove accounts</string>
+    <string name="permlab_useCredentials">use accounts on the device</string>
+    <string name="permlab_accessNetworkState">view network connections</string>
+    <string name="permlab_createNetworkSockets">full network access</string>
+    <string name="permlab_writeApnSettings">change/intercept network settings and traffic</string>
+    <string name="permlab_changeNetworkState">change network connectivity</string>
+    <string name="permlab_changeTetherState">change tethered connectivity</string>
+    <string name="permlab_changeBackgroundDataSetting">change background data usage setting</string>
+    <string name="permlab_accessWifiState">view Wi-Fi connections</string>
+    <string name="permlab_changeWifiState">connect and disconnect from Wi-Fi</string>
+    <string name="permlab_changeWifiMulticastState">allow Wi-Fi Multicast reception</string>
+    <string name="permlab_bluetoothAdmin">access Bluetooth settings</string>
+    <string name="permlab_bluetooth">pair with Bluetooth devices</string>
+    <string name="permlab_nfc">control Near Field Communication</string>
+    <string name="permlab_disableKeyguard">disable your screen lock</string>
+    <string name="permlab_readSyncSettings">read sync settings</string>
+    <string name="permlab_writeSyncSettings">toggle sync on and off</string>
+    <string name="permlab_readSyncStats">read sync statistics</string>
+    <string name="permlab_subscribedFeedsRead">read subscribed feeds</string>
+    <string name="permlab_subscribedFeedsWrite">write subscribed feeds</string>
+    <string name="permlab_readDictionary">read terms you added to the dictionary</string>
+    <string name="permlab_writeDictionary">write to user-defined dictionary</string>
+    <string name="permlab_sdcardRead" product="nosdcard">read the contents of your USB storage</string>
+    <string name="permlab_sdcardWrite" product="nosdcard">modify or delete the contents of your USB storage</string>
+    <string name="permlab_sdcardRead" product="default">read the contents of your SD card</string>
+    <string name="permlab_sdcardWrite" product="default">modify or delete the contents of your SD card</string>
+    <string name="permlab_mediaStorageWrite" product="default">modify/delete internal media storage contents</string>
+    <string name="permlab_cache_filesystem">access the cache filesystem</string>
+    <string name="permlab_use_sip">make/receive Internet calls</string>
+    <string name="permlab_readNetworkUsageHistory">read historical network usage</string>
+    <string name="permlab_manageNetworkPolicy">manage network policy</string>
+    <string name="permlab_modifyNetworkAccounting">modify network usage accounting</string>
+
+</resources>

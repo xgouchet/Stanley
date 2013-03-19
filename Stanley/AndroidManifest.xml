@@ -1,0 +1,47 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fr.xgouchet.packageexplorer"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <compatible-screens>
+        <screen />
+    </compatible-screens>
+    <compatible-screens>
+        <screen />
+    </compatible-screens>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Stanley.Theme" >
+
+        <!-- Apps List -->
+        <activity android:name=".ApexActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- App info -->
+        <activity android:name=".ApexPackageInfoActivity" >
+        </activity>
+
+        <!-- App item info -->
+        <activity android:name=".ApexAppItemInfoActivity" >
+        </activity>
+
+        <!-- App about -->
+        <activity android:name=".ApexAboutActivity" >
+        </activity>
+    </application>
+
+</manifest>

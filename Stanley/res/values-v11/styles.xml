@@ -1,0 +1,5 @@
+<resources>
+
+    <style name="Stanley.Base" parent="@android:style/Theme.Holo" />
+
+</resources>

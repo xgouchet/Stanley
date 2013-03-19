@@ -7,12 +7,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -25,22 +24,24 @@ import android.widget.ListView;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
 import de.neofonie.mobile.app.android.widget.crouton.Style;
 import fr.xgouchet.packageexplorer.common.Constants;
-import fr.xgouchet.packageexplorer.common.ManifestUtils;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
+import fr.xgouchet.packageexplorer.common.Settings;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageListAdapter;
 
-public class ApexActivity extends Activity implements OnItemClickListener {
+public class StanleyActivity extends Activity implements OnItemClickListener {
 
 	/**
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override
+	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.layout_main);
 
 		mListView = (ListView) findViewById(R.id.listApps);
 		mListView.setEmptyView(findViewById(R.id.emptyView));
+		mListView.setFastScrollEnabled(true);
 
 		mPackages = new LinkedList<PackageInfo>();
 		mAdapter = new PackageListAdapter(this, mPackages);
@@ -53,14 +54,21 @@ public class ApexActivity extends Activity implements OnItemClickListener {
 	/**
 	 * @see android.app.Activity#onResume()
 	 */
+	@Override
 	protected void onResume() {
 		super.onResume();
+
+		SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCES,
+				MODE_PRIVATE);
+		// TODO refresh settings from prefs
+
 		new Thread(mRefreshRunnable).start();
 	}
 
 	/**
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
+	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -69,16 +77,44 @@ public class ApexActivity extends Activity implements OnItemClickListener {
 	/**
 	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
 	 */
+	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
-		boolean result;
+		boolean result = true;
+		boolean refresh = false;
+
 		switch (item.getItemId()) {
-		case R.id.menu_about:
-			startActivity(new Intent(getBaseContext(), ApexAboutActivity.class));
-			result = true;
+		case R.id.action_about:
+			startActivity(new Intent(getBaseContext(),
+					StanleyAboutActivity.class));
+			break;
+		case R.id.action_sort_by_name:
+			Settings.sSortMethod = Constants.SORT_BY_NAME;
+			refresh = true;
+			break;
+		case R.id.action_sort_by_package:
+			Settings.sSortMethod = Constants.SORT_BY_PACKAGE;
+			refresh = true;
+			break;
+		case R.id.action_sort_by_install:
+			Settings.sSortMethod = Constants.SORT_BY_INSTALL;
+			refresh = true;
+			break;
+		case R.id.action_sort_by_update:
+			Settings.sSortMethod = Constants.SORT_BY_UPDATE;
+			refresh = true;
+			break;
+		case R.id.action_settings:
 			break;
 		default:
 			result = super.onOptionsItemSelected(item);
 			break;
+		}
+
+		if (refresh) {
+			new Thread(mRefreshRunnable).start();
+			SharedPreferences prefs = getSharedPreferences(
+					Constants.PREFERENCES, MODE_PRIVATE);
+			// TODO save settings
 		}
 		return result;
 	}
@@ -87,6 +123,7 @@ public class ApexActivity extends Activity implements OnItemClickListener {
 	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu,
 	 *      android.view.View, android.view.ContextMenu.ContextMenuInfo)
 	 */
+	@Override
 	public void onCreateContextMenu(final ContextMenu menu, final View view,
 			final ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, view, menuInfo);
@@ -110,19 +147,21 @@ public class ApexActivity extends Activity implements OnItemClickListener {
 	/**
 	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
 	 */
-	public boolean onContextItemSelected(MenuItem item) {
-		boolean res;
+	@Override
+	public boolean onContextItemSelected(final MenuItem item) {
+		boolean res = true;
+
 		switch (item.getItemId()) {
 		case R.id.action_uninstall:
 			startActivity(PackageUtils.uninstallPluginIntent(mSelectedPackage));
-			res = true;
 			break;
 		case R.id.action_explore_resources:
-			res = true;
 			break;
 		case R.id.action_export_manifest:
 			exportPackageManifest();
-			res = true;
+			break;
+		case R.id.action_display_info:
+
 			break;
 		default:
 			res = super.onContextItemSelected(item);
@@ -135,14 +174,15 @@ public class ApexActivity extends Activity implements OnItemClickListener {
 	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView,
 	 *      android.view.View, int, long)
 	 */
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+	@Override
+	public void onItemClick(final AdapterView<?> parent, final View view,
+			final int position, final long id) {
 		final PackageInfo info = mAdapter.getItem(position);
 		final Intent appInfo = new Intent(getApplicationContext(),
-				ApexPackageInfoActivity.class);
+				StanleyPackageInfoActivity.class);
 
 		appInfo.putExtra(Constants.EXTRA_PACKAGE_INFO,
-				(Parcelable) PackageUtils.getFullPackageInfo(this, info));
+				PackageUtils.getFullPackageInfo(this, info));
 		startActivity(appInfo);
 	}
 
@@ -158,6 +198,7 @@ public class ApexActivity extends Activity implements OnItemClickListener {
 		Collections.sort(packages, Constants.getComparator(pm));
 
 		runOnUiThread(new Runnable() {
+			@Override
 			public void run() {
 				mPackages.clear();
 				mPackages.addAll(packages);
@@ -207,6 +248,7 @@ public class ApexActivity extends Activity implements OnItemClickListener {
 	 * Runnable used to list all packages in background
 	 */
 	private Runnable mRefreshRunnable = new Runnable() {
+		@Override
 		public void run() {
 			refreshData();
 		}

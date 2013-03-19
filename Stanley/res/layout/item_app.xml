@@ -15,6 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_margin="8dp"
+        android:src="@drawable/ic_launcher"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -24,8 +25,8 @@
         android:layout_margin="8dp"
         android:layout_toRightOf="@+id/imageAppIcon"
         android:gravity="center_vertical"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFFFFF"
         android:textStyle="bold" >
     </TextView>
 
@@ -35,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textAppName"
         android:layout_marginLeft="8dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_toRightOf="@+id/imageAppIcon"
-        android:typeface="monospace" />
+        android:text="@string/app_name_full" />
 
 </RelativeLayout>

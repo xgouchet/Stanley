@@ -5,16 +5,9 @@
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <compatible-screens>
-        <screen />
-    </compatible-screens>
-    <compatible-screens>
-        <screen />
-    </compatible-screens>
 
     <application
         android:allowBackup="true"
@@ -23,7 +16,7 @@
         android:theme="@style/Stanley.Theme" >
 
         <!-- Apps List -->
-        <activity android:name=".ApexActivity" >
+        <activity android:name=".StanleyActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,15 +25,11 @@
         </activity>
 
         <!-- App info -->
-        <activity android:name=".ApexPackageInfoActivity" >
-        </activity>
-
-        <!-- App item info -->
-        <activity android:name=".ApexAppItemInfoActivity" >
+        <activity android:name=".StanleyPackageInfoActivity" >
         </activity>
 
         <!-- App about -->
-        <activity android:name=".ApexAboutActivity" >
+        <activity android:name=".StanleyAboutActivity" >
         </activity>
     </application>
 

@@ -11,6 +11,8 @@ import fr.xgouchet.packageexplorer.common.sort.PackageSortByUpdate;
 
 public class Constants {
 
+	public static final String PREFERENCES = "fr.xgouchet.packageexplorer";
+
 	public static final String EXTRA_PACKAGE_INFO = "package_info";
 
 	public static final byte SORT_BY_NAME = 0;
@@ -22,7 +24,7 @@ public class Constants {
 
 	}
 
-	public static final Comparator<PackageInfo> getComparator(PackageManager pm) {
+	public static final Comparator<PackageInfo> getComparator(final PackageManager pm) {
 		Comparator<PackageInfo> comp = null;
 
 		switch (Settings.sSortMethod) {

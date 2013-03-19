@@ -2,38 +2,37 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/group_search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:id="@id/action_search"
+        android:icon="@drawable/ic_action_search"
         android:showAsAction="ifRoom"
         android:title="@string/menu_search"/>
     <item
-        android:id="@+id/menu_settings"
+        android:id="@id/action_settings"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
     <item
-        android:id="@+id/menu_about"
+        android:id="@id/action_about"
         android:showAsAction="never"
         android:title="@string/menu_about"/>
-
-    <!--
     <item
-        android:id="@+id/sort_method"
-        android:title="Sort by ...">
+        android:id="@id/action_sort"
+        android:icon="@drawable/ic_action_sort"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_sort">
         <menu>
             <item
-                android:id="@+id/sort_by_name"
-                android:title="Sort by name"/>
+                android:id="@id/action_sort_by_name"
+                android:title="@string/action_sort_by_name"/>
             <item
-                android:id="@+id/sort_by_package"
-                android:title="Sort by package name"/>
+                android:id="@id/action_sort_by_package"
+                android:title="@string/action_sort_by_package"/>
             <item
-                android:id="@+id/sort_by_install"
-                android:title="Last install first"/>
+                android:id="@id/action_sort_by_install"
+                android:title="@string/action_sort_by_install"/>
             <item
-                android:id="@+id/sort_by_update"
-                android:title="Last update first"/>
+                android:id="@id/action_sort_by_update"
+                android:title="@string/action_sort_by_update"/>
         </menu>
-    </item>
-    -->
+    </item>
 
 </menu>

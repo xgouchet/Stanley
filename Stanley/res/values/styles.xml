@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Stanley.Base" parent="@android:style/Theme" />
+    <style name="Stanley.Base" parent="@android:style/Theme.Light" />
     
     <style name="Stanley.Theme" parent="@style/Stanley.Base"></style>
 

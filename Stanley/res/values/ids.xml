@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Actions -->
+    <item name="action_search" type="id"/>
+    <item name="action_settings" type="id"/>
+    <item name="action_about" type="id"/>
+    <item name="action_sort" type="id"/>
+    <item name="action_sort_by_name" type="id"/>
+    <item name="action_sort_by_package" type="id"/>
+    <item name="action_sort_by_install" type="id"/>
+    <item name="action_sort_by_update" type="id"/>
+
+    <!-- App Item Context -->
+    <item name="action_uninstall" type="id"/>
+    <item name="action_display_info" type="id"/>
+    <item name="action_explore_resources" type="id"/>
+    <item name="action_export_manifest" type="id"/>
+
+</resources>

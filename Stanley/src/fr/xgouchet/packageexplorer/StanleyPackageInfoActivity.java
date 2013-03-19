@@ -5,15 +5,17 @@ import java.util.zip.ZipException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.xgouchet.packageexplorer.common.Constants;
@@ -21,13 +23,14 @@ import fr.xgouchet.packageexplorer.common.ManifestUtils;
 import fr.xgouchet.packageexplorer.model.ManifestInfo;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageInfoAdapter;
 
-public class ApexPackageInfoActivity extends Activity implements
-		OnChildClickListener {
+public class StanleyPackageInfoActivity extends Activity {
 
 	/**
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
-	protected void onCreate(Bundle savedInstanceState) {
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@Override
+	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_app_info);
 
@@ -50,8 +53,35 @@ public class ApexPackageInfoActivity extends Activity implements
 		}
 
 		setContentInfo();
+
+		if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getActionBar().setDisplayShowHomeEnabled(true);
+		}
 	}
 
+	/**
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		boolean res = true;
+
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			break;
+		default:
+			res = super.onOptionsItemSelected(item);
+			break;
+		}
+
+		return res;
+	}
+
+	/**
+	 * 
+	 */
 	protected void setContentInfo() {
 
 		((TextView) findViewById(R.id.textAppName)).setText(mPackageManager
@@ -64,21 +94,6 @@ public class ApexPackageInfoActivity extends Activity implements
 		ExpandableListView list;
 		list = ((ExpandableListView) findViewById(R.id.listPkgInfo));
 		list.setAdapter(mAdapter);
-		list.setOnChildClickListener(this);
-
-	}
-
-	public boolean onChildClick(ExpandableListView parent, View v,
-			int groupPosition, int childPosition, long id) {
-		// Log.i("Click", "Group : " + groupPosition + " / Child : "
-		// + childPosition);
-
-		if (groupPosition >= PackageInfoAdapter.INDEX_ACTIVITIES) {
-			Intent appItem = new Intent(this, ApexAppItemInfoActivity.class);
-			
-			startActivity(appItem);
-		}
-		return true;
 	}
 
 	protected PackageManager mPackageManager;

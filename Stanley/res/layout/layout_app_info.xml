@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:ignore="ContentDescription" >
 
     <ImageView
         android:id="@+id/imageAppIcon"
@@ -14,17 +17,6 @@
         android:layout_margin="5dp"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/textAppName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        android:layout_toRightOf="@+id/imageAppIcon"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
-
     <ExpandableListView
         android:id="@+id/listPkgInfo"
         android:layout_width="match_parent"
@@ -32,5 +24,19 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/imageAppIcon"
         android:groupIndicator="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/textAppName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageAppIcon"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageAppIcon"
+        android:gravity="center_vertical|left"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/imageAppIcon"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
 </RelativeLayout>

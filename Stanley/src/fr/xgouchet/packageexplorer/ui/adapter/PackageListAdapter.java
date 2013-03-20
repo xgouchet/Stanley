@@ -62,6 +62,7 @@ public class PackageListAdapter extends ArrayAdapter<PackageInfo> {
 						.format(packageInfo.lastUpdateTime).toString();
 				break;
 			}
+			
 			((TextView) v.findViewById(R.id.textSubTitle)).setText(subtitle);
 		}
 

@@ -89,16 +89,19 @@ public final class ManifestUtils {
 				}
 			}
 
-			builder.append(">\n");
+			if (childrenCount == 0) {
+				builder.append("/>\n");
+			} else {
+				builder.append(">\n");
+				for (i = 0; i < childrenCount; i++) {
+					formatXml(children.item(i), builder, depth + 1);
+				}
 
-			for (i = 0; i < childrenCount; i++) {
-				formatXml(children.item(i), builder, depth + 1);
+				formatIndent(builder, depth);
+				builder.append("</");
+				builder.append(node.getNodeName());
+				builder.append(">\n");
 			}
-
-			formatIndent(builder, depth);
-			builder.append("</");
-			builder.append(node.getNodeName());
-			builder.append(">\n");
 			break;
 		case Node.TEXT_NODE:
 			builder.append(node.getNodeValue());
@@ -111,7 +114,8 @@ public final class ManifestUtils {
 			builder.append("\"");
 			break;
 		default:
-			builder.append("<!-- Unknown node -->");
+			builder.append("<!-- Unknown node [#" + node.getNodeType() + " : "
+					+ node.getNodeValue() + "] -->");
 			break;
 		}
 	}

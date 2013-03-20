@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="21dp"
-    android:paddingRight="8dp"
-    tools:ignore="UseCompoundDrawables,UselessParent" >
+    android:paddingRight="8dp" >
 
     <TextView
         android:id="@+id/textTitle"
@@ -14,8 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="8dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:typeface="monospace" >
+        android:text="@string/app_name_full"
+        android:textColor="@color/text_subtitle" >
     </TextView>
 
 </RelativeLayout>

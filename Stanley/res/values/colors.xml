@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="text_disabled">#80000000</color>
+    <color name="text_main">#FF000000</color>
+    <color name="text_subtitle">#C0400000</color>
+    <color name="text_accent">#FFC00000</color>
+
+</resources>

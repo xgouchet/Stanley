@@ -38,6 +38,7 @@
         android:layout_marginLeft="8dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_toRightOf="@+id/imageAppIcon"
-        android:text="@string/app_name_full" />
+        android:text="@string/app_name_full"
+        android:textColor="@color/text_subtitle" />
 
 </RelativeLayout>

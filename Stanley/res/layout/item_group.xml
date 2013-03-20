@@ -5,9 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:minHeight="48dp"
     android:orientation="horizontal"
-    android:paddingLeft="32dp"
-    tools:ignore="UseCompoundDrawables" >
+    tools:ignore="ContentDescription" >
+
+    <ImageView
+        android:id="@+id/imageIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="4dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_action_name" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -15,19 +24,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_margin="8dp"
+        android:layout_toRightOf="@+id/imageIcon"
         android:gravity="center_vertical"
         android:text="@string/ui_market"
-        android:textAppearance="?android:attr/textAppearanceMedium" >
-    </TextView>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_accent"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textSubTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textTitle"
-        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/imageIcon"
         android:paddingLeft="8dp"
         android:text="@string/ui_market_url"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/text_subtitle" />
 
 </RelativeLayout>

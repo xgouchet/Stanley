@@ -111,6 +111,8 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 		}
 
 		if (refresh) {
+			mAdapter.clear(); 
+			
 			new Thread(mRefreshRunnable).start();
 			SharedPreferences prefs = getSharedPreferences(
 					Constants.PREFERENCES, MODE_PRIVATE);

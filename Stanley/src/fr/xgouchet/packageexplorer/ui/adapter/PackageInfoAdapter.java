@@ -3,11 +3,11 @@ package fr.xgouchet.packageexplorer.ui.adapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.database.DataSetObserver;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.model.ManifestInfo;
@@ -310,23 +310,23 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 		}
 
 		int txtColor;
-		if (getChildrenCount(groupPosition) == 0) {
-			if (groupPosition >= INDEX_SDK) {
-				v.setBackgroundResource(R.drawable.group_disabled_dark);
-				txtColor = Color.GRAY;
+		txtColor = mContext.getResources().getColor(R.color.text_accent);
+		if (groupPosition >= INDEX_SDK) {
+			if (getChildrenCount(groupPosition) == 0) {
+				v.setEnabled(false);
+				txtColor = mContext.getResources().getColor(
+						R.color.text_disabled);
 			} else {
-				v.setBackgroundResource(R.drawable.group_empty);
-				txtColor = Color.WHITE;
+				v.setEnabled(true);
 			}
-		} else {
-			v.setBackgroundResource(R.drawable.group_background);
-			txtColor = Color.WHITE;
 		}
 
 		TextView title, subtitle;
+		ImageView icon;
 
 		title = (TextView) v.findViewById(R.id.textTitle);
 		subtitle = (TextView) v.findViewById(R.id.textSubTitle);
+		icon = (ImageView) v.findViewById(R.id.imageIcon);
 
 		title.setTextColor(txtColor);
 
@@ -334,42 +334,54 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 		case INDEX_PACKAGE_NAME:
 			title.setText("Package Name");
 			subtitle.setText(getGroup(groupPosition).toString());
+			subtitle.setVisibility(View.VISIBLE);
+			icon.setImageResource(R.drawable.ic_action_name);
 			break;
 		case INDEX_VERSION:
 			title.setText("App version");
 			subtitle.setText(getGroup(groupPosition).toString());
+			subtitle.setVisibility(View.VISIBLE);
+			icon.setImageResource(R.drawable.ic_action_version);
 			break;
 		case INDEX_SDK:
 			title.setText("SDK versions");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_version);
 			break;
 		case INDEX_ACTIVITIES:
 			title.setText("Activities");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_activities);
 			break;
 		case INDEX_SERVICES:
 			title.setText("Services");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_services);
 			break;
 		case INDEX_RECEIVERS:
 			title.setText("Broadcast receivers");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_receivers);
 			break;
 		case INDEX_PROVIDERS:
 			title.setText("Content providers");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_providers);
 			break;
 		case INDEX_USED_PERMISSIONS:
 			title.setText("Permissions");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_permissions);
 			break;
 		case INDEX_CUSTOM_PERMISSIONS:
 			title.setText("Pacakge custom permissions");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_custom_permissions);
 			break;
 		case INDEX_FEATURES:
 			title.setText("Features required");
-			subtitle.setText("");
+			subtitle.setVisibility(View.GONE);
+			icon.setImageResource(R.drawable.ic_action_features);
 			break;
 		}
 

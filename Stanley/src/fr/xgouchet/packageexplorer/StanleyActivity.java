@@ -1,6 +1,5 @@
 package fr.xgouchet.packageexplorer;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,8 +20,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import de.neofonie.mobile.app.android.widget.crouton.Crouton;
-import de.neofonie.mobile.app.android.widget.crouton.Style;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
 import fr.xgouchet.packageexplorer.common.Settings;
@@ -111,8 +108,8 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 		}
 
 		if (refresh) {
-			mAdapter.clear(); 
-			
+			mAdapter.clear();
+
 			new Thread(mRefreshRunnable).start();
 			SharedPreferences prefs = getSharedPreferences(
 					Constants.PREFERENCES, MODE_PRIVATE);
@@ -155,15 +152,15 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 
 		switch (item.getItemId()) {
 		case R.id.action_uninstall:
-			startActivity(PackageUtils.uninstallPluginIntent(mSelectedPackage));
+			startActivity(PackageUtils.uninstallPackageIntent(mSelectedPackage));
 			break;
 		case R.id.action_explore_resources:
 			break;
 		case R.id.action_export_manifest:
-			exportPackageManifest();
+			PackageUtils.exportManifest(this, mSelectedPackage);
 			break;
 		case R.id.action_display_info:
-
+			startActivity(PackageUtils.applicationInfoIntent(mSelectedPackage));
 			break;
 		default:
 			res = super.onContextItemSelected(item);
@@ -231,19 +228,6 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 		}
 
 		packages.removeAll(remove);
-	}
-
-	private void exportPackageManifest() {
-		File res = PackageUtils.exportManifest(this, mSelectedPackage);
-		if (res != null) {
-			Crouton.showText(this,
-					"The manifest was exported in your Download folder in the file "
-							+ res.getName(), Style.INFO);
-		} else {
-			Crouton.showText(this,
-					"An error occured while exporting the manifest",
-					Style.ALERT);
-		}
 	}
 
 	/**

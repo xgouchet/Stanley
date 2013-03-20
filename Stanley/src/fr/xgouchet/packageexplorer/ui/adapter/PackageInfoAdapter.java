@@ -19,20 +19,17 @@ import fr.xgouchet.packageexplorer.ui.PermissionStyler;
  */
 public class PackageInfoAdapter implements ExpandableListAdapter {
 
-	public static final int INDEX_PACKAGE_NAME = 0;
-	public static final int INDEX_VERSION = 1;
-	public static final int INDEX_SDK = 2;
+	public static final int INDEX_INFORMATION = 0;
+	public static final int INDEX_FEATURES = 1;
+	public static final int INDEX_CUSTOM_PERMISSIONS = 2;
+	public static final int INDEX_USED_PERMISSIONS = 3;
 
-	public static final int INDEX_FEATURES = 3;
-	public static final int INDEX_CUSTOM_PERMISSIONS = 4;
-	public static final int INDEX_USED_PERMISSIONS = 5;
+	public static final int INDEX_ACTIVITIES = 4;
+	public static final int INDEX_SERVICES = 5;
+	public static final int INDEX_RECEIVERS = 6;
+	public static final int INDEX_PROVIDERS = 7;
 
-	public static final int INDEX_ACTIVITIES = 6;
-	public static final int INDEX_SERVICES = 7;
-	public static final int INDEX_RECEIVERS = 8;
-	public static final int INDEX_PROVIDERS = 9;
-
-	public static final int INDEX_MAX = 10;
+	public static final int INDEX_MAX = 8;
 
 	protected Context mContext;
 	protected PackageInfo mPackageInfo;
@@ -59,6 +56,9 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 		Object obj = null;
 
 		switch (groupPosition) {
+		case INDEX_INFORMATION:
+			// TODO show information
+			break;
 		case INDEX_ACTIVITIES:
 			if (mPackageInfo.activities != null) {
 				obj = mPackageInfo.activities[childPosition];
@@ -115,12 +115,8 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 		int count = 0;
 
 		switch (groupPosition) {
-		case INDEX_PACKAGE_NAME:
-		case INDEX_VERSION:
-			count = 0;
-			break;
-		case INDEX_SDK:
-			count = 2; // min, target
+		case INDEX_INFORMATION:
+			count = PackageStyler.getAppInfoCount();
 			break;
 		case INDEX_ACTIVITIES:
 			if (mPackageInfo.activities != null) {
@@ -183,9 +179,9 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 		String name = "";
 
 		switch (groupPosition) {
-		case INDEX_SDK:
-			name = PackageStyler.getSdkInfo(childPosition,
-					mManifestInfo.usesSdk);
+		case INDEX_INFORMATION:
+			name = PackageStyler.getAppInfo(childPosition, mPackageInfo,
+					mManifestInfo);
 			break;
 		case INDEX_ACTIVITIES:
 			name = mPackageInfo.activities[childPosition].name;
@@ -209,6 +205,7 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 			break;
 		case INDEX_CUSTOM_PERMISSIONS:
 			name = mPackageInfo.permissions[childPosition].name;
+			name = PermissionStyler.getPermissionName(name, mContext);
 			break;
 		case INDEX_FEATURES:
 			if (mPackageInfo.reqFeatures != null) {
@@ -243,15 +240,8 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 		Object obj = null;
 
 		switch (groupPosition) {
-		case INDEX_PACKAGE_NAME:
-			obj = mPackageInfo.packageName;
-			break;
-		case INDEX_VERSION:
-			obj = "\"" + mPackageInfo.versionName + "\" ("
-					+ mPackageInfo.versionCode + ")";
-			break;
-		case INDEX_SDK:
-			obj = mManifestInfo.usesSdk;
+		case INDEX_INFORMATION:
+			obj = "Mixc info";
 			break;
 		case INDEX_ACTIVITIES:
 			obj = mPackageInfo.activities;
@@ -311,77 +301,63 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 
 		int txtColor;
 		txtColor = mContext.getResources().getColor(R.color.text_accent);
-		if (groupPosition >= INDEX_SDK) {
-			if (getChildrenCount(groupPosition) == 0) {
-				v.setEnabled(false);
-				txtColor = mContext.getResources().getColor(
-						R.color.text_disabled);
-			} else {
-				v.setEnabled(true);
-			}
-		}
 
-		TextView title, subtitle;
-		ImageView icon;
+		TextView title;
+		ImageView icon, decorator;
 
 		title = (TextView) v.findViewById(R.id.textTitle);
-		subtitle = (TextView) v.findViewById(R.id.textSubTitle);
 		icon = (ImageView) v.findViewById(R.id.imageIcon);
+		decorator = (ImageView) v.findViewById(R.id.imageDecorator);
+
+		if (getChildrenCount(groupPosition) == 0) {
+			v.setEnabled(false);
+			txtColor = mContext.getResources().getColor(R.color.text_disabled);
+			decorator.setVisibility(View.GONE);
+		} else {
+			v.setEnabled(true);
+			decorator.setVisibility(View.VISIBLE);
+
+			if (isExpanded) {
+				decorator.setImageResource(R.drawable.ic_action_collapse);
+			} else {
+				decorator.setImageResource(R.drawable.ic_action_expand);
+			}
+		}
 
 		title.setTextColor(txtColor);
 
 		switch (groupPosition) {
-		case INDEX_PACKAGE_NAME:
-			title.setText("Package Name");
-			subtitle.setText(getGroup(groupPosition).toString());
-			subtitle.setVisibility(View.VISIBLE);
-			icon.setImageResource(R.drawable.ic_action_name);
-			break;
-		case INDEX_VERSION:
-			title.setText("App version");
-			subtitle.setText(getGroup(groupPosition).toString());
-			subtitle.setVisibility(View.VISIBLE);
-			icon.setImageResource(R.drawable.ic_action_version);
-			break;
-		case INDEX_SDK:
-			title.setText("SDK versions");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_version);
+		case INDEX_INFORMATION:
+			title.setText("App Information");
+			icon.setImageResource(R.drawable.ic_info);
 			break;
 		case INDEX_ACTIVITIES:
 			title.setText("Activities");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_activities);
+			icon.setImageResource(R.drawable.ic_activities);
 			break;
 		case INDEX_SERVICES:
 			title.setText("Services");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_services);
+			icon.setImageResource(R.drawable.ic_services);
 			break;
 		case INDEX_RECEIVERS:
 			title.setText("Broadcast receivers");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_receivers);
+			icon.setImageResource(R.drawable.ic_receivers);
 			break;
 		case INDEX_PROVIDERS:
 			title.setText("Content providers");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_providers);
+			icon.setImageResource(R.drawable.ic_providers);
 			break;
 		case INDEX_USED_PERMISSIONS:
 			title.setText("Permissions");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_permissions);
+			icon.setImageResource(R.drawable.ic_permissions);
 			break;
 		case INDEX_CUSTOM_PERMISSIONS:
 			title.setText("Pacakge custom permissions");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_custom_permissions);
+			icon.setImageResource(R.drawable.ic_custom_permissions);
 			break;
 		case INDEX_FEATURES:
 			title.setText("Features required");
-			subtitle.setVisibility(View.GONE);
-			icon.setImageResource(R.drawable.ic_action_features);
+			icon.setImageResource(R.drawable.ic_features);
 			break;
 		}
 

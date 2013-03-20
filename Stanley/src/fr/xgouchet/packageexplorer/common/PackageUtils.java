@@ -7,6 +7,10 @@ import java.util.zip.ZipException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import de.neofonie.mobile.app.android.widget.crouton.Crouton;
+import de.neofonie.mobile.app.android.widget.crouton.Style;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -22,7 +26,19 @@ public class PackageUtils {
 	 *            the package info
 	 * @return the intent to launch to uninstall the given package
 	 */
-	public static Intent uninstallPluginIntent(final PackageInfo pkg) {
+	public static Intent applicationInfoIntent(final PackageInfo pkg) {
+		final Uri packageUri = Uri.parse("package:" + pkg.packageName);
+		return new Intent(
+				android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+				packageUri);
+	}
+
+	/**
+	 * @param pkg
+	 *            the package info
+	 * @return the intent to launch to uninstall the given package
+	 */
+	public static Intent uninstallPackageIntent(final PackageInfo pkg) {
 		final Uri packageUri = Uri.parse("package:" + pkg.packageName);
 		return new Intent(Intent.ACTION_DELETE, packageUri);
 	}
@@ -60,6 +76,20 @@ public class PackageUtils {
 		return fullInfo;
 	}
 
+	public static void exportManifest(final Activity activity,
+			final PackageInfo pkg) {
+		File res = exportManifestToFile(activity, pkg);
+		if (res != null) {
+			Crouton.showText(activity,
+					"The manifest was exported in your Download folder in the file "
+							+ res.getName(), Style.INFO);
+		} else {
+			Crouton.showText(activity,
+					"An error occured while exporting the manifest",
+					Style.ALERT);
+		}
+	}
+
 	/**
 	 * @param ctx
 	 *            the current application context
@@ -67,7 +97,8 @@ public class PackageUtils {
 	 *            the package to export
 	 * @return the exported file
 	 */
-	public static File exportManifest(final Context ctx, final PackageInfo pkg) {
+	private static File exportManifestToFile(final Context ctx,
+			final PackageInfo pkg) {
 		File dest;
 		try {
 			dest = ManifestUtils.exportManifest(pkg, ctx);

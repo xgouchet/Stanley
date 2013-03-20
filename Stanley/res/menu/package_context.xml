@@ -2,19 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_package_info"
-        android:title="Display package informations"/>
+        android:id="@id/action_display_info"
+        android:icon="@drawable/ic_action_info"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_display_info"/>
     <item
         android:id="@+id/action_explore_resources"
         android:title="Explore resources"/>
     <item
         android:id="@+id/action_export_manifest"
-        android:title="Export manifest"/>
+        android:icon="@drawable/ic_action_export"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_export"/>
 
     <group android:id="@+id/group_installed_apps" >
         <item
             android:id="@+id/action_uninstall"
-            android:title="Uninstall"/>
+            android:icon="@drawable/ic_action_uninstall"
+            android:showAsAction="ifRoom"
+            android:title="@string/action_uninstall"/>
     </group>
 
 </menu>

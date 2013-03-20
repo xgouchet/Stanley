@@ -14,12 +14,14 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.ManifestUtils;
+import fr.xgouchet.packageexplorer.common.PackageUtils;
 import fr.xgouchet.packageexplorer.model.ManifestInfo;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageInfoAdapter;
 
@@ -61,6 +63,21 @@ public class StanleyPackageInfoActivity extends Activity {
 	}
 
 	/**
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.package_context, menu);
+
+		int flags = mAppInfo.flags;
+		if ((flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM) {
+			menu.setGroupVisible(R.id.group_installed_apps, false);
+		}
+
+		return true;
+	}
+
+	/**
 	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
 	 */
 	@Override
@@ -70,6 +87,15 @@ public class StanleyPackageInfoActivity extends Activity {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			finish();
+			break;
+		case R.id.action_uninstall:
+			startActivity(PackageUtils.uninstallPackageIntent(mPackageInfo));
+			break;
+		case R.id.action_display_info:
+			startActivity(PackageUtils.applicationInfoIntent(mPackageInfo));
+			break;
+		case R.id.action_export_manifest:
+			PackageUtils.exportManifest(this, mPackageInfo);
 			break;
 		default:
 			res = super.onOptionsItemSelected(item);

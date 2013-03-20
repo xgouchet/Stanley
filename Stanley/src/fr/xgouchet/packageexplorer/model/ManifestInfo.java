@@ -53,13 +53,19 @@ public class ManifestInfo implements Parcelable {
 			if (attrs != null) {
 				node = attrs.getNamedItemNS(MANIFEST_URI, "minSdkVersion");
 				if (node != null) {
-					usesSdk.minSdkVersion = Integer
+					usesSdk.minSdk = Integer
 							.valueOf(node.getNodeValue());
 				}
 				node = attrs.getNamedItemNS(MANIFEST_URI, "targetSdkVersion");
 				if (node != null) {
-					usesSdk.targetSdkVersion = Integer.valueOf(node
+					usesSdk.targetSdk = Integer.valueOf(node
 							.getNodeValue());
+				}
+
+				node = attrs.getNamedItemNS(MANIFEST_URI, "maxSdkVersion");
+				if (node != null) {
+					usesSdk.maxSdk = Integer
+							.valueOf(node.getNodeValue());
 				}
 			}
 		}

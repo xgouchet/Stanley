@@ -5,5 +5,5 @@ public class SdkInfo {
 	public SdkInfo() {
 	}
 
-	public int minSdkVersion, targetSdkVersion;
+	public int minSdk, maxSdk, targetSdk;
 }

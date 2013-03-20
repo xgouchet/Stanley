@@ -14,16 +14,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:padding="4dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_action_name" />
+        android:src="@drawable/ic_info" />
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/imageIcon"
+        android:layout_alignTop="@+id/imageIcon"
         android:layout_margin="8dp"
+        android:layout_toLeftOf="@+id/imageExpand"
         android:layout_toRightOf="@+id/imageIcon"
         android:gravity="center_vertical"
         android:text="@string/ui_market"
@@ -31,15 +33,13 @@
         android:textColor="@color/text_accent"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textSubTitle"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageDecorator"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textTitle"
-        android:layout_toRightOf="@+id/imageIcon"
-        android:paddingLeft="8dp"
-        android:text="@string/ui_market_url"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/text_subtitle" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="4dp"
+        android:src="@drawable/ic_action_expand" />
 
 </RelativeLayout>

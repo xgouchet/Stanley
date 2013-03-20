@@ -1,19 +1,46 @@
 package fr.xgouchet.packageexplorer.ui;
 
-import fr.xgouchet.packageexplorer.model.SdkInfo;
+import java.util.Locale;
+
 import android.content.pm.FeatureInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.Signature;
+import fr.xgouchet.packageexplorer.model.ManifestInfo;
+import fr.xgouchet.packageexplorer.model.SdkInfo;
 
 public class PackageStyler {
 
-	public static String getSdkInfo(int position, SdkInfo sdk) {
+	public static final int APP_INFO_PACKAGE = 0;
+	public static final int APP_INFO_VERSION_CODE = 1;
+	public static final int APP_INFO_VERSION_NAME = 2;
+	public static final int APP_INFO_SDK_MIN = 3;
+	public static final int APP_INFO_SDK_MAX = 4;
+	public static final int APP_INFO_SDK_TARGET = 5;
+
+	public static final int APP_INFO_COUnT = 6;
+
+	public static int getAppInfoCount() {
+		return APP_INFO_COUnT;
+	}
+
+	public static String getAppInfo(int position, PackageInfo packageInfo,
+			ManifestInfo manifestInfo) {
+
+		SdkInfo sdk = manifestInfo.usesSdk;
+
 		String res;
-		if (position == 0) {
-			res = "Minimum : "
-					+ ((sdk.minSdkVersion > 0) ? sdk.minSdkVersion : "?");
-		} else if (position == 1) {
-			res = "Target : "
-					+ ((sdk.targetSdkVersion > 0) ? sdk.targetSdkVersion : "?");
+		if (position == APP_INFO_PACKAGE) {
+			res = "Package Name : \"" + packageInfo.packageName + "\"";
+		} else if (position == APP_INFO_VERSION_CODE) {
+			res = "Version Code : " + packageInfo.versionCode + "";
+		} else if (position == APP_INFO_VERSION_NAME) {
+			res = "Version Name : \"" + packageInfo.versionName + "\"";
+		} else if (position == APP_INFO_SDK_MIN) {
+			res = "Minimum SDK : " + ((sdk.minSdk > 0) ? sdk.minSdk : "?");
+		} else if (position == APP_INFO_SDK_MAX) {
+			res = "Maximum SDK : " + ((sdk.maxSdk > 0) ? sdk.maxSdk : "?");
+		} else if (position == APP_INFO_SDK_TARGET) {
+			res = "Target SDK : " + ((sdk.targetSdk > 0) ? sdk.targetSdk : "?");
 		} else {
 			res = "";
 		}
@@ -52,7 +79,8 @@ public class PackageStyler {
 
 			name = name.replaceAll("\\.", " ").trim();
 			name = name.replaceAll("_", " ").trim();
-			name = name.substring(0, 1).toUpperCase() + name.substring(1);
+			name = name.substring(0, 1).toUpperCase(Locale.getDefault())
+					+ name.substring(1);
 
 			builder.append(name);
 		}

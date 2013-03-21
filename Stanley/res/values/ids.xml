@@ -18,4 +18,18 @@
     <item name="action_export_manifest" type="id"/>
     <item name="action_display_store" type="id"/>
 
+    <!-- Layout -->
+    <item name="layoutTitle" type="id"/>
+    <item name="layoutOpenUninstall" type="id"/>
+    <item name="buttonOpen" type="id"/>
+    <item name="buttonUninstall" type="id"/>
+    <item name="imageAppIcon" type="id"/>
+    <item name="textAppName" type="id"/>
+    <item name="textSubTitle" type="id"/>
+    <item name="textTitle" type="id"/>
+    <item name="imageIcon" type="id"/>
+    <item name="imageDecorator" type="id"/>
+    <item name="layoutOpenUninstall" type="id"/>
+    <item name="layoutOpenUninstall" type="id"/>
+
 </resources>

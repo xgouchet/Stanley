@@ -2,10 +2,14 @@
 
     <style name="Stanley.Base" parent="@android:style/Theme.Light" />
 
+    <style name="Stanley.Base.Dialog" parent="@android:style/Theme.Dialog" />
+
     <style name="Stanley.Theme" parent="@style/Stanley.Base">
         <item name="android:listViewStyle">@style/Stanley.ListView</item>
         <item name="android:listViewWhiteStyle">@style/Stanley.ListView.White</item>
     </style>
+
+    <style name="Stanley.Dialog" parent="@style/Stanley.Base.Dialog"></style>
 
     <style name="Stanley.ListView" parent="android:Widget.ListView">
         <item name="android:listSelector">@drawable/list_selector_holo_light</item>

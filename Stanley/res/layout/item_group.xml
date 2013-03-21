@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -10,7 +9,7 @@
     tools:ignore="ContentDescription" >
 
     <ImageView
-        android:id="@+id/imageIcon"
+        android:id="@id/imageIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,14 +18,14 @@
         android:src="@drawable/ic_info" />
 
     <TextView
-        android:id="@+id/textTitle"
+        android:id="@id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageIcon"
-        android:layout_alignTop="@+id/imageIcon"
+        android:layout_alignBottom="@id/imageIcon"
+        android:layout_alignTop="@id/imageIcon"
         android:layout_margin="8dp"
-        android:layout_toLeftOf="@+id/imageExpand"
-        android:layout_toRightOf="@+id/imageIcon"
+        android:layout_toLeftOf="@id/imageDecorator"
+        android:layout_toRightOf="@id/imageIcon"
         android:gravity="center_vertical"
         android:text="@string/ui_market"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -34,11 +33,11 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageDecorator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@id/imageDecorator"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignBottom="@id/imageIcon"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:padding="4dp"
         android:src="@drawable/ic_action_expand" />
 

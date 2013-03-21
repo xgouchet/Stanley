@@ -1,41 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:ignore="ContentDescription" >
 
-    <ImageView
-        android:id="@+id/imageAppIcon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        android:src="@drawable/ic_launcher" />
+    <RelativeLayout
+        android:id="@id/layoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageAppIcon"
+        android:background="#3D3D3D" >
+
+        <ImageView
+            android:id="@id/imageAppIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:padding="5dp"
+            android:src="@drawable/ic_launcher" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/imageAppIcon"
+            android:background="@color/text_subtitle" />
+
+        <TextView
+            android:id="@id/textAppName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/imageAppIcon"
+            android:layout_alignTop="@id/imageAppIcon"
+            android:padding="5dp"
+            android:layout_toRightOf="@id/imageAppIcon"
+            android:gravity="center_vertical|left"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/layoutOpenUninstall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTitle"
+        android:background="#3D3D3D" >
+
+        <LinearLayout
+            android:id="@android:id/candidatesArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp" >
+
+            <Button
+                android:id="@id/buttonOpen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:onClick="onOpenPackage"
+                android:text="@string/action_open"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@id/buttonUninstall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:onClick="onUninstallPackage"
+                android:layout_weight="1"
+                android:text="@string/action_uninstall"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_alignBottom="@android:id/candidatesArea"
+            android:background="@color/text_subtitle" />
+    </RelativeLayout>
 
     <ExpandableListView
-        android:id="@+id/listPkgInfo"
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageAppIcon"
+        android:layout_below="@id/layoutOpenUninstall"
         android:groupIndicator="@android:color/transparent" />
-
-    <TextView
-        android:id="@+id/textAppName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageAppIcon"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/imageAppIcon"
-        android:layout_margin="5dp"
-        android:layout_toRightOf="@+id/imageAppIcon"
-        android:gravity="center_vertical|left"
-        android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -16,5 +16,6 @@
     <item name="action_display_info" type="id"/>
     <item name="action_explore_resources" type="id"/>
     <item name="action_export_manifest" type="id"/>
+    <item name="action_display_store" type="id"/>
 
 </resources>

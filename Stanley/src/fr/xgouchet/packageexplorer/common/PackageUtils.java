@@ -24,7 +24,19 @@ public class PackageUtils {
 	/**
 	 * @param pkg
 	 *            the package info
-	 * @return the intent to launch to uninstall the given package
+	 * @return the intent to show the given package in the Google Play Store
+	 */
+	public static Intent applicationPlayStoreIntent(final PackageInfo pkg) {
+		final Uri packageUri = Uri
+				.parse("https://play.google.com/store/apps/details?id="
+						+ pkg.packageName);
+		return new Intent(Intent.ACTION_VIEW, packageUri);
+	}
+
+	/**
+	 * @param pkg
+	 *            the package info
+	 * @return the intent to show the system app info for the given package
 	 */
 	public static Intent applicationInfoIntent(final PackageInfo pkg) {
 		final Uri packageUri = Uri.parse("package:" + pkg.packageName);
@@ -36,7 +48,7 @@ public class PackageUtils {
 	/**
 	 * @param pkg
 	 *            the package info
-	 * @return the intent to launch to uninstall the given package
+	 * @return the intent to uninstall the given package
 	 */
 	public static Intent uninstallPackageIntent(final PackageInfo pkg) {
 		final Uri packageUri = Uri.parse("package:" + pkg.packageName);

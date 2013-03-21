@@ -7,13 +7,18 @@
         android:showAsAction="ifRoom"
         android:title="@string/action_display_info"/>
     <item
-        android:id="@+id/action_explore_resources"
-        android:title="Explore resources"/>
+        android:id="@id/action_display_store"
+        android:icon="@drawable/ic_action_playstore"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_display_store"/>
     <item
         android:id="@+id/action_export_manifest"
         android:icon="@drawable/ic_action_export"
         android:showAsAction="ifRoom"
         android:title="@string/action_export"/>
+    <item
+        android:id="@+id/action_explore_resources"
+        android:title="Explore resources"/>
 
     <group android:id="@+id/group_installed_apps" >
         <item

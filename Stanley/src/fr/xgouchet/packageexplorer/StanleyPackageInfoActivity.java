@@ -94,6 +94,9 @@ public class StanleyPackageInfoActivity extends Activity {
 		case R.id.action_display_info:
 			startActivity(PackageUtils.applicationInfoIntent(mPackageInfo));
 			break;
+		case R.id.action_display_store:
+			startActivity(PackageUtils.applicationPlayStoreIntent(mPackageInfo));
+			break;
 		case R.id.action_export_manifest:
 			PackageUtils.exportManifest(this, mPackageInfo);
 			break;

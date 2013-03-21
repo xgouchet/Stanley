@@ -162,6 +162,10 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 		case R.id.action_display_info:
 			startActivity(PackageUtils.applicationInfoIntent(mSelectedPackage));
 			break;
+		case R.id.action_display_store:
+			startActivity(PackageUtils
+					.applicationPlayStoreIntent(mSelectedPackage));
+			break; 
 		default:
 			res = super.onContextItemSelected(item);
 			break;

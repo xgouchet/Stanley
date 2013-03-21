@@ -36,8 +36,8 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 
 		setContentView(R.layout.layout_main);
 
-		mListView = (ListView) findViewById(R.id.listApps);
-		mListView.setEmptyView(findViewById(R.id.emptyView));
+		mListView = (ListView) findViewById(android.R.id.list);
+		mListView.setEmptyView(findViewById(android.R.id.empty));
 		mListView.setFastScrollEnabled(true);
 
 		mPackages = new LinkedList<PackageInfo>();
@@ -165,7 +165,7 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 		case R.id.action_display_store:
 			startActivity(PackageUtils
 					.applicationPlayStoreIntent(mSelectedPackage));
-			break; 
+			break;
 		default:
 			res = super.onContextItemSelected(item);
 			break;

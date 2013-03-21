@@ -1,21 +1,25 @@
 package fr.xgouchet.packageexplorer;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.zip.ZipException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,9 +27,10 @@ import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.ManifestUtils;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
 import fr.xgouchet.packageexplorer.model.ManifestInfo;
+import fr.xgouchet.packageexplorer.ui.ResolveInfoDialog;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageInfoAdapter;
 
-public class StanleyPackageInfoActivity extends Activity {
+public class StanleyPackageInfoActivity extends FragmentActivity {
 
 	/**
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -41,6 +46,8 @@ public class StanleyPackageInfoActivity extends Activity {
 				Constants.EXTRA_PACKAGE_INFO);
 		mAppInfo = mPackageInfo.applicationInfo;
 
+		mActivities = PackageUtils.getMainActivities(this, mPackageInfo);
+
 		try {
 			mManifest = ManifestUtils.getManifestInfo(mPackageInfo, this);
 		} catch (ZipException e) {
@@ -50,6 +57,9 @@ public class StanleyPackageInfoActivity extends Activity {
 			mManifest = new ManifestInfo();
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
+			mManifest = new ManifestInfo();
+			e.printStackTrace();
+		} catch (Exception e) {
 			mManifest = new ManifestInfo();
 			e.printStackTrace();
 		}
@@ -69,10 +79,7 @@ public class StanleyPackageInfoActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.package_context, menu);
 
-		int flags = mAppInfo.flags;
-		if ((flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM) {
-			menu.setGroupVisible(R.id.group_installed_apps, false);
-		}
+		menu.findItem(R.id.action_uninstall).setVisible(false);
 
 		return true;
 	}
@@ -87,9 +94,6 @@ public class StanleyPackageInfoActivity extends Activity {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			finish();
-			break;
-		case R.id.action_uninstall:
-			startActivity(PackageUtils.uninstallPackageIntent(mPackageInfo));
 			break;
 		case R.id.action_display_info:
 			startActivity(PackageUtils.applicationInfoIntent(mPackageInfo));
@@ -112,6 +116,18 @@ public class StanleyPackageInfoActivity extends Activity {
 	 * 
 	 */
 	protected void setContentInfo() {
+		boolean hideOpen, hideUninstall;
+		int flags = mAppInfo.flags;
+
+		hideUninstall = ((flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM);
+		hideOpen = (mActivities.size() == 0);
+		if (hideOpen && hideUninstall) {
+			findViewById(R.id.layoutOpenUninstall).setVisibility(View.GONE);
+		} else if (hideUninstall) {
+			findViewById(R.id.buttonUninstall).setVisibility(View.GONE);
+		} else if (hideOpen) {
+			findViewById(R.id.buttonOpen).setVisibility(View.GONE);
+		}
 
 		((TextView) findViewById(R.id.textAppName)).setText(mPackageManager
 				.getApplicationLabel(mAppInfo));
@@ -121,8 +137,30 @@ public class StanleyPackageInfoActivity extends Activity {
 		mAdapter = new PackageInfoAdapter(getApplicationContext(),
 				mPackageInfo, mManifest);
 		ExpandableListView list;
-		list = ((ExpandableListView) findViewById(R.id.listPkgInfo));
+		list = ((ExpandableListView) findViewById(android.R.id.list));
 		list.setAdapter(mAdapter);
+	}
+
+	public void onOpenPackage(View view) {
+		int count = mActivities.size();
+
+		if (count == 1) {
+			// launch the first
+			startActivity(PackageUtils.getResolvedIntent(mActivities.get(0)));
+		} else {
+			// Prompt for one activity
+			FragmentManager fm = getSupportFragmentManager();
+			ResolveInfoDialog resolveDialog = new ResolveInfoDialog();
+			Bundle args = new Bundle();
+			args.putParcelableArray(Constants.EXTRA_RESOLVE_INFO,
+					mActivities.toArray(new ResolveInfo[count]));
+			resolveDialog.setArguments(args);
+			resolveDialog.show(fm, "resolveDialog");
+		}
+	}
+
+	public void onUninstallPackage(View view) {
+		startActivity(PackageUtils.uninstallPackageIntent(mPackageInfo));
 	}
 
 	protected PackageManager mPackageManager;
@@ -132,5 +170,7 @@ public class StanleyPackageInfoActivity extends Activity {
 	protected ManifestInfo mManifest;
 
 	protected PackageInfoAdapter mAdapter;
+
+	protected List<ResolveInfo> mActivities;
 
 }

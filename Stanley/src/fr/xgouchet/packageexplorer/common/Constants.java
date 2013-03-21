@@ -14,6 +14,7 @@ public class Constants {
 	public static final String PREFERENCES = "fr.xgouchet.packageexplorer";
 
 	public static final String EXTRA_PACKAGE_INFO = "package_info";
+	public static final String EXTRA_RESOLVE_INFO = "resolve_info";
 
 	public static final byte SORT_BY_NAME = 0;
 	public static final byte SORT_BY_PACKAGE = 1;

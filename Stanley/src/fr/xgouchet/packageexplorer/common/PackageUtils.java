@@ -2,6 +2,7 @@ package fr.xgouchet.packageexplorer.common;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.zip.ZipException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,10 +17,47 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
 
 public class PackageUtils {
+
+	public static Intent getResolvedIntent(ResolveInfo info) {
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		intent.setClassName(info.activityInfo.packageName,
+				info.activityInfo.name);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+		return intent;
+	}
+
+	public static List<ResolveInfo> getMainActivities(Context context,
+			final PackageInfo pkg) {
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		intent.setPackage(pkg.packageName);
+
+		List<ResolveInfo> resolvedList;
+
+		resolvedList = context.getPackageManager().queryIntentActivities(
+				intent, 0);
+
+		return resolvedList;
+	}
+
+	/**
+	 * @param pkg
+	 *            the package info
+	 * @return the intent to show the given package in the Google Play Store
+	 */
+	public static Intent applicationOpenIntent(final PackageInfo pkg) {
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		intent.setPackage(pkg.packageName);
+		return intent;
+	}
 
 	/**
 	 * @param pkg

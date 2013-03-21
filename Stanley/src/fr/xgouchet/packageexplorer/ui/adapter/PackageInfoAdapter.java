@@ -3,6 +3,7 @@ package fr.xgouchet.packageexplorer.ui.adapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.database.DataSetObserver;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
+import fr.xgouchet.packageexplorer.common.Settings;
 import fr.xgouchet.packageexplorer.model.ManifestInfo;
 import fr.xgouchet.packageexplorer.ui.PackageStyler;
 import fr.xgouchet.packageexplorer.ui.PermissionStyler;
@@ -176,46 +178,64 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 
 		title = (TextView) v.findViewById(R.id.textTitle);
 
-		String name = "";
+		boolean canBeSimplified = true;
+		boolean italic = false;
+
+		String name = "", sourceName = "";
 
 		switch (groupPosition) {
 		case INDEX_INFORMATION:
 			name = PackageStyler.getAppInfo(childPosition, mPackageInfo,
 					mManifestInfo);
+			canBeSimplified = false;
 			break;
 		case INDEX_ACTIVITIES:
-			name = mPackageInfo.activities[childPosition].name;
-			name = PackageStyler.getLocalName(name, mPackageInfo.packageName);
+			sourceName = mPackageInfo.activities[childPosition].name;
+			name = sourceName;
+			italic = name.equals(sourceName);
 			break;
 		case INDEX_SERVICES:
-			name = mPackageInfo.services[childPosition].name;
-			name = PackageStyler.getLocalName(name, mPackageInfo.packageName);
+			sourceName = mPackageInfo.services[childPosition].name;
+			name = sourceName;
 			break;
 		case INDEX_RECEIVERS:
-			name = mPackageInfo.receivers[childPosition].name;
-			name = PackageStyler.getLocalName(name, mPackageInfo.packageName);
+			sourceName = mPackageInfo.receivers[childPosition].name;
+			name = sourceName;
 			break;
 		case INDEX_PROVIDERS:
-			name = mPackageInfo.providers[childPosition].name;
-			name = PackageStyler.getLocalName(name, mPackageInfo.packageName);
+			sourceName = mPackageInfo.providers[childPosition].name;
+			name = sourceName;
 			break;
 		case INDEX_USED_PERMISSIONS:
-			name = mPackageInfo.requestedPermissions[childPosition];
-			name = PermissionStyler.getPermissionName(name, mContext);
+			sourceName = mPackageInfo.requestedPermissions[childPosition];
+			name = PermissionStyler.getPermissionName(sourceName, mContext);
 			break;
 		case INDEX_CUSTOM_PERMISSIONS:
-			name = mPackageInfo.permissions[childPosition].name;
-			name = PermissionStyler.getPermissionName(name, mContext);
+			sourceName = mPackageInfo.permissions[childPosition].name;
+			name = PermissionStyler.getPermissionName(sourceName, mContext);
 			break;
 		case INDEX_FEATURES:
 			if (mPackageInfo.reqFeatures != null) {
 				name = PackageStyler
 						.getFeature(mPackageInfo.reqFeatures[childPosition]);
 			}
+			canBeSimplified = false;
 			break;
 		}
 
+		italic = name.equals(sourceName);
+
+		if (Settings.sSimplifyNames && canBeSimplified) {
+			name = PackageStyler.simplifyName(name, mPackageInfo.packageName);
+		}
+
 		title.setText(name);
+
+		if (italic) {
+			title.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
+		} else {
+			title.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
+		}
 		return v;
 	}
 

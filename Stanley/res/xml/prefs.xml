@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="fr.xgouchet.packageexplorer"
+    android:title="@string/title_settings" >
+
+    <PreferenceCategory android:title="Global" >
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="Manifest Export" >
+    </PreferenceCategory>
+
+</PreferenceScreen>

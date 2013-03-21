@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="apk-version" default="apk-version-release">
+
+	<!-- This is meant to be imported after the generic android build.xml given in the Android SDK -->
+
+	<!-- Parse the AndroidManifest.xml file to retrieve the options in there -->
+	<xmlproperty file="AndroidManifest.xml" prefix="jam-manifest" collapseAttributes="true"/>
+	
+	<!-- Release apk (usually signed) -->
+	<target name="apk-version-release" description="Renames the APK according to the Manifest Version Number / Version Name">
+		<mkdir dir="${basedir}/../builds"/>
+		
+		<copy file="${out.final.file}" tofile="${basedir}/../builds/${ant.project.name}_${jam-manifest.manifest.android:versionName}.apk"/>
+		
+		<delete file="${out.final.file}" quiet="true"/>
+		<delete file="${out.packaged.file}" quiet="true"/>
+		<delete file="${out.unaligned.file}" quiet="true"/>
+	</target>
+
+</project>

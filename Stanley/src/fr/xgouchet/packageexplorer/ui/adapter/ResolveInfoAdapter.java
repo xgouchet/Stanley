@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
+import fr.xgouchet.packageexplorer.common.Settings;
+import fr.xgouchet.packageexplorer.ui.PackageStyler;
 
 public class ResolveInfoAdapter extends ArrayAdapter<ResolveInfo> {
 
@@ -45,10 +47,9 @@ public class ResolveInfoAdapter extends ArrayAdapter<ResolveInfo> {
 		}
 
 		title = info.activityInfo.name;
-		// int lastDot = title.lastIndexOf('.');
-		// title = title.substring(lastDot);
-		if (title.startsWith(info.activityInfo.packageName)) {
-			title = title.substring(info.activityInfo.packageName.length());
+		if (Settings.sSimplifyNames) {
+			title = PackageStyler.simplifyName(title,
+					info.activityInfo.packageName);
 		}
 
 		textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);

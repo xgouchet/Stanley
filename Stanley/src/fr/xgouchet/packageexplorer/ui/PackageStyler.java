@@ -23,6 +23,18 @@ public class PackageStyler {
 		return APP_INFO_COUnT;
 	}
 
+	public static String simplifyName(String name, String packageName) {
+		String simpleName;
+
+		if (name.startsWith(packageName)) {
+			simpleName = name.substring(packageName.length());
+		} else {
+			simpleName = name;
+		}
+
+		return simpleName;
+	}
+
 	public static String getAppInfo(int position, PackageInfo packageInfo,
 			ManifestInfo manifestInfo) {
 

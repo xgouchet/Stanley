@@ -57,7 +57,7 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 
 		SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCES,
 				MODE_PRIVATE);
-		// TODO refresh settings from prefs
+		Settings.updateFromPreferences(prefs);
 
 		new Thread(mRefreshRunnable).start();
 	}
@@ -101,6 +101,7 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 			refresh = true;
 			break;
 		case R.id.action_settings:
+			startActivity(new Intent(this, StanleyPreferencesActivity.class));
 			break;
 		default:
 			result = super.onOptionsItemSelected(item);
@@ -109,11 +110,7 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 
 		if (refresh) {
 			mAdapter.clear();
-
 			new Thread(mRefreshRunnable).start();
-			SharedPreferences prefs = getSharedPreferences(
-					Constants.PREFERENCES, MODE_PRIVATE);
-			// TODO save settings
 		}
 		return result;
 	}

@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.common.Constants;
-import fr.xgouchet.packageexplorer.common.Settings;
 
 public class PackageListAdapter extends ArrayAdapter<PackageInfo> {
 
@@ -49,7 +48,7 @@ public class PackageListAdapter extends ArrayAdapter<PackageInfo> {
 					.setImageDrawable(mPackageManager.getApplicationIcon(info));
 
 			String subtitle = "";
-			switch (Settings.sSortMethod) {
+			switch (mSortMethod) {
 			case Constants.SORT_BY_PACKAGE:
 				subtitle = packageInfo.packageName;
 				break;
@@ -62,12 +61,21 @@ public class PackageListAdapter extends ArrayAdapter<PackageInfo> {
 						.format(packageInfo.lastUpdateTime).toString();
 				break;
 			}
-			
+
 			((TextView) v.findViewById(R.id.textSubTitle)).setText(subtitle);
 		}
 
 		return v;
 	}
 
+	/**
+	 * 
+	 */
+	public void setSortMethod(int mSortMethod) {
+		this.mSortMethod = mSortMethod;
+	}
+
 	protected PackageManager mPackageManager;
+	protected int mSortMethod;
+
 }

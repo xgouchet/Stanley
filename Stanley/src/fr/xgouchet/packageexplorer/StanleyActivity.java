@@ -46,6 +46,8 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 
 		mListView.setOnCreateContextMenuListener(this);
 		mListView.setOnItemClickListener(this);
+
+		mSortMethod = Settings.sDefaultSortMethod;
 	}
 
 	/**
@@ -85,19 +87,19 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 					StanleyAboutActivity.class));
 			break;
 		case R.id.action_sort_by_name:
-			Settings.sSortMethod = Constants.SORT_BY_NAME;
+			mSortMethod = Constants.SORT_BY_NAME;
 			refresh = true;
 			break;
 		case R.id.action_sort_by_package:
-			Settings.sSortMethod = Constants.SORT_BY_PACKAGE;
+			mSortMethod = Constants.SORT_BY_PACKAGE;
 			refresh = true;
 			break;
 		case R.id.action_sort_by_install:
-			Settings.sSortMethod = Constants.SORT_BY_INSTALL;
+			mSortMethod = Constants.SORT_BY_INSTALL;
 			refresh = true;
 			break;
 		case R.id.action_sort_by_update:
-			Settings.sSortMethod = Constants.SORT_BY_UPDATE;
+			mSortMethod = Constants.SORT_BY_UPDATE;
 			refresh = true;
 			break;
 		case R.id.action_settings:
@@ -195,13 +197,14 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 
 		filterPackages(packages);
 
-		Collections.sort(packages, Constants.getComparator(pm));
+		Collections.sort(packages, Constants.getComparator(pm, mSortMethod));
 
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				mPackages.clear();
 				mPackages.addAll(packages);
+				mAdapter.setSortMethod(mSortMethod);
 				mAdapter.notifyDataSetChanged();
 			}
 		});
@@ -241,6 +244,7 @@ public class StanleyActivity extends Activity implements OnItemClickListener {
 		}
 	};
 
+	protected int mSortMethod;
 	protected PackageInfo mSelectedPackage;
 	protected List<PackageInfo> mPackages;
 	protected ListView mListView;

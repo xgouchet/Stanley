@@ -3,10 +3,22 @@
     android:key="fr.xgouchet.packageexplorer"
     android:title="@string/title_settings" >
 
-    <PreferenceCategory android:title="Global" >
+    <!--  -->
+    <PreferenceCategory android:title="@string/pref_cat_global" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="ignore_system_packages"
+            android:title="@string/pref_title_ignore_system_packages" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="simplify_names"
+            android:summaryOff="@string/pref_summary_off_simplify_names"
+            android:summaryOn="@string/pref_summary_on_simplify_names"
+            android:title="@string/pref_title_simplify_names" />
     </PreferenceCategory>
-    
-    <PreferenceCategory android:title="Manifest Export" >
+
+    <!--  -->
+    <PreferenceCategory android:title="@string/pref_cat_manifest" >
     </PreferenceCategory>
 
 </PreferenceScreen>

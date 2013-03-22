@@ -13,6 +13,9 @@ public class Constants {
 
 	public static final String PREFERENCES = "fr.xgouchet.packageexplorer";
 
+	public static final String PREF_IGNORE_SYSTEM = "ignore_system_packages";
+	public static final String PREF_SIMPLIFY_NAMES = "simplify_names";
+
 	public static final String EXTRA_PACKAGE_INFO = "package_info";
 	public static final String EXTRA_RESOLVE_INFO = "resolve_info";
 
@@ -25,10 +28,11 @@ public class Constants {
 
 	}
 
-	public static final Comparator<PackageInfo> getComparator(final PackageManager pm) {
+	public static final Comparator<PackageInfo> getComparator(
+			final PackageManager pm, final int mSortMethod) {
 		Comparator<PackageInfo> comp = null;
 
-		switch (Settings.sSortMethod) {
+		switch (mSortMethod) {
 		case SORT_BY_PACKAGE:
 			comp = new PackageSortByPackage();
 			break;

@@ -4,8 +4,32 @@
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_light</item>
         <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_light</item>
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
+
+        <!-- Action bar -->
+        <item name="android:popupMenuStyle">@style/Stanley.PopupMenu</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background</item>
+        <item name="android:dropDownListViewStyle">@style/Stanley.DropDownListView</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Stanley.Widget</item>
     </style>
 
     <style name="Stanley.Base.Dialog" parent="@android:style/Theme.Holo.Light.Dialog" />
+
+    <!-- Action Bar Specific -->
+
+    <style name="Stanley.PopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel</item>
+    </style>
+
+    <style name="Stanley.DropDownListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Stanley.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/Stanley.PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/Stanley.DropDownListView</item>
+    </style>
 
 </resources>

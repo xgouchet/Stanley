@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pref_cat_global">Global</string>
+    <string name="pref_cat_manifest">Manifest</string>
+
+    <!--  -->
+    <string name="pref_title_ignore_system_packages">Ignore system Apps</string>
+    <string name="pref_title_simplify_names">Simplify names</string>
+
+    <!--  -->
+    <string name="pref_summary_on_simplify_names">Names for Activities, Services, Providers and Receivers will be simplified based on the package name</string>
+    <string name="pref_summary_off_simplify_names">Full names for Activities, Services, Providers and Receivers will be used</string>
+
+</resources>

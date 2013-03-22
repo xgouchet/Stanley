@@ -22,6 +22,7 @@
     <string name="action_sort_by_install">Last installed first</string>
     <string name="action_sort_by_update">Last updated first</string>
     <string name="action_export">Export manifest</string>
+    <string name="action_explore_resources">Explore resources</string>
     <string name="action_uninstall">Uninstall</string>
     <string name="action_display_info">System App Info</string>
     <string name="action_display_store">Google Play Store</string>

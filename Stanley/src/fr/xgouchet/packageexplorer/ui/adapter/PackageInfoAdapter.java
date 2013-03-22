@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.common.Settings;
-import fr.xgouchet.packageexplorer.model.ManifestInfo;
 import fr.xgouchet.packageexplorer.ui.PackageStyler;
 import fr.xgouchet.packageexplorer.ui.PermissionStyler;
 
@@ -33,20 +32,18 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 
 	public static final int INDEX_MAX = 8;
 
-	protected Context mContext;
-	protected PackageInfo mPackageInfo;
-	protected ManifestInfo mManifestInfo;
+	protected final Context mContext;
+	protected final PackageInfo mPackageInfo;
 
-	public PackageInfoAdapter(Context context, PackageInfo info,
-			ManifestInfo manifest) {
+	public PackageInfoAdapter(final Context context, final PackageInfo info) {
 		mContext = context;
 		mPackageInfo = info;
-		mManifestInfo = manifest;
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#areAllItemsEnabled()
 	 */
+	@Override
 	public boolean areAllItemsEnabled() {
 		return true;
 	}
@@ -54,12 +51,12 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#getChild(int, int)
 	 */
-	public Object getChild(int groupPosition, int childPosition) {
+	@Override
+	public Object getChild(final int groupPosition, final int childPosition) {
 		Object obj = null;
 
 		switch (groupPosition) {
 		case INDEX_INFORMATION:
-			// TODO show information
 			break;
 		case INDEX_ACTIVITIES:
 			if (mPackageInfo.activities != null) {
@@ -106,14 +103,16 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#getChildId(int, int)
 	 */
-	public long getChildId(int groupPosition, int childPosition) {
+	@Override
+	public long getChildId(final int groupPosition, final int childPosition) {
 		return childPosition;
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#getChildrenCount(int)
 	 */
-	public int getChildrenCount(int groupPosition) {
+	@Override
+	public int getChildrenCount(final int groupPosition) {
 		int count = 0;
 
 		switch (groupPosition) {
@@ -166,8 +165,10 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	 * @see android.widget.ExpandableListAdapter#getChildView(int, int, boolean,
 	 *      android.view.View, android.view.ViewGroup)
 	 */
-	public View getChildView(int groupPosition, int childPosition,
-			boolean isLastChild, View convertView, ViewGroup parent) {
+	@Override
+	public View getChildView(final int groupPosition, final int childPosition,
+			final boolean isLastChild, final View convertView,
+			final ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {
 			v = LayoutInflater.from(mContext).inflate(R.layout.item_child,
@@ -185,8 +186,7 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 
 		switch (groupPosition) {
 		case INDEX_INFORMATION:
-			name = PackageStyler.getAppInfo(childPosition, mPackageInfo,
-					mManifestInfo);
+			name = PackageStyler.getAppInfo(childPosition, mPackageInfo);
 			canBeSimplified = false;
 			break;
 		case INDEX_ACTIVITIES:
@@ -242,21 +242,24 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#getCombinedChildId(long, long)
 	 */
-	public long getCombinedChildId(long groupId, long childId) {
+	@Override
+	public long getCombinedChildId(final long groupId, final long childId) {
 		return (childId << 32) + (groupId & 0xFFFFFFFF);
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#getCombinedGroupId(long)
 	 */
-	public long getCombinedGroupId(long groupId) {
+	@Override
+	public long getCombinedGroupId(final long groupId) {
 		return groupId;
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#getGroup(int)
 	 */
-	public Object getGroup(int groupPosition) {
+	@Override
+	public Object getGroup(final int groupPosition) {
 		Object obj = null;
 
 		switch (groupPosition) {
@@ -295,6 +298,7 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#getGroupCount()
 	 */
+	@Override
 	public int getGroupCount() {
 		return INDEX_MAX;
 	}
@@ -302,7 +306,8 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#getGroupId(int)
 	 */
-	public long getGroupId(int groupPosition) {
+	@Override
+	public long getGroupId(final int groupPosition) {
 		return groupPosition;
 	}
 
@@ -310,8 +315,9 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	 * @see android.widget.ExpandableListAdapter#getGroupView(int, boolean,
 	 *      android.view.View, android.view.ViewGroup)
 	 */
-	public View getGroupView(int groupPosition, boolean isExpanded,
-			View convertView, ViewGroup parent) {
+	@Override
+	public View getGroupView(final int groupPosition, final boolean isExpanded,
+			final View convertView, final ViewGroup parent) {
 
 		View v = convertView;
 		if (v == null) {
@@ -387,6 +393,7 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#hasStableIds()
 	 */
+	@Override
 	public boolean hasStableIds() {
 		return true;
 	}
@@ -394,13 +401,16 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#isChildSelectable(int, int)
 	 */
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
+	@Override
+	public boolean isChildSelectable(final int groupPosition,
+			final int childPosition) {
 		return true;
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#isEmpty()
 	 */
+	@Override
 	public boolean isEmpty() {
 		return false;
 	}
@@ -408,27 +418,31 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 	/**
 	 * @see android.widget.ExpandableListAdapter#onGroupCollapsed(int)
 	 */
-	public void onGroupCollapsed(int groupPosition) {
+	@Override
+	public void onGroupCollapsed(final int groupPosition) {
 
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#onGroupExpanded(int)
 	 */
-	public void onGroupExpanded(int groupPosition) {
+	@Override
+	public void onGroupExpanded(final int groupPosition) {
 
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#registerDataSetObserver(android.database.DataSetObserver)
 	 */
-	public void registerDataSetObserver(DataSetObserver observer) {
+	@Override
+	public void registerDataSetObserver(final DataSetObserver observer) {
 	}
 
 	/**
 	 * @see android.widget.ExpandableListAdapter#unregisterDataSetObserver(android.database.DataSetObserver)
 	 */
-	public void unregisterDataSetObserver(DataSetObserver observer) {
+	@Override
+	public void unregisterDataSetObserver(final DataSetObserver observer) {
 	}
 
 }

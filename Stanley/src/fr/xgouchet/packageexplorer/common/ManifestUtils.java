@@ -1,6 +1,7 @@
 package fr.xgouchet.packageexplorer.common;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
@@ -21,7 +22,6 @@ import android.os.Environment;
 import android.util.Log;
 import fr.xgouchet.androidlib.data.TextFileUtils;
 import fr.xgouchet.axml.CompressedXmlParser;
-import fr.xgouchet.packageexplorer.model.ManifestInfo;
 
 public final class ManifestUtils {
 
@@ -45,9 +45,9 @@ public final class ManifestUtils {
 	 * @throws ParserConfigurationException
 	 *             if a DocumentBuilder can't be created
 	 */
-	public static File exportManifest(PackageInfo info, Context context)
-			throws TransformerException, ZipException, IOException,
-			ParserConfigurationException {
+	public static File exportManifest(final PackageInfo info,
+			final Context context) throws TransformerException, ZipException,
+			IOException, ParserConfigurationException {
 
 		// Read doc
 		File destFile = new File(exportedManifestPath(info));
@@ -64,7 +64,8 @@ public final class ManifestUtils {
 		return destFile;
 	}
 
-	private static void formatXml(Node node, StringBuilder builder, int depth) {
+	private static void formatXml(final Node node, final StringBuilder builder,
+			final int depth) {
 		NodeList children = node.getChildNodes();
 		NamedNodeMap attrs = node.getAttributes();
 
@@ -120,25 +121,12 @@ public final class ManifestUtils {
 		}
 	}
 
-	private static void formatIndent(StringBuilder builder, int depth) {
+	private static void formatIndent(final StringBuilder builder,
+			final int depth) {
 		int i;
 		for (i = 0; i < depth; i++) {
 			builder.append("  ");
 		}
-	}
-
-	/**
-	 * 
-	 */
-	public static ManifestInfo getManifestInfo(PackageInfo info, Context context)
-			throws ZipException, IOException, ParserConfigurationException {
-		ManifestInfo manifest = new ManifestInfo();
-
-		Document doc = getManifest(info, context);
-
-		manifest.setContent(doc);
-
-		return manifest;
 	}
 
 	/**
@@ -159,8 +147,9 @@ public final class ManifestUtils {
 	 * @throws ParserConfigurationException
 	 *             if a DocumentBuilder can't be created
 	 */
-	private static Document getManifest(PackageInfo info, Context context)
-			throws ZipException, IOException, ParserConfigurationException {
+	private static Document getManifest(final PackageInfo info,
+			final Context context) throws ZipException, IOException,
+			ParserConfigurationException {
 		String srcPackage = info.applicationInfo.publicSourceDir;
 		File srcFile = new File(srcPackage);
 		return parseManifestFile(srcFile);
@@ -180,7 +169,7 @@ public final class ManifestUtils {
 	 * @throws ParserConfigurationException
 	 *             if a DocumentBuilder can't be created
 	 */
-	private static Document parseManifestFile(File apkFile)
+	private static Document parseManifestFile(final File apkFile)
 			throws ZipException, IOException, ParserConfigurationException {
 		ZipFile zipFile;
 		ZipEntry entry;

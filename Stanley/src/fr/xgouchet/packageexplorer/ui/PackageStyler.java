@@ -7,8 +7,6 @@ import java.util.Locale;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.Signature;
-import fr.xgouchet.packageexplorer.model.ManifestInfo;
-import fr.xgouchet.packageexplorer.model.SdkInfo;
 
 public class PackageStyler {
 
@@ -45,9 +43,7 @@ public class PackageStyler {
 	}
 
 	public static String getAppInfo(final int position,
-			final PackageInfo packageInfo, final ManifestInfo manifestInfo) {
-
-		SdkInfo sdk = manifestInfo.usesSdk;
+			final PackageInfo packageInfo) {
 
 		String res;
 		if (position == APP_INFO_VERSION_CODE) {
@@ -60,12 +56,10 @@ public class PackageStyler {
 		} else if (position == APP_INFO_UPDATE_DATE) {
 			Date date = new Date(packageInfo.lastUpdateTime);
 			res = "Updated  : " + DATE_FORMAT.format(date) + "";
-		} else if (position == APP_INFO_SDK_MIN) {
-			res = "Minimum SDK : " + ((sdk.minSdk > 0) ? sdk.minSdk : "?");
-		} else if (position == APP_INFO_SDK_MAX) {
-			res = "Maximum SDK : " + ((sdk.maxSdk > 0) ? sdk.maxSdk : "?");
 		} else if (position == APP_INFO_SDK_TARGET) {
-			res = "Target SDK : " + ((sdk.targetSdk > 0) ? sdk.targetSdk : "?");
+			res = "Target SDK : "
+					+ ((packageInfo.applicationInfo.targetSdkVersion > 0) ? packageInfo.applicationInfo.targetSdkVersion
+							: "?");
 		} else {
 			res = "";
 		}

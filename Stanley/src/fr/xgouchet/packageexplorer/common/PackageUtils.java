@@ -1,12 +1,7 @@
 package fr.xgouchet.packageexplorer.common;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.zip.ZipException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,11 +11,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
 import de.neofonie.mobile.app.android.widget.crouton.Style;
+import fr.xgouchet.packageexplorer.model.AsyncManifestExporter;
+import fr.xgouchet.packageexplorer.model.AsyncManifestExporter.ManifestExporterListener;
 
 public class PackageUtils {
 
@@ -129,61 +125,38 @@ public class PackageUtils {
 
 	public static void exportManifest(final Activity activity,
 			final PackageInfo pkg) {
-		final File res = exportManifestToFile(activity, pkg);
+		ManifestExporterListener listener;
+		listener = new ManifestExporterListener() {
 
-		if (res != null) {
-			Crouton crouton = Crouton.makeText(
-					activity,
-					"The manifest was saved in your Download folder:\n "
-							+ res.getName() + "\nClick here to open it now",
-					Style.CONFIRM);
-			crouton.show();
-			crouton.getView().setOnClickListener(new OnClickListener() {
+			@Override
+			public void onManifestExported(final File file) {
+				Crouton crouton = Crouton.makeText(activity,
+						"The manifest was saved in your Download folder:\n "
+								+ file.getName()
+								+ "\nClick here to open it now", Style.CONFIRM);
+				crouton.show();
+				crouton.getView().setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(final View v) {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setDataAndType(Uri.fromFile(res), "text/xml");
-					activity.startActivity(Intent.createChooser(intent, null));
-				}
-			});
-		} else {
-			Crouton.showText(activity,
-					"An error occured while exporting the manifest",
-					Style.ALERT);
-		}
-	}
+					@Override
+					public void onClick(final View v) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setDataAndType(Uri.fromFile(file), "text/xml");
+						activity.startActivity(Intent.createChooser(intent,
+								null));
+					}
+				});
+			}
 
-	/**
-	 * @param ctx
-	 *            the current application context
-	 * @param pkg
-	 *            the package to export
-	 * @return the exported file
-	 */
-	private static File exportManifestToFile(final Context ctx,
-			final PackageInfo pkg) {
-		File dest;
-		try {
-			dest = ManifestUtils.exportManifest(pkg, ctx);
-		} catch (ZipException e) {
-			dest = null;
-			Log.e("Apex", e.getMessage());
-		} catch (IOException e) {
-			dest = null;
-			Log.e("Apex", e.getMessage());
-		} catch (TransformerException e) {
-			dest = null;
-			Log.e("Apex", e.getMessage());
-		} catch (ParserConfigurationException e) {
-			dest = null;
-			Log.e("Apex", e.getMessage());
-		} catch (Exception e) {
-			dest = null;
-			Log.e("Apex", e.getMessage());
-		}
-
-		return dest;
+			@Override
+			public void onManifestError(final Exception exception) {
+				Crouton.showText(activity,
+						"An error occured while exporting the manifest",
+						Style.ALERT);
+			}
+		};
+		AsyncManifestExporter exporter = new AsyncManifestExporter(activity,
+				listener);
+		exporter.execute(pkg);
 	}
 
 }

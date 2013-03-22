@@ -1,10 +1,6 @@
 package fr.xgouchet.packageexplorer.ui.fragments;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.zip.ZipException;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -26,14 +22,16 @@ import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.StanleyActivity;
 import fr.xgouchet.packageexplorer.common.Constants;
-import fr.xgouchet.packageexplorer.common.ManifestUtils;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
-import fr.xgouchet.packageexplorer.model.ManifestInfo;
 import fr.xgouchet.packageexplorer.ui.ResolveInfoDialog;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageInfoAdapter;
 
 public class PackageInfoFragment extends ListFragment {
 
+	/**
+	 * @see android.support.v4.app.ListFragment#onCreateView(android.view.LayoutInflater,
+	 *      android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(final LayoutInflater inflater,
 			final ViewGroup container, final Bundle savedInstanceState) {
@@ -64,27 +62,49 @@ public class PackageInfoFragment extends ListFragment {
 		mLauncherActivities = PackageUtils.getMainActivities(mActivity,
 				mPackageInfo);
 
-		// TODO parse manifset in another thread
-		try {
-			mManifest = ManifestUtils.getManifestInfo(mPackageInfo, mActivity);
-		} catch (ZipException e) {
-			mManifest = new ManifestInfo();
-			e.printStackTrace();
-		} catch (IOException e) {
-			mManifest = new ManifestInfo();
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			mManifest = new ManifestInfo();
-			e.printStackTrace();
-		} catch (Exception e) {
-			mManifest = new ManifestInfo();
-			e.printStackTrace();
-		}
-
 		setContentInfo();
 	}
 
-	protected void setContentInfo() {
+	/**
+	 * @see android.support.v4.app.Fragment#onCreateOptionsMenu(android.view.Menu,
+	 *      android.view.MenuInflater)
+	 */
+	@Override
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.package_context, menu);
+		menu.findItem(R.id.action_uninstall).setVisible(false);
+	}
+
+	/**
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		boolean res = true;
+
+		switch (item.getItemId()) {
+		case R.id.action_display_info:
+			startActivity(PackageUtils.applicationInfoIntent(mPackageInfo));
+			break;
+		case R.id.action_display_store:
+			startActivity(PackageUtils.applicationPlayStoreIntent(mPackageInfo));
+			break;
+		case R.id.action_export_manifest:
+			PackageUtils.exportManifest(mActivity, mPackageInfo);
+			break;
+		default:
+			res = super.onOptionsItemSelected(item);
+			break;
+		}
+
+		return res;
+	}
+
+	/**
+	 * 
+	 */
+	private void setContentInfo() {
 		boolean hideOpen, hideUninstall;
 		int flags = mAppInfo.flags;
 
@@ -128,45 +148,15 @@ public class PackageInfoFragment extends ListFragment {
 		((ImageView) getView().findViewById(R.id.imageAppIcon))
 				.setImageDrawable(mPackageManager.getApplicationIcon(mAppInfo));
 
-		mAdapter = new PackageInfoAdapter(mActivity, mPackageInfo, mManifest);
+		mAdapter = new PackageInfoAdapter(mActivity, mPackageInfo);
 		ExpandableListView list;
 		list = ((ExpandableListView) getView().findViewById(android.R.id.list));
 		list.setAdapter(mAdapter);
 	}
 
-	@Override
-	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.package_context, menu);
-		menu.findItem(R.id.action_uninstall).setVisible(false);
-	}
-
 	/**
-	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 * @param view
 	 */
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item) {
-		boolean res = true;
-
-		switch (item.getItemId()) {
-		case R.id.action_display_info:
-			startActivity(PackageUtils.applicationInfoIntent(mPackageInfo));
-			break;
-		case R.id.action_display_store:
-			startActivity(PackageUtils.applicationPlayStoreIntent(mPackageInfo));
-			break;
-		case R.id.action_export_manifest:
-			// TODO again do this in another thread ?
-			PackageUtils.exportManifest(mActivity, mPackageInfo);
-			break;
-		default:
-			res = super.onOptionsItemSelected(item);
-			break;
-		}
-
-		return res;
-	}
-
 	private void onOpenPackage(final View view) {
 		int count = mLauncherActivities.size();
 
@@ -186,15 +176,20 @@ public class PackageInfoFragment extends ListFragment {
 		}
 	}
 
+	/**
+	 * 
+	 * @param view
+	 */
 	private void onUninstallPackage(final View view) {
 		startActivity(PackageUtils.uninstallPackageIntent(mPackageInfo));
 	}
 
 	protected StanleyActivity mActivity;
 	protected PackageManager mPackageManager;
+
 	protected PackageInfo mPackageInfo;
 	protected ApplicationInfo mAppInfo;
-	protected ManifestInfo mManifest;
+
 	protected PackageInfoAdapter mAdapter;
 
 	protected List<ResolveInfo> mLauncherActivities;

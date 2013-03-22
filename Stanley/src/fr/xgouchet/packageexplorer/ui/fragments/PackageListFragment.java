@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,7 +29,6 @@ import android.widget.ListView;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.StanleyAboutActivity;
 import fr.xgouchet.packageexplorer.StanleyActivity;
-import fr.xgouchet.packageexplorer.StanleyPackageInfoActivity;
 import fr.xgouchet.packageexplorer.StanleyPreferencesActivity;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
@@ -61,6 +61,7 @@ public class PackageListFragment extends Fragment implements
 
 		mListView.setOnCreateContextMenuListener(this);
 		mListView.setOnItemClickListener(this);
+		updateListMode();
 
 		mSortMethod = Settings.sDefaultSortMethod;
 
@@ -194,12 +195,23 @@ public class PackageListFragment extends Fragment implements
 		final PackageInfo info = mAdapter.getItem(position);
 		mActivity.showPackageInfo(info);
 
+	}
+
+	public void setActivateOnItemClick(final boolean activate) {
+		mActivateOnClick = activate;
+
+		if (mListView != null) {
+			updateListMode();
+		}
 
 	}
 
-	public void setActivateOnItemClick(final boolean activateOnClick) {
-		// TODO Auto-generated method stub
-
+	private void updateListMode() {
+		if (mActivateOnClick) {
+			mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+		} else {
+			mListView.setChoiceMode(AbsListView.CHOICE_MODE_NONE);
+		}
 	}
 
 	/**
@@ -258,6 +270,7 @@ public class PackageListFragment extends Fragment implements
 		}
 	};
 
+	protected boolean mActivateOnClick;
 	protected int mSortMethod;
 	protected StanleyActivity mActivity;
 	protected PackageInfo mSelectedPackage;

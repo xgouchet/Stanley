@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Package info -->
-        <activity android:name=".StanleyPackageInfoActivity" >
-        </activity>
-
         <!-- App preferences -->
         <activity android:name=".StanleyPreferencesActivity" >
         </activity>

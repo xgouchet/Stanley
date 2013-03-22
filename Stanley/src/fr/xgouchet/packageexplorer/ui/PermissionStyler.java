@@ -1,10 +1,12 @@
 package fr.xgouchet.packageexplorer.ui;
 
+import java.util.Locale;
+
 import android.Manifest;
 import android.content.Context;
-import android.util.Log;
 import fr.xgouchet.packageexplorer.R;
 
+@SuppressWarnings("deprecation")
 public class PermissionStyler {
 
 	public static final String BILLING = "com.android.vending.BILLING";
@@ -13,7 +15,8 @@ public class PermissionStyler {
 	public static final String UNINSTALL_SHORTCUT = "com.android.launcher.permission.UNINSTALL_SHORTCUT";
 	public static final String C2DM_RECEIVE = "com.google.android.c2dm.permission.RECEIVE";
 
-	public static String getPermissionName(String permission, Context context) {
+	public static String getPermissionName(final String permission,
+			final Context context) {
 		String name = permission;
 
 		if (name.equals(Manifest.permission.ACCESS_CHECKIN_PROPERTIES)) {
@@ -288,7 +291,8 @@ public class PermissionStyler {
 		}
 
 		if (!name.equals(permission)) {
-			name = name.substring(0, 1).toUpperCase() + name.substring(1);
+			name = name.substring(0, 1).toUpperCase(Locale.getDefault())
+					+ name.substring(1);
 
 		}
 

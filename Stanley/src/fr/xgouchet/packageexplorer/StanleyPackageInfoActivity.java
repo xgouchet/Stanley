@@ -76,7 +76,7 @@ public class StanleyPackageInfoActivity extends FragmentActivity {
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(final Menu menu) {
 		getMenuInflater().inflate(R.menu.package_context, menu);
 
 		menu.findItem(R.id.action_uninstall).setVisible(false);
@@ -131,6 +131,11 @@ public class StanleyPackageInfoActivity extends FragmentActivity {
 
 		((TextView) findViewById(R.id.textAppName)).setText(mPackageManager
 				.getApplicationLabel(mAppInfo));
+
+		((TextView) findViewById(R.id.textSubTitle))
+				.setText(mPackageInfo.packageName);
+		findViewById(R.id.textSubTitle).setSelected(true);
+
 		((ImageView) findViewById(R.id.imageAppIcon))
 				.setImageDrawable(mPackageManager.getApplicationIcon(mAppInfo));
 
@@ -141,7 +146,7 @@ public class StanleyPackageInfoActivity extends FragmentActivity {
 		list.setAdapter(mAdapter);
 	}
 
-	public void onOpenPackage(View view) {
+	public void onOpenPackage(final View view) {
 		int count = mActivities.size();
 
 		if (count == 1) {
@@ -159,7 +164,7 @@ public class StanleyPackageInfoActivity extends FragmentActivity {
 		}
 	}
 
-	public void onUninstallPackage(View view) {
+	public void onUninstallPackage(final View view) {
 		startActivity(PackageUtils.uninstallPackageIntent(mPackageInfo));
 	}
 

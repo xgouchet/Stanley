@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:showDividers="middle" >
+
+    <fragment
+        android:id="@id/packageListFragment"
+        android:name="fr.xgouchet.packageexplorer.ui.fragments.PackageListFragment"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/layout_app_list" />
+
+    <FrameLayout
+        android:id="@id/tabletFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,5 +1,7 @@
 package fr.xgouchet.packageexplorer.ui;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.pm.FeatureInfo;
@@ -10,20 +12,27 @@ import fr.xgouchet.packageexplorer.model.SdkInfo;
 
 public class PackageStyler {
 
-	public static final int APP_INFO_PACKAGE = 0;
-	public static final int APP_INFO_VERSION_CODE = 1;
-	public static final int APP_INFO_VERSION_NAME = 2;
-	public static final int APP_INFO_SDK_MIN = 3;
-	public static final int APP_INFO_SDK_MAX = 4;
-	public static final int APP_INFO_SDK_TARGET = 5;
+	public static final int APP_INFO_VERSION_CODE = 0;
+	public static final int APP_INFO_VERSION_NAME = APP_INFO_VERSION_CODE + 1;
 
-	public static final int APP_INFO_COUnT = 6;
+	public static final int APP_INFO_INSTALL_DATE = APP_INFO_VERSION_NAME + 1;
+	public static final int APP_INFO_UPDATE_DATE = APP_INFO_INSTALL_DATE + 1;
+
+	public static final int APP_INFO_SDK_MIN = APP_INFO_UPDATE_DATE + 1;
+	public static final int APP_INFO_SDK_MAX = APP_INFO_SDK_MIN + 1;
+	public static final int APP_INFO_SDK_TARGET = APP_INFO_SDK_MAX + 1;
+
+	public static final int APP_INFO_COUNT = APP_INFO_SDK_TARGET + 1;
+
+	private static final DateFormat DATE_FORMAT = DateFormat
+			.getDateInstance(DateFormat.LONG);
 
 	public static int getAppInfoCount() {
-		return APP_INFO_COUnT;
+		return APP_INFO_COUNT;
 	}
 
-	public static String simplifyName(String name, String packageName) {
+	public static String simplifyName(final String name,
+			final String packageName) {
 		String simpleName;
 
 		if (name.startsWith(packageName)) {
@@ -35,18 +44,22 @@ public class PackageStyler {
 		return simpleName;
 	}
 
-	public static String getAppInfo(int position, PackageInfo packageInfo,
-			ManifestInfo manifestInfo) {
+	public static String getAppInfo(final int position,
+			final PackageInfo packageInfo, final ManifestInfo manifestInfo) {
 
 		SdkInfo sdk = manifestInfo.usesSdk;
 
 		String res;
-		if (position == APP_INFO_PACKAGE) {
-			res = "Package Name : \"" + packageInfo.packageName + "\"";
-		} else if (position == APP_INFO_VERSION_CODE) {
+		if (position == APP_INFO_VERSION_CODE) {
 			res = "Version Code : " + packageInfo.versionCode + "";
 		} else if (position == APP_INFO_VERSION_NAME) {
 			res = "Version Name : \"" + packageInfo.versionName + "\"";
+		} else if (position == APP_INFO_INSTALL_DATE) {
+			Date date = new Date(packageInfo.firstInstallTime);
+			res = "Installed  : " + DATE_FORMAT.format(date) + "";
+		} else if (position == APP_INFO_UPDATE_DATE) {
+			Date date = new Date(packageInfo.lastUpdateTime);
+			res = "Updated  : " + DATE_FORMAT.format(date) + "";
 		} else if (position == APP_INFO_SDK_MIN) {
 			res = "Minimum SDK : " + ((sdk.minSdk > 0) ? sdk.minSdk : "?");
 		} else if (position == APP_INFO_SDK_MAX) {
@@ -59,7 +72,8 @@ public class PackageStyler {
 		return res;
 	}
 
-	public static String getLocalName(String activityName, String packageName) {
+	public static String getLocalName(final String activityName,
+			final String packageName) {
 		String name = activityName;
 
 		if (name.startsWith(packageName)) {
@@ -69,7 +83,7 @@ public class PackageStyler {
 		return name;
 	}
 
-	public static String getFeature(FeatureInfo info) {
+	public static String getFeature(final FeatureInfo info) {
 		StringBuilder builder = new StringBuilder();
 
 		if (info.reqGlEsVersion != 0) {
@@ -100,7 +114,7 @@ public class PackageStyler {
 		return builder.toString();
 	}
 
-	public static String getSignature(Signature signature) {
+	public static String getSignature(final Signature signature) {
 		return signature.toCharsString();
 
 	}

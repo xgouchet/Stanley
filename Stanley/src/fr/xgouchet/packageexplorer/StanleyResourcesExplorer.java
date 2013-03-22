@@ -1,5 +1,7 @@
 package fr.xgouchet.packageexplorer;
 
-public class StanleyResourcesExplorer {
+import android.app.Activity;
+
+public class StanleyResourcesExplorer extends Activity {
 
 }

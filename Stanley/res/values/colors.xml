@@ -4,6 +4,7 @@
     <color name="text_disabled">#80400000</color>
     <color name="text_main">#FF000000</color>
     <color name="text_subtitle">#FF800000</color>
+    <color name="text_grey">#FF999999</color>
     <color name="text_accent">#FFC00000</color>
     
     <color name="widget_pressed">#CCFF4444</color>

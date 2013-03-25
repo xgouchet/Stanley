@@ -4,6 +4,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.neofonie.mobile.app.android.widget.crouton.Crouton;
+import de.neofonie.mobile.app.android.widget.crouton.Style;
+
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +16,9 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -26,6 +34,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.StanleyAboutActivity;
 import fr.xgouchet.packageexplorer.StanleyActivity;
@@ -35,15 +45,24 @@ import fr.xgouchet.packageexplorer.common.PackageUtils;
 import fr.xgouchet.packageexplorer.common.Settings;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageListAdapter;
 
+@SuppressLint("DefaultLocale")
 public class PackageListFragment extends Fragment implements
-		OnItemClickListener {
+		OnItemClickListener, OnQueryTextListener {
 
+	/**
+	 * @see android.support.v4.app.Fragment#onAttach(android.app.Activity)
+	 */
 	@Override
 	public void onAttach(final Activity activity) {
 		super.onAttach(activity);
 		mActivity = (StanleyActivity) activity;
+		mPackageManager = mActivity.getPackageManager();
 	}
 
+	/**
+	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
+	 *      android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(final LayoutInflater inflater,
 			final ViewGroup container, final Bundle savedInstanceState) {
@@ -61,7 +80,8 @@ public class PackageListFragment extends Fragment implements
 
 		mListView.setOnCreateContextMenuListener(this);
 		mListView.setOnItemClickListener(this);
-		updateListMode();
+
+		mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
 		mSortMethod = Settings.sDefaultSortMethod;
 
@@ -70,6 +90,9 @@ public class PackageListFragment extends Fragment implements
 		return root;
 	}
 
+	/**
+	 * @see android.support.v4.app.Fragment#onResume()
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -80,10 +103,29 @@ public class PackageListFragment extends Fragment implements
 		new Thread(mRefreshRunnable).start();
 	}
 
+	/**
+	 * @see android.support.v4.app.Fragment#onCreateOptionsMenu(android.view.Menu,
+	 *      android.view.MenuInflater)
+	 */
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.main, menu);
+
+		// generate search view for the search menu
+		SearchView search;
+		if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH) {
+
+			search = new SearchView(getActivity().getActionBar()
+					.getThemedContext());
+		} else {
+			search = new SearchView(getActivity());
+		}
+		search.setQueryHint(getString(android.R.string.search_go));
+		search.setOnQueryTextListener(this);
+
+		menu.findItem(R.id.action_search).setActionView(search);
 	}
 
 	/**
@@ -197,21 +239,31 @@ public class PackageListFragment extends Fragment implements
 
 	}
 
-	public void setActivateOnItemClick(final boolean activate) {
-		mActivateOnClick = activate;
-
-		if (mListView != null) {
-			updateListMode();
-		}
-
+	/**
+	 * @see android.widget.SearchView.OnQueryTextListener#onQueryTextChange(java.lang.String)
+	 */
+	@Override
+	public boolean onQueryTextChange(final String newText) {
+		mAdapter.setQuery(newText.toLowerCase());
+		return true;
 	}
 
-	private void updateListMode() {
-		if (mActivateOnClick) {
-			mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+	/**
+	 * @see android.widget.SearchView.OnQueryTextListener#onQueryTextSubmit(java.lang.String)
+	 */
+	@Override
+	public boolean onQueryTextSubmit(final String query) {
+		int index = mListView.getFirstVisiblePosition();
+		index = findNextPackageWithQuery(query.toLowerCase(), index);
+
+		if (index >= 0) {
+			mListView.setSelection(index);
 		} else {
-			mListView.setChoiceMode(AbsListView.CHOICE_MODE_NONE);
+			Crouton.showText(mActivity,
+					"No package contains \"" + query + "\"", Style.INFO);
 		}
+
+		return true;
 	}
 
 	/**
@@ -260,6 +312,34 @@ public class PackageListFragment extends Fragment implements
 		packages.removeAll(remove);
 	}
 
+	private int findNextPackageWithQuery(final String query,
+			final int searchIndex) {
+		int index = -1, pos, count;
+		String name, pkg;
+		PackageInfo info;
+
+		count = mPackages.size();
+		for (int i = 0; i < count; i++) {
+			pos = (i + searchIndex + 1) % count;
+			info = mPackages.get(pos);
+
+			pkg = info.packageName.toLowerCase();
+			if (pkg.contains(query)) {
+				index = pos;
+				break;
+			}
+
+			name = mPackageManager.getApplicationLabel(info.applicationInfo)
+					.toString().toLowerCase();
+			if (name.contains(query)) {
+				index = pos;
+				break;
+			}
+		}
+
+		return index;
+	}
+
 	/**
 	 * Runnable used to list all packages in background
 	 */
@@ -277,5 +357,7 @@ public class PackageListFragment extends Fragment implements
 	protected List<PackageInfo> mPackages;
 	protected ListView mListView;
 	protected PackageListAdapter mAdapter;
+
+	protected PackageManager mPackageManager;
 
 }

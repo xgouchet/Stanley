@@ -354,7 +354,7 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 
 		switch (groupPosition) {
 		case INDEX_INFORMATION:
-			title.setText("App Information");
+			title.setText("Package Information");
 			icon.setImageResource(R.drawable.ic_info);
 			break;
 		case INDEX_ACTIVITIES:

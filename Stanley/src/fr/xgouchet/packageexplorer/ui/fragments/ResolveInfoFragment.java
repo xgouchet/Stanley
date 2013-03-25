@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.ui;
+package fr.xgouchet.packageexplorer.ui.fragments;
 
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
 import fr.xgouchet.packageexplorer.ui.adapter.ResolveInfoAdapter;
 
-public class ResolveInfoDialog extends DialogFragment {
+public class ResolveInfoFragment extends DialogFragment {
 
 	@SuppressWarnings("unchecked")
 	@Override

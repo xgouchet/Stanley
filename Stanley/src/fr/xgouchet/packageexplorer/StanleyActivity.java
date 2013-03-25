@@ -1,5 +1,7 @@
 package fr.xgouchet.packageexplorer;
 
+import javax.net.ssl.ManagerFactoryParameters;
+
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
 import fr.xgouchet.packageexplorer.ui.fragments.PackageInfoFragment;
 import fr.xgouchet.packageexplorer.ui.fragments.PackageListFragment;
+import de.neofonie.mobile.app.android.widget.crouton.*;
 
 public class StanleyActivity extends FragmentActivity {
 
@@ -34,9 +37,13 @@ public class StanleyActivity extends FragmentActivity {
 			mIsTwoPaned = true;
 			mListFragment = (PackageListFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.packageListFragment);
-			mListFragment.setActivateOnItemClick(true);
 		}
+	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Crouton.clearCroutonsForActivity(this);
 	}
 
 	public void showPackageInfo(final PackageInfo info) {

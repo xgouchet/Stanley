@@ -27,5 +27,8 @@
     <string name="action_display_info">System App Info</string>
     <string name="action_display_store">Google Play Store</string>
     <string name="action_open">Open</string>
+    
+    <!-- Misc UI -->
+    <string name="ui_package_hint">Package name</string>
 
 </resources>

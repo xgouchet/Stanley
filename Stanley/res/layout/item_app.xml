@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/selectable_background"
     android:gravity="center"
     android:orientation="horizontal"
     tools:ignore="UseCompoundDrawables" >
@@ -35,9 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textAppName"
         android:layout_marginLeft="8dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_toRightOf="@id/imageAppIcon"
         android:text="@string/app_name_full"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/text_subtitle" />
 
 </RelativeLayout>

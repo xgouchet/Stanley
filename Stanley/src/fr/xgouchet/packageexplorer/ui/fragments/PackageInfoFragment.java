@@ -23,7 +23,6 @@ import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.StanleyActivity;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
-import fr.xgouchet.packageexplorer.ui.ResolveInfoDialog;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageInfoAdapter;
 
 public class PackageInfoFragment extends ListFragment {
@@ -167,7 +166,7 @@ public class PackageInfoFragment extends ListFragment {
 		} else {
 			// Prompt for one activity
 			FragmentManager fm = mActivity.getSupportFragmentManager();
-			ResolveInfoDialog resolveDialog = new ResolveInfoDialog();
+			ResolveInfoFragment resolveDialog = new ResolveInfoFragment();
 			Bundle args = new Bundle();
 			args.putParcelableArray(Constants.EXTRA_RESOLVE_INFO,
 					mLauncherActivities.toArray(new ResolveInfo[count]));

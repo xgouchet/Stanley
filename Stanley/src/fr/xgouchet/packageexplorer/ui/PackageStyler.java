@@ -16,9 +16,7 @@ public class PackageStyler {
 	public static final int APP_INFO_INSTALL_DATE = APP_INFO_VERSION_NAME + 1;
 	public static final int APP_INFO_UPDATE_DATE = APP_INFO_INSTALL_DATE + 1;
 
-	public static final int APP_INFO_SDK_MIN = APP_INFO_UPDATE_DATE + 1;
-	public static final int APP_INFO_SDK_MAX = APP_INFO_SDK_MIN + 1;
-	public static final int APP_INFO_SDK_TARGET = APP_INFO_SDK_MAX + 1;
+	public static final int APP_INFO_SDK_TARGET = APP_INFO_UPDATE_DATE + 1;
 
 	public static final int APP_INFO_COUNT = APP_INFO_SDK_TARGET + 1;
 

@@ -33,8 +33,8 @@ public class ResourcesExplorerFragment extends Fragment implements
 	public View onCreateView(final LayoutInflater inflater,
 			final ViewGroup container, final Bundle savedInstanceState) {
 		// build UI
-		View root = inflater
-				.inflate(R.layout.layout_app_info, container, false);
+		View root = inflater.inflate(R.layout.layout_resources, container,
+				false);
 		mResourcesListView = (ExpandableListView) root
 				.findViewById(android.R.id.list);
 		mResourcesListView.setEmptyView(root.findViewById(android.R.id.empty));

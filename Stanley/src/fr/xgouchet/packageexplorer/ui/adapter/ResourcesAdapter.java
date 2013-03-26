@@ -15,14 +15,15 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ExpandableListAdapter;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
 
 public class ResourcesAdapter implements ExpandableListAdapter {
@@ -225,14 +226,15 @@ public class ResourcesAdapter implements ExpandableListAdapter {
 		width = drawable.getIntrinsicWidth();
 		height = drawable.getIntrinsicHeight();
 
-		image.setImageDrawable(drawable);
-		image.setScaleType(ScaleType.FIT_XY);
-		LayoutParams params = image.getLayoutParams();
-		params.width = (width * mDensity * 2) / imageDensity;
-		params.height = (height * mDensity * 2) / imageDensity;
+		LayoutParams params = new LayoutParams((width * mDensity * 2)
+				/ imageDensity, (height * mDensity * 2) / imageDensity);
+		params.gravity = Gravity.CENTER;
 		image.setLayoutParams(params);
 
-		// styleing
+		image.setImageDrawable(drawable);
+		image.setScaleType(ScaleType.FIT_XY);
+
+		// styling
 		if (mUseDarkBackground) {
 			title.setTextColor(Color.WHITE);
 			view.setBackgroundColor(Color.DKGRAY);

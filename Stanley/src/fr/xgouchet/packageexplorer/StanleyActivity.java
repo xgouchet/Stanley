@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
@@ -47,7 +48,25 @@ public class StanleyActivity extends FragmentActivity {
 
 	@Override
 	protected void onSaveInstanceState(final Bundle outState) {
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		boolean res = true;
+
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			getSupportFragmentManager().popBackStack();
+			if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+				getActionBar().setDisplayHomeAsUpEnabled(false);
+			}
+			break;
+		default:
+			res = super.onOptionsItemSelected(item);
+			break;
+		}
+
+		return res;
 	}
 
 	public void showPackageInfo(final PackageInfo info) {
@@ -80,6 +99,10 @@ public class StanleyActivity extends FragmentActivity {
 		}
 
 		transaction.replace(containerId, details).commit();
+
+		if (!mIsTwoPaned) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	public void browsePackageResources(final PackageInfo info) {

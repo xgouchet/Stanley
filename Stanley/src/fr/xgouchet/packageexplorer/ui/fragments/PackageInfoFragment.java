@@ -92,6 +92,9 @@ public class PackageInfoFragment extends ListFragment {
 		case R.id.action_export_manifest:
 			PackageUtils.exportManifest(mActivity, mPackageInfo);
 			break;
+		case R.id.action_explore_resources:
+			mActivity.browsePackageResources(mPackageInfo);
+			break;
 		default:
 			res = super.onOptionsItemSelected(item);
 			break;

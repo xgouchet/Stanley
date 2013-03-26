@@ -13,13 +13,25 @@
         android:gravity="center"
         android:text="@string/app_name" />
 
-    <ImageView
-        android:id="@android:id/icon"
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@android:id/title"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_no_launcher" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@android:id/title" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+
+            <ImageView
+                android:id="@android:id/icon"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_no_launcher" />
+        </FrameLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>

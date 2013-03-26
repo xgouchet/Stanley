@@ -42,6 +42,7 @@ import fr.xgouchet.packageexplorer.StanleyActivity;
 import fr.xgouchet.packageexplorer.StanleyPreferencesActivity;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
+import fr.xgouchet.packageexplorer.common.ResourcesUtils;
 import fr.xgouchet.packageexplorer.common.Settings;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageListAdapter;
 
@@ -209,6 +210,7 @@ public class PackageListFragment extends Fragment implements
 			startActivity(PackageUtils.uninstallPackageIntent(mSelectedPackage));
 			break;
 		case R.id.action_explore_resources:
+			mActivity.browsePackageResources(mSelectedPackage);
 			break;
 		case R.id.action_export_manifest:
 			PackageUtils.exportManifest(mActivity, mSelectedPackage);

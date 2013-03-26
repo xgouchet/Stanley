@@ -16,13 +16,11 @@
         android:icon="@drawable/ic_action_export"
         android:showAsAction="ifRoom"
         android:title="@string/action_export"/>
-
-    <!--
     <item
         android:id="@+id/action_explore_resources"
         android:icon="@drawable/ic_action_explore"
         android:showAsAction="ifRoom"
-        adroid:title="@string/action_explore_resources"/>	-->
+        android:title="@string/action_explore_resources"/>
 
     <group android:id="@+id/group_installed_apps" >
         <item

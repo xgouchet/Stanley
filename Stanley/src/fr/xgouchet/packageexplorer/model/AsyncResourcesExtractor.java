@@ -5,18 +5,18 @@ import java.io.File;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
-import fr.xgouchet.packageexplorer.common.ManifestUtils;
+import fr.xgouchet.packageexplorer.common.ResourcesUtils;
 
-public class AsyncManifestExporter extends AsyncTask<PackageInfo, Void, File> {
+public class AsyncResourcesExtractor extends AsyncTask<PackageInfo, Void, File> {
 
-	public static interface ManifestExporterListener {
-		public void onManifestExported(File file);
+	public static interface ResourcesExtractorListener {
+		public void onResourcesExctracted(File file);
 
-		public void onExportError(Exception exception);
+		public void onExtractionError(Exception exception);
 	}
 
-	public AsyncManifestExporter(final Activity activity,
-			final ManifestExporterListener listener) {
+	public AsyncResourcesExtractor(final Activity activity,
+			final ResourcesExtractorListener listener) {
 		mActivity = activity;
 		mListener = listener;
 	}
@@ -26,7 +26,7 @@ public class AsyncManifestExporter extends AsyncTask<PackageInfo, Void, File> {
 		File dest = null;
 
 		try {
-			dest = ManifestUtils.exportManifest(params[0], mActivity);
+			dest = ResourcesUtils.exportPackageResources(mActivity, params[0]);
 		} catch (Exception e) {
 			mException = e;
 		}
@@ -39,14 +39,14 @@ public class AsyncManifestExporter extends AsyncTask<PackageInfo, Void, File> {
 		super.onPostExecute(result);
 
 		if (mException == null) {
-			mListener.onManifestExported(result);
+			mListener.onResourcesExctracted(result);
 		} else {
-			mListener.onExportError(mException);
+			mListener.onExtractionError(mException);
 		}
 
 	}
 
 	private Exception mException;
 	private final Activity mActivity;
-	private final ManifestExporterListener mListener;
+	private final ResourcesExtractorListener mListener;
 }

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
@@ -148,7 +149,7 @@ public class PackageUtils {
 			}
 
 			@Override
-			public void onManifestError(final Exception exception) {
+			public void onExportError(final Exception exception) {
 				Crouton.showText(activity,
 						"An error occured while exporting the manifest",
 						Style.ALERT);

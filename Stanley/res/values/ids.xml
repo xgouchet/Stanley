@@ -10,6 +10,7 @@
     <item name="action_sort_by_package" type="id"/>
     <item name="action_sort_by_install" type="id"/>
     <item name="action_sort_by_update" type="id"/>
+    <item name="action_switch_background" type="id"/>
 
     <!-- App Item Context -->
     <item name="action_uninstall" type="id"/>

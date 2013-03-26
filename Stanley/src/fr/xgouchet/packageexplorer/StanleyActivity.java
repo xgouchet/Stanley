@@ -1,17 +1,16 @@
 package fr.xgouchet.packageexplorer;
 
-import javax.net.ssl.ManagerFactoryParameters;
-
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import de.neofonie.mobile.app.android.widget.crouton.Crouton;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
 import fr.xgouchet.packageexplorer.ui.fragments.PackageInfoFragment;
 import fr.xgouchet.packageexplorer.ui.fragments.PackageListFragment;
-import de.neofonie.mobile.app.android.widget.crouton.*;
+import fr.xgouchet.packageexplorer.ui.fragments.ResourcesExplorerFragment;
 
 public class StanleyActivity extends FragmentActivity {
 
@@ -46,6 +45,11 @@ public class StanleyActivity extends FragmentActivity {
 		Crouton.clearCroutonsForActivity(this);
 	}
 
+	@Override
+	protected void onSaveInstanceState(final Bundle outState) {
+
+	}
+
 	public void showPackageInfo(final PackageInfo info) {
 		PackageInfo fullInfo = PackageUtils.getFullPackageInfo(this, info);
 
@@ -70,10 +74,35 @@ public class StanleyActivity extends FragmentActivity {
 			containerId = R.id.tabletFragmentContainer;
 		} else {
 			containerId = R.id.phoneFragmentContainer;
+			transaction
+					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			transaction.addToBackStack("detail");
 		}
 
 		transaction.replace(containerId, details).commit();
+	}
+
+	public void browsePackageResources(final PackageInfo info) {
+
+		int containerId;
+		Bundle args = new Bundle();
+		args.putParcelable(Constants.EXTRA_PACKAGE_INFO, info);
+
+		final Fragment resources = new ResourcesExplorerFragment();
+		resources.setArguments(args);
+
+		final FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+
+		if (mIsTwoPaned) {
+			containerId = R.id.tabletFragmentContainer;
+		} else {
+			containerId = R.id.phoneFragmentContainer;
+			transaction.addToBackStack("resources");
+		}
+
+		transaction.replace(containerId, resources).commit();
+
 	}
 
 	// UI

@@ -140,9 +140,12 @@ public class PackageInfoFragment extends ListFragment {
 					}
 				});
 
-		((TextView) getView().findViewById(R.id.textAppName))
-				.setText(mPackageManager.getApplicationLabel(mAppInfo));
+		String appLabel = mPackageManager.getApplicationLabel(mAppInfo)
+				.toString();
+		mActivity.setTitle(mActivity
+				.getString(R.string.title_package, appLabel));
 
+		((TextView) getView().findViewById(R.id.textAppName)).setText(appLabel);
 		((TextView) getView().findViewById(R.id.textSubTitle))
 				.setText(mPackageInfo.packageName);
 		getView().findViewById(R.id.textSubTitle).setSelected(true);

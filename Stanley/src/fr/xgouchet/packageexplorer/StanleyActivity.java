@@ -4,6 +4,7 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
@@ -13,7 +14,8 @@ import fr.xgouchet.packageexplorer.ui.fragments.PackageInfoFragment;
 import fr.xgouchet.packageexplorer.ui.fragments.PackageListFragment;
 import fr.xgouchet.packageexplorer.ui.fragments.ResourcesExplorerFragment;
 
-public class StanleyActivity extends FragmentActivity {
+public class StanleyActivity extends FragmentActivity implements
+		OnBackStackChangedListener {
 
 	/**
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -38,6 +40,8 @@ public class StanleyActivity extends FragmentActivity {
 			mListFragment = (PackageListFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.packageListFragment);
 		}
+
+		getSupportFragmentManager().addOnBackStackChangedListener(this);
 	}
 
 	@Override
@@ -57,9 +61,6 @@ public class StanleyActivity extends FragmentActivity {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			getSupportFragmentManager().popBackStack();
-			if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-				getActionBar().setDisplayHomeAsUpEnabled(false);
-			}
 			break;
 		default:
 			res = super.onOptionsItemSelected(item);
@@ -100,9 +101,6 @@ public class StanleyActivity extends FragmentActivity {
 
 		transaction.replace(containerId, details).commit();
 
-		if (!mIsTwoPaned) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 	}
 
 	public void browsePackageResources(final PackageInfo info) {
@@ -125,6 +123,15 @@ public class StanleyActivity extends FragmentActivity {
 		}
 
 		transaction.replace(containerId, resources).commit();
+
+	}
+
+	@Override
+	public void onBackStackChanged() {
+
+		boolean hasBackStack = (getSupportFragmentManager()
+				.getBackStackEntryCount() > 0);
+		getActionBar().setDisplayHomeAsUpEnabled(hasBackStack && !mIsTwoPaned);
 
 	}
 

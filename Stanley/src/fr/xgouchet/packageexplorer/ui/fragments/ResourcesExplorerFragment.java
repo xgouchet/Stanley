@@ -48,6 +48,10 @@ public class ResourcesExplorerFragment extends Fragment implements
 		extractor = new AsyncResourcesExtractor(getActivity(), this);
 		extractor.execute(info);
 
+		String appLabel = getActivity().getPackageManager()
+				.getApplicationLabel(info.applicationInfo).toString();
+		getActivity().setTitle(
+				getActivity().getString(R.string.title_package, appLabel));
 		return root;
 	}
 
@@ -93,7 +97,6 @@ public class ResourcesExplorerFragment extends Fragment implements
 	 */
 	@Override
 	public void onResourcesExctracted(final File file) {
-		Crouton.showText(getActivity(), "Tada", Style.CONFIRM);
 		mFolder = new File(file, "res");
 
 		mAdapter = new ResourcesAdapter(getActivity(), mFolder);

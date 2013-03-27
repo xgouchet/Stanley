@@ -4,9 +4,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.neofonie.mobile.app.android.widget.crouton.Crouton;
-import de.neofonie.mobile.app.android.widget.crouton.Style;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -36,13 +33,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import de.neofonie.mobile.app.android.widget.crouton.Crouton;
+import de.neofonie.mobile.app.android.widget.crouton.Style;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.StanleyAboutActivity;
 import fr.xgouchet.packageexplorer.StanleyActivity;
 import fr.xgouchet.packageexplorer.StanleyPreferencesActivity;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
-import fr.xgouchet.packageexplorer.common.ResourcesUtils;
 import fr.xgouchet.packageexplorer.common.Settings;
 import fr.xgouchet.packageexplorer.ui.adapter.PackageListAdapter;
 

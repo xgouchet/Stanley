@@ -11,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
@@ -21,28 +20,16 @@ import fr.xgouchet.packageexplorer.model.AsyncManifestExporter.ManifestExporterL
 
 public class PackageUtils {
 
-	public static Intent getResolvedIntent(final ResolveInfo info) {
-		Intent intent = new Intent(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		intent.setClassName(info.activityInfo.packageName,
-				info.activityInfo.name);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-				| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-		return intent;
-	}
-
-	public static List<ResolveInfo> getMainActivities(final Context context,
-			final PackageInfo pkg) {
-		Intent intent = new Intent(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		intent.setPackage(pkg.packageName);
-
-		List<ResolveInfo> resolvedList;
-
-		resolvedList = context.getPackageManager().queryIntentActivities(
-				intent, 0);
-
-		return resolvedList;
+	/**
+	 * @param pkg
+	 *            the package info
+	 * @return the intent to show the system app info for the given package
+	 */
+	public static Intent applicationInfoIntent(final PackageInfo pkg) {
+		final Uri packageUri = Uri.parse("package:" + pkg.packageName);
+		return new Intent(
+				android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+				packageUri);
 	}
 
 	/**
@@ -69,26 +56,40 @@ public class PackageUtils {
 		return new Intent(Intent.ACTION_VIEW, packageUri);
 	}
 
-	/**
-	 * @param pkg
-	 *            the package info
-	 * @return the intent to show the system app info for the given package
-	 */
-	public static Intent applicationInfoIntent(final PackageInfo pkg) {
-		final Uri packageUri = Uri.parse("package:" + pkg.packageName);
-		return new Intent(
-				android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-				packageUri);
-	}
+	public static void exportManifest(final Activity activity,
+			final PackageInfo pkg) {
+		ManifestExporterListener listener;
+		listener = new ManifestExporterListener() {
 
-	/**
-	 * @param pkg
-	 *            the package info
-	 * @return the intent to uninstall the given package
-	 */
-	public static Intent uninstallPackageIntent(final PackageInfo pkg) {
-		final Uri packageUri = Uri.parse("package:" + pkg.packageName);
-		return new Intent(Intent.ACTION_DELETE, packageUri);
+			@Override
+			public void onExportError(final Exception exception) {
+				Crouton.showText(activity,
+						"An error occured while exporting the manifest",
+						Style.ALERT);
+			}
+
+			@Override
+			public void onManifestExported(final File file) {
+				Crouton crouton = Crouton.makeText(activity,
+						"The manifest was saved in your Download folder:\n "
+								+ file.getName()
+								+ "\nClick here to open it now", Style.CONFIRM);
+				crouton.show();
+				crouton.getView().setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(final View v) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setDataAndType(Uri.fromFile(file), "text/xml");
+						activity.startActivity(Intent.createChooser(intent,
+								null));
+					}
+				});
+			}
+		};
+		AsyncManifestExporter exporter = new AsyncManifestExporter(activity,
+				listener);
+		exporter.execute(pkg);
 	}
 
 	/**
@@ -124,40 +125,61 @@ public class PackageUtils {
 		return fullInfo;
 	}
 
-	public static void exportManifest(final Activity activity,
+	/**
+	 * 
+	 */
+	public static List<ResolveInfo> getMainActivities(final Context context,
 			final PackageInfo pkg) {
-		ManifestExporterListener listener;
-		listener = new ManifestExporterListener() {
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		intent.setPackage(pkg.packageName);
 
-			@Override
-			public void onManifestExported(final File file) {
-				Crouton crouton = Crouton.makeText(activity,
-						"The manifest was saved in your Download folder:\n "
-								+ file.getName()
-								+ "\nClick here to open it now", Style.CONFIRM);
-				crouton.show();
-				crouton.getView().setOnClickListener(new OnClickListener() {
+		List<ResolveInfo> resolvedList;
 
-					@Override
-					public void onClick(final View v) {
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setDataAndType(Uri.fromFile(file), "text/xml");
-						activity.startActivity(Intent.createChooser(intent,
-								null));
-					}
-				});
-			}
+		resolvedList = context.getPackageManager().queryIntentActivities(
+				intent, 0);
 
-			@Override
-			public void onExportError(final Exception exception) {
-				Crouton.showText(activity,
-						"An error occured while exporting the manifest",
-						Style.ALERT);
-			}
-		};
-		AsyncManifestExporter exporter = new AsyncManifestExporter(activity,
-				listener);
-		exporter.execute(pkg);
+		return resolvedList;
+	}
+
+	/**
+	 * 
+	 */
+	public static Intent getResolvedIntent(final ResolveInfo info) {
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		intent.setClassName(info.activityInfo.packageName,
+				info.activityInfo.name);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+		return intent;
+	}
+
+	/**
+	 * 
+	 * @param context
+	 * @param packageInfo
+	 */
+	public static boolean isPackageInstalled(final Context context,
+			final PackageInfo packageInfo) {
+		PackageManager pm = context.getPackageManager();
+		try {
+			pm.getPackageInfo(packageInfo.packageName,
+					PackageManager.GET_META_DATA);
+		} catch (NameNotFoundException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @param pkg
+	 *            the package info
+	 * @return the intent to uninstall the given package
+	 */
+	public static Intent uninstallPackageIntent(final PackageInfo pkg) {
+		final Uri packageUri = Uri.parse("package:" + pkg.packageName);
+		return new Intent(Intent.ACTION_DELETE, packageUri);
 	}
 
 }

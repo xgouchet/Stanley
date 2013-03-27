@@ -4,6 +4,7 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
@@ -16,6 +17,11 @@ import fr.xgouchet.packageexplorer.ui.fragments.ResourcesExplorerFragment;
 
 public class StanleyActivity extends FragmentActivity implements
 		OnBackStackChangedListener {
+
+	// UI
+	private PackageListFragment mListFragment;
+
+	private boolean mIsTwoPaned;
 
 	/**
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -33,7 +39,8 @@ public class StanleyActivity extends FragmentActivity implements
 			mListFragment = new PackageListFragment();
 			final FragmentTransaction transaction = getSupportFragmentManager()
 					.beginTransaction();
-			transaction.add(R.id.phoneFragmentContainer, mListFragment);
+			transaction.add(R.id.phoneFragmentContainer, mListFragment,
+					Constants.TAG_FRAGMENT_LIST);
 			transaction.commit();
 		} else {
 			mIsTwoPaned = true;
@@ -45,6 +52,26 @@ public class StanleyActivity extends FragmentActivity implements
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+
+		FragmentManager fragMgr = getSupportFragmentManager();
+
+		PackageInfoFragment infoFragment = (PackageInfoFragment) fragMgr
+				.findFragmentByTag(Constants.TAG_FRAGMENT_DETAILS);
+
+		if (infoFragment != null) {
+			if (!PackageUtils.isPackageInstalled(this,
+					infoFragment.getPackageInfo())) {
+				final FragmentTransaction transaction = fragMgr
+						.beginTransaction();
+				transaction.remove(infoFragment);
+				transaction.commit();
+			}
+		}
+	}
+
+	@Override
 	protected void onPause() {
 		super.onPause();
 		Crouton.clearCroutonsForActivity(this);
@@ -52,6 +79,15 @@ public class StanleyActivity extends FragmentActivity implements
 
 	@Override
 	protected void onSaveInstanceState(final Bundle outState) {
+	}
+
+	@Override
+	public void onBackStackChanged() {
+
+		boolean hasBackStack = (getSupportFragmentManager()
+				.getBackStackEntryCount() > 0);
+		getActionBar().setDisplayHomeAsUpEnabled(hasBackStack && !mIsTwoPaned);
+
 	}
 
 	@Override
@@ -70,12 +106,29 @@ public class StanleyActivity extends FragmentActivity implements
 		return res;
 	}
 
-	public void showPackageInfo(final PackageInfo info) {
-		PackageInfo fullInfo = PackageUtils.getFullPackageInfo(this, info);
+	public void browsePackageResources(final PackageInfo info) {
 
+		int containerId;
 		Bundle args = new Bundle();
-		args.putParcelable(Constants.EXTRA_PACKAGE_INFO, fullInfo);
-		showPackageInfo(args);
+		args.putParcelable(Constants.EXTRA_PACKAGE_INFO, info);
+
+		final Fragment resources = new ResourcesExplorerFragment();
+		resources.setArguments(args);
+
+		final FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+
+		if (mIsTwoPaned) {
+			containerId = R.id.tabletFragmentContainer;
+		} else {
+			containerId = R.id.phoneFragmentContainer;
+			transaction.addToBackStack(Constants.TAG_FRAGMENT_RESOURCES);
+		}
+
+		transaction.replace(containerId, resources,
+				Constants.TAG_FRAGMENT_RESOURCES);
+		transaction.commit();
+
 	}
 
 	/**
@@ -96,47 +149,21 @@ public class StanleyActivity extends FragmentActivity implements
 			containerId = R.id.phoneFragmentContainer;
 			transaction
 					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			transaction.addToBackStack("detail");
+			transaction.addToBackStack(Constants.TAG_FRAGMENT_DETAILS);
 		}
 
-		transaction.replace(containerId, details).commit();
+		transaction.replace(containerId, details,
+				Constants.TAG_FRAGMENT_DETAILS);
+		transaction.commit();
 
 	}
 
-	public void browsePackageResources(final PackageInfo info) {
+	public void showPackageInfo(final PackageInfo info) {
+		PackageInfo fullInfo = PackageUtils.getFullPackageInfo(this, info);
 
-		int containerId;
 		Bundle args = new Bundle();
-		args.putParcelable(Constants.EXTRA_PACKAGE_INFO, info);
-
-		final Fragment resources = new ResourcesExplorerFragment();
-		resources.setArguments(args);
-
-		final FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
-
-		if (mIsTwoPaned) {
-			containerId = R.id.tabletFragmentContainer;
-		} else {
-			containerId = R.id.phoneFragmentContainer;
-			transaction.addToBackStack("resources");
-		}
-
-		transaction.replace(containerId, resources).commit();
-
+		args.putParcelable(Constants.EXTRA_PACKAGE_INFO, fullInfo);
+		showPackageInfo(args);
 	}
-
-	@Override
-	public void onBackStackChanged() {
-
-		boolean hasBackStack = (getSupportFragmentManager()
-				.getBackStackEntryCount() > 0);
-		getActionBar().setDisplayHomeAsUpEnabled(hasBackStack && !mIsTwoPaned);
-
-	}
-
-	// UI
-	private PackageListFragment mListFragment;
-	private boolean mIsTwoPaned;
 
 }

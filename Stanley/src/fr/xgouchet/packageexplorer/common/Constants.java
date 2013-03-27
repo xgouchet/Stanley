@@ -11,6 +11,11 @@ import fr.xgouchet.packageexplorer.common.sort.PackageSortByUpdate;
 
 public class Constants {
 
+	public static final String TAG_FRAGMENT_DETAILS = "details";
+	public static final String TAG_FRAGMENT_RESOURCES = "resources";
+	public static final String TAG_FRAGMENT_LIST = "list";
+	public static final String TAG_FRAGMENT_RESOLVE = "resolve";
+
 	public static final String PREFERENCES = "fr.xgouchet.packageexplorer";
 
 	public static final String PREF_IGNORE_SYSTEM = "ignore_system_packages";

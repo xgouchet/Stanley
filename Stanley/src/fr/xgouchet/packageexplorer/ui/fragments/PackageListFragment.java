@@ -273,7 +273,9 @@ public class PackageListFragment extends Fragment implements
 		final PackageManager pm = mActivity.getPackageManager();
 		final List<PackageInfo> packages = pm.getInstalledPackages(0);
 
-		filterPackages(packages);
+		if (Settings.sIgnoreSystemPacakges) {
+			filterPackages(packages);
+		}
 
 		Collections.sort(packages, Constants.getComparator(pm, mSortMethod));
 
@@ -286,7 +288,6 @@ public class PackageListFragment extends Fragment implements
 				mAdapter.notifyDataSetChanged();
 			}
 		});
-
 	}
 
 	/**
@@ -298,7 +299,7 @@ public class PackageListFragment extends Fragment implements
 		List<PackageInfo> remove = new LinkedList<PackageInfo>();
 
 		// filter
-		for (PackageInfo pkg : mPackages) {
+		for (PackageInfo pkg : packages) {
 			appInfo = pkg.applicationInfo;
 
 			if (appInfo != null) {

@@ -189,6 +189,13 @@ public class PackageInfoFragment extends ListFragment {
 		startActivity(PackageUtils.uninstallPackageIntent(mPackageInfo));
 	}
 
+	/**
+	 * @return
+	 */
+	public PackageInfo getPackageInfo() {
+		return mPackageInfo;
+	}
+
 	protected StanleyActivity mActivity;
 	protected PackageManager mPackageManager;
 

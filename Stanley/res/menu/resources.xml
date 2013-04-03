@@ -4,6 +4,22 @@
     <item
         android:id="@id/action_switch_background"
         android:icon="@drawable/ic_action_switch_bg"
-        android:showAsAction="always"/>
+        android:showAsAction="always"
+        android:title="@string/action_switch_background"/>
+    <item
+        android:id="@id/action_zoom_in"
+        android:icon="@drawable/ic_action_zoom_in"
+        android:showAsAction="always"
+        android:title="@string/action_zoom_in"/>
+    <item
+        android:id="@id/action_zoom_reset"
+        android:icon="@drawable/ic_action_zoom_reset"
+        android:showAsAction="always"
+        android:title="@string/action_zoom_reset"/>
+    <item
+        android:id="@id/action_zoom_out"
+        android:icon="@drawable/ic_action_zoom_out"
+        android:showAsAction="always"
+        android:title="@string/action_zoom_out"/>
 
 </menu>

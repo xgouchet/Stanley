@@ -378,7 +378,7 @@ public class PackageInfoAdapter implements ExpandableListAdapter {
 			icon.setImageResource(R.drawable.ic_permissions);
 			break;
 		case INDEX_CUSTOM_PERMISSIONS:
-			title.setText("Pacakge custom permissions");
+			title.setText("Package custom permissions");
 			icon.setImageResource(R.drawable.ic_custom_permissions);
 			break;
 		case INDEX_FEATURES:

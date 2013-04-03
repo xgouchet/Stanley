@@ -273,7 +273,7 @@ public class PackageListFragment extends Fragment implements
 		final PackageManager pm = mActivity.getPackageManager();
 		final List<PackageInfo> packages = pm.getInstalledPackages(0);
 
-		if (Settings.sIgnoreSystemPacakges) {
+		if (Settings.sIgnoreSystemPackages) {
 			filterPackages(packages);
 		}
 
@@ -291,7 +291,7 @@ public class PackageListFragment extends Fragment implements
 	}
 
 	/**
-	 * Filter the pacakges based on the settings
+	 * Filter the Packages based on the settings
 	 */
 	private void filterPackages(final List<PackageInfo> packages) {
 		int flags;

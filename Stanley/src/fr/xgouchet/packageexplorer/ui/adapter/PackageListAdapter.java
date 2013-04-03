@@ -2,6 +2,7 @@ package fr.xgouchet.packageexplorer.ui.adapter;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.common.Constants;
 
+@SuppressLint("DefaultLocale")
 public class PackageListAdapter extends ArrayAdapter<PackageInfo> {
 
 	public PackageListAdapter(final Context context,

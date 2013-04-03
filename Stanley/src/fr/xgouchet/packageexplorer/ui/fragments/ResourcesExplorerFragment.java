@@ -72,7 +72,15 @@ public class ResourcesExplorerFragment extends Fragment implements
 		switch (item.getItemId()) {
 		case R.id.action_switch_background:
 			mAdapter.switchBackground();
-			mAdapter.notifyDataSetChanged();
+			break;
+		case R.id.action_zoom_in:
+			mAdapter.zoomIn();
+			break;
+		case R.id.action_zoom_out:
+			mAdapter.zoomOut();
+			break;
+		case R.id.action_zoom_reset:
+			mAdapter.zoomReset();
 			break;
 		default:
 			res = super.onOptionsItemSelected(item);

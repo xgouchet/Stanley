@@ -11,6 +11,9 @@
     <item name="action_sort_by_install" type="id"/>
     <item name="action_sort_by_update" type="id"/>
     <item name="action_switch_background" type="id"/>
+    <item name="action_zoom_in" type="id"/>
+    <item name="action_zoom_out" type="id"/>
+    <item name="action_zoom_reset" type="id"/>
 
     <!-- App Item Context -->
     <item name="action_uninstall" type="id"/>

@@ -15,12 +15,11 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ExpandableListAdapter;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
@@ -52,6 +51,8 @@ public class ResourcesAdapter implements ExpandableListAdapter {
 		activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
 		mDensity = metrics.densityDpi;
+		mZoomLevel = 1;
+		mCompoundScale = (int) (mDensity * mZoomLevel);
 
 		mUseDarkBackground = false;
 	}
@@ -215,7 +216,7 @@ public class ResourcesAdapter implements ExpandableListAdapter {
 		File file = getChild(groupPosition, childPosition);
 
 		TextView title = (TextView) view.findViewById(android.R.id.title);
-		ImageView image = (ImageView) view.findViewById(android.R.id.icon);
+		ImageView image;
 
 		title.setText(file.getName());
 
@@ -226,11 +227,24 @@ public class ResourcesAdapter implements ExpandableListAdapter {
 		width = drawable.getIntrinsicWidth();
 		height = drawable.getIntrinsicHeight();
 
-		LayoutParams params = new LayoutParams((width * mDensity * 2)
-				/ imageDensity, (height * mDensity * 2) / imageDensity);
-		params.gravity = Gravity.CENTER;
-		image.setLayoutParams(params);
+		width = (width * mCompoundScale) / imageDensity;
+		height = (height * mCompoundScale) / imageDensity;
 
+		if (width >= parent.getWidth()) {
+			image = (ImageView) view.findViewById(android.R.id.icon1);
+			view.findViewById(android.R.id.icon2).setVisibility(View.GONE);
+		} else {
+			image = (ImageView) view.findViewById(android.R.id.icon2);
+			view.findViewById(android.R.id.icon1).setVisibility(View.GONE);
+		}
+
+		image.setVisibility(View.VISIBLE);
+
+		LayoutParams params = image.getLayoutParams();
+		params.width = width;
+		params.height = height;
+		// params.gravity = Gravity.CENTER;
+		image.setLayoutParams(params);
 		image.setImageDrawable(drawable);
 		image.setScaleType(ScaleType.FIT_XY);
 
@@ -351,6 +365,34 @@ public class ResourcesAdapter implements ExpandableListAdapter {
 
 	public void switchBackground() {
 		mUseDarkBackground = !mUseDarkBackground;
+		notifyDataSetChanged();
+	}
+
+	public void zoomIn() {
+		mZoomLevel *= 2;
+		if (mZoomLevel > 16) {
+			mZoomLevel = 16;
+		}
+
+		mCompoundScale = (int) (mDensity * mZoomLevel);
+		notifyDataSetChanged();
+
+	}
+
+	public void zoomOut() {
+		mZoomLevel /= 2;
+		if (mZoomLevel < 0.25f) {
+			mZoomLevel = 0.25f;
+		}
+
+		mCompoundScale = (int) (mDensity * mZoomLevel);
+		notifyDataSetChanged();
+	}
+
+	public void zoomReset() {
+		mZoomLevel = 1;
+		mCompoundScale = (int) (mDensity * mZoomLevel);
+		notifyDataSetChanged();
 	}
 
 	private Context mContext;
@@ -360,6 +402,8 @@ public class ResourcesAdapter implements ExpandableListAdapter {
 	private int mDensity;
 
 	private boolean mUseDarkBackground;
+	private float mZoomLevel;
+	private int mCompoundScale;
 
 	private final DataSetObservable mDataSetObservable = new DataSetObservable();
 }

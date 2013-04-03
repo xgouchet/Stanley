@@ -18,7 +18,7 @@
     </PreferenceCategory>
 
     <!--  -->
-    <PreferenceCategory android:title="@string/pref_cat_manifest" >
-    </PreferenceCategory>
+    <!--<PreferenceCategory android:title="@string/pref_cat_manifest" >
+    </PreferenceCategory>-->
 
 </PreferenceScreen>

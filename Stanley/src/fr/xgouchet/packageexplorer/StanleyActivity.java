@@ -1,16 +1,21 @@
 package fr.xgouchet.packageexplorer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.BackStackEntry;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
 import fr.xgouchet.packageexplorer.common.Constants;
 import fr.xgouchet.packageexplorer.common.PackageUtils;
+import fr.xgouchet.packageexplorer.common.Settings;
+import fr.xgouchet.packageexplorer.common.StanleyChangeLog;
 import fr.xgouchet.packageexplorer.ui.fragments.PackageInfoFragment;
 import fr.xgouchet.packageexplorer.ui.fragments.PackageListFragment;
 import fr.xgouchet.packageexplorer.ui.fragments.ResourcesExplorerFragment;
@@ -52,6 +57,21 @@ public class StanleyActivity extends FragmentActivity implements
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+
+		StanleyChangeLog changeLog;
+		SharedPreferences prefs;
+
+		changeLog = new StanleyChangeLog();
+		prefs = getSharedPreferences(Constants.PREFERENCES,
+				Context.MODE_PRIVATE);
+		Settings.updateFromPreferences(prefs);
+
+		changeLog.displayChangeLog(this, prefs);
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
 
@@ -61,12 +81,19 @@ public class StanleyActivity extends FragmentActivity implements
 				.findFragmentByTag(Constants.TAG_FRAGMENT_DETAILS);
 
 		if (infoFragment != null) {
+
 			if (!PackageUtils.isPackageInstalled(this,
 					infoFragment.getPackageInfo())) {
-				final FragmentTransaction transaction = fragMgr
-						.beginTransaction();
-				transaction.remove(infoFragment);
-				transaction.commit();
+
+				BackStackEntry top = fragMgr.getBackStackEntryAt(0);
+				if (Constants.TAG_FRAGMENT_DETAILS.equals(top.getName())) {
+					fragMgr.popBackStack();
+				} else {
+					final FragmentTransaction transaction = fragMgr
+							.beginTransaction();
+					transaction.remove(infoFragment);
+					transaction.commit();
+				}
 			}
 		}
 	}

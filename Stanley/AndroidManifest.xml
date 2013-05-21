@@ -33,6 +33,24 @@
         <!-- App about -->
         <activity android:name=".StanleyAboutActivity" >
         </activity>
+
+        <!-- App Secret Preferences -->
+        <activity
+            android:name=".StanleySecretPreferences"
+            android:icon="@drawable/ic_launcher_secret"
+            android:label="@string/title_secret" >
+        </activity>
+
+        <!-- Secret receiver -->
+        <receiver android:name=".StanleySecretCodeReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+
+                <data
+                    android:host="5484647866"
+                    android:scheme="android_secret_code" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

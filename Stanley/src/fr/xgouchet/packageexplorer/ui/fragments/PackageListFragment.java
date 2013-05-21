@@ -194,6 +194,10 @@ public class PackageListFragment extends Fragment implements
 				menu.setGroupEnabled(R.id.group_installed_apps, false);
 			}
 		}
+
+		if (Settings.sEnableSecret) {
+			mActivity.getMenuInflater().inflate(R.menu.secret, menu);
+		}
 	}
 
 	/**
@@ -219,6 +223,9 @@ public class PackageListFragment extends Fragment implements
 		case R.id.action_display_store:
 			startActivity(PackageUtils
 					.applicationPlayStoreIntent(mSelectedPackage));
+			break;
+		case R.id.action_export_apk:
+			PackageUtils.exportAPK(mActivity, mSelectedPackage);
 			break;
 		default:
 			res = super.onContextItemSelected(item);

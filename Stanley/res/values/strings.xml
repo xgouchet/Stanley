@@ -9,6 +9,7 @@
     <string name="title_package">Stanley - %1$s</string>
     <string name="title_settings">Stanley - Settings </string>
     <string name="title_about">Stanley#8230; </string>
+    <string name="title_secret">Stanley - Secret options</string>
 
     <!-- Options Menu in Apex -->
     <string name="menu_settings">Settings</string>
@@ -22,6 +23,7 @@
     <string name="action_sort_by_install">Last installed first</string>
     <string name="action_sort_by_update">Last updated first</string>
     <string name="action_export">Export manifest</string>
+    <string name="action_export_apk">Export APK</string>
     <string name="action_explore_resources">Explore resources</string>
     <string name="action_uninstall">Uninstall</string>
     <string name="action_display_info">System App Info</string>

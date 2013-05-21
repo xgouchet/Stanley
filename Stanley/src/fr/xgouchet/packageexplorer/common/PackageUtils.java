@@ -11,10 +11,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import de.neofonie.mobile.app.android.widget.crouton.Crouton;
 import de.neofonie.mobile.app.android.widget.crouton.Style;
+import fr.xgouchet.androidlib.data.FileUtils;
 import fr.xgouchet.packageexplorer.model.AsyncManifestExporter;
 import fr.xgouchet.packageexplorer.model.AsyncManifestExporter.ManifestExporterListener;
 
@@ -56,6 +58,49 @@ public class PackageUtils {
 		return new Intent(Intent.ACTION_VIEW, packageUri);
 	}
 
+	public static void exportAPK(final Activity activity, final PackageInfo info) {
+
+		String srcPackage = info.applicationInfo.publicSourceDir;
+		File srcFile = new File(srcPackage);
+
+		PackageManager pm = activity.getPackageManager();
+		String name = pm.getApplicationLabel(info.applicationInfo).toString();
+
+		String path;
+		path = Environment.getExternalStoragePublicDirectory(
+				Environment.DIRECTORY_DOWNLOADS).getPath();
+		path = path + File.separator + name + ".apk";
+
+		final File dstFile = new File(path);
+		if (FileUtils.copyFile(srcFile, dstFile)) {
+			Crouton crouton = Crouton
+					.makeText(activity,
+							"The APK was saved in your Download folder:\n\n"
+									+ dstFile.getName()
+									+ "\nClick here to open it now", Style.INFO);
+			crouton.show();
+			crouton.getView().setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(final View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(Uri.fromFile(dstFile),
+							"application/vnd.android.package-archive");
+					activity.startActivity(Intent.createChooser(intent, null));
+				}
+			});
+		} else {
+			Crouton.showText(activity,
+					"An error occured while exporting the APK", Style.ALERT);
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param activity
+	 * @param pkg
+	 */
 	public static void exportManifest(final Activity activity,
 			final PackageInfo pkg) {
 		ManifestExporterListener listener;
@@ -71,9 +116,9 @@ public class PackageUtils {
 			@Override
 			public void onManifestExported(final File file) {
 				Crouton crouton = Crouton.makeText(activity,
-						"The manifest was saved in your Download folder:\n "
+						"The manifest was saved in your Download folder:\n\n"
 								+ file.getName()
-								+ "\nClick here to open it now", Style.CONFIRM);
+								+ "\nClick here to open it now", Style.INFO);
 				crouton.show();
 				crouton.getView().setOnClickListener(new OnClickListener() {
 

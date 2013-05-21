@@ -7,6 +7,7 @@
     <!--  -->
     <string name="pref_title_ignore_system_packages">Ignore system Apps</string>
     <string name="pref_title_simplify_names">Simplify names</string>
+    <string name="pref_title_secret">Enable secret options</string>
 
     <!--  -->
     <string name="pref_summary_on_simplify_names">Names for Activities, Services, Providers and Receivers will be simplified based on the package name</string>

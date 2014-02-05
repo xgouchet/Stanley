@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -47,7 +47,7 @@
                 <action android:name="android.provider.Telephony.SECRET_CODE" />
 
                 <data
-                    android:host="5484647866"
+                    android:host="*"
                     android:scheme="android_secret_code" />
             </intent-filter>
         </receiver>

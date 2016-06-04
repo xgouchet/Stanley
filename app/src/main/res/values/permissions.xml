@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="c2d_message_generic">Receive messages from Google Cloud Messaging</string>
+
+    <!-- Standard Permissions -->
+    <string name="android.permission.ACCESS_CHECKIN_PROPERTIES">Access checkin properties</string>
+    <string name="android.permission.ACCESS_COARSE_LOCATION">Approximate (network-based) location</string>
+    <string name="android.permission.ACCESS_FINE_LOCATION">Precise (GPS) location</string>
+    <string name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS">Access extra location provider commands</string>
+    <string name="android.permission.ACCESS_MOCK_LOCATION">Mock location sources for testing</string>
+    <string name="android.permission.ACCESS_MTP">Implement MTP protocol</string>
+    <string name="android.permission.ACCESS_NETWORK_STATE">View network connections</string>
+    <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Access notification policy</string>
+    <string name="android.permission.ACCESS_SURFACE_FLINGER">Access SurfaceFlinger</string>
+    <string name="android.permission.ACCESS_WIFI_STATE">View Wi-Fi connections</string>
+    <string name="android.permission.ACCOUNT_MANAGER">Act as the AccountManagerService</string>
+    <string name="android.permission.ASEC_ACCESS">Get information on internal storage</string>
+    <string name="android.permission.ASEC_CREATE">Create internal storage</string>
+    <string name="android.permission.ASEC_DESTROY">Destroy internal storage</string>
+    <string name="android.permission.ASEC_MOUNT_UNMOUNT">Mount/unmount internal storage</string>
+    <string name="android.permission.ASEC_RENAME">Rename internal storage</string>
+    <string name="android.permission.AUTHENTICATE_ACCOUNTS">Create accounts and set passwords</string>
+
+    <string name="android.permission.BATTERY_STATS">Modify battery statistics</string>
+    <string name="android.permission.BIND_ACCESSIBILITY_SERVICE">Bind to an accessibility service</string>
+    <string name="android.permission.BIND_APPWIDGET">Manage AppWidget\'s data</string>
+    <string name="android.permission.BIND_CARRIER_MESSAGING_SERVICE">Bind to carrier messaging services</string>
+    <string name="android.permission.BIND_CARRIER_SERVICES">Bind to carrier services</string>
+    <string name="android.permission.BIND_CHOOSER_TARGET_SERVICE">Choose target service</string>
+    <string name="android.permission.BIND_DEVICE_ADMIN">Interact with a device admin</string>
+    <string name="android.permission.BIND_DREAM_SERVICE">Daydream service</string>
+    <string name="android.permission.BIND_INCALL_SERVICE">InCall service</string>
+    <string name="android.permission.BIND_INPUT_METHOD">Bind to an input method</string>
+    <string name="android.permission.BIND_MIDI_DEVICE_SERVICE">Midi device service</string>
+    <string name="android.permission.BIND_NFC_SERVICE">NFC service</string>
+    <string name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">Notification listener service</string>
+    <string name="android.permission.BIND_PRINT_SERVICE">Print service</string>
+    <string name="android.permission.BIND_REMOTEVIEWS">Bind to a widget service</string>
+    <string name="android.permission.BIND_TELECOM_CONNECTION_SERVICE">Telecom connection service</string>
+    <string name="android.permission.BIND_TEXT_SERVICE">Bind to a text service</string>
+    <string name="android.permission.BIND_TV_INPUT">TV Input</string>
+    <string name="android.permission.BIND_VOICE_INTERACTION">Voice interaction service</string>
+    <string name="android.permission.BIND_VPN_SERVICE">Bind to a VPN service</string>
+    <string name="android.permission.BIND_WALLPAPER">Bind to a wallpaper</string>
+    <string name="android.permission.BLUETOOTH">Pair with Bluetooth devices</string>
+    <string name="android.permission.BLUETOOTH_ADMIN">Access Bluetooth settings</string>
+    <string name="android.permission.BLUETOOTH_PRIVILEGED">Pair with Bluetooth devices without user interactions</string>
+    <string name="android.permission.BODY_SENSORS">Access data from sensors that the user uses to measure what is happening inside his/her body, such as heart rate</string>
+    <string name="android.permission.BRICK">Permanently disable device</string>
+    <string name="android.permission.BROADCAST_PACKAGE_REMOVED">Send package removed broadcast</string>
+    <string name="android.permission.BROADCAST_SMS">Send SMS-received broadcast</string>
+    <string name="android.permission.BROADCAST_STICKY">Send sticky broadcast</string>
+    <string name="android.permission.BROADCAST_WAP_PUSH">Send WAP-PUSH-received broadcast</string>
+
+    <string name="android.permission.CAPTURE_AUDIO_OUTPUT">Capture audio output</string>
+    <string name="android.permission.CAPTURE_SECURE_VIDEO_OUTPUT">Capture secure video output</string>
+    <string name="android.permission.CAPTURE_VIDEO_OUTPUT">TODO</string>
+    <string name="android.permission.CALL_PHONE">Directly call phone numbers</string>
+    <string name="android.permission.CALL_PRIVILEGED">Directly call any phone numbers</string>
+    <string name="android.permission.CAMERA">Take pictures and videos</string>
+    <string name="android.permission.CHANGE_BACKGROUND_DATA_SETTING">Change background data usage setting</string>
+    <string name="android.permission.CHANGE_COMPONENT_ENABLED_STATE">Enable or disable app components</string>
+    <string name="android.permission.CHANGE_CONFIGURATION">Change system display settings</string>
+    <string name="android.permission.CHANGE_NETWORK_STATE">Change network connectivity</string>
+    <string name="android.permission.CHANGE_WIFI_MULTICAST_STATE">Allow Wi-Fi Multicast reception</string>
+    <string name="android.permission.CHANGE_WIFI_STATE">Connect and disconnect from Wi-Fi</string>
+    <string name="android.permission.CLEAR_APP_CACHE">Delete all app cache data</string>
+    <string name="android.permission.CLEAR_APP_USER_DATA">Delete other apps\' data</string>
+    <string name="android.permission.CONTROL_LOCATION_UPDATES">Control location update notifications</string>
+
+    <string name="android.permission.DELETE_CACHE_FILES">Delete other apps\' caches</string>
+    <string name="android.permission.DELETE_PACKAGES">Delete apps</string>
+    <string name="android.permission.DEVICE_POWER">Power device on or off</string>
+    <string name="android.permission.DIAGNOSTIC">Read/write to resources owned by diag</string>
+    <string name="android.permission.DISABLE_KEYGUARD">Disable your screen lock</string>
+    <string name="android.permission.DUMP">Retrieve system internal state</string>
+
+    <string name="android.permission.EXPAND_STATUS_BAR">Expand/collapse status bar</string>
+
+    <string name="android.permission.FACTORY_TEST">Run in factory test mode</string>
+    <string name="android.permission.FLASHLIGHT">Control flashlight</string>
+    <string name="android.permission.FORCE_BACK">Force app to close</string>
+    <string name="android.permission.FORCE_STOP_PACKAGES">Force stop other apps</string>
+
+    <string name="android.permission.GET_ACCOUNTS">Find accounts on the device</string>
+    <string name="android.permission.GET_ACCOUNTS_PRIVILEGED">>Find accounts on the device</string>
+    <string name="android.permission.GET_DETAILED_TASKS">Retrieve details of running apps</string>
+    <string name="android.permission.GET_PACKAGE_SIZE">Measure app storage space</string>
+    <string name="android.permission.GET_TASKS">Retrieve running apps</string>
+    <string name="android.permission.GLOBAL_SEARCH">Global search</string>
+
+    <string name="android.permission.HARDWARE_TEST">Test hardware</string>
+
+    <string name="android.permission.INJECT_EVENTS">Press keys and control buttons</string>
+    <string name="android.permission.INSTALL_LOCATION_PROVIDER">Permission to install a location provider</string>
+    <string name="android.permission.INSTALL_PACKAGES">Directly install apps</string>
+    <string name="android.permission.INTERNAL_SYSTEM_WINDOW">Display unauthorized windows</string>
+    <string name="android.permission.INTERNET">Full network access</string>
+
+    <string name="android.permission.KILL_BACKGROUND_PROCESSES">Close other apps</string>
+
+    <string name="android.permission.LOCATION_HARDWARE">Use location features in hardware, such as the geofencing api</string>
+
+    <string name="android.permission.MANAGE_ACCOUNTS">Add or remove accounts</string>
+    <string name="android.permission.MANAGE_APP_TOKENS">Manage app tokens</string>
+    <string name="android.permission.MANAGE_DOCUMENTS">Manage access to documents, usually as part of a document picker</string>
+    <string name="android.permission.MANAGE_USB">Manage preferences and permissions for USB devices</string>
+    <string name="android.permission.MASTER_CLEAR">Reset system to factory defaults</string>
+    <string name="android.permission.MEDIA_CONTENT_CONTROL">Know what content is playing and control its playback</string>
+    <string name="android.permission.MODIFY_AUDIO_SETTINGS">Change your audio settings</string>
+    <string name="android.permission.MODIFY_PHONE_STATE">Modify phone state</string>
+    <string name="android.permission.MOUNT_FORMAT_FILESYSTEMS">Erase SD Card</string>
+    <string name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS">Access SD Card filesystem</string>
+
+    <string name="android.permission.NFC">Control Near Field Communication</string>
+
+    <string name="android.permission.PACKAGE_USAGE_STATS">Collect component usage statistics</string>
+    <string name="android.permission.PERSISTENT_ACTIVITY">Make app always run</string>
+    <string name="android.permission.PROCESS_OUTGOING_CALLS">Reroute outgoing calls</string>
+
+    <string name="android.permission.READ_CALENDAR">Read calendar events plus confidential information</string>
+    <string name="android.permission.READ_CALL_LOG">Read call log</string>
+    <string name="android.permission.READ_CELL_BROADCASTS">Read cell broadcast messages</string>
+    <string name="android.permission.READ_CONTACTS">Read your contacts</string>
+    <string name="android.permission.READ_EXTERNAL_STORAGE">Read the contents of your SD card</string>
+    <string name="android.permission.READ_FRAME_BUFFER">Read frame buffer</string>
+    <string name="android.permission.READ_INPUT_STATE">Record what you type and actions you take</string>
+    <string name="android.permission.READ_LOGS">Read sensitive log data</string>
+    <string name="android.permission.READ_PHONE_STATE">Read phone status and identity</string>
+    <string name="android.permission.READ_PROFILE">Read your own contact card</string>
+    <string name="android.permission.READ_SMS">Read your text messages (SMS or MMS)</string>
+    <string name="android.permission.READ_SOCIAL_STREAM">Read your social stream</string>
+    <string name="android.permission.READ_SYNC_SETTINGS">Read sync settings</string>
+    <string name="android.permission.READ_SYNC_STATS">Read sync statistics</string>
+    <string name="android.permission.READ_USER_DICTIONARY">Read terms you added to the dictionary</string>
+    <string name="android.permission.REBOOT">Force device reboot</string>
+    <string name="android.permission.RECEIVE_BOOT_COMPLETED">Run at startup</string>
+    <string name="android.permission.RECEIVE_EMERGENCY_BROADCAST">Receive emergency broadcasts</string>
+    <string name="android.permission.RECEIVE_MMS">Receive text messages (MMS)</string>
+    <string name="android.permission.RECEIVE_SMS">Receive text messages (SMS)</string>
+    <string name="android.permission.RECEIVE_WAP_PUSH">Receive text messages (WAP)</string>
+    <string name="android.permission.RECORD_AUDIO">Record audio</string>
+    <string name="android.permission.REMOVE_TASKS">Stop running apps</string>
+    <string name="android.permission.REORDER_TASKS">Reorder running apps</string>
+    <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Request ignore battery optimizations</string>
+    <string name="android.permission.REQUEST_INSTALL_PACKAGES">Request installing apps</string>
+    <string name="android.permission.RESTART_PACKAGES">Restart applications</string>
+    <string name="android.permission.RETRIEVE_WINDOW_CONTENT">Retrieve screen content</string>
+
+    <string name="android.permission.SEND_RESPOND_VIA_MESSAGE">Handle the respond-via-message action during incoming calls</string>
+    <string name="android.permission.SEND_SMS">Send SMS messages</string>
+    <string name="android.permission.SET_ACTIVITY_WATCHER">Watch and control how activities are started globally in the system</string>
+    <string name="android.permission.SET_ALWAYS_FINISH">Force background apps to close</string>
+    <string name="android.permission.SET_ANIMATION_SCALE">Modify global animation speed</string>
+    <string name="android.permission.SET_DEBUG_APP">Enable app debugging</string>
+    <string name="android.permission.SET_ORIENTATION">Change screen orientation</string>
+    <string name="android.permission.SET_POINTER_SPEED">Change pointer speed</string>
+    <string name="android.permission.SET_PREFERRED_APPLICATIONS">Set preferred apps</string>
+    <string name="android.permission.SET_PROCESS_LIMIT">Limit number of running processes</string>
+    <string name="android.permission.SET_SCREEN_COMPATIBILITY">Set screen compatibility</string>
+    <string name="android.permission.SET_TIME">Set time</string>
+    <string name="android.permission.SET_TIME_ZONE">Set time zone</string>
+    <string name="android.permission.SET_WALLPAPER">Set wallpaper</string>
+    <string name="android.permission.SET_WALLPAPER_HINTS">Adjust your wallpaper size</string>
+    <string name="android.permission.SIGNAL_PERSISTENT_PROCESSES">Send Linux signals to apps</string>
+    <string name="android.permission.START_ANY_ACTIVITY">Start any activity</string>
+    <string name="android.permission.STATUS_BAR">Disable or modify status bar</string>
+    <string name="android.permission.SUBSCRIBED_FEEDS_READ">Read subscribed feeds</string>
+    <string name="android.permission.SUBSCRIBED_FEEDS_WRITE">Write subscribed feeds</string>
+    <string name="android.permission.SYSTEM_ALERT_WINDOW">Draw over other apps</string>
+
+    <string name="android.permission.TRANSMIT_IR">Transmit Infrared messages</string>
+
+    <string name="android.permission.UPDATE_DEVICE_STATS">Update device statistics</string>
+    <string name="android.permission.USE_CREDENTIALS">Use accounts on the device</string>
+    <string name="android.permission.USE_FINGERPRINT">Use fingerprint hardware</string>
+    <string name="android.permission.USE_SIP">Make/receive Internet calls</string>
+
+    <string name="android.permission.VIBRATE">Control vibration</string>
+
+    <string name="android.permission.WAKE_LOCK">Prevent device from sleeping</string>
+    <string name="android.permission.WRITE_APN_SETTINGS">Change/intercept network settings and traffic</string>
+    <string name="android.permission.WRITE_CALENDAR">Add or modify calendar events and send email to guests without owners\' knowledge</string>
+    <string name="android.permission.WRITE_CALL_LOG">Write call log</string>
+    <string name="android.permission.WRITE_CONTACTS">Modify your contacts</string>
+    <string name="android.permission.WRITE_EXTERNAL_STORAGE">Modify or delete the contents of your SD card</string>
+    <string name="android.permission.WRITE_GSERVICES">Modify the Google services map</string>
+    <string name="android.permission.WRITE_MEDIA_STORAGE">Modify/delete internal media storage contents</string>
+    <string name="android.permission.WRITE_PROFILE">Modify your own contact card</string>
+    <string name="android.permission.WRITE_SECURE_SETTINGS">Modify secure system settings</string>
+    <string name="android.permission.WRITE_SETTINGS">Modify system settings</string>
+    <string name="android.permission.WRITE_SMS">Edit your text messages (SMS or MMS)</string>
+    <string name="android.permission.WRITE_SOCIAL_STREAM">Write to your social stream</string>
+    <string name="android.permission.WRITE_SYNC_SETTINGS">Toggle sync on and off</string>
+    <string name="android.permission.WRITE_USER_DICTIONARY">Write to user-defined dictionary</string>
+
+    <!-- Stock Apps Permissions -->
+    <string name="com.android.alarm.permission.SET_ALARM">Set an alarm</string>
+    <string name="com.android.browser.permission.READ_HISTORY_BOOKMARKS">Read your Web bookmarks and history</string>
+    <string name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS">Write web bookmarks and history</string>
+    <string name="com.android.email.permission.READ_ATTACHMENT">Read email attachments</string>
+    <string name="com.android.launcher.permission.INSTALL_SHORTCUT">Install shortcut on the Launcher</string>
+    <string name="com.android.launcher.permission.PRELOAD_WORKSPACE">Preload Home workspace</string>
+    <string name="com.android.launcher.permission.READ_SETTINGS">Read Home settings and shortcuts</string>
+    <string name="com.android.launcher.permission.UNINSTALL_SHORTCUT">Uninstall shortcut from the Launcher</string>
+    <string name="com.android.launcher.permission.WRITE_SETTINGS">Write Home settings and shortcuts</string>
+    <string name="com.android.vending.BILLING">Purchase in-app content through the GooglePlay application</string>
+    <string name="com.android.vending.CHECK_LICENSE">Check purchased licences through the GooglePlay application</string>
+    <string name="com.android.voicemail.permission.ADD_VOICEMAIL">Add voicemail</string>
+    <string name="com.android.voicemail.permission.READ_VOICEMAIL">Read voicemail</string>
+    <string name="com.android.voicemail.permission.WRITE_VOICEMAIL">Modify voicemail</string>
+    <string name="com.android.voicemail.permission.READ_WRITE_ALL_VOICEMAIL">Access all voicemail</string>
+
+    <!-- Other google permissions -->
+    <string name="com.google.android.c2dm.permission.RECEIVE">Receive messages from Google Cloud Messaging</string>
+    <string name="com.google.android.c2dm.permission.SEND">Broadcast GCM data messages to apps</string>
+    <string name="com.google.android.gms.permission.ACTIVITY_RECOGNITION">Activity recognition</string>
+    <string name="com.google.android.gtalkservice.permission.GTALK_SERVICE">Exchanges messages and receives sync notifications from Google servers</string>
+    <string name="com.google.android.gtalkservice.permission.SEND_HEARTBEAT">Send heartbeat to Google Talk server</string>
+    <string name="com.google.android.permission.BROADCAST_DATA_MESSAGE">Broadcast data messages to apps</string>
+    <string name="com.google.android.providers.gsf.permission.READ_GSERVICES">Read Google service configuration</string>
+    <string name="com.google.android.providers.talk.permission.READ_ONLY">Read instant messages</string>
+    <string name="com.google.android.providers.talk.permission.WRITE_ONLY">Write instant messags</string>
+    <string name="com.google.android.xmpp.permission.SEND_RECEIVE">Send and receive XMPP messages to and from Google servers</string>
+    <string name="com.google.android.xmpp.permission.USE_XMPP_ENDPOINT">Send and receive XMPP messages to and from Google servers</string>
+    <string name="com.google.android.xmpp.permission.XMPP_ENDPOINT_BROADCAST">Broadcast XMPP messages to apps</string>
+    <string name="com.google.android.xmpp.permission.BROADCAST">Broadcast XMPP messages to apps</string>
+
+    <!-- Obsolete ? -->
+    <string name="changeTetherState">Change tethered connectivity</string>
+    <string name="manageNetworkPolicy">Manage network policy</string>
+    <string name="readNetworkUsageHistory">Read historical network usage</string>
+    <string name="sendSmsNoConfirmation">Send SMS messages with no confirmation</string>
+    <string name="statusBarService">Status bar</string>
+    <string name="enableCarMode">Enable car mode</string>
+    <string name="shutdown">Partial shutdown</string>
+    <string name="stopAppSwitches">Prevent app switches</string>
+    <string name="runSetActivityWatcher">Monitor and control all app launching</string>
+    <string name="backup">Control system backup and restore</string>
+    <string name="confirm_full_backup">Confirm a full backup or restore operation</string>
+    <string name="setKeyboardLayout">Change keyboard layout</string>
+    <string name="movePackage">Move app resources</string>
+    <string name="anyCodecForPlayback">Use any media decoder for playback</string>
+    <string name="grantRevokePermissions">Grant or revoke permissions</string>
+    <string name="performCdmaProvisioning">Directly start CDMA phone setup</string>
+    <string name="bindGadget">Choose widgets</string>
+    <string name="cache_filesystem">Access the cache filesystem</string>
+
+
+    <string name="modifyNetworkAccounting">Modify network usage accounting</string>
+
+</resources>

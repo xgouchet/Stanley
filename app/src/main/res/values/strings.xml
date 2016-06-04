@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Stanley</string>
+
+    <string name="header_type_global">Package Information</string>
+    <string name="header_type_features">Features</string>
+    <string name="header_type_custom_permissions">Custom Permissions</string>
+    <string name="header_type_uses_permissions">Uses Permisissions</string>
+    <string name="header_type_activities">Activities</string>
+    <string name="header_type_services">Services</string>
+    <string name="header_type_providers">Providers</string>
+    <string name="header_type_receivers">Receivers</string>
+</resources>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="release1">Stanley 1.0 (apr. 2013)</string>
-    <string name="release1_log">"- Explore Package Resources
-- Explore Package Informations
-- Export Package Manifest"</string>
-
-</resources>

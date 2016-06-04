@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Audio -->
+    <string name="android.hardware.audio.low_latency">Low Latency audio pipeline</string>
+    <string name="android.hardware.audio.output">Audio output via speakers, bluetooth, …</string>
+    <string name="android.hardware.audio.pro">High-end audio functionality</string>
+    <string name="android.hardware.microphone">Audio input via microphone, …</string>
+
+    <!-- Bluetooth -->
+    <string name="android.hardware.bluetooth">Bluetooth</string>
+    <string name="android.hardware.bluetooth_le">Bluetooth Low Energy</string>
+
+    <!-- Camera -->
+    <string name="android.hardware.camera">Back-Facing camera</string>
+    <string name="android.hardware.camera.any">Any camera</string>
+    <string name="android.hardware.camera.front">Front-Facing camera</string>
+    <string name="android.hardware.camera.external">External camera</string>
+
+    <string name="android.hardware.camera.autofocus">Camera auto-focus</string>
+    <string name="android.hardware.camera.capability.manual_post_processing">Override the auto white balance</string>
+
+    <string name="android.hardware.camera.capability.manual_sensor">Camera manual sensor</string>
+    <string name="android.hardware.camera.capability.raw">Raw camera data</string>
+    <string name="android.hardware.camera.flash">Camera flash</string>
+    <string name="android.hardware.camera.level.full">Full image-capturing support</string>
+
+    <!-- Device UI -->
+    <string name="android.hardware.type.automotive">Android Auto</string>
+    <string name="android.hardware.type.television">Android TV</string>
+    <string name="android.hardware.type.watch">Android Wear</string>
+
+    <!-- Location -->
+    <string name="android.hardware.location">Location</string>
+    <string name="android.hardware.location.gps">GPS Location</string>
+    <string name="android.hardware.location.network">Network Location</string>
+
+    <!-- NFC -->
+    <string name="android.hardware.nfc">Near Field Communication</string>
+    <string name="android.hardware.nfc.hce">NFC card emulation</string>
+
+    <!-- Sensors -->
+    <string name="android.hardware.sensor.accelerometer">Accelerometer</string>
+    <string name="android.hardware.sensor.ambient_temperature">Ambient Temperature</string>
+    <string name="android.hardware.sensor.barometer">Barometer</string>
+    <string name="android.hardware.sensor.compass">Compass</string>
+    <string name="android.hardware.sensor.gyroscope">Gyroscope</string>
+    <string name="android.hardware.sensor.heartrate">Heartrate</string>
+    <string name="android.hardware.sensor.heartrate.ecg">Electrocardiogram</string>
+    <string name="android.hardware.sensor.hifi_sensors">High fidelity sensors</string>
+    <string name="android.hardware.sensor.light">Light sensor</string>
+    <string name="android.hardware.sensor.proximity">Proximity sensor</string>
+    <string name="android.hardware.sensor.relative_humidity">Relative humidity sensor</string>
+    <string name="android.hardware.sensor.stepcounter">Step counter</string>
+    <string name="android.hardware.sensor.stepdetector">Step detector</string>
+
+    <!-- Device orientation -->
+    <string name="android.hardware.screen.landscape">Landscape Orientation</string>
+    <string name="android.hardware.screen.portrait">Portrait Orientation</string>
+
+    <!-- Telephony -->
+    <string name="android.hardware.telephony">Telephony communication</string>
+    <string name="android.hardware.telephony.cdma">CDMA Telephony communication</string>
+    <string name="android.hardware.telephony.gsm">GSM Telephony communication</string>
+
+    <!-- Touchscreen -->
+    <string name="android.hardware.touchscreen">Touchscreen</string>
+    <string name="android.hardware.touchscreen.multitouch">Touchscreen with multitouch</string>
+    <string name="android.hardware.touchscreen.multitouch.distinct">Touchscreen with independent multitouch</string>
+    <string name="android.hardware.faketouch">Emulated touchscreen</string>
+
+    <!-- USB -->
+    <string name="android.hardware.usb.accessory">Behaves as USB device</string>
+    <string name="android.hardware.usb.host">uses USB devices</string>
+
+    <!-- Wifi -->
+    <string name="android.hardware.wifi">WiFi networking</string>
+    <string name="android.hardware.wifi.direct">Wi-Fi Direct networking</string>
+
+    <!-- Misc -->
+    <string name="android.hardware.fingerprint">Read Fingerprint</string>
+    <string name="android.hardware.gamepad">Game controller input</string>
+    <string name="android.hardware.consumerir">Infra-Red communication</string>
+    <string name="android.hardware.opengles.aep">OpenGL ES Android Extension Pack</string>
+
+
+    <string name="android.software.app_widgets">App widgets</string>
+    <string name="android.software.backup">Backup</string>
+    <string name="android.software.device_admin">Device administration</string>
+    <string name="android.software.home_screen">Replace Home screen</string>
+    <string name="android.software.input_methods">Input Method, like a virtual keyboard</string>
+    <string name="android.software.leanback">Leanback UI (Android TV)</string>
+    <string name="android.software.live_tv">Live TV streaming</string>
+    <string name="android.software.live_wallpaper">Live wallpaper</string>
+    <string name="android.software.managed_users">Secondary users / Managed profiles</string>
+    <string name="android.software.midi">Musical Instrument Digital Interface (MIDI) protocol</string>
+    <string name="android.software.print">Print documents</string>
+    <string name="android.software.securely_removes_users">Permanently remove users</string>
+    <string name="android.software.sip">Session Initiation Protocol (SIP) services</string>
+    <string name="android.software.sip.voip">Voice Over Internet Protocol (VoIP) services</string>
+    <string name="android.software.verified_boot">Verified boot </string>
+    <string name="android.software.webview">Displays web pages</string>
+
+</resources>

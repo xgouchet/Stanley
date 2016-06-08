@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Stanley</string>
 
+    <!-- App details headers -->
     <string name="header_type_global">Package Information</string>
     <string name="header_type_features">Features</string>
     <string name="header_type_custom_permissions">Custom Permissions</string>
@@ -9,4 +10,23 @@
     <string name="header_type_services">Services</string>
     <string name="header_type_providers">Providers</string>
     <string name="header_type_receivers">Receivers</string>
+
+    <!-- Preferences -->
+    <string name="pref_title_show_system_apps">Display system apps</string>
+    <string name="pref_description_show_system_apps_on">System applications are displayed</string>
+    <string name="pref_description_show_system_apps_off">Only installed apps are displayed</string>
+
+    <string name="pref_title_sort_criteria">Sort apps by …</string>
+    <string-array name="pref_sort_entries">
+        <item>Name</item>
+        <item>Package name</item>
+        <item>Installation date</item>
+    </string-array>
+    <string-array name="pref_sort_values">
+        <item>name</item>
+        <item>package_name</item>
+        <item>install_time</item>
+    </string-array>
+
+
 </resources>

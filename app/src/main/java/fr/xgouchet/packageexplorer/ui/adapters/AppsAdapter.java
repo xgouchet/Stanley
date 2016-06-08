@@ -1,10 +1,12 @@
 package fr.xgouchet.packageexplorer.ui.adapters;
 
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,12 +17,16 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.xgouchet.packageexplorer.R;
+import fr.xgouchet.packageexplorer.core.Preferences;
 import fr.xgouchet.packageexplorer.model.App;
 import fr.xgouchet.packageexplorer.ui.callbacks.AppSortedListCallback;
 import fr.xgouchet.packageexplorer.ui.events.AppSelectedEvent;
@@ -35,13 +41,17 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder>
 
     private final List<App> appList = new ArrayList<>();
     private final SortedList<App> filteredAppList;
+    private final boolean ignoreSystemApps;
 
     @Nullable
     private String currentFilter = null;
 
-    public AppsAdapter() {
-        filteredAppList = new SortedList<>(App.class, new AppSortedListCallback.ByPackageName(this));
+    public AppsAdapter(@NonNull Context context) {
+        SortedListAdapterCallback<App> sortedListCallback = AppSortedListCallback.getCallback(context, this);
+        ignoreSystemApps = !Preferences.getDisplaySystemApp(context);
+        filteredAppList = new SortedList<>(App.class, sortedListCallback);
     }
+
 
     @Override
     public AppsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,9 +91,11 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder>
     private void onNextApp(App app) {
         if (app == null) return;
 
-        // Ignore system apps
-        if ((app.getFlags() & ApplicationInfo.FLAG_SYSTEM) > 0) {
-            return;
+        // Ignore system apps ?
+        if (ignoreSystemApps) {
+            if ((app.getFlags() & ApplicationInfo.FLAG_SYSTEM) > 0) {
+                return;
+            }
         }
 
         appList.add(app);
@@ -146,19 +158,23 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder>
         return true;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.icon_app)
         ImageView icon;
 
         @BindView(R.id.text_title)
         TextView title;
-        @BindView(R.id.text_subtitle)
+        @BindView(R.id.text_package_name)
         TextView subtitle;
+        @BindView(R.id.text_install)
+        TextView install;
 
         @Nullable
         private App app;
 
+        private static final DateFormat DATE_FORMAT = SimpleDateFormat.getDateInstance();
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -172,6 +188,9 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder>
             title.setText(app.getName());
             subtitle.setText(app.getPackageName());
             icon.setImageDrawable(app.getIcon());
+            synchronized (DATE_FORMAT) {
+                install.setText(DATE_FORMAT.format(new Date(app.getInstallTime())));
+            }
         }
 
         @Override

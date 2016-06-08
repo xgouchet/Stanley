@@ -1,5 +1,6 @@
 package fr.xgouchet.packageexplorer.ui.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -56,8 +57,8 @@ public class AppListActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.fab)
-    public void onFabClicked(View view){
-
+    public void onFabClicked(View view) {
+        startActivity(new Intent(getApplicationContext(), AppFiltersActivity.class));
     }
 
     public void switchToDetailView(@NonNull App app, @Nullable View icon) {

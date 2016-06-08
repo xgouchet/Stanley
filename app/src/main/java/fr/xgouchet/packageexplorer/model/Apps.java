@@ -18,7 +18,6 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.jar.Manifest;
 
 import fr.xgouchet.packageexplorer.R;
 import fr.xgouchet.packageexplorer.annotations.MonitorMe;
@@ -51,8 +50,7 @@ public class Apps {
             for (PackageInfo pi : packages) {
                 ai = pi.applicationInfo;
                 if (ai == null) continue;
-
-                App app = App.fromAppInfo(pm, ai);
+                App app = App.fromAppInfo(pm, pi, ai);
 
                 subscriber.onNext(app);
             }

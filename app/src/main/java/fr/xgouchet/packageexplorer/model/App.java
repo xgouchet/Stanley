@@ -2,6 +2,7 @@ package fr.xgouchet.packageexplorer.model;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -24,17 +25,21 @@ public class App {
     @NonNull
     private final Drawable icon;
 
+    private final long installTime;
+
     private final int flags;
 
 
     public App(@NonNull String packageName,
                @NonNull String name,
                @NonNull Drawable icon,
+               long installTime,
                int flags) {
 
         this.packageName = packageName;
         this.name = name;
         this.icon = icon;
+        this.installTime = installTime;
         this.flags = flags;
     }
 
@@ -57,12 +62,17 @@ public class App {
         return flags;
     }
 
+    public long getInstallTime() {
+        return installTime;
+    }
+
     @Nullable
     public static App fromPackageName(@NonNull Context context, @NonNull String packageName) {
         PackageManager pm = context.getPackageManager();
         try {
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
-            return fromAppInfo(pm, ai);
+            return fromAppInfo(pm, pi, ai);
         } catch (PackageManager.NameNotFoundException e) {
             Log.e("App", e.getMessage(), e);
             return null;
@@ -70,12 +80,13 @@ public class App {
     }
 
     @MonitorMe
-    public static App fromAppInfo(@NonNull PackageManager pm, @NonNull ApplicationInfo ai) {
+    public static App fromAppInfo(@NonNull PackageManager pm, PackageInfo pi, @NonNull ApplicationInfo ai) {
         return new App.Builder()
                 .withPackageName(ai.packageName)
                 .withName(pm.getApplicationLabel(ai).toString())
                 .withIcon(pm.getApplicationIcon(ai))
                 .withFlags(ai.flags)
+                .withInstallTime(pi.firstInstallTime)
                 .build();
     }
 
@@ -88,6 +99,7 @@ public class App {
         @NonNull
         private Drawable icon = new ColorDrawable(Color.TRANSPARENT);
         private int flags = 0;
+        private long installTime = 0;
 
         public Builder() {
         }
@@ -113,8 +125,13 @@ public class App {
             return this;
         }
 
+        public Builder withInstallTime(long installTime) {
+            this.installTime = installTime;
+            return this;
+        }
+
         public App build() {
-            return new App(packageName, name, icon, flags);
+            return new App(packageName, name, icon, installTime, flags);
         }
     }
 

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.xgouchet.packageexplorer.R;
+import fr.xgouchet.packageexplorer.core.Preferences;
 import fr.xgouchet.packageexplorer.model.Apps;
 import fr.xgouchet.packageexplorer.ui.adapters.AppsAdapter;
 import rx.Observable;
@@ -31,20 +32,12 @@ public class AppListFragment extends Fragment implements SearchView.OnQueryTextL
     @BindView(R.id.app_list)
     RecyclerView recyclerView;
 
-    private final AppsAdapter appsAdapter = new AppsAdapter();
+    private AppsAdapter appsAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        appsAdapter.clear();
-
-        Observable.create(new Apps.List(getActivity()))
-                .subscribeOn(Schedulers.io())
-                .buffer(32)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(appsAdapter);
     }
 
     @Nullable
@@ -55,14 +48,17 @@ public class AppListFragment extends Fragment implements SearchView.OnQueryTextL
         View root = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.bind(this, root);
 
-        recyclerView.setAdapter(appsAdapter);
-
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        if (Preferences.sortOrDisplayChanged(getContext())) {
+            reload();
+        }
+
     }
 
     @Override
@@ -93,4 +89,15 @@ public class AppListFragment extends Fragment implements SearchView.OnQueryTextL
         return true;
     }
 
+
+    private void reload() {
+        appsAdapter = new AppsAdapter(getContext());
+        recyclerView.setAdapter(appsAdapter);
+
+        Observable.create(new Apps.List(getActivity()))
+                .subscribeOn(Schedulers.io())
+                .buffer(32)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(appsAdapter);
+    }
 }

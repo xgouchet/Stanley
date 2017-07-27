@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="fr.xgouchet.packageexplorer.ui.activities.AppDetailsActivity">
+    tools:context="fr.xgouchet.packageexplorer.ui.activities.OldAppDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -30,7 +30,7 @@
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="8dp"
                 android:src="@mipmap/ic_launcher"
-                android:transitionName="icon"
+                android:transitionName="@string/transition_icon"
                 app:layout_collapseMode="pin" />
 
             <android.support.v7.widget.Toolbar
@@ -44,13 +44,18 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:fillViewport="true"
         android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <fragment
+            android:id="@+id/fragment_container"
+            android:name="fr.xgouchet.packageexplorer.appdetails.AppDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_list" />
 
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

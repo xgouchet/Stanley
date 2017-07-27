@@ -1,79 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="@dimen/corner_radius_card"
-    app:cardElevation="@dimen/elevation_card">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="app"
+            type="fr.xgouchet.packageexplorer.applist.AppViewModel" />
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/corner_radius_card"
+        app:cardElevation="@dimen/elevation_card">
 
-        <ImageView
-            android:id="@+id/icon_app"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
-            android:src="@mipmap/ic_launcher"
-            tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/text_title"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_toEndOf="@id/icon_app"
-            android:layout_toRightOf="@id/icon_app"
-            android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textStyle="bold"
-            tools:text="@string/app_name" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/icon_app"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:src="@{app.icon}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center_vertical"
+                android:text="@{app.title}"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@+id/icon_app"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/text_package_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/icon_app"
+                android:layout_margin="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{app.packageName}"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textColor="@color/accent"
+                app:layout_constraintHorizontal_bias="0.125"
+                app:layout_constraintLeft_toRightOf="@+id/icon_app"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_title"
+                tools:text="com.example.app.flavor" />
 
 
+            <TextView
+                android:id="@+id/text_install_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:ellipsize="end"
+                android:text="@string/app_installed_on"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_package_name" />
 
-        <TextView
-            android:id="@+id/text_install"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_title"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/icon_app"
-            android:layout_toRightOf="@id/icon_app"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textColor="@color/accent"
-            android:textStyle="italic"
-            tools:text="com.example.app.flavor" />
+            <TextView
+                android:id="@+id/text_install"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:ellipsize="end"
+                android:text="@{app.installTimeStr}"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toRightOf="@+id/text_install_label"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_package_name"
+                tools:text="September 15, 2012" />
 
-        <TextView
-            android:id="@+id/text_package_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/icon_app"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            tools:text="com.example.app.flavor" />
 
-    </RelativeLayout>
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/text_update_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:ellipsize="end"
+                android:text="@string/app_updated_on"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_install_label" />
+
+            <TextView
+                android:id="@+id/text_update"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:ellipsize="end"
+                android:text="@{app.updateTimeStr}"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/text_install_label"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_install"
+                tools:text="September 15, 2012" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>

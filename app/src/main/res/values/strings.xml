@@ -1,5 +1,13 @@
 <resources>
+
+    <!-- Manifest -->
     <string name="app_name">Stanley</string>
+    <string name="title_activity_app_list">Stanley</string>
+    <string name="title_activity_app_filters">App Filters</string>
+
+
+    <!-- Messages -->
+    <string name="msg_empty_app_list">No application found</string>
 
     <!-- App details headers -->
     <string name="header_type_global">Package Information</string>
@@ -11,12 +19,28 @@
     <string name="header_type_providers">Providers</string>
     <string name="header_type_receivers">Receivers</string>
 
+    <!-- Item views -->
+    <string name="app_installed_on">Installed on :</string>
+    <string name="app_updated_on">Updated on :</string>
+
+    <!-- Options menu -->
+    <string name="menu_sort">Sort by…</string>
+    <string name="menu_sort_by_title">…by title</string>
+    <string name="menu_sort_by_package_name">…by pacakge name</string>
+    <string name="menu_sort_by_install_time">…by install date</string>
+    <string name="menu_sort_by_update_time">…by update date</string>
+    <string name="menu_hide_system_apps">Hide system apps</string>
+    <string name="menu_show_system_apps">Show system apps</string>
+
+    <!-- Not Displayed -->
+    <string name="transition_icon">icon</string>
+
     <!-- Preferences -->
     <string name="pref_title_show_system_apps">Display system apps</string>
     <string name="pref_description_show_system_apps_on">System applications are displayed</string>
     <string name="pref_description_show_system_apps_off">Only installed apps are displayed</string>
-
     <string name="pref_title_sort_criteria">Sort apps by …</string>
+
     <string-array name="pref_sort_entries">
         <item>Name</item>
         <item>Package name</item>

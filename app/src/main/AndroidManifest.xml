@@ -3,44 +3,41 @@
     package="fr.xgouchet.packageexplorer">
 
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".ui.activities.AppListActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:name=".applist.AppListActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
-            android:name=".ui.activities.AppDetailsActivity"
-            android:parentActivityName=".ui.activities.AppListActivity"
-            android:theme="@style/AppTheme">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+            android:name=".appdetails.AppDetailsActivity"
+            android:enabled="true"
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.xgouchet.packageexplorer.ui.activities.AppListActivity" />
+                android:value=".applist.AppListActivity" />
         </activity>
-        <activity
-            android:name=".ui.activities.AppFiltersActivity"
-            android:label="@string/title_activity_app_filters"
-            android:parentActivityName=".AppListActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="AppListActivity" />
-        </activity>
+
+
+        <!--<activity-->
+        <!--android:name=".ui.activities.AppFiltersActivity"-->
+        <!--android:label="@string/title_activity_app_filters"-->
+        <!--android:parentActivityName=".ui.activities.AppListActivity">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value=".ui.activities.AppListActivity" />-->
+        <!--</activity>-->
     </application>
 
 </manifest>

@@ -6,8 +6,9 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+import java.util.prefs.Preferences;
+
 import fr.xgouchet.packageexplorer.R;
-import fr.xgouchet.packageexplorer.core.Preferences;
 
 /**
  * @author Xavier Gouchet
@@ -22,7 +23,6 @@ public class AppFiltersPrefsFragment extends PreferenceFragment implements Share
 
         getPreferenceManager().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
-        onSharedPreferenceChanged(getPreferenceManager().getSharedPreferences(), Preferences.KEY_SORT_CRITERIA);
 
     }
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activities.AppListActivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:title="@android:string/search_go"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+
+    <item
+        android:id="@+id/sort"
+        android:title="@string/menu_sort"
+        android:icon="@drawable/ic_sort_white_24dp"
+        app:showAsAction="ifRoom">
+
+        <menu xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:HTMLCode="http://schemas.android.com/apk/res-auto">
+            <item
+                android:id="@+id/sort_by_title"
+                android:title="@string/menu_sort_by_title"
+                HTMLCode:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_package_name"
+                android:title="@string/menu_sort_by_package_name"
+                HTMLCode:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_install_time"
+                android:title="@string/menu_sort_by_install_time"
+                HTMLCode:showAsAction="never" />
+            <item
+                android:id="@+id/sort_by_update_time"
+                android:title="@string/menu_sort_by_update_time"
+                HTMLCode:showAsAction="never" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/hide_system_apps"
+        android:title="@string/menu_hide_system_apps"
+        />
+
+    <item
+        android:id="@+id/show_system_apps"
+        android:title="@string/menu_show_system_apps"
+        />
+</menu>

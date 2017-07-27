@@ -10,15 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import fr.xgouchet.packageexplorer.R;
-import fr.xgouchet.packageexplorer.model.Apps;
-import fr.xgouchet.packageexplorer.ui.adapters.AppInfosAdapter;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.schedulers.Schedulers;
 
 /**
  * @author Xavier Gouchet
@@ -26,11 +18,8 @@ import rx.schedulers.Schedulers;
 public class AppDetailFragment extends Fragment {
 
     private static final String ARG_PACKAGE_NAME = "package_name";
-
-    @BindView(R.id.app_list)
     RecyclerView recyclerView;
 
-    private final AppInfosAdapter appInfosAdapter = new AppInfosAdapter();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,11 +35,11 @@ public class AppDetailFragment extends Fragment {
             return;
         }
 
-        Observable.create(new Apps.Infos(getActivity(), packageName))
-                .subscribeOn(Schedulers.io())
-                .onBackpressureBuffer()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(appInfosAdapter);
+//        Observable.create(new Apps.Infos(getActivity(), packageName))
+//                .subscribeOn(Schedulers.io())
+//                .onBackpressureBuffer()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(appInfosAdapter);
     }
 
     @Nullable
@@ -59,9 +48,6 @@ public class AppDetailFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_list, container, false);
-        ButterKnife.bind(this, root);
-
-        recyclerView.setAdapter(appInfosAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
         return root;

@@ -41,11 +41,12 @@ class AppDetailsSource(val context: Context,
                 .or(PackageManager.GET_SERVICES)
 //                .or(PackageManager.GET_SIGNATURES)
 
-        val APP_INFO_FLAGS = 0
+        const val APP_INFO_FLAGS = 0
+
+        const val C2D_MESSAGE = ".permission.C2D_MESSAGE"
     }
 
-    override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>?) {
-        if (emitter == null) return
+    override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>) {
 
         try {
             val packageManager = context.packageManager
@@ -75,11 +76,24 @@ class AppDetailsSource(val context: Context,
                                 packageInfo: PackageInfo,
                                 applicationInfo: ApplicationInfo) {
         emitter.apply {
-            emitter.onNext(AppInfoHeader(INFO_TYPE_GLOBAL, "Global Information", R.drawable.ic_info))
+            emitter.onNext(AppInfoHeader(INFO_TYPE_GLOBAL, "Global Information", R.drawable.ic_global_info))
 
             onNext(AppInfoSimple(INFO_TYPE_GLOBAL, "Version Code : ${packageInfo.versionCode}"))
             onNext(AppInfoSimple(INFO_TYPE_GLOBAL, "Version Name : “${packageInfo.versionName}”"))
             onNext(AppInfoSimple(INFO_TYPE_GLOBAL, "Target SDK : ${applicationInfo.targetSdkVersion}"))
+
+            if ((applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0) {
+                onNext(AppInfoWithIcon(INFO_TYPE_GLOBAL, "System app", null, R.drawable.ic_system_app))
+            }
+            if ((applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
+                onNext(AppInfoWithIcon(INFO_TYPE_GLOBAL, "Debug version", null, R.drawable.ic_debuggable_app))
+            }
+            if ((applicationInfo.flags and ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
+                onNext(AppInfoWithIcon(INFO_TYPE_GLOBAL, "Installed on external storage", null, R.drawable.ic_external_location))
+            }
+            if ((applicationInfo.flags and ApplicationInfo.FLAG_LARGE_HEAP) != 0) {
+                onNext(AppInfoWithIcon(INFO_TYPE_GLOBAL, "Requires large heap", null, R.drawable.ic_large_heap_app))
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 var installLocation: String? = null
@@ -89,7 +103,7 @@ class AppDetailsSource(val context: Context,
                     PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL -> installLocation = "Install Location : External (if possible)"
                 }
                 if (installLocation != null) {
-                    onNext(AppInfoSimple(INFO_TYPE_GLOBAL, installLocation))
+                    onNext(AppInfoWithIcon(INFO_TYPE_GLOBAL, installLocation, null, R.drawable.ic_storage))
                 }
             }
         }
@@ -114,7 +128,7 @@ class AppDetailsSource(val context: Context,
                 } catch (ignore: PackageManager.NameNotFoundException) {
                 }
 
-                emitter.onNext(AppInfoWithSubtitleAndIcon(INFO_TYPE_ACTIVITIES, label, name, icon))
+                emitter.onNext(AppInfoWithSubtitleAndIcon(INFO_TYPE_ACTIVITIES, label, name, activity.name, icon))
             }
         }
     }
@@ -128,7 +142,8 @@ class AppDetailsSource(val context: Context,
             emitter.onNext(AppInfoHeader(INFO_TYPE_SERVICES, "Services", R.drawable.ic_services))
 
             for (service in services) {
-                onNext(AppInfoSimple(INFO_TYPE_SERVICES, simplifyName(service.name, packageName)))
+                val simplifiedName = simplifyName(service.name, packageName)
+                onNext(AppInfoSimple(INFO_TYPE_SERVICES, simplifiedName, service.name))
             }
         }
     }
@@ -143,7 +158,8 @@ class AppDetailsSource(val context: Context,
             emitter.onNext(AppInfoHeader(INFO_TYPE_PROVIDERS, "Content Providers", R.drawable.ic_provider))
 
             for (provider in providers) {
-                onNext(AppInfoSimple(INFO_TYPE_PROVIDERS, simplifyName(provider.name, packageName)))
+                val simplifiedName = simplifyName(provider.name, packageName)
+                onNext(AppInfoSimple(INFO_TYPE_PROVIDERS, simplifiedName, provider.name))
             }
         }
     }
@@ -157,7 +173,8 @@ class AppDetailsSource(val context: Context,
             emitter.onNext(AppInfoHeader(INFO_TYPE_RECEIVERS, "Broadcast Receivers", R.drawable.ic_receiver))
 
             for (receiver in receivers) {
-                onNext(AppInfoSimple(INFO_TYPE_RECEIVERS, simplifyName(receiver.name, packageName)))
+                val simplifiedName = simplifyName(receiver.name, packageName)
+                onNext(AppInfoSimple(INFO_TYPE_RECEIVERS, simplifiedName, receiver.name))
             }
         }
     }
@@ -171,13 +188,15 @@ class AppDetailsSource(val context: Context,
             emitter.onNext(AppInfoHeader(INFO_TYPE_CUSTOM_PERMISSIONS, "Custom Permissions", R.drawable.ic_custom_permission))
 
             for (cpi in permissions) {
-                val info: String
-                if (cpi.name.endsWith(".C2D_MESSAGE")) {
-                    info = context.getString(R.string.c2d_message_generic)
+                val description: String
+                val simplified = simplifyName(cpi.name, packageInfo.packageName)
+
+                if (simplified == C2D_MESSAGE) {
+                    description = context.getString(R.string.permission_c2d_message_generic)
                 } else {
-                    info = simplifyName(cpi.name, packageInfo.packageName)
+                    description = context.getString(R.string.permission_unknown)
                 }
-                onNext(AppInfoSimple(INFO_TYPE_CUSTOM_PERMISSIONS, info))
+                onNext(AppInfoWithSubtitle(INFO_TYPE_CUSTOM_PERMISSIONS, simplified, description, cpi.name))
             }
         }
     }
@@ -192,30 +211,28 @@ class AppDetailsSource(val context: Context,
             for (name in permissions) {
                 val stringRes = context.resources.getIdentifier(name, "string", context.packageName)
 
-
                 val description: String
                 val title: String
+                val simplified = simplifyName(name, packageInfo.packageName)
 
                 if (stringRes == 0) {
-                    if (name.endsWith(".permission.C2D_MESSAGE")) {
-                        description = context.getString(R.string.c2d_message_generic)
+                    if (simplified == C2D_MESSAGE) {
+                        description = context.getString(R.string.permission_c2d_message_generic)
                     } else {
                         Log.e("Apps", "Unable to find description for <\"$name\">")
-                        description = "?"
+                        description = context.getString(R.string.permission_unknown)
                     }
                 } else {
                     description = context.getString(stringRes)
                 }
 
-                if (name.endsWith(".permission.C2D_MESSAGE")) {
-                    title = ".permission.C2D_MESSAGE"
-                } else if (name.startsWith("android.permission.")) {
+                if (name.startsWith("android.permission.")) {
                     title = name.substring("android.permission.".length)
                 } else {
-                    title = name
+                    title = simplified
                 }
 
-                onNext(AppInfoWithSubtitle(INFO_TYPE_PERMISSIONS, title, description))
+                onNext(AppInfoWithSubtitle(INFO_TYPE_PERMISSIONS, title, description, name))
             }
         }
     }

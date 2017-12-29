@@ -1,10 +1,15 @@
 apply plugin: 'com.android.application'
-apply plugin: "kotlin-android"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.ben-manes.versions'
+
+apply from: "$project.rootDir/dependencies.gradle"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion android_build_tools_version
+
+    compileSdkVersion sdkVersion
+    buildToolsVersion buildToolsVersion
 
     defaultConfig {
         applicationId "fr.xgouchet.packageexplorer"
@@ -12,6 +17,8 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     /** Stores the signing configs information */
@@ -56,26 +63,12 @@ android {
 }
 
 dependencies {
-    // ANDROID SUPPORT LIBS
-    compile "com.android.support:support-v4:${android_support_version}"
-    compile "com.android.support:appcompat-v7:${android_support_version}"
-    compile "com.android.support:support-annotations:${android_support_version}"
 
-    // ANDROID UI SUPPORT LIBS
-    compile "com.android.support:cardview-v7:${android_support_version}"
-    compile "com.android.support:recyclerview-v7:${android_support_version}"
-    compile "com.android.support:design:${android_support_version}"
-    compile "com.android.support.constraint:constraint-layout:${constraint_layout_version}"
-    kapt 'com.android.databinding:compiler:2.3.1'
+    androidSupport()
+    kotlin()
+    rx()
 
-    // KOTLIN
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'io.github.microutils:kotlin-logging:1.4.6'
-
-    // DEV TOOLS
-    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.github.xgouchet:AXML:v1.0'
+    implementation 'com.github.xgouchet:AXML:v1.0'
 
     // ARCHITECTURE LIBRARIES
 //    compile 'com.squareup.okhttp3:okhttp:3.2.0'

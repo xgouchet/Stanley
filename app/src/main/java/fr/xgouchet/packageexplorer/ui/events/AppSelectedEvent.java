@@ -16,10 +16,6 @@ public class AppSelectedEvent {
     @Nullable
     private final View icon;
 
-    public AppSelectedEvent(@NonNull AppViewModel app) {
-        this(app, null);
-    }
-
     public AppSelectedEvent(@NonNull AppViewModel app, @Nullable View icon) {
         this.app = app;
         this.icon = icon;

@@ -99,8 +99,9 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
             it.setLoading(true)
             disposable?.dispose()
 
-            if (memoizedAppList != null){
-                dataSubject.onNext(memoizedAppList)
+            val list = memoizedAppList
+            if (list != null){
+                dataSubject.onNext(list)
                 return@let
             }
 

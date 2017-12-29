@@ -4,7 +4,14 @@
     <color name="primary_dark">#616161</color>
     <color name="primary_light">#F5F5F5</color>
 
-    <color name="accent">#FF5252</color>
+    <color name="accent">#F44336</color>
+
+    <color name="green">#4CAF50</color>
+    <color name="red">#B71C1C</color>
+    <color name="gold">#FFA000</color>
+    <color name="white">#FFFF</color>
+    <color name="black">#F000</color>
+    <color name="gray">#424242</color>
 
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>

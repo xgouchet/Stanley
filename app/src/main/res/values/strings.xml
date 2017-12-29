@@ -40,6 +40,8 @@
     <string name="pref_description_show_system_apps_on">System applications are displayed</string>
     <string name="pref_description_show_system_apps_off">Only installed apps are displayed</string>
     <string name="pref_title_sort_criteria">Sort apps by …</string>
+    <string name="action_app_info">System Application Info</string>
+    <string name="action_uninstall">Uninstall</string>
 
     <string-array name="pref_sort_entries">
         <item>Name</item>

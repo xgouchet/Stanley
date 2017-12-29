@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="c2d_message_generic">Receive messages from Google Cloud Messaging</string>
+    <string name="permission_c2d_message_generic">Generic Google Cloud Messaging permission</string>
+    <string name="permission_unknown">Unknown permission…</string>
 
     <!-- Standard Permissions -->
     <string name="android.permission.ACCESS_CHECKIN_PROPERTIES">Access checkin properties</string>
@@ -245,8 +246,6 @@
     <string name="performCdmaProvisioning">Directly start CDMA phone setup</string>
     <string name="bindGadget">Choose widgets</string>
     <string name="cache_filesystem">Access the cache filesystem</string>
-
-
     <string name="modifyNetworkAccounting">Modify network usage accounting</string>
 
 </resources>

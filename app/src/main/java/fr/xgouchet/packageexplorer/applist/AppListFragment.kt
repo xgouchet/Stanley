@@ -50,6 +50,7 @@ class AppListFragment : ListFragment<AppViewModel, AppListPresenter>(false) {
             findItem(R.id.show_system_apps).isVisible = !systemAppsVisible
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.sort_by_title -> presenter.setSort(AppSort.TITLE)

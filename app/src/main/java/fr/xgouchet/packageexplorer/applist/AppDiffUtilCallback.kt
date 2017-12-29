@@ -7,11 +7,11 @@ class AppDiffUtilCallback(oldContent: List<AppViewModel>,
     : BaseDiffUtilCallback<AppViewModel>(oldContent, newContent) {
 
     override fun areItemsRepresentingTheSameObject(oldItem: AppViewModel, newItem: AppViewModel): Boolean {
-        return oldItem == newItem
+        return oldItem.packageName.toLowerCase() == newItem.packageName.toLowerCase()
     }
 
     override fun areItemContentsTheSame(oldItem: AppViewModel, newItem: AppViewModel): Boolean {
-        return oldItem.packageName.toLowerCase() == newItem.packageName.toLowerCase()
+        return oldItem == newItem
     }
 
 }

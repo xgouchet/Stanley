@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.applist.AppViewModel
 import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
@@ -57,6 +58,7 @@ class AppDetailsActivity : AppCompatActivity() {
 
     internal var app: AppViewModel? = null
     internal val icon: ImageView by knife(R.id.icon_app)
+    internal val packageName: TextView by knife(R.id.text_package_name)
 
     internal var appDetailsPresenter: AppDetailsPresenter by notNull()
 
@@ -90,14 +92,9 @@ class AppDetailsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         app?.let {
-
-            val actionBar = supportActionBar
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true)
-                actionBar.subtitle = it.packageName
-            }
-            icon.setImageDrawable(it.icon)
             title = it.title
+            toolbar.subtitle = it.packageName
+            toolbar.navigationIcon = it.icon
         }
 
     }
@@ -105,7 +102,7 @@ class AppDetailsActivity : AppCompatActivity() {
     private fun setupMVP() {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as AppDetailsFragment
 
-        appDetailsPresenter = getExistingPresenter(fragment) ?: AppDetailsPresenter(fragment, this, app?.packageName ?: "")
+        appDetailsPresenter = getExistingPresenter(fragment) ?: AppDetailsPresenter(fragment, this, app?.packageName ?: "", app?.isSystemApp == true)
         fragment.presenter = appDetailsPresenter
     }
 
@@ -113,7 +110,6 @@ class AppDetailsActivity : AppCompatActivity() {
         val lastPresenter = lastCustomNonConfigurationInstance as AppDetailsPresenter? ?: return null
 
         lastPresenter.displayer = fragment
-//        lastPresenter.activity = this
         return lastPresenter
     }
 

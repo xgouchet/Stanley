@@ -11,9 +11,7 @@ import io.reactivex.ObservableOnSubscribe
 class AppListSource(val context: Context)
     : ObservableOnSubscribe<AppViewModel> {
 
-    override fun subscribe(emitter: ObservableEmitter<AppViewModel>?) {
-        if (emitter == null) return
-
+    override fun subscribe(emitter: ObservableEmitter<AppViewModel>) {
         val pm = context.packageManager
         val packages = pm.getInstalledPackages(0)
 

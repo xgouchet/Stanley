@@ -24,9 +24,6 @@
             android:name=".appdetails.AppDetailsActivity"
             android:enabled="true"
             android:exported="false">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".applist.AppListActivity" />
         </activity>
 
 

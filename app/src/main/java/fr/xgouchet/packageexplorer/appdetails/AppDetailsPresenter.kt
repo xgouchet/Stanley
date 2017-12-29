@@ -1,12 +1,20 @@
 package fr.xgouchet.packageexplorer.appdetails
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.view.View
+import android.widget.Toast
+import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.applist.AppListPresenter
 import fr.xgouchet.packageexplorer.core.mvp.BaseListPresenter
 import fr.xgouchet.packageexplorer.core.mvp.ListDisplayer
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
+import fr.xgouchet.packageexplorer.core.utils.applicationInfoIntent
+import fr.xgouchet.packageexplorer.core.utils.applicationPlayStoreIntent
+import fr.xgouchet.packageexplorer.core.utils.uninstallPackageIntent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -14,12 +22,14 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import mu.KLogging
 
+
 /**
  * @author Xavier F. Gouchet
  */
 class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
                           activity: Activity,
-                          val packageName: String)
+                          val packageName: String,
+                          val isSystemApp: Boolean)
     : BaseListPresenter<AppInfoViewModel>(null, activity),
         ContextHolder {
 
@@ -41,14 +51,16 @@ class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
         val filteredList = Observable.combineLatest(
                 dataSubject,
                 collapseMaskSubject,
-                BiFunction <List<AppInfoViewModel>, Int, List<AppInfoViewModel>> { list, filter ->
-                    return@BiFunction list.filter {
-                        if (it is AppInfoHeader) {
-                            return@filter true
-                        } else {
-                            return@filter (it.mask and filter) == it.mask
-                        }
-                    }
+                BiFunction<List<AppInfoViewModel>, Int, List<AppInfoViewModel>> { list, filter ->
+                    return@BiFunction list
+                            .filter { (it is AppInfoHeader) || (it.mask and filter) == it.mask }
+                            .map {
+                                if (it is AppInfoHeader) {
+                                    return@map it.copy(expandedIcon = if ((it.mask and filter) == it.mask) R.drawable.ic_expand_less else R.drawable.ic_expand_more)
+                                } else {
+                                    return@map it
+                                }
+                            }
                 })
 
         filteredList
@@ -68,8 +80,9 @@ class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
             it.setLoading(true)
             disposable?.dispose()
 
-            if (memoizedAppInfoList != null) {
-                dataSubject.onNext(memoizedAppInfoList)
+            val list = memoizedAppInfoList
+            if (list != null) {
+                dataSubject.onNext(list)
                 return@let
             }
 
@@ -79,10 +92,10 @@ class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
                     .observeOn(Schedulers.computation())
                     .toList()
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { list, t ->
-                        if (list != null) {
-                            memoizedAppInfoList = list
-                            dataSubject.onNext(list)
+                    .subscribe { l, t ->
+                        if (l != null) {
+                            memoizedAppInfoList = l
+                            dataSubject.onNext(l)
                         } else {
                             AppListPresenter.logger.error { "Error fetching the list of apps : ${t.message}" }
                         }
@@ -91,11 +104,32 @@ class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
     }
 
 
-
     override fun itemSelected(item: AppInfoViewModel, transitionView: View?) {
         if (item is AppInfoHeader) {
             currentMask = currentMask xor item.mask
             collapseMaskSubject.onNext(currentMask)
+        } else if (item is AppInfoSelectable) {
+            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val selectedData = item.getSelectedData()
+
+            if (selectedData != null) {
+                val clip = ClipData.newPlainText(item.getLabel(), selectedData)
+                clipboard.primaryClip = clip
+                Toast.makeText(context, "“${selectedData}” has been copied to your clipbaord", Toast.LENGTH_LONG).show()
+            }
         }
+    }
+
+    fun openAppInfo() {
+        context.startActivity(applicationInfoIntent(packageName).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
+    }
+
+    fun openPlayStore() {
+        context.startActivity(applicationPlayStoreIntent(packageName).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
+    }
+
+
+    fun openUninstaller() {
+        context.startActivity(uninstallPackageIntent(packageName).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
     }
 }

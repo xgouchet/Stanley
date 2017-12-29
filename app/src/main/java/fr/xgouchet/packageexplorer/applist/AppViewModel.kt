@@ -10,7 +10,8 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 
 /**
@@ -25,10 +26,11 @@ data class AppViewModel(val packageName: String = "",
 
     val installTimeStr = DATE_FORMAT.format(Date(installTime))
     val updateTimeStr = DATE_FORMAT.format(Date(updateTime))
+    val isSystemApp = (flags and ApplicationInfo.FLAG_SYSTEM != 0)
+    val isDebuggable = (flags and ApplicationInfo.FLAG_DEBUGGABLE != 0)
+    val isLargeHeap = (flags and ApplicationInfo.FLAG_LARGE_HEAP != 0)
 
-    companion
-
-    object {
+    companion object {
 
         fun fromPackageName(context: Context, packageName: String): AppViewModel? {
             val pm = context.packageManager

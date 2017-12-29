@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="app"
             type="fr.xgouchet.packageexplorer.applist.AppViewModel" />
@@ -37,10 +39,44 @@
                 android:layout_height="48dp"
                 android:layout_margin="8dp"
                 android:src="@{app.icon}"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
                 tools:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/icon_debuggable_app"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:visibility="@{app.isDebuggable ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                app:layout_constraintStart_toEndOf="@+id/icon_app"
+                app:layout_constraintTop_toTopOf="@+id/text_title"
+                app:srcCompat="@drawable/ic_debuggable_app" />
+
+
+            <ImageView
+                android:id="@+id/icon_system_app"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:visibility="@{app.isSystemApp ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                app:layout_constraintStart_toEndOf="@+id/icon_debuggable_app"
+                app:layout_constraintTop_toTopOf="@+id/text_title"
+                app:srcCompat="@drawable/ic_system_app" />
+
+            <ImageView
+                android:id="@+id/icon_large_heap"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:visibility="@{app.isLargeHeap ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                app:layout_constraintStart_toEndOf="@+id/icon_system_app"
+                app:layout_constraintTop_toTopOf="@+id/text_title"
+                app:srcCompat="@drawable/ic_large_heap_app" />
 
             <TextView
                 android:id="@+id/text_title"
@@ -51,8 +87,8 @@
                 android:text="@{app.title}"
                 android:textAppearance="?android:attr/textAppearanceListItem"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@+id/icon_app"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon_large_heap"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/app_name" />
 
@@ -60,16 +96,15 @@
                 android:id="@+id/text_package_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/icon_app"
                 android:layout_margin="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{app.packageName}"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 android:textColor="@color/accent"
-                app:layout_constraintHorizontal_bias="0.125"
-                app:layout_constraintLeft_toRightOf="@+id/icon_app"
-                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icon_app"
                 app:layout_constraintTop_toBottomOf="@+id/text_title"
                 tools:text="com.example.app.flavor" />
 
@@ -82,8 +117,10 @@
                 android:ellipsize="end"
                 android:text="@string/app_installed_on"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textSize="12sp"
                 android:textStyle="italic"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_install"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_package_name" />
 
             <TextView
@@ -94,9 +131,10 @@
                 android:ellipsize="end"
                 android:text="@{app.installTimeStr}"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textSize="12sp"
                 android:textStyle="italic"
-                app:layout_constraintLeft_toRightOf="@+id/text_install_label"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text_install_label"
                 app:layout_constraintTop_toBottomOf="@+id/text_package_name"
                 tools:text="September 15, 2012" />
 
@@ -109,9 +147,11 @@
                 android:ellipsize="end"
                 android:text="@string/app_updated_on"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textSize="12sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_update"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_install_label" />
 
             <TextView
@@ -122,10 +162,11 @@
                 android:ellipsize="end"
                 android:text="@{app.updateTimeStr}"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textSize="12sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/text_install_label"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text_install_label"
                 app:layout_constraintTop_toBottomOf="@+id/text_install"
                 tools:text="September 15, 2012" />
 

@@ -7,7 +7,7 @@
 
         <variable
             name="info"
-            type="fr.xgouchet.packageexplorer.appdetails.AppInfoWithSubtitleAndIcon" />
+            type="fr.xgouchet.packageexplorer.appdetails.AppInfoWithIcon" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -16,14 +16,14 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_margin="8dp"
-            android:src="@{info.icon}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher" />
+            app:srcVector="@{info.icon}"
+            tools:src="@drawable/ic_debuggable_app" />
 
         <TextView
             android:id="@+id/title"
@@ -36,27 +36,11 @@
             android:text="@{info.title}"
             android:textAppearance="?android:textAppearanceListItemSmall"
             android:textColor="@color/primary_text"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/icon"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Some random info... " />
 
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:ellipsize="start"
-            android:gravity="start|center_vertical"
-            android:singleLine="true"
-            android:text="@{info.subtitle}"
-            android:textAppearance="?android:textAppearanceListItemSmall"
-            android:textColor="@color/secondary_text"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/icon"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="Some random info... " />
     </android.support.constraint.ConstraintLayout>
 </layout>

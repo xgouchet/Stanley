@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,23 +10,53 @@
             type="fr.xgouchet.packageexplorer.appdetails.AppInfoHeader" />
     </data>
 
-    <TextView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/primary_light"
-        android:drawableStart="@{info.icon}"
-        android:drawablePadding="8dp"
-        android:ellipsize="end"
-        android:gravity="start|center_vertical"
-        android:maxLines="1"
-        android:paddingEnd="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingStart="16dp"
-        android:text="@{info.header}"
-        android:textAllCaps="true"
-        android:textAppearance="?android:textAppearanceListItem"
-        android:textColor="@color/accent"
-        android:textStyle="bold"
-        tools:text="Header name" />
+        android:background="?android:selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcVector="@{info.icon}"
+            tools:src="@drawable/ic_activity" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:singleLine="true"
+            android:text="@{info.header}"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceListItem"
+            android:textColor="@color/accent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/expandable"
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Header name" />
+
+
+        <ImageView
+            android:id="@+id/expandable"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcVector="@{info.expandedIcon}"
+            tools:src="@drawable/ic_expand_less" />
+    </android.support.constraint.ConstraintLayout>
 </layout>

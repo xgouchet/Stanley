@@ -26,15 +26,6 @@
             android:exported="false">
         </activity>
 
-
-        <!--<activity-->
-        <!--android:name=".ui.activities.AppFiltersActivity"-->
-        <!--android:label="@string/title_activity_app_filters"-->
-        <!--android:parentActivityName=".ui.activities.AppListActivity">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.PARENT_ACTIVITY"-->
-        <!--android:value=".ui.activities.AppListActivity" />-->
-        <!--</activity>-->
     </application>
 
 </manifest>

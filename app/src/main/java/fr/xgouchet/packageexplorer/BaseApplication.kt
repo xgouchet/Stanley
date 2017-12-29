@@ -5,5 +5,4 @@ import android.app.Application
 /**
  * @author Xavier F. Gouchet
  */
-class BaseApplication : Application() {
-}
+class BaseApplication : Application()

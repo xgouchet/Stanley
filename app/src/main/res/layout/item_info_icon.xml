@@ -23,7 +23,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcVector="@{info.icon}"
-            tools:src="@drawable/ic_debuggable_app" />
+            tools:src="@drawable/ic_flag_debuggable" />
 
         <TextView
             android:id="@+id/title"

@@ -16,6 +16,7 @@ object AppInfoType {
     val INFO_TYPE_SERVICES = 0x20
     val INFO_TYPE_PROVIDERS = 0x40
     val INFO_TYPE_RECEIVERS = 0x80
+    val INFO_TYPE_SIGNATURE = 0x100
 }
 
 sealed class AppInfoViewModel(val mask: Int,
@@ -55,7 +56,7 @@ data class AppInfoWithIcon(val type: Int,
 data class AppInfoWithSubtitle(val type: Int,
                                val title: String,
                                val subtitle: String,
-                               val raw: String)
+                               val raw: String? = null)
     : AppInfoViewModel(type, "Subtitle {$type} “$title” / $subtitle"),
         AppInfoSelectable {
     override fun getLabel(): String = title

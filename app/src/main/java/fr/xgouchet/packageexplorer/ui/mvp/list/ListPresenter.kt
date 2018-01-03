@@ -1,6 +1,5 @@
 package fr.xgouchet.packageexplorer.ui.mvp.list
 
-import android.view.View
 import fr.xgouchet.packageexplorer.ui.mvp.Presenter
 
 
@@ -9,6 +8,6 @@ import fr.xgouchet.packageexplorer.ui.mvp.Presenter
  */
 interface ListPresenter<T> : Presenter<List<T>> {
 
-    fun itemSelected(item: T, transitionView: View? = null)
+    fun itemSelected(item: T)
 
 }

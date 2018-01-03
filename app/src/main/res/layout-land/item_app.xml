@@ -72,7 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/text_title"
                 app:layout_constraintStart_toEndOf="@+id/icon_debuggable_app"
                 app:layout_constraintTop_toTopOf="@+id/text_title"
-                app:srcCompat="@drawable/ic_system_app" />
+                app:srcCompat="@drawable/ic_flag_system_app" />
 
             <ImageView
                 android:id="@+id/icon_large_heap"

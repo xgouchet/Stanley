@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/fragment_container"
-        android:name="fr.xgouchet.packageexplorer.details.apk.ApkDetailsFragmentBase"
+        android:name="fr.xgouchet.packageexplorer.details.apk.ApkDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

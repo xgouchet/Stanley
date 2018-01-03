@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import fr.xgouchet.packageexplorer.R
 import timber.log.Timber
+import kotlin.properties.Delegates.notNull
 
 abstract class BaseActivity<I, T, out P, out D>
     : AppCompatActivity()
-        where P : Presenter<T>,
+        where I : Any,
+              P : Presenter<T>,
               D : Displayer<T>, D : Fragment {
 
 
@@ -19,7 +21,7 @@ abstract class BaseActivity<I, T, out P, out D>
 
     protected lateinit var toolbar: Toolbar
 
-    protected var intentData: I? = null
+    protected var intentData: I by notNull()
     private var isRestored: Boolean = false
 
     // region Activity
@@ -30,9 +32,14 @@ abstract class BaseActivity<I, T, out P, out D>
         setContentView(R.layout.activity_base)
         setupHeader()
 
-        intent?.let {
-            intentData = readIntent(it)
+        val data: I? = readIntent(intent)
+        if (data == null) {
+            Timber.w("Intent data is null, aborting activity")
+            finish()
+            return
         }
+
+        intentData = data
 
         if (savedInstanceState != null) {
             isRestored = true
@@ -112,20 +119,21 @@ abstract class BaseActivity<I, T, out P, out D>
     // region Internal
 
     private fun setupHeader() {
-        toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
     }
 
 
     private fun restorePresenter(savedInstanceState: Bundle): P {
         val key = savedInstanceState.getString(PresenterCache.PRESENTER_KEY, null)
+        val factory = { instantiatePresenter() }
 
         if (key == null) {
             Timber.w("Expected to restore presenter, but not Key found")
-            return instantiatePresenter()
+            return factory.invoke()
         }
 
-        return PresenterCache.getPresenter(key, { instantiatePresenter() })
+        return PresenterCache.getPresenter(key, factory)
     }
 
     // endregion

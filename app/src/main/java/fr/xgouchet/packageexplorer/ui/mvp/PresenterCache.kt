@@ -25,7 +25,7 @@ object PresenterCache {
         }
 
         if (match == null) {
-            val presenter = factory()
+            val presenter = factory.invoke()
             cache.put(key, presenter)
             return presenter
         } else {

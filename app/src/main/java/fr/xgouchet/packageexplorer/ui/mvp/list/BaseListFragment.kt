@@ -72,6 +72,6 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>(private val isFabVisibl
     }
 
     override fun accept(t: T, v: View?) {
-        presenter.itemSelected(t, v)
+        presenter.itemSelected(t)
     }
 }

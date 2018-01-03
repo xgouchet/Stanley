@@ -3,7 +3,6 @@ package fr.xgouchet.packageexplorer.ui.mvp.list
 import android.app.Activity
 import android.app.Fragment
 import android.support.v4.app.Fragment as FragmentV4
-import android.view.View
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import io.reactivex.disposables.Disposable
@@ -49,7 +48,7 @@ abstract class BaseListPresenter<T>(val navigator: Navigator<T>?)
 
     // region ListPresenter
 
-    override fun itemSelected(item: T, transitionView: View?) {
+    override fun itemSelected(item: T) {
         navigator?.goToItemDetails(item)
     }
 

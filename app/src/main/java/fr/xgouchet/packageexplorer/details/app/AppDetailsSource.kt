@@ -4,10 +4,9 @@ package fr.xgouchet.packageexplorer.details.app
 import android.content.Context
 import android.content.pm.PackageManager
 import fr.xgouchet.packageexplorer.details.AppInfoViewModel
-import fr.xgouchet.packageexplorer.core.details.DetailsSource
+import fr.xgouchet.packageexplorer.details.DetailsSource
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
-import mu.KLogging
 
 
 /**

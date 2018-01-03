@@ -7,7 +7,7 @@ import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.AppInfoWithIcon
 import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitle
 import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitleAndIcon
-import fr.xgouchet.packageexplorer.core.mvp.BaseViewHolder
+import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import fr.xgouchet.packageexplorer.databinding.ItemInfoHeaderBinding
 import fr.xgouchet.packageexplorer.databinding.ItemInfoIconBinding
 import fr.xgouchet.packageexplorer.databinding.ItemInfoSimpleBinding

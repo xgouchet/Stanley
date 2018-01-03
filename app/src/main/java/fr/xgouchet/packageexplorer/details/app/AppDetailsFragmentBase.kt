@@ -7,16 +7,16 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.core.mvp.BaseAdapter
-import fr.xgouchet.packageexplorer.core.mvp.ListFragment
+import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
+import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import fr.xgouchet.packageexplorer.details.AppDetailsAdapter
 import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 
 /**
  * @author Xavier F. Gouchet
  */
-class AppDetailsFragment
-    : ListFragment<AppInfoViewModel, AppDetailsPresenter>(false) {
+class AppDetailsFragmentBase
+    : BaseListFragment<AppInfoViewModel, AppDetailsPresenter>(false) {
 
     override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this)
 

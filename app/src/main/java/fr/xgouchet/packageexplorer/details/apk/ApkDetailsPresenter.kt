@@ -8,13 +8,12 @@ import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.applist.AppListPresenter
-import fr.xgouchet.packageexplorer.core.mvp.BaseListPresenter
-import fr.xgouchet.packageexplorer.core.mvp.ListDisplayer
+import fr.xgouchet.packageexplorer.details.DetailsSource
+import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
+import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.details.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.AppInfoSelectable
-import fr.xgouchet.packageexplorer.details.AppInfoSimple
 import fr.xgouchet.packageexplorer.details.AppInfoType
 import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitle
@@ -32,7 +31,7 @@ import io.reactivex.subjects.BehaviorSubject
 class ApkDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
                           activity: Activity,
                           val uri: Uri)
-    : BaseListPresenter<AppInfoViewModel>(null, activity),
+    : BaseListPresenter<AppInfoViewModel>(null),
         ContextHolder {
 
     override val context: Context = activity.applicationContext
@@ -93,7 +92,7 @@ class ApkDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
                     .doOnNext {
                         if (it.mask == AppInfoType.INFO_TYPE_METADATA) {
                             if (it is AppInfoWithSubtitle) {
-                                if (it.title == "PackageName") (displayer as ApkDetailsFragment).setPackageName(it.subtitle)
+                                if (it.title == DetailsSource.PACKAGE_NAME) (displayer as ApkDetailsFragmentBase).setPackageName(it.subtitle)
                             }
                         }
                     }

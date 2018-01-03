@@ -41,58 +41,11 @@ ext {
     // Reactive
     rxJavaVersion = '2.1.1'
     rxAndroidVersion = '2.0.1'
+    traceurVersion = "1.0.1"
     rx = dependencyGroup {
         api "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
         api "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    }
-
-    // Dagger
-    daggerVersion = '2.13'
-    dagger = dependencyGroup {
-        implementation "com.google.dagger:dagger:$daggerVersion"
-        kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-        implementation "javax.inject:javax.inject:$javaxInjectVersion"
-    }
-
-
-
-    // OkHttp
-    okhttpVersion = '3.9.1'
-    okHttp = dependencyGroup {
-        implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-        implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
-        testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
-    }
-
-    // Retrofit (API requests)
-    retrofitVersion = '2.3.0'
-    gsonVersion = '2.8.2'
-    retrofit = dependencyGroup {
-        api "com.squareup.retrofit2:retrofit:$retrofitVersion"
-        implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-        implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
-        implementation "com.google.code.gson:gson:$gsonVersion"
-    }
-
-    // Smack (XMPP)
-    smackVersion = '4.1.0'
-    xmpp = dependencyGroup {
-        api "org.igniterealtime.smack:smack-android:$smackVersion"
-        implementation "org.igniterealtime.smack:smack-tcp:$smackVersion"
-        implementation "org.igniterealtime.smack:smack-extensions:$smackVersion"
-    }
-
-    // Firebase (Cloud Messaging)
-    firebaseVersion = '11.6.0'
-    firebase = dependencyGroup {
-        implementation "com.google.firebase:firebase-core:$firebaseVersion"
-        implementation "com.google.firebase:firebase-messaging:$firebaseVersion"
-    }
-
-    // Analytics
-    segmentAnalyticsVersion = '4.3.1'
-    analytics = dependencyGroup {
-        implementation "com.segment.analytics.android:analytics:$segmentAnalyticsVersion"
+        api "com.tspoon.traceur:traceur:$traceurVersion"
     }
 
     // Debug tools
@@ -121,12 +74,8 @@ ext {
     }
 
 
-    picassoVersion = '2.5.2'
-    hashidsVersion = '1.0.3'
-
     // Debug Dependencies
     findbugsAnnotationsVersion = '3.0.1'
     javaxInjectVersion = '1'
 
-    // Test Dependencies
 }

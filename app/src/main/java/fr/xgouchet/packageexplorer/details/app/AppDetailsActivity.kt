@@ -25,28 +25,9 @@ class AppDetailsActivity : AppCompatActivity() {
 
         val EXTRA_PACKAGE_NAME = "package_name"
 
-        fun startWithAppAndMaybeTransition(activity: Activity,
-                                           app: AppViewModel,
-                                           transitionView: View?) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                    && transitionView != null) {
-                startWithAppAndTransition(activity, app, transitionView)
-            } else {
-                startWithApp(activity, app)
-            }
-        }
-
         fun startWithApp(activity: Activity, app: AppViewModel) {
             val intent = buildIntent(activity, app)
             activity.startActivity(intent)
-        }
-
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        fun startWithAppAndTransition(activity: Activity, app: AppViewModel, transitionView: View) {
-            transitionView.transitionName = activity.getString(R.string.transition_icon)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, transitionView.transitionName)
-            val intent = buildIntent(activity, app)
-            activity.startActivity(intent, options.toBundle())
         }
 
         fun buildIntent(activity: Activity, app: AppViewModel): Intent {
@@ -100,13 +81,12 @@ class AppDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupMVP() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as AppDetailsFragment
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as AppDetailsFragmentBase
 
         appDetailsPresenter = getExistingPresenter(fragment) ?: AppDetailsPresenter(fragment, this, app?.packageName ?: "", app?.isSystemApp == true)
-        fragment.presenter = appDetailsPresenter
     }
 
-    private fun getExistingPresenter(fragment: AppDetailsFragment): AppDetailsPresenter? {
+    private fun getExistingPresenter(fragment: AppDetailsFragmentBase): AppDetailsPresenter? {
         val lastPresenter = lastCustomNonConfigurationInstance as AppDetailsPresenter? ?: return null
 
         lastPresenter.displayer = fragment

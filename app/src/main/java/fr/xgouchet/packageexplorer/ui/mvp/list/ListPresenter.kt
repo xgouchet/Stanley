@@ -1,6 +1,7 @@
-package fr.xgouchet.packageexplorer.core.mvp
+package fr.xgouchet.packageexplorer.ui.mvp.list
 
 import android.view.View
+import fr.xgouchet.packageexplorer.ui.mvp.Presenter
 
 
 /**

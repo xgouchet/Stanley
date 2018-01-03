@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.core.details
+package fr.xgouchet.packageexplorer.details
 
 import android.content.ComponentName
 import android.content.Context
@@ -7,18 +7,10 @@ import android.content.pm.FeatureInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.Signature
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.Log
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.details.AppInfoHeader
-import fr.xgouchet.packageexplorer.details.AppInfoSimple
-import fr.xgouchet.packageexplorer.details.AppInfoType
-import fr.xgouchet.packageexplorer.details.AppInfoViewModel
-import fr.xgouchet.packageexplorer.details.AppInfoWithIcon
-import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitle
-import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitleAndIcon
 import io.reactivex.ObservableEmitter
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
@@ -27,6 +19,8 @@ open class DetailsSource(val context: Context) {
 
     companion object {
         const val C2D_MESSAGE = ".permission.C2D_MESSAGE"
+
+        const val PACKAGE_NAME = "PackageName"
     }
 
 
@@ -34,9 +28,9 @@ open class DetailsSource(val context: Context) {
                                   packageInfo: PackageInfo,
                                   applicationInfo: ApplicationInfo?) {
         emitter.apply {
-            onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_METADATA, "PackageName", packageInfo.packageName))
+            onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_METADATA, PACKAGE_NAME, packageInfo.packageName))
 
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_GLOBAL, "Global Information", R.drawable.ic_category_global_info))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_GLOBAL, context.getString(R.string.header_type_global), R.drawable.ic_category_global_info))
 
             onNext(AppInfoSimple(AppInfoType.INFO_TYPE_GLOBAL, "Version Code : ${packageInfo.versionCode}"))
             onNext(AppInfoSimple(AppInfoType.INFO_TYPE_GLOBAL, "Version Name : “${packageInfo.versionName}”"))
@@ -79,7 +73,7 @@ open class DetailsSource(val context: Context) {
         val packageName = packageInfo.packageName
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_ACTIVITIES, "Activities", R.drawable.ic_category_activity))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_ACTIVITIES, context.getString(R.string.header_type_activities), R.drawable.ic_category_activity))
 
             for (activity in activities) {
                 val name = simplifyName(activity.name, packageName)
@@ -102,7 +96,7 @@ open class DetailsSource(val context: Context) {
         val packageName = packageInfo.packageName
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_SERVICES, "Services", R.drawable.ic_category_services))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_SERVICES, context.getString(R.string.header_type_services), R.drawable.ic_category_services))
 
             for (service in services) {
                 val simplifiedName = simplifyName(service.name, packageName)
@@ -118,7 +112,7 @@ open class DetailsSource(val context: Context) {
         val packageName = packageInfo.packageName
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_PROVIDERS, "Content Providers", R.drawable.ic_category_provider))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_PROVIDERS, context.getString(R.string.header_type_providers), R.drawable.ic_category_provider))
 
             for (provider in providers) {
                 val simplifiedName = simplifyName(provider.name, packageName)
@@ -133,7 +127,7 @@ open class DetailsSource(val context: Context) {
         val packageName = packageInfo.packageName
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_RECEIVERS, "Broadcast Receivers", R.drawable.ic_category_receiver))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_RECEIVERS, context.getString(R.string.header_type_receivers), R.drawable.ic_category_receiver))
 
             for (receiver in receivers) {
                 val simplifiedName = simplifyName(receiver.name, packageName)
@@ -148,7 +142,7 @@ open class DetailsSource(val context: Context) {
         val permissions = packageInfo.permissions ?: return
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_CUSTOM_PERMISSIONS, "Custom Permissions", R.drawable.ic_category_custom_permission))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_CUSTOM_PERMISSIONS, context.getString(R.string.header_type_custom_permissions), R.drawable.ic_category_custom_permission))
 
             for (cpi in permissions) {
                 val description: String
@@ -169,7 +163,7 @@ open class DetailsSource(val context: Context) {
         val permissions = packageInfo.requestedPermissions ?: return
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_PERMISSIONS, "Requested Permissions", R.drawable.ic_category_permission))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_PERMISSIONS, context.getString(R.string.header_type_uses_permissions), R.drawable.ic_category_permission))
 
             for (name in permissions) {
                 val stringRes = context.resources.getIdentifier(name, "string", context.packageName)
@@ -205,7 +199,7 @@ open class DetailsSource(val context: Context) {
         val features = packageInfo.reqFeatures ?: return
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_FEATURES_REQUIRED, "Features required", R.drawable.ic_category_feature))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_FEATURES_REQUIRED, context.getString(R.string.header_type_features), R.drawable.ic_category_feature))
 
             for (feature in features) {
                 val info: String
@@ -239,7 +233,7 @@ open class DetailsSource(val context: Context) {
 
 
         emitter.apply {
-            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_SIGNATURE, "Signing Certificate", R.drawable.ic_category_signature))
+            onNext(AppInfoHeader(AppInfoType.INFO_TYPE_SIGNATURE, context.getString(R.string.header_type_signature), R.drawable.ic_category_signature))
 
             for (signature in signatures) {
                 try {

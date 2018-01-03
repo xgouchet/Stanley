@@ -8,13 +8,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
-import fr.xgouchet.packageexplorer.core.mvp.BaseAdapter
-import fr.xgouchet.packageexplorer.core.mvp.ListFragment
+import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
+import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 
-/**
- * @author Xavier F. Gouchet
- */
-class AppListFragment : ListFragment<AppViewModel, AppListPresenter>(false) {
+class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>(false) {
 
     override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this)
 

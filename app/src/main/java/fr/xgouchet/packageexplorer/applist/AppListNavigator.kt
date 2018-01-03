@@ -1,19 +1,19 @@
 package fr.xgouchet.packageexplorer.applist
 
 import android.app.Activity
-import android.view.View
 import fr.xgouchet.packageexplorer.details.app.AppDetailsActivity
-import fr.xgouchet.packageexplorer.core.mvp.Navigator
+import fr.xgouchet.packageexplorer.ui.mvp.Navigator
+import kotlin.properties.Delegates.notNull
 
 /**
  * @author Xavier F. Gouchet
  */
 class AppListNavigator : Navigator<AppViewModel> {
 
-    override fun goToItemDetails(item: AppViewModel,
-                                 activity: Activity,
-                                 transitionView: View?) {
-        AppDetailsActivity.startWithAppAndMaybeTransition(activity, item, transitionView)
+    override var currentActivity: Activity by notNull()
+
+    override fun goToItemDetails(item: AppViewModel) {
+        AppDetailsActivity.startWithApp(currentActivity, item)
     }
 
     override fun goToItemEdition(item: AppViewModel) {

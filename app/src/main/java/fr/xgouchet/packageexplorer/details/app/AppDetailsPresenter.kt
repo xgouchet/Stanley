@@ -8,8 +8,8 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.core.mvp.BaseListPresenter
-import fr.xgouchet.packageexplorer.core.mvp.ListDisplayer
+import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
+import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.core.utils.applicationInfoIntent
 import fr.xgouchet.packageexplorer.core.utils.applicationPlayStoreIntent
@@ -31,7 +31,7 @@ class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
                           activity: Activity,
                           val packageName: String,
                           val isSystemApp: Boolean)
-    : BaseListPresenter<AppInfoViewModel>(null, activity),
+    : BaseListPresenter<AppInfoViewModel>(null),
         ContextHolder {
 
     override val context: Context = activity.applicationContext

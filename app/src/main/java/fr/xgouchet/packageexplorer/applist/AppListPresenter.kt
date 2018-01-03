@@ -1,13 +1,12 @@
 package fr.xgouchet.packageexplorer.applist
 
-import android.app.Activity
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
-import fr.xgouchet.packageexplorer.core.mvp.BaseListPresenter
-import fr.xgouchet.packageexplorer.core.mvp.ListDisplayer
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
+import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
+import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -18,8 +17,8 @@ import io.reactivex.subjects.BehaviorSubject
  * @author Xavier F. Gouchet
  */
 class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
-                       activity: Activity)
-    : BaseListPresenter<AppViewModel>(AppListNavigator(), activity),
+                       context: Context)
+    : BaseListPresenter<AppViewModel>(AppListNavigator()),
         ContextHolder {
 
     companion object {
@@ -27,7 +26,7 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
         val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
     }
 
-    override val context: Context = activity.applicationContext
+    override val context: Context = context.applicationContext
 
     private var currentSort: AppSort by notebook(KEY_SORT, AppSort.TITLE)
     private var systemAppVisible: Boolean by notebook(KEY_SYSTEM_APPS_VISIBLE, false)
@@ -40,7 +39,7 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
     private var systemAppVisibilitySubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     init {
-        displayer = initView
+//        displayer = initView
 
         val filteredList = Observable.combineLatest(
                 dataSubject,

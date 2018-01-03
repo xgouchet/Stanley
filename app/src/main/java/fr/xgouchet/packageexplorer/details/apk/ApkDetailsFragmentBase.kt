@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import fr.xgouchet.packageexplorer.core.mvp.BaseAdapter
-import fr.xgouchet.packageexplorer.core.mvp.ListFragment
+import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
+import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import fr.xgouchet.packageexplorer.details.AppDetailsAdapter
 import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 
 /**
  * @author Xavier F. Gouchet
  */
-class ApkDetailsFragment
-    : ListFragment<AppInfoViewModel, ApkDetailsPresenter>(false) {
+class ApkDetailsFragmentBase
+    : BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>(false) {
 
     override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this)
 

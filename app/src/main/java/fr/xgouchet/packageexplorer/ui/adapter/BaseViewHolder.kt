@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.core.mvp
+package fr.xgouchet.packageexplorer.ui.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

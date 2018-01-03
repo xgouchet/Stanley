@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.core.mvp
+package fr.xgouchet.packageexplorer.ui.mvp.list
 
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -12,30 +12,34 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
+import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
+import fr.xgouchet.packageexplorer.ui.mvp.Presenter
 import io.reactivex.functions.BiConsumer
-import kotlin.properties.Delegates.notNull
 
 /**
  * @author Xavier F. Gouchet
  */
-abstract class ListFragment<T, P : ListPresenter<T>>(val isFabVisible: Boolean)
+abstract class BaseListFragment<T, P : ListPresenter<T>>(private val isFabVisible: Boolean)
     : Fragment(),
         ListDisplayer<T>,
         BiConsumer<T, View?> {
 
     internal val list: RecyclerView by knife(android.R.id.list)
-    internal val loading: ProgressBar by knife(R.id.loading)
-    internal val fab: FloatingActionButton by knife(R.id.fab)
-    internal val empty: View by knife(R.id.empty)
+    private val loading: ProgressBar by knife(R.id.loading)
+    private val fab: FloatingActionButton by knife(R.id.fab)
+    private val empty: View by knife(R.id.empty)
 
-    var presenter: P by notNull()
+    protected lateinit var presenter: P
 
     abstract val adapter: BaseAdapter<T>
 
+    override fun setPresenter(presenter: Presenter<List<T>>) {
+        @Suppress("UNCHECKED_CAST")
+        this.presenter = presenter as P
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
-
         return view
     }
 
@@ -45,15 +49,6 @@ abstract class ListFragment<T, P : ListPresenter<T>>(val isFabVisible: Boolean)
         list.adapter = adapter
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.subscribe()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        presenter.unsubscribe()
-    }
 
     override fun setLoading(isLoading: Boolean) {
         loading.visibility = if (isLoading) View.VISIBLE else View.GONE

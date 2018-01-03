@@ -1,7 +1,7 @@
 package fr.xgouchet.packageexplorer.applist
 
 import android.view.View
-import fr.xgouchet.packageexplorer.core.mvp.BaseViewHolder
+import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import fr.xgouchet.packageexplorer.databinding.ItemAppBinding
 import io.reactivex.functions.BiConsumer
 

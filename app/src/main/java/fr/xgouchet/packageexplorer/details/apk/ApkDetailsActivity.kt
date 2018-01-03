@@ -69,13 +69,12 @@ class ApkDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupMVP() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as ApkDetailsFragment
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as ApkDetailsFragmentBase
 
         apkDetailsPresenter = getExistingPresenter(fragment) ?: ApkDetailsPresenter(fragment, this, uri)
-        fragment.presenter = apkDetailsPresenter
     }
 
-    private fun getExistingPresenter(fragment: ApkDetailsFragment): ApkDetailsPresenter? {
+    private fun getExistingPresenter(fragment: ApkDetailsFragmentBase): ApkDetailsPresenter? {
         val lastPresenter = lastCustomNonConfigurationInstance as ApkDetailsPresenter? ?: return null
 
         lastPresenter.displayer = fragment

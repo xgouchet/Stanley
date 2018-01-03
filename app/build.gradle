@@ -68,10 +68,8 @@ dependencies {
     kotlin()
     rx()
 
+    debugTools()
+
     implementation 'com.github.xgouchet:AXML:v1.0'
-
-    // ARCHITECTURE LIBRARIES
-//    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-
 
 }

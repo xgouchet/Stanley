@@ -1,6 +1,6 @@
 package fr.xgouchet.packageexplorer.applist
 
-import fr.xgouchet.packageexplorer.core.mvp.BaseDiffUtilCallback
+import fr.xgouchet.packageexplorer.ui.adapter.BaseDiffUtilCallback
 
 class AppDiffUtilCallback(oldContent: List<AppViewModel>,
                           newContent: List<AppViewModel>)

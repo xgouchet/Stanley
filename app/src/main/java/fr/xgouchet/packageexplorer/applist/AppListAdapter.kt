@@ -4,8 +4,8 @@ import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import fr.xgouchet.packageexplorer.core.mvp.BaseBindingAdapter
-import fr.xgouchet.packageexplorer.core.mvp.BaseViewHolder
+import fr.xgouchet.packageexplorer.ui.adapter.BaseBindingAdapter
+import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import fr.xgouchet.packageexplorer.databinding.ItemAppBinding
 import io.reactivex.functions.BiConsumer
 

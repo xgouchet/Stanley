@@ -29,7 +29,7 @@ class CopyApkSource(val context: Context,
 
     private fun makeLocalCopy(uri: Uri): String? {
         val cacheFolder = context.cacheDir
-        val filename = uri.getFileName(context)
+        val filename = uri.getFileName(context) ?: "unknown"
         val outPath = File(cacheFolder, filename)
         val input = context.contentResolver.openInputStream(uri)
 

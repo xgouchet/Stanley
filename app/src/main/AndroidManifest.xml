@@ -45,10 +45,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".permission.RequestPermissionActivity"
-            android:label="@string/activity_title_permissions"
-            android:exported="false"/>
-
     </application>
 
 </manifest>

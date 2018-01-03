@@ -5,7 +5,6 @@
     <string name="activity_title_appList">Stanley</string>
     <string name="activity_title_apkDetails">APK file details</string>
     <string name="activity_title_appDetails">Application details</string>
-    <string name="activity_title_permissions">Request Permissions</string>
 
     <!-- Messages -->
     <string name="msg_empty_app_list">No application found</string>
@@ -44,6 +43,8 @@
     <string name="pref_title_sort_criteria">Sort apps by …</string>
     <string name="action_app_info">System Application Info</string>
     <string name="action_uninstall">Uninstall</string>
+    <string name="permission_explanation_storage_apk">To be able to open this APK, we need permission to read your external storage.</string>
+    <string name="permission_denied_storage_apk">We can’t read this APK file without your permission.</string>
 
 
 </resources>

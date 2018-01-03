@@ -6,7 +6,6 @@ import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
-import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -16,9 +15,8 @@ import io.reactivex.subjects.BehaviorSubject
 /**
  * @author Xavier F. Gouchet
  */
-class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
-                       context: Context)
-    : BaseListPresenter<AppViewModel>(AppListNavigator()),
+class AppListPresenter(context: Context)
+    : BaseListPresenter<AppViewModel, AppListFragment>(AppListNavigator()),
         ContextHolder {
 
     companion object {
@@ -39,8 +37,6 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
     private var systemAppVisibilitySubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     init {
-//        displayer = initView
-
         val filteredList = Observable.combineLatest(
                 dataSubject,
                 filterSubject,

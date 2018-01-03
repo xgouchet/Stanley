@@ -6,10 +6,23 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import java.io.File
 
+fun Uri.isFile(): Boolean {
+    return scheme == "file"
+}
+
+
+fun Uri.isContent(): Boolean {
+    return scheme == "content"
+}
+
 fun Uri.getFileName(context: Context): String? {
 
-    if (scheme == "file"){
+    if (isFile()) {
         return File(path).name
+    }
+
+    if (!isContent()) {
+        return null
     }
 
     var cursor: Cursor? = null

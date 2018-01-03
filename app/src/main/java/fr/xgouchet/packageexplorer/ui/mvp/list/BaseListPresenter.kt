@@ -2,28 +2,30 @@ package fr.xgouchet.packageexplorer.ui.mvp.list
 
 import android.app.Activity
 import android.app.Fragment
-import android.support.v4.app.Fragment as FragmentV4
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import io.reactivex.disposables.Disposable
+import android.support.v4.app.Fragment as FragmentV4
 
 /**
  * @author Xavier F. Gouchet
  */
-abstract class BaseListPresenter<T>(val navigator: Navigator<T>?)
-    : ListPresenter<T> {
+abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?)
+    : ListPresenter<T>
+        where D : ListDisplayer<T> {
 
     internal var disposable: Disposable? = null
 
-    var displayer: ListDisplayer<T>? = null
-    // TODO private set
+    var displayer: D? = null
+        private set
 
     // region Presenter
 
     final override fun onDisplayerAttached(displayer: Displayer<List<T>>, restored: Boolean) {
         require(displayer is ListDisplayer<T>, { "ListPresenter requires a ListDisplayer" })
 
-        this.displayer = displayer as ListDisplayer<T>
+        @Suppress("UNCHECKED_CAST")
+        this.displayer = displayer as D
         displayer.setPresenter(this)
 
         navigator?.let {

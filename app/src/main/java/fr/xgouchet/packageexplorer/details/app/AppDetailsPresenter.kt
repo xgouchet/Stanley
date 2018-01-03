@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 class AppDetailsPresenter(activity: Activity,
                           val packageName: String,
                           val isSystemApp: Boolean)
-    : BaseDetailsPresenter(null, activity.applicationContext) {
+    : BaseDetailsPresenter<AppDetailsFragment>(null, activity.applicationContext) {
 
     override fun getDetails(): Observable<AppInfoViewModel> {
         return Observable.create(AppDetailsSource(context, packageName))

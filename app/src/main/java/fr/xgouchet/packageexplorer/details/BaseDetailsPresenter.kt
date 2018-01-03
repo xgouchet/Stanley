@@ -7,15 +7,17 @@ import android.widget.Toast
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
+import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
-abstract class BaseDetailsPresenter(navigator: Navigator<AppInfoViewModel>?,
-                                    val context: Context)
-    : BaseListPresenter<AppInfoViewModel>(navigator) {
+abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
+                                       val context: Context)
+    : BaseListPresenter<AppInfoViewModel, D>(navigator)
+        where D : ListDisplayer<AppInfoViewModel> {
 
 
     private var memoizedAppInfoList: List<AppInfoViewModel>? = null

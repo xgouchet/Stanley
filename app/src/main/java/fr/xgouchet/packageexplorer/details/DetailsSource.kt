@@ -38,7 +38,7 @@ open class DetailsSource(val context: Context) {
             if (applicationInfo != null) {
                 onNext(AppInfoSimple(AppInfoType.INFO_TYPE_GLOBAL, "Target SDK : ${applicationInfo.targetSdkVersion}"))
                 if ((applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0) {
-                    onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, "System app", null, R.drawable.ic_system_app))
+                    onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, "System app", null, R.drawable.ic_flag_system_app))
                 }
                 if ((applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
                     onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, "Debug version", null, R.drawable.ic_flag_debuggable))
@@ -254,13 +254,14 @@ open class DetailsSource(val context: Context) {
         val properties = name.split(",")
 
         var organization: String? = null
+        var name: String? = null
         for (property in properties) {
             val tokens = property.split("=")
             val key = tokens[0]
             val value = tokens[1]
 
             if (key == "CN") {
-                return value
+                name = value
             } else if (key == "O") {
                 organization = value
             } else if (key == "OU" && organization.isNullOrBlank()) {
@@ -268,7 +269,19 @@ open class DetailsSource(val context: Context) {
             }
         }
 
-        return organization ?: "Unknown"
+        if (name != null) {
+            if (organization != null) {
+                return "$name ($organization) ✓"
+            } else {
+                return "$name ✓"
+            }
+        } else {
+            if (organization != null) {
+                return "($organization) ✓"
+            } else {
+                return "Unknown ✗"
+            }
+        }
     }
 
     protected fun simplifyName(name: String?, packageName: String?): String {

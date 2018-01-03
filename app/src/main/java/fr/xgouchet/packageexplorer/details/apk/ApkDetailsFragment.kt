@@ -12,7 +12,7 @@ import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 /**
  * @author Xavier F. Gouchet
  */
-class ApkDetailsFragmentBase
+class ApkDetailsFragment
     : BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>(false) {
 
     override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this)

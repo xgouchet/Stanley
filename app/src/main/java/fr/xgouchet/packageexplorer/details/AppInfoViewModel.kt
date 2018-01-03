@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.appdetails
+package fr.xgouchet.packageexplorer.details
 
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
@@ -17,6 +17,8 @@ object AppInfoType {
     val INFO_TYPE_PROVIDERS = 0x40
     val INFO_TYPE_RECEIVERS = 0x80
     val INFO_TYPE_SIGNATURE = 0x100
+
+    val INFO_TYPE_METADATA = 0x8000
 }
 
 sealed class AppInfoViewModel(val mask: Int,

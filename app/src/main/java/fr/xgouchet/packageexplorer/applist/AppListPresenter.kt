@@ -13,7 +13,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import mu.KLogging
 
 /**
  * @author Xavier F. Gouchet
@@ -23,7 +22,7 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
     : BaseListPresenter<AppViewModel>(AppListNavigator(), activity),
         ContextHolder {
 
-    companion object : KLogging() {
+    companion object {
         val KEY_SORT = "sort"
         val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
     }
@@ -46,7 +45,7 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
         val filteredList = Observable.combineLatest(
                 dataSubject,
                 filterSubject,
-                BiFunction <List<AppViewModel>, String, List<AppViewModel>> { list, filter ->
+                BiFunction<List<AppViewModel>, String, List<AppViewModel>> { list, filter ->
                     return@BiFunction list.filter {
                         if (filter.isEmpty()) {
                             return@filter true
@@ -73,8 +72,7 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
         val sortedList = Observable.combineLatest(
                 systemAppFilteredList,
                 sortSubject,
-                BiFunction<List<AppViewModel>, Comparator<AppViewModel>, List<AppViewModel>> {
-                    list, comp ->
+                BiFunction<List<AppViewModel>, Comparator<AppViewModel>, List<AppViewModel>> { list, comp ->
                     return@BiFunction list.sortedWith(comp)
                 })
 
@@ -100,7 +98,7 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
             disposable?.dispose()
 
             val list = memoizedAppList
-            if (list != null){
+            if (list != null) {
                 dataSubject.onNext(list)
                 return@let
             }
@@ -113,7 +111,7 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
                             memoizedAppList = list
                             dataSubject.onNext(list)
                         } else {
-                            logger.error { "Error fetching the list of apps : ${t.message}" }
+                            displayer?.setError(t)
                         }
                     }
         }
@@ -136,5 +134,5 @@ class AppListPresenter(initView: ListDisplayer<AppViewModel>?,
         systemAppVisibilitySubject.onNext(visible)
     }
 
-    fun areSystemAppsVisible() : Boolean = systemAppVisible
+    fun areSystemAppsVisible(): Boolean = systemAppVisible
 }

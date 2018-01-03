@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.appdetails
+package fr.xgouchet.packageexplorer.details
 
 import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater

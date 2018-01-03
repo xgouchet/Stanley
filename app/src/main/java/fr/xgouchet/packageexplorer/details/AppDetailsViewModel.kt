@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.appdetails
+package fr.xgouchet.packageexplorer.details
 
 /**
  * @author Xavier F. Gouchet

@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,29 +15,18 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
             android:elevation="@dimen/elevation_toolbar"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:elevation="@dimen/elevation_toolbar" />
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:id="@+id/fragment_container"
-        android:name="fr.xgouchet.packageexplorer.ui.fragments.AppFiltersPrefsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/fragment_list" />
-
-    <android.support.design.widget.FloatingActionButton
-
-        android:id="@+id/fab"
+    <android.support.v4.widget.ContentLoadingProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:elevation="@dimen/elevation_fab"
-        android:tint="@android:color/white"
-        app:elevation="@dimen/elevation_fab" />
+        android:layout_height="wrap_content" />
+
+
 </android.support.design.widget.CoordinatorLayout>

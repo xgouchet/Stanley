@@ -1,12 +1,12 @@
 package fr.xgouchet.packageexplorer.appdetails.vh
 
 import android.view.View
-import fr.xgouchet.packageexplorer.appdetails.AppInfoHeader
-import fr.xgouchet.packageexplorer.appdetails.AppInfoSimple
-import fr.xgouchet.packageexplorer.appdetails.AppInfoViewModel
-import fr.xgouchet.packageexplorer.appdetails.AppInfoWithIcon
-import fr.xgouchet.packageexplorer.appdetails.AppInfoWithSubtitle
-import fr.xgouchet.packageexplorer.appdetails.AppInfoWithSubtitleAndIcon
+import fr.xgouchet.packageexplorer.details.AppInfoHeader
+import fr.xgouchet.packageexplorer.details.AppInfoSimple
+import fr.xgouchet.packageexplorer.details.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.AppInfoWithIcon
+import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitle
+import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitleAndIcon
 import fr.xgouchet.packageexplorer.core.mvp.BaseViewHolder
 import fr.xgouchet.packageexplorer.databinding.ItemInfoHeaderBinding
 import fr.xgouchet.packageexplorer.databinding.ItemInfoIconBinding

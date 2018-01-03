@@ -1,6 +1,7 @@
-package fr.xgouchet.packageexplorer.appdetails
+package fr.xgouchet.packageexplorer.details
 
 import fr.xgouchet.packageexplorer.core.mvp.BaseDiffUtilCallback
+import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 
 /**
  * @author Xavier F. Gouchet

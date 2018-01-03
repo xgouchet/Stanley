@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.appdetails
+package fr.xgouchet.packageexplorer.details.app
 
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
@@ -7,9 +7,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.core.mvp.BaseAdapter
 import fr.xgouchet.packageexplorer.core.mvp.ListFragment
+import fr.xgouchet.packageexplorer.details.AppDetailsAdapter
+import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 
 /**
  * @author Xavier F. Gouchet

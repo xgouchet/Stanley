@@ -63,8 +63,7 @@ abstract class ListFragment<T, P : ListPresenter<T>>(val isFabVisible: Boolean)
     override fun setError(throwable: Throwable) {
         empty.visibility = View.GONE
         throwable.printStackTrace()
-        Snackbar.make(list, "Error: ${throwable.message}", Snackbar.LENGTH_LONG)
-                .show()
+        Snackbar.make(list, "Error: ${throwable.message}", Snackbar.LENGTH_LONG).show()
     }
 
     override fun setEmpty() {
@@ -77,7 +76,7 @@ abstract class ListFragment<T, P : ListPresenter<T>>(val isFabVisible: Boolean)
         empty.visibility = View.GONE
     }
 
-    override fun accept(t: T, v : View ?) {
+    override fun accept(t: T, v: View?) {
         presenter.itemSelected(t, v)
     }
 }

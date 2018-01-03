@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.xgouchet.packageexplorer">
 
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".BaseApplication"
@@ -23,10 +23,31 @@
 
 
         <activity
-            android:name=".appdetails.AppDetailsActivity"
+            android:name=".details.app.AppDetailsActivity"
+            android:label="@string/activity_title_appDetails"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false" />
+
+        <activity
+            android:name=".details.apk.ApkDetailsActivity"
+            android:label="@string/activity_title_apkDetails"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:mimeType="application/vnd.android.package-archive" />
+            </intent-filter>
         </activity>
+
+        <activity android:name=".permission.RequestPermissionActivity"
+            android:label="@string/activity_title_permissions"
+            android:exported="false"/>
 
     </application>
 

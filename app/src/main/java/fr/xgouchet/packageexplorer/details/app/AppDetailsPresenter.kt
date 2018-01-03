@@ -1,4 +1,4 @@
-package fr.xgouchet.packageexplorer.appdetails
+package fr.xgouchet.packageexplorer.details.app
 
 import android.app.Activity
 import android.content.ClipData
@@ -8,19 +8,20 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.applist.AppListPresenter
 import fr.xgouchet.packageexplorer.core.mvp.BaseListPresenter
 import fr.xgouchet.packageexplorer.core.mvp.ListDisplayer
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.core.utils.applicationInfoIntent
 import fr.xgouchet.packageexplorer.core.utils.applicationPlayStoreIntent
 import fr.xgouchet.packageexplorer.core.utils.uninstallPackageIntent
+import fr.xgouchet.packageexplorer.details.AppInfoHeader
+import fr.xgouchet.packageexplorer.details.AppInfoSelectable
+import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import mu.KLogging
 
 
 /**
@@ -32,10 +33,6 @@ class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
                           val isSystemApp: Boolean)
     : BaseListPresenter<AppInfoViewModel>(null, activity),
         ContextHolder {
-
-    companion object : KLogging() {
-
-    }
 
     override val context: Context = activity.applicationContext
 
@@ -97,7 +94,7 @@ class AppDetailsPresenter(listDisplayer: ListDisplayer<AppInfoViewModel>?,
                             memoizedAppInfoList = l
                             dataSubject.onNext(l)
                         } else {
-                            AppListPresenter.logger.error { "Error fetching the list of apps : ${t.message}" }
+                            displayer?.setError(t)
                         }
                     }
         }

@@ -7,7 +7,7 @@
 
         <variable
             name="info"
-            type="fr.xgouchet.packageexplorer.appdetails.AppInfoHeader" />
+            type="fr.xgouchet.packageexplorer.details.AppInfoHeader" />
     </data>
 
     <android.support.constraint.ConstraintLayout

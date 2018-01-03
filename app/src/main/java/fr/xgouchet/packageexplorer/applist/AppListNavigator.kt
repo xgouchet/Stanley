@@ -2,7 +2,7 @@ package fr.xgouchet.packageexplorer.applist
 
 import android.app.Activity
 import android.view.View
-import fr.xgouchet.packageexplorer.appdetails.AppDetailsActivity
+import fr.xgouchet.packageexplorer.details.app.AppDetailsActivity
 import fr.xgouchet.packageexplorer.core.mvp.Navigator
 
 /**

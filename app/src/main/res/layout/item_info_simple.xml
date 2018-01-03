@@ -6,7 +6,7 @@
 
         <variable
             name="info"
-            type="fr.xgouchet.packageexplorer.appdetails.AppInfoSimple" />
+            type="fr.xgouchet.packageexplorer.details.AppInfoSimple" />
     </data>
 
     <TextView

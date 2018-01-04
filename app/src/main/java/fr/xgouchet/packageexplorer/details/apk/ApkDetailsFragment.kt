@@ -18,7 +18,7 @@ import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
  * @author Xavier F. Gouchet
  */
 class ApkDetailsFragment
-    : BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>(false) {
+    : BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>() {
 
     companion object {
         const val PERMISSION_REQUEST_READ_STORAGE = 1
@@ -26,6 +26,8 @@ class ApkDetailsFragment
     }
 
     override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this)
+    override val isFabVisible: Boolean = false
+    override val fabIconOverride: Int? = null
 
     // region Fragment
 

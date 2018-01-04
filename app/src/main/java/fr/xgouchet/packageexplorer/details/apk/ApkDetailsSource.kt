@@ -37,11 +37,11 @@ class ApkDetailsSource(context: Context,
 
             extractMainInfo(emitter, packageInfo, null)
 
+            extractSignatures(emitter, packageInfo)
+
             extractFeatures(emitter, packageInfo)
             extractCustomPermissions(emitter, packageInfo)
             extractPermissions(emitter, packageInfo)
-
-            extractSignatures(emitter, packageInfo)
 
             extractActivities(emitter, packageInfo, packageManager)
             extractServices(emitter, packageInfo)

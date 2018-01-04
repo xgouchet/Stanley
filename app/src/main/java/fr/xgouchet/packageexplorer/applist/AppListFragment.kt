@@ -11,9 +11,11 @@ import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 
-class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>(false) {
+class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
 
     override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this)
+    override val isFabVisible: Boolean = false
+    override val fabIconOverride: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,13 +2,13 @@ package fr.xgouchet.packageexplorer.ui.adapter
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
-import java.util.*
+import java.util.ArrayList
 
 
 /**
  * @author Xavier Gouchet
  */
-abstract class BaseAdapter< T>
+abstract class BaseAdapter<T>
     : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
 

@@ -1,5 +1,6 @@
 package fr.xgouchet.packageexplorer.details.app
 
+import android.content.pm.ResolveInfo
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.view.Menu
@@ -11,14 +12,17 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import fr.xgouchet.packageexplorer.details.AppDetailsAdapter
 import fr.xgouchet.packageexplorer.details.AppInfoViewModel
+import fr.xgouchet.packageexplorer.launcher.LauncherDialog
 
 /**
  * @author Xavier F. Gouchet
  */
 class AppDetailsFragment
-    : BaseListFragment<AppInfoViewModel, AppDetailsPresenter>(false) {
+    : BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
 
     override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this)
+    override val isFabVisible: Boolean = false
+    override val fabIconOverride: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,10 @@ class AppDetailsFragment
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.action_app_launch -> {
+                presenter.openApplication()
+                return true
+            }
             R.id.action_app_info -> {
                 presenter.openAppInfo()
                 return true
@@ -57,6 +65,13 @@ class AppDetailsFragment
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun promptActivity(resolvedInfos: List<ResolveInfo>) {
+        val supportFragmentManager = activity.supportFragmentManager
+        val transaction = supportFragmentManager.beginTransaction()
+        LauncherDialog.withData(resolvedInfos)
+                .show(transaction, null)
     }
 }
 

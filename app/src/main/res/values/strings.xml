@@ -45,6 +45,8 @@
     <string name="action_uninstall">Uninstall</string>
     <string name="permission_explanation_storage_apk">To be able to open this APK, we need permission to read your external storage.</string>
     <string name="permission_denied_storage_apk">We can’t read this APK file without your permission.</string>
+    <string name="action_launch">Launch</string>
+    <string name="dialog_title_launcher">Open</string>
 
 
 </resources>

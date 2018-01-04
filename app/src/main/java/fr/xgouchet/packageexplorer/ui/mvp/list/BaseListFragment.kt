@@ -19,7 +19,7 @@ import io.reactivex.functions.BiConsumer
 /**
  * @author Xavier F. Gouchet
  */
-abstract class BaseListFragment<T, P : ListPresenter<T>>(private val isFabVisible: Boolean)
+abstract class BaseListFragment<T, P : ListPresenter<T>>
     : Fragment(),
         ListDisplayer<T>,
         BiConsumer<T, View?> {
@@ -32,6 +32,8 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>(private val isFabVisibl
     protected lateinit var presenter: P
 
     abstract val adapter: BaseAdapter<T>
+    abstract val isFabVisible: Boolean
+    abstract val fabIconOverride : Int?
 
     override fun setPresenter(presenter: Presenter<List<T>>) {
         @Suppress("UNCHECKED_CAST")
@@ -47,6 +49,11 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>(private val isFabVisibl
         super.onViewCreated(view, savedInstanceState)
         list.layoutManager = LinearLayoutManager(activity)
         list.adapter = adapter
+
+        val iconOverride = fabIconOverride
+        if (iconOverride != null){
+            fab.setImageResource(iconOverride)
+        }
     }
 
 

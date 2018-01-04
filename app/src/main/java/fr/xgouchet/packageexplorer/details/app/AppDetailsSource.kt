@@ -40,11 +40,11 @@ class AppDetailsSource(context: Context,
 
             extractMainInfo(emitter, packageInfo, applicationInfo)
 
+            extractSignatures(emitter, packageInfo)
+
             extractFeatures(emitter, packageInfo)
             extractCustomPermissions(emitter, packageInfo)
             extractPermissions(emitter, packageInfo)
-
-            extractSignatures(emitter, packageInfo)
 
             extractActivities(emitter, packageInfo, packageManager)
             extractServices(emitter, packageInfo)

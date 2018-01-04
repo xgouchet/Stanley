@@ -1,18 +1,25 @@
 package fr.xgouchet.packageexplorer.details.app
 
+import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v4.content.FileProvider
 import android.support.v4.view.ViewCompat
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import fr.xgouchet.packageexplorer.BuildConfig
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
-import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import fr.xgouchet.packageexplorer.details.AppDetailsAdapter
 import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 import fr.xgouchet.packageexplorer.launcher.LauncherDialog
+import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
+import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
+import java.io.File
+
 
 /**
  * @author Xavier F. Gouchet
@@ -39,7 +46,7 @@ class AppDetailsFragment
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.app_details, menu)
 
-        if (presenter.isSystemApp){
+        if (presenter.isSystemApp) {
             menu?.findItem(R.id.action_uninstall)?.isVisible = false
             menu?.findItem(R.id.action_play_store)?.isVisible = false
         }
@@ -59,8 +66,12 @@ class AppDetailsFragment
                 presenter.openPlayStore()
                 return true
             }
-            R.id.action_uninstall-> {
+            R.id.action_uninstall -> {
                 presenter.openUninstaller()
+                return true
+            }
+            R.id.action_manifest -> {
+                presenter.exportManifest()
                 return true
             }
         }
@@ -73,5 +84,22 @@ class AppDetailsFragment
         LauncherDialog.withData(resolvedInfos)
                 .show(transaction, null)
     }
+
+    fun onManifestExported(dest: File) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        val uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID, dest)
+        intent.setDataAndType(uri, "text/xml")
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+
+        val resolved = context.packageManager.queryIntentActivities(intent, 0)
+        if (resolved.isEmpty()) {
+            Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
+                    .show()
+        } else {
+            val chooser = Intent.createChooser(intent, null)
+            activity.startActivity(chooser)
+        }
+    }
 }
+
 

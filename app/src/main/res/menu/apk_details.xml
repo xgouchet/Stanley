@@ -9,12 +9,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_manifest"
-        android:icon="@drawable/ic_menu_manifest"
-        android:title="@string/action_manifest"
-        app:showAsAction="ifRoom"/>
-
-    <item
         android:id="@+id/action_app_info"
         android:icon="@drawable/ic_menu_info"
         android:title="@string/action_app_info"

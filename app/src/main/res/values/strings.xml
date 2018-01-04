@@ -47,6 +47,8 @@
     <string name="permission_denied_storage_apk">We can’t read this APK file without your permission.</string>
     <string name="action_launch">Launch</string>
     <string name="dialog_title_launcher">Open</string>
-
+    <string name="action_manifest">Export Manifest</string>
+    <string name="action_open">Open</string>
+    <string name="error_exported_manifest">No application can open a Manifest. Try installing one from the Play Store.</string>
 
 </resources>

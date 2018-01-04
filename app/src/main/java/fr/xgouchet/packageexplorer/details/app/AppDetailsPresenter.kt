@@ -2,17 +2,22 @@ package fr.xgouchet.packageexplorer.details.app
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.ResolveInfo
-import android.os.Bundle
 import fr.xgouchet.packageexplorer.core.utils.applicationInfoIntent
 import fr.xgouchet.packageexplorer.core.utils.applicationPlayStoreIntent
+import fr.xgouchet.packageexplorer.core.utils.exportManifestFromPackage
 import fr.xgouchet.packageexplorer.core.utils.getMainActivities
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.core.utils.uninstallPackageIntent
 import fr.xgouchet.packageexplorer.details.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.io.IOException
+import java.util.zip.ZipException
+import javax.xml.parsers.ParserConfigurationException
+import javax.xml.transform.TransformerException
 
 
 /**
@@ -22,6 +27,14 @@ class AppDetailsPresenter(activity: Activity,
                           val packageName: String,
                           val isSystemApp: Boolean)
     : BaseDetailsPresenter<AppDetailsFragment>(null, activity.applicationContext) {
+
+    private var exportDisposable: Disposable? = null
+
+    override fun onDisplayerDetached() {
+        super.onDisplayerDetached()
+        exportDisposable?.dispose()
+        exportDisposable = null
+    }
 
     override fun getDetails(): Observable<AppInfoViewModel> {
         return Observable.create(AppDetailsSource(context, packageName))
@@ -48,7 +61,6 @@ class AppDetailsPresenter(activity: Activity,
     }
 
     fun openApplication() {
-        // context.startActivity(applicationLaunchIntent(packageName).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
         val resolvedInfos = getMainActivities(context, packageName)
 
         if (resolvedInfos.isEmpty()) {
@@ -58,14 +70,23 @@ class AppDetailsPresenter(activity: Activity,
             context.startActivity(intent)
         } else {
             displayer?.promptActivity(resolvedInfos)
-//            // Prompt for one activity
-//            val fm = getSupportFragmentManager()
-//            val resolveDialog = ResolveInfoDialog()
-//            val args = Bundle()
-//            args.putParcelableArray(Constants.EXTRA_RESOLVE_INFO,
-//                    mActivities.toArray(arrayOfNulls<ResolveInfo>(count)))
-//            resolveDialog.setArguments(args)
-//            resolveDialog.show(fm, "resolveDialog")
         }
+    }
+
+    fun exportManifest() {
+        try {
+            val packageInfo = context.packageManager.getPackageInfo(packageName, 0)
+            exportDisposable = exportManifestFromPackage(packageInfo, context)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        displayer?.onManifestExported(it)
+                    }
+        } catch (e: ZipException) {
+        } catch (e: IOException) {
+        } catch (e: TransformerException) {
+        } catch (e: ParserConfigurationException) {
+        }
+
     }
 }

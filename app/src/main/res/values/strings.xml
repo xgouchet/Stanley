@@ -1,54 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-
-    <!-- Manifest -->
-    <string name="app_name">Stanley</string>
-    <string name="activity_title_appList">Stanley</string>
-    <string name="activity_title_apkDetails">APK file details</string>
-    <string name="activity_title_appDetails">Application details</string>
-
-    <!-- Messages -->
-    <string name="msg_empty_app_list">No application found</string>
-
-    <!-- App details headers -->
-    <string name="header_type_global">Global information</string>
-    <string name="header_type_features">Features required</string>
-    <string name="header_type_custom_permissions">Declared Permissions</string>
-    <string name="header_type_uses_permissions">Requested Permissions</string>
-    <string name="header_type_activities">Activities</string>
-    <string name="header_type_services">Services</string>
-    <string name="header_type_providers">Content Providers</string>
-    <string name="header_type_receivers">Broadcast Receivers</string>
-    <string name="header_type_signature">Signing certificates</string>
-
-    <!-- Item views -->
-    <string name="app_installed_on">Installed on :</string>
-    <string name="app_updated_on">Updated on :</string>
-
-    <!-- Options menu -->
-    <string name="menu_sort">Sort by…</string>
-    <string name="menu_sort_by_title">…by title</string>
-    <string name="menu_sort_by_package_name">…by pacakge name</string>
-    <string name="menu_sort_by_install_time">…by install date</string>
-    <string name="menu_sort_by_update_time">…by update date</string>
-    <string name="menu_hide_system_apps">Hide system apps</string>
-    <string name="menu_show_system_apps">Show system apps</string>
-
-    <!-- Not Displayed -->
-    <string name="transition_icon">icon</string>
-
-    <!-- Preferences -->
-    <string name="pref_title_show_system_apps">Display system apps</string>
-    <string name="pref_description_show_system_apps_on">System applications are displayed</string>
-    <string name="pref_description_show_system_apps_off">Only installed apps are displayed</string>
-    <string name="pref_title_sort_criteria">Sort apps by …</string>
     <string name="action_app_info">System Application Info</string>
-    <string name="action_uninstall">Uninstall</string>
-    <string name="permission_explanation_storage_apk">To be able to open this APK, we need permission to read your external storage.</string>
-    <string name="permission_denied_storage_apk">We can’t read this APK file without your permission.</string>
     <string name="action_launch">Launch</string>
-    <string name="dialog_title_launcher">Open</string>
     <string name="action_manifest">Export Manifest</string>
     <string name="action_open">Open</string>
+    <string name="action_play_store">System Application Info</string>
+    <string name="action_uninstall">Uninstall</string>
+
+    <string name="activity_title_apkDetails">APK file details</string>
+    <string name="activity_title_appDetails">Application details</string>
+    <string name="activity_title_appList">Stanley</string>
+
+    <string name="app_installed_on">Installed on :</string>
+    <string name="app_name">Stanley</string>
+    <string name="app_updated_on">Updated on :</string>
+
+    <string name="dialog_title_launcher">Open</string>
+
     <string name="error_exported_manifest">No application can open a Manifest. Try installing one from the Play Store.</string>
+
+    <string name="header_type_activities">Activities</string>
+    <string name="header_type_custom_permissions">Declared Permissions</string>
+    <string name="header_type_features">Features required</string>
+    <string name="header_type_global">Global information</string>
+    <string name="header_type_providers">Content Providers</string>
+    <string name="header_type_receivers">Broadcast Receivers</string>
+    <string name="header_type_services">Services</string>
+    <string name="header_type_signature">Signing certificates</string>
+    <string name="header_type_uses_permissions">Requested Permissions</string>
+
+    <string name="menu_hide_system_apps">Hide system apps</string>
+    <string name="menu_show_system_apps">Show system apps</string>
+    <string name="menu_sort">Sort by…</string>
+    <string name="menu_sort_by_install_time">…by install date</string>
+    <string name="menu_sort_by_package_name">…by pacakge name</string>
+    <string name="menu_sort_by_title">…by title</string>
+    <string name="menu_sort_by_update_time">…by update date</string>
+
+    <string name="msg_empty_app_list">No application found</string>
+
+    <string name="permission_denied_storage_apk">We can’t read this APK file without your permission.</string>
+    <string name="permission_explanation_storage_apk">To be able to open this APK, we need permission to read your external storage.</string>
+
+    <string name="pref_description_show_system_apps_off">Only installed apps are displayed</string>
+    <string name="pref_description_show_system_apps_on">System applications are displayed</string>
+    <string name="pref_title_show_system_apps">Display system apps</string>
+    <string name="pref_title_sort_criteria">Sort apps by …</string>
 
 </resources>

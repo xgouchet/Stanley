@@ -83,9 +83,13 @@ class AppDetailsPresenter(activity: Activity,
                         displayer?.onManifestExported(it)
                     }
         } catch (e: ZipException) {
+            displayer?.setError(e)
         } catch (e: IOException) {
+            displayer?.setError(e)
         } catch (e: TransformerException) {
+            displayer?.setError(e)
         } catch (e: ParserConfigurationException) {
+            displayer?.setError(e)
         }
 
     }

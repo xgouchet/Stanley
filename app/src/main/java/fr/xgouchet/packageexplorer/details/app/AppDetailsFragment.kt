@@ -31,6 +31,9 @@ class AppDetailsFragment
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 
+
+    // region Fragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -78,6 +81,11 @@ class AppDetailsFragment
         return super.onOptionsItemSelected(item)
     }
 
+    // endregion
+
+
+    // region Displayer
+
     fun promptActivity(resolvedInfos: List<ResolveInfo>) {
         val supportFragmentManager = activity.supportFragmentManager
         val transaction = supportFragmentManager.beginTransaction()
@@ -100,6 +108,8 @@ class AppDetailsFragment
             activity.startActivity(chooser)
         }
     }
+
+    // endregion
 }
 
 

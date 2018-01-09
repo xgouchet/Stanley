@@ -14,13 +14,15 @@ import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 class ApkDetailsActivity
     : BaseActivity<Uri, List<AppInfoViewModel>, ApkDetailsPresenter, ApkDetailsFragment>() {
 
+    override val allowNullIntentData: Boolean = false
 
     override fun readIntent(intent: Intent): Uri? {
         return intent.data
     }
 
     override fun instantiatePresenter(): ApkDetailsPresenter {
-        return ApkDetailsPresenter(this, intentData)
+        val uri = intentData ?: throw IllegalStateException("Intent data should not be null")
+        return ApkDetailsPresenter(this, uri)
     }
 
     override fun instantiateFragment(): ApkDetailsFragment {
@@ -33,7 +35,7 @@ class ApkDetailsActivity
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        intentData.let {
+        intentData?.let {
             title = it.getFileName(this)
         }
     }

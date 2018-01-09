@@ -20,6 +20,9 @@ buildscript {
 
         // Dependencies update
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradleVersionPluginVersion"
+
+        // OSS Licenses
+        classpath "com.google.gms:oss-licenses:$ossLicensesPluginVersion"
     }
 }
 

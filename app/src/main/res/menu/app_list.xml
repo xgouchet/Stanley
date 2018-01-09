@@ -13,8 +13,8 @@
 
     <item
         android:id="@+id/sort"
-        android:title="@string/menu_sort"
         android:icon="@drawable/ic_menu_sort"
+        android:title="@string/menu_sort"
         app:showAsAction="ifRoom">
 
         <menu xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,11 +40,17 @@
 
     <item
         android:id="@+id/hide_system_apps"
-        android:title="@string/menu_hide_system_apps"
-        />
+        android:title="@string/menu_hide_system_apps" />
 
     <item
         android:id="@+id/show_system_apps"
-        android:title="@string/menu_show_system_apps"
-        />
+        android:title="@string/menu_show_system_apps" />
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/menu_about" />
+
+    <item
+        android:id="@+id/licenses"
+        android:title="@string/menu_licenses" />
 </menu>

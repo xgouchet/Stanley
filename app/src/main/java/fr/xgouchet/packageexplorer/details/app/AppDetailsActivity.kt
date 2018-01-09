@@ -25,6 +25,8 @@ class AppDetailsActivity
 
     }
 
+    override val allowNullIntentData: Boolean = false
+
     override fun readIntent(intent: Intent): AppViewModel? {
         val packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME)
         if (packageName.isNullOrBlank()) {
@@ -35,7 +37,8 @@ class AppDetailsActivity
     }
 
     override fun instantiatePresenter(): AppDetailsPresenter {
-        return AppDetailsPresenter(this, intentData.packageName, intentData.isSystemApp)
+        val appViewModel = intentData ?: throw IllegalStateException("Expected non null app here")
+        return AppDetailsPresenter(this, appViewModel.packageName, appViewModel.isSystemApp)
     }
 
     override fun instantiateFragment(): AppDetailsFragment {
@@ -43,15 +46,15 @@ class AppDetailsActivity
     }
 
     override fun getPresenterKey(): String {
-        return "app_details/${intentData.packageName}"
+        val appViewModel = intentData ?: throw IllegalStateException("Expected non null app here")
+        return "app_details/${appViewModel.packageName}"
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        intentData.let {
+        intentData?.let {
             title = it.title
             toolbar.subtitle = it.packageName
-//            toolbar.navigationIcon = it.icon
         }
     }
 

@@ -8,8 +8,10 @@ import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 class AppListActivity
     : BaseActivity<String, List<AppViewModel>, AppListPresenter, AppListFragment>() {
 
-    override fun readIntent(intent: Intent): String {
-        return ""
+    override val allowNullIntentData: Boolean = true
+
+    override fun readIntent(intent: Intent): String? {
+        return null
     }
 
     override fun instantiatePresenter(): AppListPresenter {

@@ -1,15 +1,18 @@
 package fr.xgouchet.packageexplorer.applist
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.xgouchet.packageexplorer.R
+import fr.xgouchet.packageexplorer.about.AboutActivity
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
+
 
 class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
 
@@ -27,7 +30,7 @@ class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
         inflater?.inflate(R.menu.app_list, menu)
 
         menu?.findItem(R.id.action_search)?.let {
-            val searchView = MenuItemCompat.getActionView(it) as SearchView
+            val searchView = it.actionView as SearchView
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean = false
 
@@ -51,6 +54,7 @@ class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
         when (item?.itemId) {
             R.id.sort_by_title -> presenter.setSort(AppSort.TITLE)
             R.id.sort_by_package_name -> presenter.setSort(AppSort.PACKAGE_NAME)
@@ -58,8 +62,16 @@ class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
             R.id.sort_by_update_time -> presenter.setSort(AppSort.UPDATE_TIME)
             R.id.hide_system_apps -> presenter.setSystemAppsVisible(false)
             R.id.show_system_apps -> presenter.setSystemAppsVisible(true)
+            R.id.about -> {
+                startActivity(Intent(activity, AboutActivity::class.java))
+            }
+            R.id.licenses -> {
+                OssLicensesMenuActivity.setActivityTitle(getString(R.string.activity_title_licenses))
+                startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+        return true
     }
 
 

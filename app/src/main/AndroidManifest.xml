@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.xgouchet.packageexplorer">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".StanleyApplication"
@@ -24,15 +24,15 @@
 
         <activity
             android:name=".details.app.AppDetailsActivity"
-            android:label="@string/activity_title_appDetails"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/activity_title_appDetails" />
 
         <activity
             android:name=".details.apk.ApkDetailsActivity"
-            android:label="@string/activity_title_apkDetails"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/activity_title_apkDetails">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -45,11 +45,24 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".about.AboutActivity"
+            android:label="@string/activity_title_about"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/shareable_paths" />

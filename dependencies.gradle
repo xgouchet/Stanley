@@ -13,6 +13,7 @@ ext {
     // Gradle Plugins
     androidPluginVersion = '3.0.1'
     gradleVersionPluginVersion = '0.17.0'
+    ossLicensesPluginVersion = '0.9.1'
 
     // Android Support / Design
     supportLibraryVersion = '26.1.0'
@@ -31,15 +32,13 @@ ext {
     // Kotlin
     kotlinVersion = '1.2.0'
     mockitoKotlinVersion = '1.5.0'
-    kotlinLoggingVersion = '1.4.6'
     kotlin = dependencyGroup {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
-        implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
         testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
     }
 
     // Reactive
-    rxJavaVersion = '2.1.1'
+    rxJavaVersion = '2.1.8'
     rxAndroidVersion = '2.0.1'
     traceurVersion = "1.0.1"
     rx = dependencyGroup {
@@ -48,8 +47,20 @@ ext {
         api "com.tspoon.traceur:traceur:$traceurVersion"
     }
 
+    // OSS Licenses
+    ossLicensesVersion = '11.8.0'
+    oss = dependencyGroup {
+        implementation "com.google.android.gms:play-services-oss-licenses:$ossLicensesVersion"
+    }
+
+    // About page
+    aboutPageVersion = '1.2.2'
+    aboutPage = dependencyGroup {
+        implementation "com.github.medyo:android-about-page:$aboutPageVersion"
+    }
+
     // Debug tools
-    leakcanaryVersion = '1.5.1'
+    leakcanaryVersion = '1.5.4'
     timberVersion = '4.6.0'
     stethoVersion = '1.5.0'
     debugTools = dependencyGroup {

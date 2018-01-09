@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.google.gms.oss.licenses.plugin'
 
 apply from: "$project.rootDir/dependencies.gradle"
 
@@ -67,9 +68,11 @@ dependencies {
     androidSupport()
     kotlin()
     rx()
+    oss()
+    aboutPage()
 
     debugTools()
 
-    implementation 'com.github.xgouchet:AXML:v1.0'
+    implementation 'com.github.xgouchet:AXML:v1.0.1'
 
 }

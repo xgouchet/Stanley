@@ -35,10 +35,8 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>
     abstract val isFabVisible: Boolean
     abstract val fabIconOverride : Int?
 
-    override fun setPresenter(presenter: Presenter<List<T>>) {
-        @Suppress("UNCHECKED_CAST")
-        this.presenter = presenter as P
-    }
+
+    // region Fragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
@@ -56,6 +54,14 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>
         }
     }
 
+    // endregion
+
+    // region Displayer
+
+    override fun setPresenter(presenter: Presenter<List<T>>) {
+        @Suppress("UNCHECKED_CAST")
+        this.presenter = presenter as P
+    }
 
     override fun setLoading(isLoading: Boolean) {
         loading.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -78,7 +84,13 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>
         empty.visibility = View.GONE
     }
 
+    // endregion
+
+    // region BiConsumer<T, View?>
+
     override fun accept(t: T, v: View?) {
         presenter.itemSelected(t)
     }
+
+    // endregion
 }

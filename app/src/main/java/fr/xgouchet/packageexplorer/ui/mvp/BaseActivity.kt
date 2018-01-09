@@ -7,21 +7,22 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import fr.xgouchet.packageexplorer.R
 import timber.log.Timber
-import kotlin.properties.Delegates.notNull
 
-abstract class BaseActivity<I, T, out P, out D>
+abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
     : AppCompatActivity()
-        where I : Any,
-              P : Presenter<T>,
-              D : Displayer<T>, D : Fragment {
+        where IntentDataI : Any,
+              PresenterP : Presenter<DataD>,
+              DisplayerD : Displayer<DataD>, DisplayerD : Fragment {
 
 
-    protected lateinit var fragment: Displayer<T>
-    protected lateinit var presenter: Presenter<T>
+    abstract val allowNullIntentData: Boolean
+
+    protected lateinit var fragment: Displayer<DataD>
+    protected lateinit var presenter: Presenter<DataD>
 
     protected lateinit var toolbar: Toolbar
 
-    protected var intentData: I by notNull()
+    protected var intentData: IntentDataI? = null
     private var isRestored: Boolean = false
 
     // region Activity
@@ -32,8 +33,8 @@ abstract class BaseActivity<I, T, out P, out D>
         setContentView(R.layout.activity_base)
         setupHeader()
 
-        val data: I? = readIntent(intent)
-        if (data == null) {
+        val data: IntentDataI? = readIntent(intent)
+        if (data == null && !allowNullIntentData) {
             Timber.w("Intent data is null, aborting activity")
             finish()
             return
@@ -45,7 +46,7 @@ abstract class BaseActivity<I, T, out P, out D>
             isRestored = true
             presenter = restorePresenter(savedInstanceState)
             @Suppress("UNCHECKED_CAST")
-            fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as D
+            fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as DisplayerD
         } else {
             presenter = instantiatePresenter()
             val displayer = instantiateFragment()
@@ -106,11 +107,11 @@ abstract class BaseActivity<I, T, out P, out D>
 
     // region Abstract
 
-    abstract fun readIntent(intent: Intent): I?
+    abstract fun readIntent(intent: Intent): IntentDataI?
 
-    abstract fun instantiatePresenter(): P
+    abstract fun instantiatePresenter(): PresenterP
 
-    abstract fun instantiateFragment(): D
+    abstract fun instantiateFragment(): DisplayerD
 
     abstract fun getPresenterKey(): String
 
@@ -124,7 +125,7 @@ abstract class BaseActivity<I, T, out P, out D>
     }
 
 
-    private fun restorePresenter(savedInstanceState: Bundle): P {
+    private fun restorePresenter(savedInstanceState: Bundle): PresenterP {
         val key = savedInstanceState.getString(PresenterCache.PRESENTER_KEY, null)
         val factory = { instantiatePresenter() }
 

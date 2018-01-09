@@ -19,7 +19,7 @@
     <string name="action_launch">Launch</string>
     <string name="action_manifest">Export Manifest</string>
     <string name="action_open">Open</string>
-    <string name="action_play_store">System Application Info</string>
+    <string name="action_play_store">Open in Play Store</string>
     <string name="action_uninstall">Uninstall</string>
 
     <string name="activity_title_about">About Stanley…</string>

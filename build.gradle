@@ -15,9 +15,6 @@ buildscript {
         // Kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
-        // JUnit
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
-
         // Dependencies update
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradleVersionPluginVersion"
 
@@ -32,7 +29,6 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "http://dl.bintray.com/jetbrains/spek" }
     }
 }
 

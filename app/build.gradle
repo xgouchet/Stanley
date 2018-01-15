@@ -16,8 +16,8 @@ android {
         applicationId "fr.xgouchet.packageexplorer"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 11
-        versionName "2.0"
+        versionCode 12
+        versionName "2.0.1"
 
         vectorDrawables.useSupportLibrary = true
     }

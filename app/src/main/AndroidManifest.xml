@@ -68,6 +68,19 @@
                 android:resource="@xml/shareable_paths" />
         </provider>
 
+        <receiver android:name=".easteregg.EasterEggReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+                <data
+                    android:host="7826539"
+                    android:scheme="android_secret_code" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+                <data android:scheme="android_secret_code" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

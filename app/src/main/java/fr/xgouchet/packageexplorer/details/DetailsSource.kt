@@ -9,9 +9,9 @@ import android.content.pm.PackageManager
 import android.content.pm.Signature
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.util.Log
 import fr.xgouchet.packageexplorer.R
 import io.reactivex.ObservableEmitter
+import timber.log.Timber
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
 
@@ -148,10 +148,10 @@ open class DetailsSource(val context: Context) {
                 val description: String
                 val simplified = simplifyName(cpi.name, packageInfo.packageName)
 
-                if (simplified == C2D_MESSAGE) {
-                    description = context.getString(R.string.permission_c2d_message_generic)
+                description = if (simplified == C2D_MESSAGE) {
+                    context.getString(R.string.permission_c2d_message_generic)
                 } else {
-                    description = context.getString(R.string.permission_unknown)
+                    context.getString(R.string.permission_custom)
                 }
                 onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_CUSTOM_PERMISSIONS, simplified, description, cpi.name))
             }
@@ -161,6 +161,7 @@ open class DetailsSource(val context: Context) {
     protected fun extractPermissions(emitter: ObservableEmitter<AppInfoViewModel>,
                                      packageInfo: PackageInfo) {
         val permissions = packageInfo.requestedPermissions ?: return
+        val customPermissions = packageInfo.permissions?.toList()?.map { it.name } ?: emptyList()
 
         emitter.apply {
             onNext(AppInfoHeader(AppInfoType.INFO_TYPE_PERMISSIONS, context.getString(R.string.header_type_uses_permissions), R.drawable.ic_category_permission))
@@ -172,21 +173,20 @@ open class DetailsSource(val context: Context) {
                 val title: String
                 val simplified = simplifyName(name, packageInfo.packageName)
 
-                if (stringRes == 0) {
-                    if (simplified == C2D_MESSAGE) {
-                        description = context.getString(R.string.permission_c2d_message_generic)
-                    } else {
-                        Log.e("Apps", "Unable to find description for <\"$name\">")
-                        description = context.getString(R.string.permission_unknown)
+                description = when {
+                    stringRes != 0 -> context.getString(stringRes)
+                    simplified == C2D_MESSAGE -> context.getString(R.string.permission_c2d_message_generic)
+                    name in customPermissions -> context.getString(R.string.permission_custom)
+                    else -> {
+                        Timber.e("Unable to find description for permission <\"$name\">")
+                        context.getString(R.string.permission_unknown)
                     }
-                } else {
-                    description = context.getString(stringRes)
                 }
 
-                if (name.startsWith("android.permission.")) {
-                    title = name.substring("android.permission.".length)
+                title = if (name.startsWith("android.permission.")) {
+                    name.substring("android.permission.".length)
                 } else {
-                    title = simplified
+                    simplified
                 }
 
                 onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_PERMISSIONS, title, description, name))
@@ -202,18 +202,17 @@ open class DetailsSource(val context: Context) {
             onNext(AppInfoHeader(AppInfoType.INFO_TYPE_FEATURES_REQUIRED, context.getString(R.string.header_type_features), R.drawable.ic_category_feature))
 
             for (feature in features) {
-                val info: String
-                if (feature.name == null) {
+                val info = if (feature.name == null) {
                     val maj = feature.reqGlEsVersion shr 16
                     val min = feature.reqGlEsVersion and 0xFFFF
-                    info = "OpenGL ES v$maj.$min"
+                    "OpenGL ES v$maj.$min"
                 } else {
                     val stringRes = context.resources.getIdentifier(feature.name, "string", context.packageName)
                     if (stringRes == 0) {
-                        Log.e("Apps", "Unable to find description for <\"" + feature.name + "\">")
-                        info = feature.name
+                        Timber.e("Unable to find description for <\"${feature.name}\">")
+                        feature.name
                     } else {
-                        info = context.getString(stringRes)
+                        context.getString(stringRes)
                     }
                 }
 
@@ -250,8 +249,8 @@ open class DetailsSource(val context: Context) {
 
     }
 
-    protected fun extractHumanName(name: String): String {
-        val properties = name.split(",")
+    private fun extractHumanName(certificateName: String): String {
+        val properties = certificateName.split(Regex("(?<!\\\\),"))
 
         var organization: String? = null
         var name: String? = null
@@ -269,22 +268,22 @@ open class DetailsSource(val context: Context) {
             }
         }
 
-        if (name != null) {
+        return if (name != null) {
             if (organization != null) {
-                return "$name ($organization) ✓"
+                "$name ($organization) ✓"
             } else {
-                return "$name ✓"
+                "$name ✓"
             }
         } else {
             if (organization != null) {
-                return "($organization) ✓"
+                "($organization) ✓"
             } else {
-                return "Unknown ✗"
+                "Unknown ✗"
             }
         }
     }
 
-    protected fun simplifyName(name: String?, packageName: String?): String {
+    private fun simplifyName(name: String?, packageName: String?): String {
         if (name == null) return "?"
         if (packageName == null) return name
 

@@ -15,8 +15,9 @@
     <string name="android.hardware.camera.any">Any camera</string>
     <string name="android.hardware.camera.front">Front-Facing camera</string>
     <string name="android.hardware.camera.external">External camera</string>
-
+    <string name="android.hardware.camera2">Camera2</string>
     <string name="android.hardware.camera.autofocus">Camera auto-focus</string>
+    <string name="android.hardware.camera.front.autofocus">Front-Facing camera auto-focus</string>
     <string name="android.hardware.camera.capability.manual_post_processing">Override the auto white balance</string>
 
     <string name="android.hardware.camera.capability.manual_sensor">Camera manual sensor</string>
@@ -63,6 +64,7 @@
     <string name="android.hardware.telephony.gsm">GSM Telephony communication</string>
 
     <!-- Touchscreen -->
+    <string name="touchscreen">Touchscreen</string>
     <string name="android.hardware.touchscreen">Touchscreen</string>
     <string name="android.hardware.touchscreen.multitouch">Touchscreen with multitouch</string>
     <string name="android.hardware.touchscreen.multitouch.distinct">Touchscreen with independent multitouch</string>
@@ -83,6 +85,7 @@
     <string name="android.hardware.opengles.aep">OpenGL ES Android Extension Pack</string>
 
 
+    <!-- Software -->
     <string name="android.software.app_widgets">App widgets</string>
     <string name="android.software.backup">Backup</string>
     <string name="android.software.device_admin">Device administration</string>

@@ -2,6 +2,7 @@
 <resources>
     <string name="permission_c2d_message_generic">Generic Google Cloud Messaging permission</string>
     <string name="permission_unknown">Unknown permission…</string>
+    <string name="permission_custom">Custom permission ✓</string>
 
     <!-- Standard Permissions -->
     <string name="android.permission.ACCESS_CHECKIN_PROPERTIES">Access checkin properties</string>
@@ -12,6 +13,7 @@
     <string name="android.permission.ACCESS_MTP">Implement MTP protocol</string>
     <string name="android.permission.ACCESS_NETWORK_STATE">View network connections</string>
     <string name="android.permission.ACCESS_NOTIFICATION_POLICY">Access notification policy</string>
+    <string name="android.permission.ACCESS_SUPERUSER">Access super-user features</string>
     <string name="android.permission.ACCESS_SURFACE_FLINGER">Access SurfaceFlinger</string>
     <string name="android.permission.ACCESS_WIFI_STATE">View Wi-Fi connections</string>
     <string name="android.permission.ACCOUNT_MANAGER">Act as the AccountManagerService</string>
@@ -74,6 +76,7 @@
     <string name="android.permission.DEVICE_POWER">Power device on or off</string>
     <string name="android.permission.DIAGNOSTIC">Read/write to resources owned by diag</string>
     <string name="android.permission.DISABLE_KEYGUARD">Disable your screen lock</string>
+    <string name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION">Download without notification</string>
     <string name="android.permission.DUMP">Retrieve system internal state</string>
 
     <string name="android.permission.EXPAND_STATUS_BAR">Expand/collapse status bar</string>
@@ -95,6 +98,7 @@
     <string name="android.permission.INJECT_EVENTS">Press keys and control buttons</string>
     <string name="android.permission.INSTALL_LOCATION_PROVIDER">Permission to install a location provider</string>
     <string name="android.permission.INSTALL_PACKAGES">Directly install apps</string>
+    <string name="android.permission.INSTALL_SHORTCUT">Install shortcuts in Launcher</string>
     <string name="android.permission.INTERNAL_SYSTEM_WINDOW">Display unauthorized windows</string>
     <string name="android.permission.INTERNET">Full network access</string>
 
@@ -186,6 +190,7 @@
     <string name="android.permission.WRITE_CONTACTS">Modify your contacts</string>
     <string name="android.permission.WRITE_EXTERNAL_STORAGE">Modify or delete the contents of your SD card</string>
     <string name="android.permission.WRITE_GSERVICES">Modify the Google services map</string>
+    <string name="android.permission.WRITE_INTERNAL_STORAGE">Modify or delete the contents of your internal storage</string>
     <string name="android.permission.WRITE_MEDIA_STORAGE">Modify/delete internal media storage contents</string>
     <string name="android.permission.WRITE_PROFILE">Modify your own contact card</string>
     <string name="android.permission.WRITE_SECURE_SETTINGS">Modify secure system settings</string>
@@ -226,6 +231,7 @@
     <string name="com.google.android.xmpp.permission.USE_XMPP_ENDPOINT">Send and receive XMPP messages to and from Google servers</string>
     <string name="com.google.android.xmpp.permission.XMPP_ENDPOINT_BROADCAST">Broadcast XMPP messages to apps</string>
     <string name="com.google.android.xmpp.permission.BROADCAST">Broadcast XMPP messages to apps</string>
+    <string name="com.google.android.voicesearch.AUDIO_FILE_ACCESS">Access Audio Files for Google Voice Search</string>
 
     <!-- Obsolete ? -->
     <string name="changeTetherState">Change tethered connectivity</string>
@@ -248,4 +254,42 @@
     <string name="cache_filesystem">Access the cache filesystem</string>
     <string name="modifyNetworkAccounting">Modify network usage accounting</string>
 
+    <!-- OEMs App Badge Permissions -->
+    <string name="com.sec.android.provider.badge.permission.READ">Read app badge on Samsung</string>
+    <string name="com.sec.android.provider.badge.permission.WRITE">Write app badge on Samsung</string>
+    <string name="com.htc.launcher.permission.READ_SETTINGS">Read app badge on HTC</string>
+    <string name="com.htc.launcher.permission.UPDATE_SHORTCUT">Write app badge on HTC</string>
+    <string name="com.huawei.android.launcher.permission.CHANGE_BADGE">Update app badge on Huawei</string>
+    <string name="com.huawei.android.launcher.permission.READ_SETTINGS">Read Launcher settings on Huawei</string>
+    <string name="com.huawei.android.launcher.permission.WRITE_SETTINGS">Write Launcher settings on Huawei</string>
+    <string name="android.permission.READ_APP_BADGE">Read app badge on ZUK</string>
+    <string name="com.oppo.launcher.permission.READ_SETTINGS">Read app badge on Oppo</string>
+    <string name="com.oppo.launcher.permission.WRITE_SETTINGS">Write app badge on Oppo</string>
+
+    <!-- TODO
+android.permission.READ_GSERVICES
+com.amazon.identity.permission.CALL_AMAZON_DEVICE_INFORMATION_PROVIDER
+com.amazon.kindle.dtcp.permission.DTCP_SERVICE_ACCESS
+com.amazon.permission.SET_FLAG_NOSOFTKEYS
+com.anddoes.launcher.permission.UPDATE_COUNT
+com.google.android.gm.exchange.BIND
+com.google.android.gm.permission.READ_GMAIL
+com.google.android.gms.permission.INTERNAL_BROADCAST
+com.google.android.googleapps.permission.GOOGLE_AUTH
+com.google.android.marvin.talkback.permission.LABELING
+com.google.android.providers.gsf.permission.WRITE_GSERVICES
+com.huawei.contacts.permission.QUERY_FEATURE
+com.majeur.launcher.permission.UPDATE_BADGE
+com.netflix.partner.activation.permission.CHANNEL_ID
+com.nokia.pushnotifications.permission.RECEIVE
+com.ocito.sncf.permission.EXPORT_SNCF
+com.sec.android.app.sns3.permission.RECEIVE_SNS_BROADCAST
+com.sfr.android.console.permission.partner.READ_STATISTICS
+com.sonyericsson.home.permission.BROADCAST_BADGE
+com.sonymobile.home.permission.PROVIDER_INSERT_BADGE
+com.sonymobile.media.permission.TILES_ACCESS
+me.everything.badger.permission.BADGE_COUNT_READ
+me.everything.badger.permission.BADGE_COUNT_WRITE
+
+    -->
 </resources>

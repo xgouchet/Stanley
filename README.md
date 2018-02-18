@@ -10,7 +10,7 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/xaviergouchet)
 
-The official Stanley app is available on the [Google Play Store](https://play.google.com/store/apps/details?id=fr.xgouchet.packageexplorer).
+The official Stanley app is available on the [Google Play Store](https://play.google.com/store/apps/details?id=fr.xgouchet.packageexplorer) & [F-Droid](https://f-droid.org/app/fr.xgouchet.packageexplorer).
 
 ## Contributing
 

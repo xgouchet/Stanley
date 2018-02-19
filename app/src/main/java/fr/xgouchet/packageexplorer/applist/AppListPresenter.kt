@@ -84,16 +84,11 @@ class AppListPresenter(context: Context)
 
     override fun load(force: Boolean) {
         displayer?.let {
-            if (!force) {
-                it.setLoading(false)
-                return@let
-            }
-
             it.setLoading(true)
             disposable?.dispose()
 
             val list = memoizedAppList
-            if (list != null) {
+            if (list != null && !force) {
                 dataSubject.onNext(list)
                 return@let
             }

@@ -33,7 +33,7 @@
             android:padding="8dp"
             tools:ignore="UseCompoundDrawables">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/icon_app"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -44,7 +44,7 @@
                 tools:ignore="ContentDescription"
                 tools:src="@mipmap/ic_launcher" />
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/icon_debuggable_app"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -56,7 +56,7 @@
                 app:srcCompat="@drawable/ic_flag_debuggable" />
 
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/icon_system_app"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_title"
                 app:srcCompat="@drawable/ic_flag_system_app" />
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/icon_large_heap"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_title"
                 app:srcCompat="@drawable/ic_flag_large_heap" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/app_name" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text_package_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                 tools:text="com.example.app.flavor" />
 
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text_install_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_package_name" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text_install"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                 tools:text="September 15, 2012" />
 
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text_update_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_install_label" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text_update"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

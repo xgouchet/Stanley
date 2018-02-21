@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         android:textColor="@color/primary_text"
         tools:text="com.google.android.googleapps.permission.GOOGLE_AUTH.blogger" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/sub_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

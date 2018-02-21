@@ -35,15 +35,15 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:drawableTop="@drawable/ic_hourglass_empty"
         android:gravity="center_horizontal"
         android:text="@string/msg_empty_app_list"
+        android:textColor="@color/secondary_text"
         android:textAppearance="?android:textAppearanceLarge"
         android:visibility="gone"
         tools:visibility="visible" />

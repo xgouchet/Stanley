@@ -9,7 +9,7 @@
             type="fr.xgouchet.packageexplorer.details.AppInfoSimple" />
     </data>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

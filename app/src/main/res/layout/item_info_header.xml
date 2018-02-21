@@ -15,7 +15,7 @@
         android:layout_height="48dp"
         android:background="?android:selectableItemBackground">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -46,7 +46,7 @@
             tools:text="Header name" />
 
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/expandable"
             android:layout_width="24dp"
             android:layout_height="24dp"

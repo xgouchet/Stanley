@@ -41,11 +41,12 @@ class AppListPresenter(context: Context)
                 dataSubject,
                 filterSubject,
                 BiFunction<List<AppViewModel>, String, List<AppViewModel>> { list, filter ->
+                    val lowerCaseFilter = filter.toLowerCase()
                     return@BiFunction list.filter {
                         if (filter.isEmpty()) {
                             return@filter true
                         } else {
-                            return@filter it.title.contains(filter) || it.packageName.contains(filter)
+                            return@filter it.title.toLowerCase().contains(lowerCaseFilter) || it.packageName.toLowerCase().contains(lowerCaseFilter)
                         }
                     }
                 })

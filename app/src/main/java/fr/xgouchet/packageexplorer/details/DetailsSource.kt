@@ -10,6 +10,14 @@ import android.content.pm.Signature
 import android.graphics.drawable.Drawable
 import android.os.Build
 import fr.xgouchet.packageexplorer.R
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoSimple
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithIcon
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
 import io.reactivex.ObservableEmitter
 import timber.log.Timber
 import javax.security.cert.CertificateException
@@ -239,7 +247,7 @@ open class DetailsSource(val context: Context) {
                     val cert = X509Certificate.getInstance(signature.toByteArray())
                     val name = cert.subjectDN.name
                     val humanName = extractHumanName(name)
-                    onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, humanName, name, name))
+                    onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, name, name, context.getString(R.string.action_more), cert))
                 } catch (e: CertificateException) {
                     onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "(Unreadable signature)", signature.toCharsString(), null))
                 }

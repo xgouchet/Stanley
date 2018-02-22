@@ -8,7 +8,7 @@ import fr.xgouchet.packageexplorer.core.utils.exportManifestFromPackage
 import fr.xgouchet.packageexplorer.core.utils.getMainActivities
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.core.utils.uninstallPackageIntent
-import fr.xgouchet.packageexplorer.details.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -1,5 +1,6 @@
 package fr.xgouchet.packageexplorer.details
 
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.adapter.BaseDiffUtilCallback
 
 /**

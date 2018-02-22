@@ -7,9 +7,9 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
 import fr.xgouchet.packageexplorer.core.utils.exportManifestFromApk
 import fr.xgouchet.packageexplorer.core.utils.isFile
-import fr.xgouchet.packageexplorer.details.AppInfoType
-import fr.xgouchet.packageexplorer.details.AppInfoViewModel
-import fr.xgouchet.packageexplorer.details.AppInfoWithSubtitle
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
 import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
 import fr.xgouchet.packageexplorer.details.DetailsSource
 import io.reactivex.Observable

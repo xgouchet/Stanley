@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import fr.xgouchet.packageexplorer.core.utils.getFileName
-import fr.xgouchet.packageexplorer.details.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
 

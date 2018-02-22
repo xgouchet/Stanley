@@ -6,7 +6,7 @@
 
         <variable
             name="info"
-            type="fr.xgouchet.packageexplorer.details.AppInfoSimple" />
+            type="fr.xgouchet.packageexplorer.details.adapter.AppInfoSimple" />
     </data>
 
     <android.support.v7.widget.AppCompatTextView

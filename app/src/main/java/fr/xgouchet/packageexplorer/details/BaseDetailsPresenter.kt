@@ -5,6 +5,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import fr.xgouchet.packageexplorer.R
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoSelectable
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
 import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
@@ -13,6 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import javax.security.cert.X509Certificate
 
 abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
                                        val context: Context)
@@ -88,6 +92,12 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
                 clipboard.primaryClip = clip
                 Toast.makeText(context, "“${selectedData}” has been copied to your clipbaord", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    fun actionTriggerd(actionData: Any?) {
+        if (actionData is X509Certificate) {
+
         }
     }
 

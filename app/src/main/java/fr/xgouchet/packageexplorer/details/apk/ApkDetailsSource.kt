@@ -4,7 +4,7 @@ package fr.xgouchet.packageexplorer.details.apk
 import android.content.Context
 import android.content.pm.PackageManager
 import fr.xgouchet.packageexplorer.details.DetailsSource
-import fr.xgouchet.packageexplorer.details.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 

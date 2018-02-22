@@ -10,14 +10,14 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import fr.xgouchet.packageexplorer.BuildConfig
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.details.AppDetailsAdapter
-import fr.xgouchet.packageexplorer.details.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.adapter.AppDetailsAdapter
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.launcher.LauncherDialog
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
+import io.reactivex.functions.Consumer
 import java.io.File
 
 
@@ -27,7 +27,7 @@ import java.io.File
 class AppDetailsFragment
     : BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
 
-    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this)
+    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggerd(it) })
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 

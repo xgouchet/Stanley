@@ -6,7 +6,7 @@
 
     <application
         android:name=".StanleyApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -21,7 +21,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".applist.CertificateAppListActivity"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/activity_title_certificateAppList"/>
 
+        <!-- Details -->
         <activity
             android:name=".details.app.AppDetailsActivity"
             android:enabled="true"
@@ -45,6 +50,8 @@
             </intent-filter>
         </activity>
 
+
+        <!-- Misc -->
         <activity
             android:name=".about.AboutActivity"
             android:label="@string/activity_title_about"
@@ -58,6 +65,7 @@
             android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
             android:theme="@style/Theme.AppCompat.Light" />
 
+        <!-- Providers -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}"
@@ -68,6 +76,7 @@
                 android:resource="@xml/shareable_paths" />
         </provider>
 
+        <!-- Receivers -->
         <receiver android:name=".easteregg.EasterEggReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SECRET_CODE" />

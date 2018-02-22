@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import fr.xgouchet.packageexplorer.R
+import fr.xgouchet.packageexplorer.applist.CertificateAppListActivity
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoSelectable
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
@@ -97,7 +98,8 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
 
     fun actionTriggerd(actionData: Any?) {
         if (actionData is X509Certificate) {
-
+            val intent = CertificateAppListActivity.getIntent(actionData, context)
+            context.startActivity(intent)
         }
     }
 

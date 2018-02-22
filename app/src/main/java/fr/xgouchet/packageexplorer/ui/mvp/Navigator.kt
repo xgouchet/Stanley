@@ -1,6 +1,7 @@
 package fr.xgouchet.packageexplorer.ui.mvp
 
 import android.app.Activity
+import javax.security.cert.X509Certificate
 
 /**
  * @author Xavier F. Gouchet

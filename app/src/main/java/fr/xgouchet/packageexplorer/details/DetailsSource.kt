@@ -10,6 +10,7 @@ import android.content.pm.Signature
 import android.graphics.drawable.Drawable
 import android.os.Build
 import fr.xgouchet.packageexplorer.R
+import fr.xgouchet.packageexplorer.core.utils.humanReadableName
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoSimple
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
@@ -246,7 +247,7 @@ open class DetailsSource(val context: Context) {
                 try {
                     val cert = X509Certificate.getInstance(signature.toByteArray())
                     val name = cert.subjectDN.name
-                    val humanName = extractHumanName(name)
+                    val humanName = cert.humanReadableName()
                     onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, name, name, context.getString(R.string.action_more), cert))
                 } catch (e: CertificateException) {
                     onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "(Unreadable signature)", signature.toCharsString(), null))
@@ -257,7 +258,7 @@ open class DetailsSource(val context: Context) {
 
     }
 
-    private fun extractHumanName(certificateName: String): String {
+    fun extractHumanName(certificateName: String): String {
         val properties = certificateName.split(Regex("(?<!\\\\),"))
 
         var organization: String? = null

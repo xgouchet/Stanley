@@ -9,9 +9,12 @@
     <string name="about_history_v1"><![CDATA[v1.0 (apr. 2013): \n
  - Explore Package Information \n
  - Explore Package Manifest ]]></string>
-    <string name="about_history_v2"><![CDATA[v2.0 (apr. 2018): \n
+    <string name="about_history_v2"><![CDATA[v2.0 (jan. 2018): \n
  - Display package signing certificate \n
  - Material design ]]></string>
+    <string name="about_history_v2_2"><![CDATA[v2.2 (mar. 2018): \n
+ - List apps with same certificate \n
+ - Make search case insensitive ]]></string>
     <string name="about_license">License</string>
     <string name="about_mit">MIT License</string>
 

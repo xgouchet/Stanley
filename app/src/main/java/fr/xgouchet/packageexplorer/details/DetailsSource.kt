@@ -21,6 +21,7 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
 import io.reactivex.ObservableEmitter
 import timber.log.Timber
+import java.security.MessageDigest
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
 
@@ -30,6 +31,8 @@ open class DetailsSource(val context: Context) {
         const val C2D_MESSAGE = ".permission.C2D_MESSAGE"
 
         const val PACKAGE_NAME = "PackageName"
+
+        private val HEX_CHARS = "0123456789ABCDEF".toCharArray()
     }
 
 
@@ -247,8 +250,10 @@ open class DetailsSource(val context: Context) {
                 try {
                     val cert = X509Certificate.getInstance(signature.toByteArray())
                     val name = cert.subjectDN.name
+                    val fingerprint = MessageDigest.getInstance("SHA-1").digest(cert.encoded).toHexString()
                     val humanName = cert.humanReadableName()
-                    onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, name, name, context.getString(R.string.action_more), cert))
+                    val subtitle = "$name\n\nSHA-1:$fingerprint"
+                    onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, subtitle, subtitle, context.getString(R.string.action_more), cert))
                 } catch (e: CertificateException) {
                     onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "(Unreadable signature)", signature.toCharsString(), null))
                 }
@@ -301,5 +306,19 @@ open class DetailsSource(val context: Context) {
         }
 
         return name
+    }
+
+    fun ByteArray.toHexString() : String{
+        val result = StringBuffer()
+
+        forEach {
+            val octet = it.toInt()
+            val firstIndex = (octet and 0xF0).ushr(4)
+            val secondIndex = octet and 0x0F
+            result.append(HEX_CHARS[firstIndex])
+            result.append(HEX_CHARS[secondIndex])
+        }
+
+        return result.toString()
     }
 }

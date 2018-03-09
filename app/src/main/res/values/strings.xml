@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="about_contact">Contact</string>
-    <string name="about_copyright">Copyright © 2013: Xavier F. GOUCHET</string>
+    <string name="about_copyright" tools:ignore="TypographyDashes">Copyright © 2013-2018: Xavier F. GOUCHET</string>
     <string name="about_donate">Donate</string>
     <string name="about_donate_url">https://paypal.me/xaviergouchet</string>
     <string name="about_email">android@xgouchet.fr</string>

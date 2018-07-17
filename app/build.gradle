@@ -15,11 +15,16 @@ android {
     defaultConfig {
         applicationId "fr.xgouchet.packageexplorer"
         minSdkVersion 17
-        targetSdkVersion 26
-        versionCode 13
-        versionName "2.1"
+        targetSdkVersion 28
+        versionCode 14
+        versionName "2.2"
 
         vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     /** Stores the signing configs information */
@@ -43,8 +48,8 @@ android {
     buildTypes {
         debug {
             debuggable true
-            signingConfig signingConfigs.debug
             applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled false
@@ -52,15 +57,9 @@ android {
         }
     }
 
+    testOptions { unitTests.returnDefaultValues = true }
 
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-
-    dataBinding {
-        enabled = true
-    }
-
+    dataBinding { enabled = true }
 }
 
 dependencies {
@@ -74,5 +73,4 @@ dependencies {
     debugTools()
 
     implementation 'com.github.xgouchet:AXML:v1.0.1'
-
 }

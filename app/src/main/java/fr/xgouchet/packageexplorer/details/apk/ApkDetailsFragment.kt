@@ -33,7 +33,7 @@ class ApkDetailsFragment
         const val PERMISSION_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
     }
 
-    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer {presenter.actionTriggerd(it) })
+    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggerd(it) })
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 
@@ -44,11 +44,9 @@ class ApkDetailsFragment
         setHasOptionsMenu(true)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (view != null) {
-            ViewCompat.setNestedScrollingEnabled(view.findViewById(android.R.id.list), false)
-        }
+        ViewCompat.setNestedScrollingEnabled(view.findViewById(android.R.id.list), false)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -80,7 +78,9 @@ class ApkDetailsFragment
     }
 
     fun requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, PERMISSION_STORAGE)) {
+        val currentActivity = activity ?: return
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(currentActivity, PERMISSION_STORAGE)) {
             explainAndRequestStoragePermission()
         } else {
             doRequestStoragePermission()
@@ -88,18 +88,20 @@ class ApkDetailsFragment
     }
 
     fun onManifestExported(dest: File) {
+        val currentActivity = activity ?: return
+
         val intent = Intent(Intent.ACTION_VIEW)
-        val uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID, dest)
+        val uri = FileProvider.getUriForFile(currentActivity, BuildConfig.APPLICATION_ID, dest)
         intent.setDataAndType(uri, "text/xml")
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
 
-        val resolved = context.packageManager.queryIntentActivities(intent, 0)
+        val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
         if (resolved.isEmpty()) {
             Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
                     .show()
         } else {
             val chooser = Intent.createChooser(intent, null)
-            activity.startActivity(chooser)
+            currentActivity.startActivity(chooser)
         }
     }
 

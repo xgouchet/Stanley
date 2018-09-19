@@ -1,1 +1,19 @@
+import fr.xgouchet.gradle.Dependencies
+
+pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            println("Plugin @id:${requested.id}  @namespace:${requested.id.namespace}")
+            if (requested.id.namespace == Dependencies.PluginNamespaces.Detetk) {
+                useVersion Dependencies.Versions.Detekt
+            } else if (requested.id.namespace == Dependencies.PluginNamespaces.DependencyVersion) {
+                useVersion Dependencies.Versions.DependencyVersion
+            } else if (requested.id.namespace == Dependencies.PluginNamespaces.Kotlin) {
+                useVersion Dependencies.Versions.Kotlin
+            }
+        }
+    }
+}
+
+
 include ':app'

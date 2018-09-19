@@ -39,11 +39,9 @@ class AppDetailsFragment
         setHasOptionsMenu(true)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (view != null) {
-            ViewCompat.setNestedScrollingEnabled(view.findViewById(android.R.id.list), false)
-        }
+        ViewCompat.setNestedScrollingEnabled(view.findViewById(android.R.id.list), false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -83,29 +81,30 @@ class AppDetailsFragment
 
     // endregion
 
-
     // region Displayer
 
     fun promptActivity(resolvedInfos: List<ResolveInfo>) {
-        val supportFragmentManager = activity.supportFragmentManager
+        val supportFragmentManager = activity?.supportFragmentManager ?: return
         val transaction = supportFragmentManager.beginTransaction()
         LauncherDialog.withData(resolvedInfos)
                 .show(transaction, null)
     }
 
     fun onManifestExported(dest: File) {
+        val currentActivity = activity ?: return
+
         val intent = Intent(Intent.ACTION_VIEW)
-        val uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID, dest)
+        val uri = FileProvider.getUriForFile(currentActivity, BuildConfig.APPLICATION_ID, dest)
         intent.setDataAndType(uri, "text/xml")
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
 
-        val resolved = context.packageManager.queryIntentActivities(intent, 0)
+        val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
         if (resolved.isEmpty()) {
             Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
                     .show()
         } else {
             val chooser = Intent.createChooser(intent, null)
-            activity.startActivity(chooser)
+            currentActivity.startActivity(chooser)
         }
     }
 

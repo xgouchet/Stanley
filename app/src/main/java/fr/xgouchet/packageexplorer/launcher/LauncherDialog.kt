@@ -35,16 +35,17 @@ class LauncherDialog
     private lateinit var adapter: ResolveInfoAdapter
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        recyclerView = RecyclerView(context)
+        val currentActivity = activity!!
+        recyclerView = RecyclerView(currentActivity)
 
         @Suppress("UNCHECKED_CAST")
         data = arguments?.getParcelableArray(KEY_DATA)?.toList() as List<ResolveInfo>? ?: emptyList()
-        adapter = ResolveInfoAdapter(data, this, context.packageManager)
+        adapter = ResolveInfoAdapter(data, this, currentActivity.packageManager)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(currentActivity)
         // TODO add listener
 
-        return AlertDialog.Builder(context)
+        return AlertDialog.Builder(currentActivity)
                 .setTitle(R.string.dialog_title_launcher)
                 .setView(recyclerView)
                 .create()

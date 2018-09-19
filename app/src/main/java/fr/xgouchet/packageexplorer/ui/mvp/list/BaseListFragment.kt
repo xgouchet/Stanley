@@ -33,7 +33,7 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>
 
     abstract val adapter: BaseAdapter<T>
     abstract val isFabVisible: Boolean
-    abstract val fabIconOverride : Int?
+    abstract val fabIconOverride: Int?
 
 
     // region Fragment
@@ -43,13 +43,13 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         list.layoutManager = LinearLayoutManager(activity)
         list.adapter = adapter
 
         val iconOverride = fabIconOverride
-        if (iconOverride != null){
+        if (iconOverride != null) {
             fab.setImageResource(iconOverride)
         }
     }
@@ -65,7 +65,7 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>
 
     override fun setLoading(isLoading: Boolean) {
         loading.visibility = if (isLoading) View.VISIBLE else View.GONE
-        fab.visibility = if (isLoading || !isFabVisible) View.GONE else View.VISIBLE
+        (fab as View).visibility = if (isLoading || !isFabVisible) View.GONE else View.VISIBLE
     }
 
     override fun setError(throwable: Throwable) {

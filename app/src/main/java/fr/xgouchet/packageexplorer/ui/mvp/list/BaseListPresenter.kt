@@ -22,7 +22,7 @@ abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?)
     // region Presenter
 
     final override fun onDisplayerAttached(displayer: Displayer<List<T>>, restored: Boolean) {
-        require(displayer is ListDisplayer<T>, { "ListPresenter requires a ListDisplayer" })
+        require(displayer is ListDisplayer<T>) { "ListPresenter requires a ListDisplayer" }
 
         @Suppress("UNCHECKED_CAST")
         this.displayer = displayer as D
@@ -32,7 +32,7 @@ abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?)
             if (displayer is Fragment) {
                 it.currentActivity = displayer.activity
             } else if (displayer is FragmentV4) {
-                it.currentActivity = displayer.activity
+                it.currentActivity = displayer.activity!!
             } else if (displayer is Activity) {
                 it.currentActivity = displayer
             }

@@ -31,7 +31,7 @@ abstract class BaseAdapter<T>
         val helper = getDiffHelper(content, newContent)
 
         if (helper != null) {
-            val result = DiffUtil.calculateDiff(getDiffHelper(content, newContent))
+            val result = DiffUtil.calculateDiff(helper)
             result.dispatchUpdatesTo(this)
             content = newContent
         } else {

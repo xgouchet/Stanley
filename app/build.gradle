@@ -1,54 +1,42 @@
+import fr.xgouchet.gradle.AndroidBuild
+import fr.xgouchet.gradle.Dependencies
+
+plugins {
+    id 'com.github.ben-manes.versions'
+    id "io.gitlab.arturbosch.detekt"
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.google.gms.oss.licenses.plugin'
-
-apply from: "$project.rootDir/dependencies.gradle"
 
 android {
 
-    compileSdkVersion sdkVersion
-    buildToolsVersion buildToolsVersion
+    compileSdkVersion AndroidBuild.TargetSdk
+    buildToolsVersion AndroidBuild.BuildTools
 
     defaultConfig {
+
+        minSdkVersion AndroidBuild.MinSdk
+        targetSdkVersion AndroidBuild.TargetSdk
+
         applicationId "fr.xgouchet.packageexplorer"
-        minSdkVersion 17
-        targetSdkVersion 26
         versionCode 13
         versionName "2.1"
 
         vectorDrawables.useSupportLibrary = true
     }
 
-    /** Stores the signing configs information */
-    signingConfigs {
-        debug {
-            storeFile file("${projectDir.parentFile.parentFile.absolutePath}/.publish/debug.keystore")
-        }
-
-        release {
-            Properties props = new Properties()
-            props.load(new FileInputStream("${projectDir.parentFile.parentFile.absolutePath}/.publish/keystores.properties"))
-            storeFile file("${projectDir.parentFile.parentFile.absolutePath}/.publish/xgouchet.keystore")
-
-            storePassword props.releaseStorePassword
-            keyAlias props.releaseKeyAlias
-            keyPassword props.releaseKeyPassword
-        }
-    }
-
     /** The build types */
     buildTypes {
         debug {
             debuggable true
-            signingConfig signingConfigs.debug
             applicationIdSuffix ".debug"
         }
         release {
             minifyEnabled false
-            signingConfig signingConfigs.release
         }
     }
 
@@ -65,14 +53,13 @@ android {
 
 dependencies {
 
-    androidSupport()
-    kotlin()
-    rx()
-    oss()
-    aboutPage()
+    implementation Dependencies.Libraries.AndroidSupport
+    implementation Dependencies.Libraries.Kotlin
+    implementation Dependencies.Libraries.Rx
+    implementation Dependencies.Libraries.OssLicences
+    implementation Dependencies.Libraries.AboutPage
+    implementation Dependencies.Libraries.Timber
+    implementation Dependencies.Libraries.AXml
 
-    debugTools()
-
-    implementation 'com.github.xgouchet:AXML:v1.0.1'
-
+    kapt Dependencies.Processors.DataBinding
 }

@@ -16,14 +16,14 @@ class AboutActivity : AppCompatActivity() {
 
         val aboutPage = AboutPage(this)
                 .isRTL(false)
-                .setDescription("?")
+                .setDescription(getString(R.string.about_description))
                 .setImage(R.drawable.about_header)
                 .addPlayStore(packageName)
 
                 .addGroup(getString(R.string.about_contact))
                 .addEmail(getString(R.string.about_email), getString(R.string.about_email))
-                .addTwitter("xgouchet")
-                .addGitHub("xgouchet")
+                .addTwitter(getString(R.string.about_twitter))
+                .addGitHub(getString(R.string.about_github))
 
                 .addGroup(getString(R.string.about_license))
                 .addItem(Element(getString(R.string.about_copyright), R.drawable.ic_about_copyright))

@@ -1,0 +1,4 @@
+v2.0 (jan. 2018):
+
+ - Display package signing certificate
+ - Material design

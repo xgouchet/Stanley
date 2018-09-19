@@ -1,0 +1,4 @@
+v2.2 (mar. 2018):
+
+ - List apps with same certificate
+ - Make search case insensitive

@@ -8,6 +8,7 @@ import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -35,6 +36,8 @@ class AppListPresenter(context: Context)
     private var sortSubject: BehaviorSubject<Comparator<AppViewModel>> = BehaviorSubject.create()
     private var filterSubject: BehaviorSubject<String> = BehaviorSubject.create()
     private var systemAppVisibilitySubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
+
+    private var loadingDisposable: Disposable? = null
 
     init {
         val filteredList = Observable.combineLatest(
@@ -72,7 +75,7 @@ class AppListPresenter(context: Context)
                     return@BiFunction list.sortedWith(comp)
                 })
 
-        sortedList
+        loadingDisposable = sortedList
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { list -> onItemsLoaded(list) }
@@ -89,18 +92,17 @@ class AppListPresenter(context: Context)
             disposable?.dispose()
 
             val list = memoizedAppList
-            if (list != null && !force) {
+            if (list != null) {
                 dataSubject.onNext(list)
-                return@let
             }
 
             disposable = Observable.create(AppListSource(context))
                     .subscribeOn(Schedulers.io())
                     .toList()
-                    .subscribe { list, t ->
-                        if (list != null) {
-                            memoizedAppList = list
-                            dataSubject.onNext(list)
+                    .subscribe { l, t ->
+                        if (l != null) {
+                            memoizedAppList = l
+                            dataSubject.onNext(l)
                         } else {
                             displayer?.setError(t)
                         }
@@ -126,4 +128,9 @@ class AppListPresenter(context: Context)
     }
 
     fun areSystemAppsVisible(): Boolean = systemAppVisible
+
+    override fun itemSelected(item: AppViewModel) {
+        navigator?.goToItemDetails(item)
+    }
+
 }

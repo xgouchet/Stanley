@@ -29,12 +29,10 @@ abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?)
         displayer.setPresenter(this)
 
         navigator?.let {
-            if (displayer is Fragment) {
-                it.currentActivity = displayer.activity
-            } else if (displayer is FragmentV4) {
-                it.currentActivity = displayer.activity!!
-            } else if (displayer is Activity) {
-                it.currentActivity = displayer
+            when (displayer) {
+                is Fragment -> it.currentActivity = displayer.activity
+                is FragmentV4 -> it.currentActivity = displayer.activity!!
+                is Activity -> it.currentActivity = displayer
             }
         }
 

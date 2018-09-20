@@ -1,11 +1,15 @@
 package fr.xgouchet.packageexplorer.details.app
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import fr.xgouchet.packageexplorer.applist.AppViewModel
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
+
 
 /**
  * @author Xavier F. Gouchet
@@ -25,6 +29,8 @@ class AppDetailsActivity
 
     }
 
+    private var uninstallReceiver: UninstallReceiver? = null
+
     override val allowNullIntentData: Boolean = false
 
     override fun readIntent(intent: Intent): AppViewModel? {
@@ -32,6 +38,8 @@ class AppDetailsActivity
         if (packageName.isNullOrBlank()) {
             return null
         }
+
+        uninstallReceiver = UninstallReceiver(packageName) { finish() }
 
         return AppViewModel.fromPackageName(this, packageName)
     }
@@ -58,4 +66,34 @@ class AppDetailsActivity
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        uninstallReceiver?.let {
+            val intentFilter = IntentFilter()
+            intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED)
+            intentFilter.addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED)
+            intentFilter.addDataScheme("package")
+            registerReceiver(it, intentFilter)
+        }
+    }
+    override fun onStop() {
+        super.onStop()
+        uninstallReceiver?.let {
+            unregisterReceiver(uninstallReceiver)
+        }
+    }
+
+    class UninstallReceiver(private val watchedPackageName: String,
+                                  private val onUninstalled: () -> Unit)
+        : BroadcastReceiver() {
+
+
+        override fun onReceive(context: Context, intent: Intent) {
+            val data = intent.data?.schemeSpecificPart
+            val isReplacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)
+            if (data == watchedPackageName && !isReplacing) {
+                onUninstalled()
+            }
+        }
+    }
 }

@@ -1,0 +1,5 @@
+v2.2 (sep. 2018):
+
+ - List apps with same certificate
+ - Make search case insensitive
+ - Handle app installed, replaced and uninstalled events

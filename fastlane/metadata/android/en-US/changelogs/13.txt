@@ -1,4 +1,4 @@
-v2.2 (mar. 2018):
+v2.1 (mar. 2018):
 
- - List apps with same certificate
- - Make search case insensitive
+ - Ensure data is restored on screen rotation
+ - Add more known features / permissions

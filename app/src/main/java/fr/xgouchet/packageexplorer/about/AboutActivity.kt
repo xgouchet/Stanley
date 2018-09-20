@@ -38,6 +38,7 @@ class AboutActivity : AppCompatActivity() {
 
                 .addGroup(getString(R.string.about_history))
                 .addItem(Element(getString(R.string.about_history_v2_2), null))
+                .addItem(Element(getString(R.string.about_history_v2_1), null))
                 .addItem(Element(getString(R.string.about_history_v2), null))
                 .addItem(Element(getString(R.string.about_history_v1), null))
                 .create()

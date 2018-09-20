@@ -12,9 +12,13 @@
     <string name="about_history_v2"><![CDATA[v2.0 (jan. 2018): \n
  - Display package signing certificate \n
  - Material design ]]></string>
-    <string name="about_history_v2_2"><![CDATA[v2.2 (mar. 2018): \n
+    <string name="about_history_v2_1"><![CDATA[v2.1 (mar. 2018): \n
+ - Ensure data is restored on screen rotation \n
+ - Add more known features / permissions ]]></string>
+    <string name="about_history_v2_2"><![CDATA[v2.2 (sep. 2018): \n
  - List apps with same certificate \n
- - Make search case insensitive ]]></string>
+ - Make search case insensitive \n
+ - Handle app installed, replaced and uninstalled events ]]></string>
     <string name="about_license">License</string>
     <string name="about_mit">MIT License</string>
     <string name="about_description">An application explorer for developers</string>

@@ -129,6 +129,7 @@ class AppListPresenter(context: Context)
 
     fun areSystemAppsVisible(): Boolean = systemAppVisible
 
+
     override fun itemSelected(item: AppViewModel) {
         navigator?.goToItemDetails(item)
     }

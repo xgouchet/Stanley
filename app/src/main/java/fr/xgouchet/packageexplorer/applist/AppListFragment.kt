@@ -1,6 +1,8 @@
 package fr.xgouchet.packageexplorer.applist
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.SearchView
 import android.view.Menu
@@ -10,6 +12,7 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.about.AboutActivity
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
+import fr.xgouchet.packageexplorer.details.apk.ApkDetailsActivity
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 
@@ -60,6 +63,12 @@ class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
             R.id.sort_by_package_name -> presenter.setSort(AppSort.PACKAGE_NAME)
             R.id.sort_by_install_time -> presenter.setSort(AppSort.INSTALL_TIME)
             R.id.sort_by_update_time -> presenter.setSort(AppSort.UPDATE_TIME)
+            R.id.open_apk -> {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intent.type = APK_MIME_TYPE
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                startActivityForResult(intent, OPEN_APK_REQUEST)
+            }
             R.id.hide_system_apps -> presenter.setSystemAppsVisible(false)
             R.id.show_system_apps -> presenter.setSystemAppsVisible(true)
             R.id.about -> {
@@ -74,5 +83,25 @@ class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
         return true
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode){
+            OPEN_APK_REQUEST -> onOpenApkResult(resultCode, data)
+        }
+    }
 
+    private fun onOpenApkResult(resultCode: Int, resultData: Intent?) {
+        if (resultCode == Activity.RESULT_OK){
+            val uri: Uri? = resultData?.data
+            if (uri != null){
+                val intent = Intent(context, ApkDetailsActivity::class.java)
+                intent.data = uri
+                startActivity(intent)
+            }
+        }
+    }
+
+    companion object {
+        const val APK_MIME_TYPE = "application/vnd.android.package-archive"
+        const val OPEN_APK_REQUEST = 1
+    }
 }

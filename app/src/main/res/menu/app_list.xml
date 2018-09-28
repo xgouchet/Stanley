@@ -38,6 +38,10 @@
         </menu>
     </item>
 
+<item
+    android:id="@+id/open_apk"
+    android:title="@string/menu_open_apk"/>
+
     <item
         android:id="@+id/hide_system_apps"
         android:title="@string/menu_hide_system_apps" />

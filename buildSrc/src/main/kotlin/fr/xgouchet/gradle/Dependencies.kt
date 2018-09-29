@@ -59,12 +59,6 @@ object Dependencies {
         const val AXml = "com.github.xgouchet:AXML:${Versions.AXml}"
 
         const val Timber =  "com.jakewharton.timber:timber:${Versions.Timber}"
-//            debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
-//            debugImplementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
-//            debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
-//            releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
-//            testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
-//        }
     }
 
     object ClassPaths {
@@ -80,7 +74,6 @@ object Dependencies {
     }
 
     object Repositories {
-        const val Fabric = "https://maven.fabric.io/public"
         const val Jitpack = "https://jitpack.io"
         const val Gradle = "https://plugins.gradle.org/m2/"
         const val Google = "https://maven.google.com"

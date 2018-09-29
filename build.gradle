@@ -6,7 +6,6 @@ buildscript {
         jcenter()
         google()
         mavenCentral()
-        maven { url Dependencies.Repositories.Fabric }
         maven { url Dependencies.Repositories.Jitpack }
         maven { url Dependencies.Repositories.Gradle }
         maven { url Dependencies.Repositories.Google }
@@ -23,7 +22,6 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        maven { url Dependencies.Repositories.Fabric }
         maven { url Dependencies.Repositories.Jitpack }
         maven { url Dependencies.Repositories.Gradle }
         maven { url Dependencies.Repositories.Google }

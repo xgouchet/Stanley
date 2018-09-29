@@ -1,0 +1,3 @@
+v2.3 (sep. 2018):
+
+ - Open non-installed APK from the app

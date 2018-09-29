@@ -6,9 +6,9 @@ buildscript {
         jcenter()
         google()
         mavenCentral()
-        maven { url Dependencies.Repositories.Jitpack }
-        maven { url Dependencies.Repositories.Gradle }
-        maven { url Dependencies.Repositories.Google }
+        maven { url "https://jitpack.io" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://maven.google.com" }
     }
     dependencies {
         classpath Dependencies.ClassPaths.AndroidPlugin
@@ -22,9 +22,9 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        maven { url Dependencies.Repositories.Jitpack }
-        maven { url Dependencies.Repositories.Gradle }
-        maven { url Dependencies.Repositories.Google }
+        maven { url "https://jitpack.io" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://maven.google.com" }
     }
 }
 

@@ -110,11 +110,10 @@ class AppSortPage<in P : ContextHolder>(val key: String, val default: AppSort) :
     override fun getPreferenceValue(preferences: SharedPreferences): AppSort {
         val name = preferences.getString(key, default.name)
 
-        try {
-            return AppSort.valueOf(name)
+        return try {
+            AppSort.valueOf(name)
         } catch (e: IllegalArgumentException) {
-            return default
+            default
         }
     }
-
 }

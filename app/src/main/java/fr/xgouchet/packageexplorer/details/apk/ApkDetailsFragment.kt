@@ -4,15 +4,15 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.app.ActivityCompat
-import androidx.core.content.FileProvider
-import androidx.core.view.ViewCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
+import androidx.core.view.ViewCompat
+import com.google.android.material.snackbar.Snackbar
 import fr.xgouchet.packageexplorer.BuildConfig
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.details.adapter.AppDetailsAdapter
@@ -111,9 +111,9 @@ class ApkDetailsFragment
 
     private fun explainAndRequestStoragePermission() {
         Snackbar.make(list, R.string.permission_explanation_storage_apk, Snackbar.LENGTH_INDEFINITE)
-                .setAction(android.R.string.ok, {
+                .setAction(android.R.string.ok) {
                     doRequestStoragePermission()
-                })
+                }
                 .show()
     }
 
@@ -126,9 +126,9 @@ class ApkDetailsFragment
             presenter.onPermissionGranted()
         } else {
             Snackbar.make(list, R.string.permission_denied_storage_apk, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, {
+                    .setAction(android.R.string.ok) {
                         doRequestStoragePermission()
-                    })
+                    }
                     .show()
         }
     }

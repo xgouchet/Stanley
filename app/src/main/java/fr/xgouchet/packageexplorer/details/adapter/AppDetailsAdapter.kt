@@ -1,15 +1,10 @@
 package fr.xgouchet.packageexplorer.details.adapter
 
-import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import fr.xgouchet.packageexplorer.databinding.ItemInfoHeaderBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoIconBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSimpleBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleActionBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleIconBinding
+import androidx.recyclerview.widget.DiffUtil
+import fr.xgouchet.packageexplorer.databinding.*
 import fr.xgouchet.packageexplorer.details.AppDetailsDiffUtilCallback
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
@@ -20,12 +15,12 @@ class AppDetailsAdapter(val listener: BiConsumer<AppInfoViewModel, View?>?,
                         val actionListener: Consumer<Any?>?) : BaseAdapter<AppInfoViewModel>() {
 
     companion object {
-        val TYPE_HEADER = 0
-        val TYPE_SIMPLE = 1
-        val TYPE_ICON = 2
-        val TYPE_SUBTITLE = 3
-        val TYPE_SUBTITLE_ICON = 4
-        val TYPE_SUBTITLE_ACTION = 5
+        const val TYPE_HEADER = 0
+        const val TYPE_SIMPLE = 1
+        const val TYPE_ICON = 2
+        const val TYPE_SUBTITLE = 3
+        const val TYPE_SUBTITLE_ICON = 4
+        const val TYPE_SUBTITLE_ACTION = 5
     }
 
     override fun getDiffHelper(oldContent: List<AppInfoViewModel>, newContent: List<AppInfoViewModel>): DiffUtil.Callback? {
@@ -72,15 +67,13 @@ class AppDetailsAdapter(val listener: BiConsumer<AppInfoViewModel, View?>?,
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        when (item) {
-            is AppInfoHeader -> return TYPE_HEADER
-            is AppInfoSimple -> return TYPE_SIMPLE
-            is AppInfoWithIcon -> return TYPE_ICON
-            is AppInfoWithSubtitle -> return TYPE_SUBTITLE
-            is AppInfoWithSubtitleAndIcon -> return TYPE_SUBTITLE_ICON
-            is AppInfoWithSubtitleAndAction -> return TYPE_SUBTITLE_ACTION
-            else -> throw IllegalArgumentException("Unknown type $item")
+        return when (item) {
+            is AppInfoHeader -> TYPE_HEADER
+            is AppInfoSimple -> TYPE_SIMPLE
+            is AppInfoWithIcon -> TYPE_ICON
+            is AppInfoWithSubtitle -> TYPE_SUBTITLE
+            is AppInfoWithSubtitleAndIcon -> TYPE_SUBTITLE_ICON
+            is AppInfoWithSubtitleAndAction -> TYPE_SUBTITLE_ACTION
         }
     }
-
 }

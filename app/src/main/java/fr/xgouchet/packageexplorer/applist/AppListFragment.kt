@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.about.AboutActivity
@@ -84,15 +84,15 @@ class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode){
+        when (requestCode) {
             OPEN_APK_REQUEST -> onOpenApkResult(resultCode, data)
         }
     }
 
     private fun onOpenApkResult(resultCode: Int, resultData: Intent?) {
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             val uri: Uri? = resultData?.data
-            if (uri != null){
+            if (uri != null) {
                 val intent = Intent(context, ApkDetailsActivity::class.java)
                 intent.data = uri
                 startActivity(intent)

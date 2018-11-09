@@ -2,12 +2,7 @@ package fr.xgouchet.packageexplorer.details.app
 
 import android.app.Activity
 import android.content.Intent
-import fr.xgouchet.packageexplorer.core.utils.applicationInfoIntent
-import fr.xgouchet.packageexplorer.core.utils.applicationPlayStoreIntent
-import fr.xgouchet.packageexplorer.core.utils.exportManifestFromPackage
-import fr.xgouchet.packageexplorer.core.utils.getMainActivities
-import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
-import fr.xgouchet.packageexplorer.core.utils.uninstallPackageIntent
+import fr.xgouchet.packageexplorer.core.utils.*
 import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import io.reactivex.Observable
@@ -63,13 +58,13 @@ class AppDetailsPresenter(activity: Activity,
     fun openApplication() {
         val resolvedInfos = getMainActivities(context, packageName)
 
-        if (resolvedInfos.isEmpty()) {
-            return
-        } else if (resolvedInfos.size == 1) {
-            val intent = getResolvedIntent(resolvedInfos[0])
-            context.startActivity(intent)
-        } else {
-            displayer?.promptActivity(resolvedInfos)
+        when {
+            resolvedInfos.isEmpty() -> return
+            resolvedInfos.size == 1 -> {
+                val intent = getResolvedIntent(resolvedInfos[0])
+                context.startActivity(intent)
+            }
+            else -> displayer?.promptActivity(resolvedInfos)
         }
     }
 

@@ -1,13 +1,11 @@
 package fr.xgouchet.packageexplorer.details.app
 
-
 import android.content.Context
 import android.content.pm.PackageManager
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.DetailsSource
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
-
 
 /**
  * @author Xavier F. Gouchet
@@ -18,7 +16,7 @@ class AppDetailsSource(context: Context,
         ObservableOnSubscribe<AppInfoViewModel> {
 
     companion object {
-        val PACKAGE_INFO_FLAGS = PackageManager.GET_ACTIVITIES
+        const val PACKAGE_INFO_FLAGS = PackageManager.GET_ACTIVITIES
                 .or(PackageManager.GET_GIDS)
                 .or(PackageManager.GET_CONFIGURATIONS)
                 .or(PackageManager.GET_INSTRUMENTATION)

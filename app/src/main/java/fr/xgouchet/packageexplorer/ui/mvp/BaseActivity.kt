@@ -2,9 +2,9 @@ package fr.xgouchet.packageexplorer.ui.mvp
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import fr.xgouchet.packageexplorer.R
 import timber.log.Timber
 
@@ -13,7 +13,6 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
         where IntentDataI : Any,
               PresenterP : Presenter<DataD>,
               DisplayerD : Displayer<DataD>, DisplayerD : Fragment {
-
 
     abstract val allowNullIntentData: Boolean
 
@@ -72,7 +71,7 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
 
         if (savedInstanceState != null) {
             if (isRestored) {
-                Timber.w("Already restored but restoring again ‽")
+                Timber.w("Already restored, but restoring again‽")
                 return
             }
             isRestored = true
@@ -130,7 +129,7 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
         val factory = { instantiatePresenter() }
 
         if (key == null) {
-            Timber.w("Expected to restore presenter, but not Key found")
+            Timber.w("Expected to restore presenter, but key not found")
             return factory.invoke()
         }
 
@@ -138,5 +137,4 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
     }
 
     // endregion
-
 }

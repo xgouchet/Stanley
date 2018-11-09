@@ -1,12 +1,12 @@
 package fr.xgouchet.packageexplorer.applist
 
-import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import fr.xgouchet.packageexplorer.databinding.ItemAppBinding
 import fr.xgouchet.packageexplorer.ui.adapter.BaseBindingAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
-import fr.xgouchet.packageexplorer.databinding.ItemAppBinding
 import io.reactivex.functions.BiConsumer
 
 

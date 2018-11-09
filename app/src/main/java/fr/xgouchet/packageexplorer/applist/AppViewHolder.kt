@@ -1,8 +1,8 @@
 package fr.xgouchet.packageexplorer.applist
 
 import android.view.View
-import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import fr.xgouchet.packageexplorer.databinding.ItemAppBinding
+import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 
 class AppViewHolder(val binding: ItemAppBinding, listener: BiConsumer<AppViewModel, View?>?)

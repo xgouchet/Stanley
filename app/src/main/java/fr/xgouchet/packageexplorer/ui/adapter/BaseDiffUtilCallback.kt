@@ -33,5 +33,4 @@ abstract class BaseDiffUtilCallback<T>(val oldContent: List<T>,
     abstract fun areItemsRepresentingTheSameObject(oldItem: T, newItem: T): Boolean
 
     abstract fun areItemContentsTheSame(oldItem: T, newItem: T): Boolean
-
 }

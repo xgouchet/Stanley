@@ -8,17 +8,16 @@ import fr.xgouchet.packageexplorer.R
  * @author Xavier F. Gouchet
  */
 object AppInfoType {
-    val INFO_TYPE_GLOBAL = 0x1
-    val INFO_TYPE_FEATURES_REQUIRED = 0x2
-    val INFO_TYPE_CUSTOM_PERMISSIONS = 0x4
-    val INFO_TYPE_PERMISSIONS = 0x8
-    val INFO_TYPE_ACTIVITIES = 0x10
-    val INFO_TYPE_SERVICES = 0x20
-    val INFO_TYPE_PROVIDERS = 0x40
-    val INFO_TYPE_RECEIVERS = 0x80
-    val INFO_TYPE_SIGNATURE = 0x100
-
-    val INFO_TYPE_METADATA = 0x8000
+    const val INFO_TYPE_GLOBAL = 0x1
+    const val INFO_TYPE_FEATURES_REQUIRED = 0x2
+    const val INFO_TYPE_CUSTOM_PERMISSIONS = 0x4
+    const val INFO_TYPE_PERMISSIONS = 0x8
+    const val INFO_TYPE_ACTIVITIES = 0x10
+    const val INFO_TYPE_SERVICES = 0x20
+    const val INFO_TYPE_PROVIDERS = 0x40
+    const val INFO_TYPE_RECEIVERS = 0x80
+    const val INFO_TYPE_SIGNATURE = 0x100
+    const val INFO_TYPE_METADATA = 0x8000
 }
 
 sealed class AppInfoViewModel(val mask: Int,
@@ -81,7 +80,7 @@ data class AppInfoWithSubtitleAndAction(val type: Int,
                                         val title: String,
                                         val subtitle: String,
                                         val raw: String,
-                                        val actionText : String,
+                                        val actionText: String,
                                         val actionData: Any?)
     : AppInfoViewModel(type, "Subtitle+Action {$type} “$title” / $subtitle $actionData"),
         AppInfoSelectable {

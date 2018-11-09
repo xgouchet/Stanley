@@ -1,7 +1,6 @@
 package fr.xgouchet.packageexplorer.applist.sort
 
 import fr.xgouchet.packageexplorer.applist.AppViewModel
-import timber.log.Timber
 import kotlin.math.sign
 
 /**
@@ -12,12 +11,12 @@ object AppInstallTimeComparator : Comparator<AppViewModel> {
         val result: Int
         val lht = lhs?.installTime ?: 0
         val rht = rhs?.installTime ?: 0
-        if (lht == rht) {
+        result = if (lht == rht) {
             val lhn = lhs?.packageName?.toLowerCase() ?: ""
             val rhn = rhs?.packageName?.toLowerCase() ?: ""
-            result = lhn.compareTo(rhn)
+            lhn.compareTo(rhn)
         } else {
-            result = (rht - lht).sign
+            (rht - lht).sign
         }
         return result
     }

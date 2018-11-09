@@ -1,7 +1,7 @@
 package fr.xgouchet.packageexplorer.ui.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.functions.BiConsumer
 
 /**
@@ -10,7 +10,6 @@ import io.reactivex.functions.BiConsumer
 abstract class BaseViewHolder<T>(val listener: BiConsumer<T, View?>?, itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var item: T? = null
-
 
     fun bindItem(item: T) {
         this.item = item

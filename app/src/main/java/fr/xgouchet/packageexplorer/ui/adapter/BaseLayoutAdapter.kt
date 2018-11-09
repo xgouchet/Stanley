@@ -1,9 +1,9 @@
 package fr.xgouchet.packageexplorer.ui.adapter
 
-import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 
 abstract class BaseLayoutAdapter<T>
     : BaseAdapter<T>() {
@@ -14,7 +14,8 @@ abstract class BaseLayoutAdapter<T>
         return instantiateViewHolder(view, viewType)
     }
 
-    @LayoutRes abstract fun getLayoutId(viewType: Int): Int
+    @LayoutRes
+    abstract fun getLayoutId(viewType: Int): Int
 
     protected abstract fun instantiateViewHolder(view: View, viewType: Int): BaseViewHolder<T>
 }

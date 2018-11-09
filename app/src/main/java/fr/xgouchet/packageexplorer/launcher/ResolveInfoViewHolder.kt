@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
+import fr.xgouchet.packageexplorer.core.utils.Cutlery.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 
@@ -25,15 +25,16 @@ class ResolveInfoViewHolder(view: View,
     init {
         view.setOnClickListener { fireSelected() }
     }
+
     override fun onBindItem(item: ResolveInfo) {
 
         val component = ComponentName(item.activityInfo.packageName, item.activityInfo.name)
         val info = pm.getActivityInfo(component, 0)
-        var iconDrawable: Drawable
-        try {
-            iconDrawable = pm.getActivityIcon(component)
+        val iconDrawable: Drawable
+        iconDrawable = try {
+            pm.getActivityIcon(component)
         } catch (e: PackageManager.NameNotFoundException) {
-            iconDrawable = icon.context.resources.getDrawable(R.drawable.ic_no_launcher)
+            icon.context.resources.getDrawable(R.drawable.ic_no_launcher)
         }
         icon.setImageDrawable(iconDrawable)
 

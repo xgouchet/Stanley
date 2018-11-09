@@ -3,13 +3,13 @@ package fr.xgouchet.packageexplorer.details.app
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.content.FileProvider
-import androidx.core.view.ViewCompat
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.FileProvider
+import androidx.core.view.ViewCompat
+import com.google.android.material.snackbar.Snackbar
 import fr.xgouchet.packageexplorer.BuildConfig
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.details.adapter.AppDetailsAdapter

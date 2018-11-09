@@ -1,8 +1,10 @@
-package fr.xgouchet.packageexplorer.applist
+package fr.xgouchet.packageexplorer.certificate
 
 import android.content.Context
+import fr.xgouchet.packageexplorer.applist.AppListNavigator
+import fr.xgouchet.packageexplorer.applist.AppListSource
+import fr.xgouchet.packageexplorer.applist.AppViewModel
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
-import fr.xgouchet.packageexplorer.certificate.CertificateAppListFragment
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
@@ -22,8 +24,8 @@ class CertificateAppListPresenter(context: Context,
         ContextHolder {
 
     companion object {
-        val KEY_SORT = "sort"
-        val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
+        const val KEY_SORT = "sort"
+        const val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
     }
 
     override val context: Context = context.applicationContext
@@ -85,9 +87,7 @@ class CertificateAppListPresenter(context: Context,
                         }
                     }
         }
-
     }
-
 
     fun setSort(sort: AppSort) {
         currentSort = sort

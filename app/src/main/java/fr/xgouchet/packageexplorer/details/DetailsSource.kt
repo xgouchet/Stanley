@@ -2,23 +2,12 @@ package fr.xgouchet.packageexplorer.details
 
 import android.content.ComponentName
 import android.content.Context
-import android.content.pm.ApplicationInfo
-import android.content.pm.FeatureInfo
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.content.pm.Signature
+import android.content.pm.*
 import android.graphics.drawable.Drawable
 import android.os.Build
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.humanReadableName
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoSimple
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithIcon
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
+import fr.xgouchet.packageexplorer.details.adapter.*
 import io.reactivex.ObservableEmitter
 import timber.log.Timber
 import java.security.MessageDigest
@@ -308,7 +297,7 @@ open class DetailsSource(val context: Context) {
         return name
     }
 
-    fun ByteArray.toHexString() : String{
+    fun ByteArray.toHexString(): String {
         val result = StringBuffer()
 
         forEach {

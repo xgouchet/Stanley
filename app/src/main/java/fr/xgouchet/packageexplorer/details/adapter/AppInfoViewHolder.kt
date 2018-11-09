@@ -1,12 +1,7 @@
 package fr.xgouchet.packageexplorer.details.adapter
 
 import android.view.View
-import fr.xgouchet.packageexplorer.databinding.ItemInfoHeaderBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoIconBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSimpleBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleActionBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleIconBinding
+import fr.xgouchet.packageexplorer.databinding.*
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer

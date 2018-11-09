@@ -24,25 +24,23 @@ object PresenterCache {
             Timber.w("Presenter found for key $key, but type doesn't match expected.")
         }
 
-        if (match == null) {
+        return if (match == null) {
             val presenter = factory.invoke()
             cache.put(key, presenter)
-            return presenter
+            presenter
         } else {
-            return match
+            match
         }
-
     }
 
     fun dropPresenter(key: String) {
         val removed = cache.remove(key)
         if (removed == null) {
-            Timber.i("Removing presenter for key $key, but none was found. Was it pruned, or never saved ?")
+            Timber.i("Removing presenter for key $key, but none was found. Was it pruned, or never saved?")
         }
     }
 
     fun clear() {
         cache.evictAll()
     }
-
 }

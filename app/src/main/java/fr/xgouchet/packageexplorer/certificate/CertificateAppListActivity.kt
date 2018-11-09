@@ -1,10 +1,9 @@
-package fr.xgouchet.packageexplorer.applist
+package fr.xgouchet.packageexplorer.certificate
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.certificate.CertificateAppListFragment
+import fr.xgouchet.packageexplorer.applist.AppViewModel
 import fr.xgouchet.packageexplorer.core.utils.humanReadableName
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 import javax.security.cert.CertificateException
@@ -29,12 +28,11 @@ class CertificateAppListActivity
     override fun readIntent(intent: Intent): X509Certificate? {
         val encoded = intent.getByteArrayExtra(EXTRA_CERTIFICATE_ENCODED)
 
-        val cert = try {
+        return try {
             X509Certificate.getInstance(encoded)
         } catch (e: CertificateException) {
             null
         }
-        return cert
     }
 
     override fun instantiatePresenter(): CertificateAppListPresenter {

@@ -2,7 +2,7 @@ package fr.xgouchet.packageexplorer.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import java.util.*
 
 
 /**

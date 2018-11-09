@@ -1,17 +1,12 @@
 package fr.xgouchet.packageexplorer.certificate
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.about.AboutActivity
 import fr.xgouchet.packageexplorer.applist.AppAdapter
 import fr.xgouchet.packageexplorer.applist.AppViewModel
-import fr.xgouchet.packageexplorer.applist.CertificateAppListPresenter
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
@@ -47,6 +42,4 @@ class CertificateAppListFragment : BaseListFragment<AppViewModel, CertificateApp
         }
         return true
     }
-
-
 }

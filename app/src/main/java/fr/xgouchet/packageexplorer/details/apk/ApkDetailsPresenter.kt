@@ -7,11 +7,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import fr.xgouchet.packageexplorer.core.utils.exportManifestFromApk
 import fr.xgouchet.packageexplorer.core.utils.isFile
+import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
+import fr.xgouchet.packageexplorer.details.DetailsSource
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
-import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
-import fr.xgouchet.packageexplorer.details.DetailsSource
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -99,6 +99,5 @@ class ApkDetailsPresenter(activity: Activity,
         } catch (e: ParserConfigurationException) {
             displayer?.setError(e)
         }
-
     }
 }

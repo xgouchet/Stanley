@@ -19,14 +19,13 @@ class AppDetailsActivity
 
     companion object {
 
-        val EXTRA_PACKAGE_NAME = "package_name"
+        const val EXTRA_PACKAGE_NAME = "package_name"
 
         fun startWithApp(activity: Activity, app: AppViewModel) {
             val intent = Intent(activity, AppDetailsActivity::class.java)
             intent.putExtra(EXTRA_PACKAGE_NAME, app.packageName)
             activity.startActivity(intent)
         }
-
     }
 
     private var uninstallReceiver: UninstallReceiver? = null
@@ -76,6 +75,7 @@ class AppDetailsActivity
             registerReceiver(it, intentFilter)
         }
     }
+
     override fun onStop() {
         super.onStop()
         uninstallReceiver?.let {
@@ -84,7 +84,7 @@ class AppDetailsActivity
     }
 
     class UninstallReceiver(private val watchedPackageName: String,
-                                  private val onUninstalled: () -> Unit)
+                            private val onUninstalled: () -> Unit)
         : BroadcastReceiver() {
 
 

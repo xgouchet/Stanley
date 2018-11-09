@@ -18,7 +18,7 @@ class CopyApkSource(val context: Context,
             if (path != null) {
                 emitter.onSuccess(path)
             } else {
-                emitter.onError(NullPointerException("Oups"))
+                emitter.onError(NullPointerException("Oops"))
             }
         } catch (e: Exception) {
             e.printStackTrace()

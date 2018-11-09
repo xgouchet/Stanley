@@ -21,8 +21,8 @@ class AppListPresenter(context: Context)
         ContextHolder {
 
     companion object {
-        val KEY_SORT = "sort"
-        val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
+        const val KEY_SORT = "sort"
+        const val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
     }
 
     override val context: Context = context.applicationContext
@@ -49,7 +49,8 @@ class AppListPresenter(context: Context)
                         if (filter.isEmpty()) {
                             return@filter true
                         } else {
-                            return@filter it.title.toLowerCase().contains(lowerCaseFilter) || it.packageName.toLowerCase().contains(lowerCaseFilter)
+                            return@filter it.title.toLowerCase().contains(lowerCaseFilter)
+                                    || it.packageName.toLowerCase().contains(lowerCaseFilter)
                         }
                     }
                 })
@@ -108,9 +109,7 @@ class AppListPresenter(context: Context)
                         }
                     }
         }
-
     }
-
 
     fun setSort(sort: AppSort) {
         currentSort = sort

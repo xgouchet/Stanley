@@ -8,7 +8,7 @@ import org.w3c.dom.Document
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
-import java.util.Enumeration
+import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import javax.xml.transform.OutputKeys
@@ -23,21 +23,21 @@ const val MANIFEST_FILE_NAME = "AndroidManifest.xml"
 fun exportManifestFromPackage(info: PackageInfo,
                               context: Context)
         : Observable<File> {
-    return Observable.fromCallable({
+    return Observable.fromCallable {
         val name = exportedManifestName(info.packageName)
         val apk = getPackageApk(info)
         return@fromCallable exportManifestFromApkFile(name, apk, context)
-    })
+    }
 }
 
 fun exportManifestFromApk(apk: File,
                           context: Context)
         : Observable<File> {
-    return Observable.fromCallable({
+    return Observable.fromCallable {
         val name = "${apk.nameWithoutExtension}_AndroidManifest.xml"
 
         return@fromCallable exportManifestFromApkFile(name, apk, context)
-    })
+    }
 }
 
 private fun exportManifestFromApkFile(name: String, apk: File, context: Context): File {

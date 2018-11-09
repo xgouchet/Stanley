@@ -11,12 +11,12 @@ object AppUpdateTimeComparator : Comparator<AppViewModel> {
         val result: Int
         val lht = lhs?.updateTime ?: 0
         val rht = rhs?.updateTime ?: 0
-        if (lht == rht) {
+        result = if (lht == rht) {
             val lhn = lhs?.packageName?.toLowerCase() ?: ""
             val rhn = rhs?.packageName?.toLowerCase() ?: ""
-            result = lhn.compareTo(rhn)
+            lhn.compareTo(rhn)
         } else {
-            result = (rht - lht).sign
+            (rht - lht).sign
         }
         return result
     }

@@ -11,8 +11,7 @@ import android.graphics.drawable.Drawable
 import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
 
@@ -38,15 +37,14 @@ data class AppViewModel(val packageName: String = "",
 
         fun fromPackageName(context: Context, packageName: String): AppViewModel? {
             val pm = context.packageManager
-            try {
+            return try {
                 val pi = pm.getPackageInfo(packageName, 0)
                 val ai = pm.getApplicationInfo(packageName, 0)
-                return fromAppInfo(pm, pi, ai)
+                fromAppInfo(pm, pi, ai)
             } catch (e: PackageManager.NameNotFoundException) {
                 Timber.e(e, "Error getting app info")
-                return null
+                null
             }
-
         }
 
         fun fromAppInfo(pm: PackageManager, pi: PackageInfo, ai: ApplicationInfo): AppViewModel {

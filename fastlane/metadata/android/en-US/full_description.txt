@@ -1,5 +1,7 @@
 Stanley is an open source app for Android Developers.
 
-With it, you can explore packages installed on your device, read the package information (permissions, features, activities, services, providers and receivers), export the package's manifest.
+You can explore packages installed on your device, read the package information
+(permissions, features, activities, services, providers and receivers),
+export the package's manifest, and other cool things.
 
 It can now also report the same information from non-installed apk files opened from a file browser.

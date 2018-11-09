@@ -1,6 +1,6 @@
 package fr.xgouchet.packageexplorer.ui.mvp.list
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 open class ListActivity
     : AppCompatActivity() {

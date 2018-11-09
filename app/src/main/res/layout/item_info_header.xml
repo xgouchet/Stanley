@@ -10,12 +10,12 @@
             type="fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?android:selectableItemBackground">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -27,7 +27,7 @@
             app:srcVector="@{info.icon}"
             tools:src="@drawable/ic_category_activity" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             tools:text="Header name" />
 
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/expandable"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -58,5 +58,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcVector="@{info.expandedIcon}"
             tools:src="@drawable/ic_expand_less" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

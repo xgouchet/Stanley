@@ -8,6 +8,7 @@
 
     <!-- Actual app theme-->
     <style name="AppTheme" parent="BaseTheme">
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

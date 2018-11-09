@@ -2,7 +2,7 @@ package fr.xgouchet.packageexplorer.launcher
 
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import android.view.View
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.adapter.BaseLayoutAdapter

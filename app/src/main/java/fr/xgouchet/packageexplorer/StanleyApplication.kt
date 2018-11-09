@@ -1,7 +1,7 @@
 package fr.xgouchet.packageexplorer
 
 import android.app.Application
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate
 import timber.log.Timber
 
 class StanleyApplication : Application() {

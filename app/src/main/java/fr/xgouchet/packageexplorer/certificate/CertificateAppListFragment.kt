@@ -2,7 +2,7 @@ package fr.xgouchet.packageexplorer.certificate
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem

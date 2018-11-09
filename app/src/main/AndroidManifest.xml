@@ -21,10 +21,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".applist.CertificateAppListActivity"
+        <activity
+            android:name=".applist.CertificateAppListActivity"
             android:enabled="true"
             android:exported="false"
-            android:label="@string/activity_title_certificateAppList"/>
+            android:label="@string/activity_title_certificateAppList" />
 
         <!-- Details -->
         <activity
@@ -67,7 +68,7 @@
 
         <!-- Providers -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="about_contact">Contact</string>
-    <string name="about_copyright" tools:ignore="TypographyDashes">Copyright © 2013-2018: Xavier F. GOUCHET</string>
+    <string name="about_copyright" tools:ignore="TypographyDashes">Copyright © 2013-2018: Xavier F. Gouchet</string>
     <string name="about_donate">Donate</string>
     <string name="about_donate_url">https://paypal.me/xaviergouchet</string>
     <string name="about_email">android@xgouchet.fr</string>
@@ -35,20 +35,21 @@
     <string name="action_uninstall">Uninstall</string>
     <string name="action_more">More</string>
 
-    <string name="activity_title_about">About Stanley…</string>
+    <string name="activity_title_about">About Stanley</string>
     <string name="activity_title_apkDetails">APK file details</string>
     <string name="activity_title_appDetails">Application details</string>
     <string name="activity_title_appList">Stanley</string>
     <string name="activity_title_licenses">Third party licenses</string>
-    <string name="activity_title_certificateAppList">Certificate App List</string>
+    <string name="activity_title_certificateAppList">Certificate app list</string>
 
-    <string name="app_installed_on">Installed on :</string>
+    <string name="app_installed_on">Installed on: </string>
     <string name="app_name">Stanley</string>
-    <string name="app_updated_on">Updated on :</string>
+    <string name="app_updated_on">Updated on: </string>
 
     <string name="dialog_title_launcher">Open</string>
 
-    <string name="error_exported_manifest">No application can open a Manifest. Try installing one from the Play Store.</string>
+    <string name="error_exported_manifest">No app installed is capable of opening a manifest.
+        Try installing one from the Play Store.</string>
 
     <string name="header_type_activities">Activities</string>
     <string name="header_type_custom_permissions">Declared Permissions</string>
@@ -74,10 +75,11 @@
     <string name="msg_empty_app_list">No application found</string>
 
     <string name="permission_denied_storage_apk">We can’t read this APK file without your permission.</string>
-    <string name="permission_explanation_storage_apk">To be able to open this APK, we need permission to read your external storage.</string>
+    <string name="permission_explanation_storage_apk">To be able to open this APK,
+        we need permission to read your external storage.</string>
 
     <string name="pref_description_show_system_apps_off">Only installed apps are displayed</string>
     <string name="pref_description_show_system_apps_on">System applications are displayed</string>
     <string name="pref_title_show_system_apps">Display system apps</string>
-    <string name="pref_title_sort_criteria">Sort apps by …</string>
+    <string name="pref_title_sort_criteria">Sort apps by…</string>
 </resources>

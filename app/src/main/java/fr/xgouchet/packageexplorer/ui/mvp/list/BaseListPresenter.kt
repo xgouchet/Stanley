@@ -5,7 +5,7 @@ import android.app.Fragment
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import io.reactivex.disposables.Disposable
-import android.support.v4.app.Fragment as FragmentV4
+import androidx.fragment.app.Fragment as FragmentV4
 
 /**
  * @author Xavier F. Gouchet

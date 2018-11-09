@@ -5,27 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:singleLine="true"
         android:ellipsize="start"
         android:gravity="center_vertical"
+        android:singleLine="true"
         android:textAppearance="?android:textAppearanceListItemSmall"
         android:textColor="@color/primary_text"
         tools:text="com.google.android.googleapps.permission.GOOGLE_AUTH.blogger" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/sub_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/info"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_toEndOf="@id/icon"
         android:layout_toRightOf="@id/icon"
         android:gravity="center_vertical"

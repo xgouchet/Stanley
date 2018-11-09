@@ -3,8 +3,8 @@ package fr.xgouchet.packageexplorer.details.apk
 import android.Manifest
 import android.app.Activity
 import android.net.Uri
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.PermissionChecker
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import fr.xgouchet.packageexplorer.core.utils.exportManifestFromApk
 import fr.xgouchet.packageexplorer.core.utils.isFile
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoType

@@ -12,12 +12,12 @@
             type="fr.xgouchet.packageexplorer.applist.AppViewModel" />
     </data>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -25,7 +25,7 @@
         app:cardElevation="@dimen/elevation_card">
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -33,14 +33,14 @@
             android:padding="8dp"
             tools:ignore="UseCompoundDrawables">
 
-            <android.support.constraint.Guideline
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/half_screen"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon_app"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -51,7 +51,7 @@
                 tools:ignore="ContentDescription"
                 tools:src="@mipmap/ic_launcher" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon_debuggable_app"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -63,7 +63,7 @@
                 app:srcCompat="@drawable/ic_flag_debuggable" />
 
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon_system_app"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -74,7 +74,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_title"
                 app:srcCompat="@drawable/ic_flag_system_app" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon_large_heap"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -85,7 +85,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_title"
                 app:srcCompat="@drawable/ic_flag_large_heap" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/app_name" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_package_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                 tools:text="com.example.app.flavor" />
 
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_install_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                 app:layout_constraintStart_toStartOf="@+id/half_screen"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_install"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                 tools:text="September 15, 2012" />
 
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_update_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                 app:layout_constraintStart_toStartOf="@+id/half_screen"
                 app:layout_constraintTop_toBottomOf="@+id/text_install_label" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_update"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -178,6 +178,6 @@
                 tools:text="September 15, 2012" />
 
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

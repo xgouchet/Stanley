@@ -2,7 +2,6 @@
 
 # Stanley
 
-
 > An Android app explorer for developers (extract the manifest and other info from any installed application).
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)

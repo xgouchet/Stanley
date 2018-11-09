@@ -1,9 +1,6 @@
-import fr.xgouchet.gradle.AndroidBuild
-import fr.xgouchet.gradle.Dependencies
-
 plugins {
     id 'com.github.ben-manes.versions'
-    id "io.gitlab.arturbosch.detekt"
+    id 'io.gitlab.arturbosch.detekt'
 }
 
 apply plugin: 'com.android.application'
@@ -11,18 +8,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.oss.licenses.plugin'
+//apply plugin: 'java-gradle-plugin'
 
 android {
-
-    compileSdkVersion AndroidBuild.TargetSdk
-    buildToolsVersion AndroidBuild.BuildTools
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
-
-        minSdkVersion AndroidBuild.MinSdk
-        targetSdkVersion AndroidBuild.TargetSdk
-
         applicationId "fr.xgouchet.packageexplorer"
+        minSdkVersion 19
+        targetSdkVersion 28
         versionCode 15
         versionName "2.3"
 
@@ -31,15 +26,20 @@ android {
 
     /** The build types */
     buildTypes {
+        release {
+            minifyEnabled false
+        }
         debug {
             debuggable true
             applicationIdSuffix ".debug"
         }
-        release {
-            minifyEnabled false
-        }
     }
 
+    compileOptions {
+        encoding = 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     testOptions {
         unitTests.returnDefaultValues = true
@@ -48,18 +48,34 @@ android {
     dataBinding {
         enabled = true
     }
-
 }
 
 dependencies {
+    implementation 'com.google.android.material:material:1.1.0-alpha01'
+    implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    kapt 'androidx.databinding:databinding-compiler:3.2.1'
 
-    implementation Dependencies.Libraries.AndroidSupport
-    implementation Dependencies.Libraries.Kotlin
-    implementation Dependencies.Libraries.Rx
-    implementation Dependencies.Libraries.OssLicences
-    implementation Dependencies.Libraries.AboutPage
-    implementation Dependencies.Libraries.Timber
-    implementation Dependencies.Libraries.AXml
+    implementation 'com.google.android.gms:play-services-oss-licenses:16.0.1'
 
-    kapt Dependencies.Processors.DataBinding
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.github.medyo:android-about-page:1.2.4'
+    implementation 'com.github.xgouchet:AXML:v1.0.1'
+    implementation 'com.github.kittinunf.fuel:fuel:1.16.0'
+    implementation 'com.github.kittinunf.fuel:fuel-gson:1.16.0'
+    implementation 'com.squareup:kotlinpoet:0.7.0' //1.0.0-RC2
+
+    //implementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
+    //implementation 'com.facebook.stetho:stetho:1.5.0'
+    //implementation 'gradle.plugin.net.rdrei.android.buildtimetracker:build-time-tracker-plugin:0.11.0'
 }

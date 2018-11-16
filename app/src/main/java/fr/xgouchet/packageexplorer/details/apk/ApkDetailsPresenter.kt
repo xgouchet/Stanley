@@ -19,11 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.io.File
-import java.io.IOException
-import java.util.zip.ZipException
 import javax.security.cert.X509Certificate
-import javax.xml.parsers.ParserConfigurationException
-import javax.xml.transform.TransformerException
 
 
 /**
@@ -34,7 +30,7 @@ class ApkDetailsPresenter(activity: Activity,
                           private val uri: Uri)
     : BaseDetailsPresenter<ApkDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
 
-    private lateinit var localFilePath: String
+    private var localFilePath: String = ""
     private var exportDisposable: Disposable? = null
 
     override fun onDisplayerDetached() {
@@ -86,22 +82,13 @@ class ApkDetailsPresenter(activity: Activity,
 
 
     fun exportManifest() {
-        try {
-            exportDisposable = exportManifestFromApk(File(localFilePath), context)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        displayer?.onManifestExported(it)
-                    }
-        } catch (e: ZipException) {
-            displayer?.setError(e)
-        } catch (e: IOException) {
-            displayer?.setError(e)
-        } catch (e: TransformerException) {
-            displayer?.setError(e)
-        } catch (e: ParserConfigurationException) {
-            displayer?.setError(e)
-        }
-
+        exportDisposable = exportManifestFromApk(File(localFilePath), context)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    displayer?.onManifestExported(it)
+                }, {
+                    displayer?.setError(it)
+                })
     }
 }

@@ -53,18 +53,21 @@ class CertificateAppListPresenter(context: Context,
                     return@BiFunction list.sortedWith(comp)
                 })
 
-        sortedList
+        val disposable = sortedList
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { list -> onItemsLoaded(list) }
+                .subscribe(
+                        { onItemsLoaded(it) },
+                        { displayer?.setError(it) }
+                )
 
 
         sortSubject.onNext(currentSort.comparator)
     }
 
     override fun load(force: Boolean) {
-        displayer?.let {
-            it.setLoading(true)
+        displayer?.let { d ->
+            d.setLoading(true)
             disposable?.dispose()
 
             val list = memoizedAppList
@@ -76,14 +79,13 @@ class CertificateAppListPresenter(context: Context,
             disposable = Observable.create(AppListSource(context))
                     .subscribeOn(Schedulers.io())
                     .toList()
-                    .subscribe { l, t ->
-                        if (l != null) {
-                            memoizedAppList = l
-                            dataSubject.onNext(l)
-                        } else {
-                            displayer?.setError(t)
-                        }
-                    }
+                    .subscribe(
+                            {
+                                memoizedAppList = it
+                                dataSubject.onNext(it)
+                            },
+                            { displayer?.setError(it) }
+                    )
         }
 
     }

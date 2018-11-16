@@ -50,10 +50,13 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
                             }
                 })
 
-        filteredList
+        val disposable = filteredList
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { list -> onItemsLoaded(list) }
+                .subscribe(
+                        { onItemsLoaded(it) },
+                        { displayer?.setError(it) }
+                )
     }
 
     override fun onDisplayerAttached(displayer: Displayer<List<AppInfoViewModel>>, restored: Boolean) {
@@ -70,9 +73,8 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
     }
 
     override fun load(force: Boolean) {
-        displayer?.let {
-
-            it.setLoading(true)
+        displayer?.let { d ->
+            d.setLoading(true)
             disposable?.dispose()
 
             val list = memoizedAppInfoList
@@ -86,14 +88,13 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
                     .subscribeOn(Schedulers.computation())
                     .toList()
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { l, t ->
-                        if (l != null) {
-                            memoizedAppInfoList = l
-                            dataSubject.onNext(l)
-                        } else {
-                            displayer?.setError(t)
-                        }
-                    }
+                    .subscribe(
+                            {
+                                memoizedAppInfoList = it
+                                dataSubject.onNext(it)
+                            },
+                            { displayer?.setError(it) }
+                    )
         }
     }
 

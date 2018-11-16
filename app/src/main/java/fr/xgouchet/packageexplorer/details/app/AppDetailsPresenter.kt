@@ -77,23 +77,14 @@ class AppDetailsPresenter(activity: Activity,
     }
 
     fun exportManifest() {
-        try {
             val packageInfo = context.packageManager.getPackageInfo(packageName, 0)
             exportDisposable = exportManifestFromPackage(packageInfo, context)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
+                    .subscribe({
                         displayer?.onManifestExported(it)
-                    }
-        } catch (e: ZipException) {
-            displayer?.setError(e)
-        } catch (e: IOException) {
-            displayer?.setError(e)
-        } catch (e: TransformerException) {
-            displayer?.setError(e)
-        } catch (e: ParserConfigurationException) {
-            displayer?.setError(e)
-        }
-
+                    }, {
+                        displayer?.setError(it)
+                    })
     }
 }

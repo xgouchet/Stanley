@@ -17,7 +17,7 @@ object Dependencies {
         const val BuildTimeTracker = "0.11.0"
         const val DependencyVersion = "0.20.0"
         const val Detekt = "1.0.0.RC6-3"
-        const val Kotlin = "1.2.70"
+        const val Kotlin = "1.3.0"
         const val RxJava = "2.2.2"
         const val RxAndroid = "2.1.0"
         const val AboutPage = "1.2.4"

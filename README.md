@@ -6,7 +6,7 @@
 > An Android app explorer for developers (extract the manifest and other info from any installed application).
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
-[![Kotlin 1.1.2-4](https://img.shields.io/badge/Kotlin-1.1.51-blue.svg)](http://kotlinlang.org)
+[![Kotlin 1.1.2-4](https://img.shields.io/badge/Kotlin-1.3.0-blue.svg)](http://kotlinlang.org)
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/xaviergouchet)
 

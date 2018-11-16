@@ -1,14 +1,16 @@
 package fr.xgouchet.packageexplorer.details
 
+import android.app.Activity
+import android.app.Fragment
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.applist.CertificateAppListActivity
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoSelectable
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
+import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
 import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
@@ -18,8 +20,10 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.security.cert.X509Certificate
+import android.support.v4.app.Fragment as FragmentV4
 
 abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
+                                       private val certificateNavigator: Navigator<X509Certificate>,
                                        val context: Context)
     : BaseListPresenter<AppInfoViewModel, D>(navigator)
         where D : ListDisplayer<AppInfoViewModel> {
@@ -50,6 +54,19 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { list -> onItemsLoaded(list) }
+    }
+
+    override fun onDisplayerAttached(displayer: Displayer<List<AppInfoViewModel>>, restored: Boolean) {
+
+        val activity = when (displayer) {
+            is Fragment -> displayer.activity
+            is FragmentV4 -> displayer.activity
+            is Activity -> displayer
+            else -> null
+        }
+        if (activity != null) certificateNavigator.currentActivity = activity
+
+        super.onDisplayerAttached(displayer, restored)
     }
 
     override fun load(force: Boolean) {
@@ -91,15 +108,14 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
             if (selectedData != null) {
                 val clip = ClipData.newPlainText(item.getLabel(), selectedData)
                 clipboard.primaryClip = clip
-                Toast.makeText(context, "“${selectedData}” has been copied to your clipbaord", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "“${selectedData}” has been copied to your clipboard", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     fun actionTriggerd(actionData: Any?) {
         if (actionData is X509Certificate) {
-            val intent = CertificateAppListActivity.getIntent(actionData, context)
-            context.startActivity(intent)
+            certificateNavigator.goToItemDetails(actionData)
         }
     }
 

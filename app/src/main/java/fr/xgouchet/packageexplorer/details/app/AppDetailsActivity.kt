@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import fr.xgouchet.packageexplorer.applist.AppViewModel
+import fr.xgouchet.packageexplorer.details.CertificateNavigator
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
@@ -46,7 +47,7 @@ class AppDetailsActivity
 
     override fun instantiatePresenter(): AppDetailsPresenter {
         val appViewModel = intentData ?: throw IllegalStateException("Expected non null app here")
-        return AppDetailsPresenter(this, appViewModel.packageName, appViewModel.isSystemApp)
+        return AppDetailsPresenter(this, CertificateNavigator(), appViewModel.packageName, appViewModel.isSystemApp)
     }
 
     override fun instantiateFragment(): AppDetailsFragment {
@@ -76,6 +77,7 @@ class AppDetailsActivity
             registerReceiver(it, intentFilter)
         }
     }
+
     override fun onStop() {
         super.onStop()
         uninstallReceiver?.let {
@@ -84,7 +86,7 @@ class AppDetailsActivity
     }
 
     class UninstallReceiver(private val watchedPackageName: String,
-                                  private val onUninstalled: () -> Unit)
+                            private val onUninstalled: () -> Unit)
         : BroadcastReceiver() {
 
 

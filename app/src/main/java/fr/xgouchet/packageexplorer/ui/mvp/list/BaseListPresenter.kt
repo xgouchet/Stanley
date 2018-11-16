@@ -21,7 +21,7 @@ abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?)
 
     // region Presenter
 
-    final override fun onDisplayerAttached(displayer: Displayer<List<T>>, restored: Boolean) {
+     override fun onDisplayerAttached(displayer: Displayer<List<T>>, restored: Boolean) {
         require(displayer is ListDisplayer<T>) { "ListPresenter requires a ListDisplayer" }
 
         @Suppress("UNCHECKED_CAST")

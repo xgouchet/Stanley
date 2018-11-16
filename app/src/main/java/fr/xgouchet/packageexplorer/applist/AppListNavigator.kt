@@ -21,7 +21,8 @@ class AppListNavigator : Navigator<AppViewModel> {
 
     override fun goToItemCreation() {
     }
-
+    
     override fun goBack() {
+        currentActivity.finish()
     }
 }

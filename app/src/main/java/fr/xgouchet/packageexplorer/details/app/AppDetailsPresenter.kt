@@ -10,12 +10,14 @@ import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.core.utils.uninstallPackageIntent
 import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
+import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import java.util.zip.ZipException
+import javax.security.cert.X509Certificate
 import javax.xml.parsers.ParserConfigurationException
 import javax.xml.transform.TransformerException
 
@@ -24,9 +26,10 @@ import javax.xml.transform.TransformerException
  * @author Xavier F. Gouchet
  */
 class AppDetailsPresenter(activity: Activity,
+                          certficateNavigator: Navigator<X509Certificate>,
                           val packageName: String,
                           val isSystemApp: Boolean)
-    : BaseDetailsPresenter<AppDetailsFragment>(null, activity.applicationContext) {
+    : BaseDetailsPresenter<AppDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
 
     private var exportDisposable: Disposable? = null
 

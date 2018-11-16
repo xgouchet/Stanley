@@ -7,11 +7,12 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
 import fr.xgouchet.packageexplorer.core.utils.exportManifestFromApk
 import fr.xgouchet.packageexplorer.core.utils.isFile
+import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
+import fr.xgouchet.packageexplorer.details.DetailsSource
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
-import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
-import fr.xgouchet.packageexplorer.details.DetailsSource
+import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.io.IOException
 import java.util.zip.ZipException
+import javax.security.cert.X509Certificate
 import javax.xml.parsers.ParserConfigurationException
 import javax.xml.transform.TransformerException
 
@@ -28,8 +30,9 @@ import javax.xml.transform.TransformerException
  * @author Xavier F. Gouchet
  */
 class ApkDetailsPresenter(activity: Activity,
+                          certficateNavigator: Navigator<X509Certificate>,
                           private val uri: Uri)
-    : BaseDetailsPresenter<ApkDetailsFragment>(null, activity.applicationContext) {
+    : BaseDetailsPresenter<ApkDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
 
     private lateinit var localFilePath: String
     private var exportDisposable: Disposable? = null

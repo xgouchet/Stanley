@@ -2,6 +2,7 @@ package fr.xgouchet.packageexplorer.details.app
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import fr.xgouchet.packageexplorer.core.utils.applicationInfoIntent
 import fr.xgouchet.packageexplorer.core.utils.applicationPlayStoreIntent
 import fr.xgouchet.packageexplorer.core.utils.exportManifestFromPackage
@@ -15,11 +16,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
-import java.util.zip.ZipException
 import javax.security.cert.X509Certificate
-import javax.xml.parsers.ParserConfigurationException
-import javax.xml.transform.TransformerException
 
 
 /**
@@ -77,14 +74,19 @@ class AppDetailsPresenter(activity: Activity,
     }
 
     fun exportManifest() {
-            val packageInfo = context.packageManager.getPackageInfo(packageName, 0)
-            exportDisposable = exportManifestFromPackage(packageInfo, context)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        displayer?.onManifestExported(it)
-                    }, {
-                        displayer?.setError(it)
-                    })
+        val packageInfo = try {
+            context.packageManager.getPackageInfo(packageName, 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            displayer?.setError(e)
+            return
+        }
+        exportDisposable = exportManifestFromPackage(packageInfo, context)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    displayer?.onManifestExported(it)
+                }, {
+                    displayer?.setError(it)
+                })
     }
 }

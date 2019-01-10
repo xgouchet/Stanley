@@ -24,7 +24,7 @@ object Dependencies {
 
 
         const val Leakcanary = "1.5.4"
-        const val Timber = "4.6.0"
+        const val Timber = "4.7.1"
         const val Stetho= "1.5.0"
         const val AXml  = "v1.0.1"
     }

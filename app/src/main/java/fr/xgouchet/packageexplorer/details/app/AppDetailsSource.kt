@@ -3,10 +3,11 @@ package fr.xgouchet.packageexplorer.details.app
 
 import android.content.Context
 import android.content.pm.PackageManager
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.DetailsSource
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
+import java.io.File
 
 
 /**
@@ -38,7 +39,10 @@ class AppDetailsSource(context: Context,
             val packageInfo = packageManager.getPackageInfo(packageName, PACKAGE_INFO_FLAGS)
             val applicationInfo = packageManager.getApplicationInfo(packageName, APP_INFO_FLAGS)
 
-            extractMainInfo(emitter, packageInfo, applicationInfo)
+            val srcPath = packageInfo.applicationInfo.publicSourceDir
+            val apkFile = if (srcPath != null) File(srcPath) else null
+
+            extractMainInfo(emitter, packageInfo, applicationInfo, apkFile)
 
             extractSignatures(emitter, packageInfo)
 

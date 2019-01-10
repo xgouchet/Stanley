@@ -7,6 +7,7 @@ import fr.xgouchet.packageexplorer.details.DetailsSource
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
+import java.io.File
 
 
 /**
@@ -35,7 +36,7 @@ class ApkDetailsSource(context: Context,
             val packageManager = context.packageManager
             val packageInfo = packageManager.getPackageArchiveInfo(path, PACKAGE_INFO_FLAGS)
 
-            extractMainInfo(emitter, packageInfo, null)
+            extractMainInfo(emitter, packageInfo, null, File(path))
 
             extractSignatures(emitter, packageInfo)
 

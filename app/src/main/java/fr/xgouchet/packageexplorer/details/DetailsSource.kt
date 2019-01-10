@@ -21,6 +21,7 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
 import io.reactivex.ObservableEmitter
 import timber.log.Timber
+import java.io.File
 import java.security.MessageDigest
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
@@ -38,7 +39,8 @@ open class DetailsSource(val context: Context) {
 
     protected fun extractMainInfo(emitter: ObservableEmitter<AppInfoViewModel>,
                                   packageInfo: PackageInfo,
-                                  applicationInfo: ApplicationInfo?) {
+                                  applicationInfo: ApplicationInfo?,
+                                  apkFile: File?) {
         emitter.apply {
             onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_METADATA, PACKAGE_NAME, packageInfo.packageName))
 
@@ -73,6 +75,11 @@ open class DetailsSource(val context: Context) {
                 if (installLocation != null) {
                     onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, installLocation, null, R.drawable.ic_flag_storage))
                 }
+            }
+
+            if (apkFile != null && apkFile.exists()) {
+                val sizeStr = humanReadableByteCount(apkFile.length())
+                onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, "Local APK size: $sizeStr", null, R.drawable.ic_apk_size))
             }
         }
     }
@@ -308,7 +315,15 @@ open class DetailsSource(val context: Context) {
         return name
     }
 
-    fun ByteArray.toHexString() : String{
+    private fun humanReadableByteCount(bytes: Long): String {
+        val unit = 1024
+        if (bytes < unit) return bytes.toString() + " B"
+        val exp = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
+        val pre = "KMGTPE"[exp - 1]
+        return String.format("%.2f %sB", bytes / Math.pow(unit.toDouble(), exp.toDouble()), pre)
+    }
+
+    fun ByteArray.toHexString(): String {
         val result = StringBuffer()
 
         forEach {

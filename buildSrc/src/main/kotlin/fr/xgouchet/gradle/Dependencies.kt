@@ -5,23 +5,22 @@ object Dependencies {
 
     object Versions {
 
-        const val AndroidPlugin = "3.1.3"
-        const val AndroidSupportLibs = "28.0.0-rc02"
+        const val AndroidPlugin = "3.4.0"
+        const val AndroidSupportLibs = "28.0.0"
 
         const val ConstraintLayout = "1.0.2"
         const val MaterialComponents = "1.0.0-rc02"
         const val OssLicensesPlugin = "0.9.2"
         const val OssLicensesLibrary = "16.0.0"
-        const val DataBindingCompiler = "2.3.3"
+        const val DataBindingCompiler = "3.0.0"
 
         const val BuildTimeTracker = "0.11.0"
         const val DependencyVersion = "0.20.0"
         const val Detekt = "1.0.0.RC6-3"
         const val Kotlin = "1.3.0"
-        const val RxJava = "2.2.2"
-        const val RxAndroid = "2.1.0"
-        const val AboutPage = "1.2.4"
-
+        const val RxJava = "2.2.6"
+        const val RxAndroid = "2.1.1"
+        const val AboutPage = "1.2.5"
 
         const val Leakcanary = "1.5.4"
         const val Timber = "4.7.1"

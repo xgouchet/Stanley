@@ -20,6 +20,7 @@ local.properties
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
 .idea/caches/build_file_checksums.ser
+.idea/caches/gradle_models.ser
 *.iml
 
 # old code

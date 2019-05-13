@@ -25,7 +25,7 @@
     <string name="about_mit">MIT License</string>
     <string name="about_description">An application explorer for developers</string>
     <string name="about_twitter">xgouchet</string>
-    <string name="about_github">xgouchet</string>
+    <string name="about_github">xgouchet/Stanley</string>
 
     <string name="action_app_info">System Application Info</string>
     <string name="action_launch">Launch</string>

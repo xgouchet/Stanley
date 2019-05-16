@@ -51,6 +51,11 @@ open class DetailsSource(val context: Context) {
 
             if (applicationInfo != null) {
                 onNext(AppInfoSimple(AppInfoType.INFO_TYPE_GLOBAL, "Target SDK : ${applicationInfo.targetSdkVersion}"))
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    onNext(AppInfoSimple(AppInfoType.INFO_TYPE_GLOBAL, "Min SDK : ${applicationInfo.minSdkVersion}"))
+                }
+
                 if ((applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0) {
                     onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, "System app", null, R.drawable.ic_flag_system_app))
                 }

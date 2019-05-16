@@ -3,6 +3,7 @@
     package="fr.xgouchet.packageexplorer">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
 
     <application
         android:name=".StanleyApplication"

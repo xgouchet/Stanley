@@ -111,9 +111,7 @@ class ApkDetailsFragment
 
     private fun explainAndRequestStoragePermission() {
         Snackbar.make(list, R.string.permission_explanation_storage_apk, Snackbar.LENGTH_INDEFINITE)
-                .setAction(android.R.string.ok, {
-                    doRequestStoragePermission()
-                })
+                .setAction(android.R.string.ok) { doRequestStoragePermission() }
                 .show()
     }
 
@@ -126,9 +124,7 @@ class ApkDetailsFragment
             presenter.onPermissionGranted()
         } else {
             Snackbar.make(list, R.string.permission_denied_storage_apk, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, {
-                        doRequestStoragePermission()
-                    })
+                    .setAction(android.R.string.ok) { doRequestStoragePermission() }
                     .show()
         }
     }

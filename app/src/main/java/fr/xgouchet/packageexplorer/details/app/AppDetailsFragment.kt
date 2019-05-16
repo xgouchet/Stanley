@@ -1,9 +1,15 @@
 package fr.xgouchet.packageexplorer.details.app
 
+import android.Manifest
+import android.annotation.TargetApi
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.support.v4.view.ViewCompat
 import android.view.Menu
@@ -68,7 +74,7 @@ class AppDetailsFragment
                 return true
             }
             R.id.action_uninstall -> {
-                presenter.openUninstaller()
+                onUninstallRequested()
                 return true
             }
             R.id.action_manifest -> {
@@ -78,6 +84,13 @@ class AppDetailsFragment
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSION_REQUEST_UNINSTALL -> handleUninstallPermissionResponse(permissions, grantResults)
+        }
+    }
+
 
     // endregion
 
@@ -89,6 +102,7 @@ class AppDetailsFragment
         LauncherDialog.withData(resolvedInfos)
                 .show(transaction, null)
     }
+
 
     fun onManifestExported(dest: File) {
         val currentActivity = activity ?: return
@@ -109,6 +123,65 @@ class AppDetailsFragment
     }
 
     // endregion
+
+    // region Internal
+
+    private fun onUninstallRequested() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            checkUninstallPermission()
+        } else {
+            presenter.openUninstaller()
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private fun checkUninstallPermission() {
+        val currentActivity = activity ?: return
+        if (ContextCompat.checkSelfPermission(currentActivity, PERMISSION_UNINSTALL) == PackageManager.PERMISSION_GRANTED) {
+            presenter.openUninstaller()
+        } else {
+            requestUninstallPermission()
+        }
+    }
+
+    private fun requestUninstallPermission() {
+        val currentActivity = activity ?: return
+        if (ActivityCompat.shouldShowRequestPermissionRationale(currentActivity, PERMISSION_UNINSTALL)) {
+            explainAndRequesUninstallPermission()
+        } else {
+            doRequestUninstallPermission()
+        }
+    }
+
+    private fun explainAndRequesUninstallPermission() {
+        Snackbar.make(list, R.string.permission_explanation_uninstall, Snackbar.LENGTH_INDEFINITE)
+                .setAction(android.R.string.ok) { doRequestUninstallPermission() }
+                .show()
+    }
+
+    private fun doRequestUninstallPermission() {
+        requestPermissions(arrayOf(PERMISSION_UNINSTALL), PERMISSION_REQUEST_UNINSTALL)
+    }
+
+    private fun handleUninstallPermissionResponse(permissions: Array<out String>, grantResults: IntArray) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            presenter.openUninstaller()
+        } else {
+            Snackbar.make(list, R.string.permission_denied_uninstall, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok) { doRequestUninstallPermission() }
+                    .show()
+        }
+    }
+
+    //endregion
+
+    companion object {
+        @TargetApi(Build.VERSION_CODES.O)
+        const val PERMISSION_UNINSTALL = Manifest.permission.REQUEST_DELETE_PACKAGES
+
+        const val PERMISSION_REQUEST_UNINSTALL = 666
+    }
 }
 
 

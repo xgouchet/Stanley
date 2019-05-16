@@ -2,8 +2,10 @@ package fr.xgouchet.packageexplorer.applist
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,15 +15,21 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.about.AboutActivity
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.details.apk.ApkDetailsActivity
+import fr.xgouchet.packageexplorer.launcher.LauncherDialog
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
+import io.reactivex.functions.Consumer
 
 
-class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
+class AppListFragment
+    : BaseListFragment<AppViewModel, AppListPresenter>(),
+        Consumer<AppViewModel> {
 
-    override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this)
+    override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this, this)
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
+
+    // region Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,21 +92,46 @@ class AppListFragment : BaseListFragment<AppViewModel, AppListPresenter>() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode){
+        when (requestCode) {
             OPEN_APK_REQUEST -> onOpenApkResult(resultCode, data)
         }
     }
 
+    // endregion
+
+    // region Displayer
+
+    fun promptActivity(resolvedInfos: List<ResolveInfo>) {
+        val supportFragmentManager = activity?.supportFragmentManager ?: return
+        val transaction = supportFragmentManager.beginTransaction()
+        LauncherDialog.withData(resolvedInfos)
+                .show(transaction, null)
+    }
+
+    // endregion
+
+    // region Consumer
+
+    override fun accept(t: AppViewModel) {
+        presenter.openApplication(t.packageName)
+    }
+
+    // endregion
+
+    // region Private
+
     private fun onOpenApkResult(resultCode: Int, resultData: Intent?) {
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             val uri: Uri? = resultData?.data
-            if (uri != null){
+            if (uri != null) {
                 val intent = Intent(context, ApkDetailsActivity::class.java)
                 intent.data = uri
                 startActivity(intent)
             }
         }
     }
+
+    // endregion
 
     companion object {
         const val APK_MIME_TYPE = "application/vnd.android.package-archive"

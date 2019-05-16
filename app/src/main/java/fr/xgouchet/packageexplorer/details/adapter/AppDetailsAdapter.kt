@@ -17,7 +17,7 @@ import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer
 
 class AppDetailsAdapter(val listener: BiConsumer<AppInfoViewModel, View?>?,
-                        val actionListener: Consumer<Any?>?) : BaseAdapter<AppInfoViewModel>() {
+                        val actionListener: Consumer<AppInfoViewModel>?) : BaseAdapter<AppInfoViewModel>() {
 
     companion object {
         val TYPE_HEADER = 0

@@ -10,6 +10,7 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoSelectable
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
@@ -114,9 +115,10 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
         }
     }
 
-    fun actionTriggerd(actionData: Any?) {
-        if (actionData is X509Certificate) {
-            certificateNavigator.goToItemDetails(actionData)
+    fun actionTriggerd(infoViewModel: AppInfoViewModel) {
+        val data = (infoViewModel as? AppInfoWithSubtitleAndAction)?.actionData
+        if (data is X509Certificate) {
+            certificateNavigator.goToItemDetails(data)
         }
     }
 

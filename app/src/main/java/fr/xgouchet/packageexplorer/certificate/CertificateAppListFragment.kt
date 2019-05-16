@@ -1,27 +1,29 @@
 package fr.xgouchet.packageexplorer.certificate
 
-import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.os.Bundle
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.about.AboutActivity
 import fr.xgouchet.packageexplorer.applist.AppAdapter
 import fr.xgouchet.packageexplorer.applist.AppViewModel
-import fr.xgouchet.packageexplorer.applist.CertificateAppListPresenter
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
+import fr.xgouchet.packageexplorer.launcher.LauncherDialog
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
+import io.reactivex.functions.Consumer
 
 
-class CertificateAppListFragment : BaseListFragment<AppViewModel, CertificateAppListPresenter>() {
+class CertificateAppListFragment
+    : BaseListFragment<AppViewModel, CertificateAppListPresenter>(),
+        Consumer<AppViewModel> {
 
-    override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this)
+    override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this, this)
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
+
+    // region Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,5 +50,25 @@ class CertificateAppListFragment : BaseListFragment<AppViewModel, CertificateApp
         return true
     }
 
+    // endregion
+
+    // region Displayer
+
+    fun promptActivity(resolvedInfos: List<ResolveInfo>) {
+        val supportFragmentManager = activity?.supportFragmentManager ?: return
+        val transaction = supportFragmentManager.beginTransaction()
+        LauncherDialog.withData(resolvedInfos)
+                .show(transaction, null)
+    }
+
+    // endregion
+
+    // region Consumer
+
+    override fun accept(t: AppViewModel) {
+        presenter.openApplication(t.packageName)
+    }
+
+    // endregion
 
 }

@@ -3,11 +3,16 @@ package fr.xgouchet.packageexplorer.ui.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import io.reactivex.functions.BiConsumer
+import io.reactivex.functions.Consumer
 
 /**
  * @author Xavier Gouchet
  */
-abstract class BaseViewHolder<T>(val listener: BiConsumer<T, View?>?, itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class BaseViewHolder<T>(
+        itemView: View,
+        val selectedListener: BiConsumer<T, View?>? = null,
+        val secondaryActionListener: Consumer<T>? = null
+) : RecyclerView.ViewHolder(itemView) {
 
     var item: T? = null
 
@@ -19,7 +24,13 @@ abstract class BaseViewHolder<T>(val listener: BiConsumer<T, View?>?, itemView: 
 
     protected fun fireSelected() {
         item?.let {
-            listener?.accept(it, getTransitionView())
+            selectedListener?.accept(it, getTransitionView())
+        }
+    }
+
+    protected fun fireSecondaryAction() {
+        item?.let {
+            secondaryActionListener?.accept(it)
         }
     }
 

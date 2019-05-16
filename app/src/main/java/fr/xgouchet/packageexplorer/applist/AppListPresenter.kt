@@ -5,6 +5,8 @@ import android.content.pm.ApplicationInfo
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
+import fr.xgouchet.packageexplorer.core.utils.getMainActivities
+import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -131,6 +133,19 @@ class AppListPresenter(context: Context)
 
     override fun itemSelected(item: AppViewModel) {
         navigator?.goToItemDetails(item)
+    }
+
+    fun openApplication(packageName: String) {
+        val resolvedInfos = getMainActivities(context, packageName)
+
+        if (resolvedInfos.isEmpty()) {
+            return
+        } else if (resolvedInfos.size == 1) {
+            val intent = getResolvedIntent(resolvedInfos[0])
+            context.startActivity(intent)
+        } else {
+            displayer?.promptActivity(resolvedInfos)
+        }
     }
 
 }

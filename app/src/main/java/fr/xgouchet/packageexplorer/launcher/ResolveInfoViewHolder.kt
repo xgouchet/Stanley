@@ -16,7 +16,7 @@ import io.reactivex.functions.BiConsumer
 class ResolveInfoViewHolder(view: View,
                             listener: BiConsumer<ResolveInfo, View?>,
                             val pm: PackageManager)
-    : BaseViewHolder<ResolveInfo>(listener, view) {
+    : BaseViewHolder<ResolveInfo>(itemView = view, selectedListener = listener) {
 
     val title: TextView by knife(R.id.text_title, view)
     val subtitle: TextView by knife(R.id.text_package_name, view)
@@ -25,6 +25,7 @@ class ResolveInfoViewHolder(view: View,
     init {
         view.setOnClickListener { fireSelected() }
     }
+
     override fun onBindItem(item: ResolveInfo) {
 
         val component = ComponentName(item.activityInfo.packageName, item.activityInfo.name)

@@ -14,14 +14,20 @@ import io.reactivex.functions.Consumer
 /**
  * @author Xavier F. Gouchet
  */
-abstract class AppInfoViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                                 itemView: View)
-    : BaseViewHolder<AppInfoViewModel>(listener, itemView)
+abstract class AppInfoViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?,
+        secondaryActionListener: Consumer<AppInfoViewModel>? = null
+) : BaseViewHolder<AppInfoViewModel>(
+        itemView = itemView,
+        selectedListener = listener,
+        secondaryActionListener = secondaryActionListener
+)
 
 
 class AppInfoHeaderViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
                               val binding: ItemInfoHeaderBinding)
-    : AppInfoViewHolder(listener, binding.root) {
+    : AppInfoViewHolder(binding.root, listener) {
 
     init {
         binding.root.setOnClickListener {
@@ -38,7 +44,7 @@ class AppInfoHeaderViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
 
 class AppInfoSimpleViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
                               val binding: ItemInfoSimpleBinding)
-    : AppInfoViewHolder(listener, binding.root) {
+    : AppInfoViewHolder(binding.root, listener) {
 
     init {
         binding.root.setOnClickListener {
@@ -55,7 +61,7 @@ class AppInfoSimpleViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
 
 class AppInfoWithIconViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
                                 val binding: ItemInfoIconBinding)
-    : AppInfoViewHolder(listener, binding.root) {
+    : AppInfoViewHolder(binding.root, listener) {
 
     init {
         binding.root.setOnClickListener {
@@ -72,7 +78,7 @@ class AppInfoWithIconViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
 
 class AppInfoWithSubtitleViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
                                     val binding: ItemInfoSubtitleBinding)
-    : AppInfoViewHolder(listener, binding.root) {
+    : AppInfoViewHolder(binding.root, listener) {
 
     init {
         binding.root.setOnClickListener {
@@ -89,7 +95,7 @@ class AppInfoWithSubtitleViewHolder(listener: BiConsumer<AppInfoViewModel, View?
 
 class AppInfoWithSubtitleAndIconViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
                                            val binding: ItemInfoSubtitleIconBinding)
-    : AppInfoViewHolder(listener, binding.root) {
+    : AppInfoViewHolder(binding.root, listener) {
 
     init {
         binding.root.setOnClickListener {
@@ -105,16 +111,16 @@ class AppInfoWithSubtitleAndIconViewHolder(listener: BiConsumer<AppInfoViewModel
 }
 
 class AppInfoWithSubtitleAndActionViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                                             actionListener: Consumer<Any?>?,
+                                             actionListener: Consumer<AppInfoViewModel>?,
                                              val binding: ItemInfoSubtitleActionBinding)
-    : AppInfoViewHolder(listener, binding.root) {
+    : AppInfoViewHolder(binding.root, listener, actionListener) {
 
     init {
         binding.root.setOnClickListener {
             fireSelected()
         }
         binding.action.setOnClickListener {
-            actionListener?.accept(binding.info?.actionData)
+            fireSecondaryAction()
         }
     }
 

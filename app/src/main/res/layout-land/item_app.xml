@@ -1,182 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <variable
-            name="app"
-            type="fr.xgouchet.packageexplorer.applist.AppViewModel" />
+                name="app"
+                type="fr.xgouchet.packageexplorer.applist.AppViewModel"/>
     </data>
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/corner_radius_card"
-        app:cardElevation="@dimen/elevation_card">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/corner_radius_card"
+            app:cardElevation="@dimen/elevation_card">
 
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            tools:ignore="UseCompoundDrawables">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                tools:ignore="UseCompoundDrawables">
 
             <android.support.constraint.Guideline
-                android:id="@+id/half_screen"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                    android:id="@+id/half_screen"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.45"/>
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/icon_app"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:src="@{app.icon}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription"
-                tools:src="@mipmap/ic_launcher" />
+                    android:id="@+id/icon_app"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:src="@{app.icon}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="ContentDescription"
+                    tools:src="@mipmap/ic_launcher"/>
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/icon_debuggable_app"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="8dp"
-                android:visibility="@{app.isDebuggable ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="@+id/text_title"
-                app:layout_constraintStart_toEndOf="@+id/icon_app"
-                app:layout_constraintTop_toTopOf="@+id/text_title"
-                app:srcCompat="@drawable/ic_flag_debuggable" />
+                    android:id="@+id/icon_debuggable_app"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="@{app.isDebuggable ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                    app:layout_constraintStart_toEndOf="@+id/icon_app"
+                    app:layout_constraintTop_toTopOf="@+id/text_title"
+                    app:srcCompat="@drawable/ic_flag_debuggable"/>
 
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/icon_system_app"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="8dp"
-                android:visibility="@{app.isSystemApp ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="@+id/text_title"
-                app:layout_constraintStart_toEndOf="@+id/icon_debuggable_app"
-                app:layout_constraintTop_toTopOf="@+id/text_title"
-                app:srcCompat="@drawable/ic_flag_system_app" />
+                    android:id="@+id/icon_system_app"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="@{app.isSystemApp ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                    app:layout_constraintStart_toEndOf="@+id/icon_debuggable_app"
+                    app:layout_constraintTop_toTopOf="@+id/text_title"
+                    app:srcCompat="@drawable/ic_flag_system_app"/>
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/icon_large_heap"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="8dp"
-                android:visibility="@{app.isLargeHeap ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="@+id/text_title"
-                app:layout_constraintStart_toEndOf="@+id/icon_system_app"
-                app:layout_constraintTop_toTopOf="@+id/text_title"
-                app:srcCompat="@drawable/ic_flag_large_heap" />
+                    android:id="@+id/icon_large_heap"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="@{app.isLargeHeap ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                    app:layout_constraintStart_toEndOf="@+id/icon_system_app"
+                    app:layout_constraintTop_toTopOf="@+id/text_title"
+                    app:srcCompat="@drawable/ic_flag_large_heap"/>
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:gravity="center_vertical"
-                android:text="@{app.title}"
-                android:textAppearance="?android:attr/textAppearanceListItem"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/half_screen"
-                app:layout_constraintStart_toEndOf="@+id/icon_large_heap"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/app_name" />
+                    android:id="@+id/text_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@{app.title}"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/half_screen"
+                    app:layout_constraintStart_toEndOf="@+id/icon_large_heap"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/app_name"/>
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_package_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{app.packageName}"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                android:textColor="@color/accent"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/half_screen"
-                app:layout_constraintStart_toEndOf="@+id/icon_app"
-                app:layout_constraintTop_toBottomOf="@+id/text_title"
-                tools:text="com.example.app.flavor" />
-
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_install_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ellipsize="end"
-                android:text="@string/app_installed_on"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toStartOf="@+id/text_install"
-                app:layout_constraintStart_toStartOf="@+id/half_screen"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_install"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ellipsize="end"
-                android:text="@{app.installTimeStr}"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text_install_label"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="September 15, 2012" />
+                    android:id="@+id/text_package_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{app.packageName}"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:textColor="@color/accent"
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toStartOf="@+id/half_screen"
+                    app:layout_constraintStart_toEndOf="@+id/icon_app"
+                    app:layout_constraintTop_toBottomOf="@+id/text_title"
+                    tools:text="com.example.app.flavor"/>
 
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_update_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ellipsize="end"
-                android:text="@string/app_updated_on"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/text_update"
-                app:layout_constraintStart_toStartOf="@+id/half_screen"
-                app:layout_constraintTop_toBottomOf="@+id/text_install_label" />
+                    android:id="@+id/text_install_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:ellipsize="end"
+                    android:text="@string/app_installed_on"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toStartOf="@+id/text_install"
+                    app:layout_constraintStart_toStartOf="@+id/half_screen"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_update"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ellipsize="end"
-                android:text="@{app.updateTimeStr}"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text_install_label"
-                app:layout_constraintTop_toBottomOf="@+id/text_install"
-                tools:text="September 15, 2012" />
+                    android:id="@+id/text_install"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:ellipsize="end"
+                    android:text="@{app.installTimeStr}"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toStartOf="@+id/action_app_launch"
+                    app:layout_constraintStart_toEndOf="@+id/text_install_label"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="September 15, 2012"/>
 
+
+            <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/text_update_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:ellipsize="end"
+                    android:text="@string/app_updated_on"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:singleLine="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/text_update"
+                    app:layout_constraintStart_toStartOf="@+id/half_screen"
+                    app:layout_constraintTop_toBottomOf="@+id/text_install_label"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/text_update"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:ellipsize="end"
+                    android:text="@{app.updateTimeStr}"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:singleLine="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/action_app_launch"
+                    app:layout_constraintStart_toEndOf="@+id/text_update_label"
+                    app:layout_constraintTop_toBottomOf="@+id/text_install"
+                    tools:text="September 15, 2012"/>
+
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/action_app_launch"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:padding="8dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_launch"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

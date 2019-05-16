@@ -3,8 +3,8 @@ package fr.xgouchet.packageexplorer.applist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.certificate.CertificateAppListFragment
+import fr.xgouchet.packageexplorer.certificate.CertificateAppListPresenter
 import fr.xgouchet.packageexplorer.core.utils.humanReadableName
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 import javax.security.cert.CertificateException

@@ -14,7 +14,7 @@ class AppListSource(val context: Context)
 
     override fun subscribe(emitter: ObservableEmitter<AppViewModel>) {
         val pm = context.packageManager
-        val packages = pm.getInstalledPackages(PackageManager.GET_SIGNATURES)
+        val packages = pm.getInstalledPackages(PackageManager.GET_SIGNATURES or PackageManager.GET_SIGNING_CERTIFICATES)
 
         var ai: ApplicationInfo
         for (pi in packages) {

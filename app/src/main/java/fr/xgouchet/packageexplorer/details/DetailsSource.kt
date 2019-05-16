@@ -77,13 +77,12 @@ open class DetailsSource(val context: Context) {
                 }
             }
 
-            if (apkFile != null && apkFile.exists()) {
+            if (apkFile != null) {
                 val sizeStr = humanReadableByteCount(apkFile.length())
                 onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, "Local APK size: $sizeStr", null, R.drawable.ic_apk_size))
             }
         }
     }
-
 
     protected fun extractActivities(emitter: ObservableEmitter<AppInfoViewModel>,
                                     packageInfo: PackageInfo,

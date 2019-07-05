@@ -1,0 +1,4 @@
+v2.4 (nov. 2018):
+
+ - Fix crash on Certificate Screen
+ - Fix crash on Manifest export

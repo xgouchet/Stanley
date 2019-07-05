@@ -21,6 +21,13 @@
  - Handle app installed, replaced and uninstalled events ]]></string>
     <string name="about_history_v2_3"><![CDATA[v2.3 (sep. 2018): \n
  - Open non-installed APK from the app ]]></string>
+    <string name="about_history_v2_4"><![CDATA[v2.4 (nov. 2018): \n
+ - Prevent crash on Certificate screen
+ - Prevent crash on Manifest export]]></string>
+    <string name="about_history_v2_5"><![CDATA[v2.4 (jul. 2019): \n
+ - Fix uninstall bug on Android O (26) and higher
+ - Display application minimum SDK on Android N (24) and higher
+ - Launch an application from the list]]></string>
     <string name="about_license">License</string>
     <string name="about_mit">MIT License</string>
     <string name="about_description">An application explorer for developers</string>

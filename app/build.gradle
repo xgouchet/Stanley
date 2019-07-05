@@ -23,8 +23,8 @@ android {
         targetSdkVersion AndroidBuild.TargetSdk
 
         applicationId "fr.xgouchet.packageexplorer"
-        versionCode 16
-        versionName "2.4"
+        versionCode 17
+        versionName "2.5"
 
         vectorDrawables.useSupportLibrary = true
     }

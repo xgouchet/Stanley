@@ -1,0 +1,5 @@
+v2.5 (jul. 2019):
+
+ - Fix uninstall bug on Android O (26) and higher
+ - Display application minimum SDK on Android N (24) and higher
+ - Launch an application from the list

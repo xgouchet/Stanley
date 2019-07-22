@@ -1,15 +1,15 @@
 package fr.xgouchet.packageexplorer.ui.mvp.list
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter

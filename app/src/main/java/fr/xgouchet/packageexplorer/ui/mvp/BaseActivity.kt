@@ -2,11 +2,12 @@ package fr.xgouchet.packageexplorer.ui.mvp
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import fr.xgouchet.packageexplorer.R
 import timber.log.Timber
+
 
 abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
     : AppCompatActivity()
@@ -85,11 +86,11 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val key = getPresenterKey()
         PresenterCache.savePresenter(key, presenter)
-        outState?.putString(PresenterCache.PRESENTER_KEY, key)
+        outState.putString(PresenterCache.PRESENTER_KEY, key)
     }
 
 

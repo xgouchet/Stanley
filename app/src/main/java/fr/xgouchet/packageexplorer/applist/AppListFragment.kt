@@ -5,11 +5,10 @@ import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.about.AboutActivity
@@ -37,10 +36,10 @@ class AppListFragment
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.app_list, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.app_list, menu)
 
-        menu?.findItem(R.id.action_search)?.let {
+        menu.findItem(R.id.action_search)?.let {
             val searchView = it.actionView as SearchView
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean = false
@@ -55,18 +54,16 @@ class AppListFragment
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?) {
+    override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         val systemAppsVisible = presenter.areSystemAppsVisible()
-        menu?.apply {
-            findItem(R.id.hide_system_apps).isVisible = systemAppsVisible
-            findItem(R.id.show_system_apps).isVisible = !systemAppsVisible
-        }
+        menu.findItem(R.id.hide_system_apps).isVisible = systemAppsVisible
+        menu.findItem(R.id.show_system_apps).isVisible = !systemAppsVisible
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.sort_by_title -> presenter.setSort(AppSort.TITLE)
             R.id.sort_by_package_name -> presenter.setSort(AppSort.PACKAGE_NAME)
             R.id.sort_by_install_time -> presenter.setSort(AppSort.INSTALL_TIME)

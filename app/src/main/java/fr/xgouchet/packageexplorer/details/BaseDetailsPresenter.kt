@@ -21,7 +21,7 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.security.cert.X509Certificate
-import android.support.v4.app.Fragment as FragmentV4
+import androidx.fragment.app.Fragment as FragmentX
 
 abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
                                        private val certificateNavigator: Navigator<X509Certificate>,
@@ -64,7 +64,7 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
 
         val activity = when (displayer) {
             is Fragment -> displayer.activity
-            is FragmentV4 -> displayer.activity
+            is FragmentX -> displayer.activity
             is Activity -> displayer
             else -> null
         }

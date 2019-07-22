@@ -1,20 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Main Theme -->
     <color name="primary">#9E9E9E</color>
     <color name="primary_dark">#616161</color>
     <color name="primary_light">#F5F5F5</color>
-
     <color name="accent">#F44336</color>
+    <!-- Drawables -->
+    <color name="fg_drawable_grey">#424242</color>
+    <color name="fg_drawable_green">#4CAF50</color>
+    <color name="fg_drawable_red">#B71C1C</color>
+    <color name="fg_drawable_gold">#FFA000</color>
 
-    <color name="green">#4CAF50</color>
-    <color name="red">#B71C1C</color>
-    <color name="gold">#FFA000</color>
-    <color name="white">#FFFF</color>
-    <color name="black">#F000</color>
-    <color name="gray">#424242</color>
+    <!-- Text -->
+    <color name="text_title">#fafafa</color>
+    <color name="text_subtitle">#d2d2d2</color>
 
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
 
-    <color name="divider_color">#B6B6B6</color>
+
+    <!-- Common -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+
+
+    <!-- Greys -->
+    <color name="grey_1">#212121</color>
+    <color name="grey_2">#424242</color>
+    <color name="grey_3">#616161</color>
+    <color name="grey_4">#d2d2d2</color>
+    <color name="grey_5">#e8e8e8</color>
+    <color name="grey_6">#eeeeef</color>
+    <color name="grey_7">#f6f6f7</color>
+    <color name="grey_8">#fafafa</color>
+
+    <!-- Full Saturated Palette -->
+    <color name="deep_blue_1">#082852</color>
+    <color name="purple_1">#901E93</color>
+    <color name="dark_blue_1">#1e5193</color>
+    <color name="light_blue_1">#93B2D3</color>
+    <color name="yellow_1">#FCCE2D</color>
+    <color name="red_1">#D81E4F</color>
+    <color name="green_1">#2AA451</color>
+
+    <!-- Derivative Palette -->
+    <color name="dark_blue_2">#6185B3</color>
+    <color name="light_blue_2">#B3C9E0</color>
+    <color name="yellow_2">#FCDC6C</color>
+    <color name="red_2">#E04B72</color>
+    <color name="green_2">#69BF85</color>
+    <color name="dark_blue_3">#B0C2D9</color>
+    <color name="light_blue_3">#D9E4EF</color>
+    <color name="yellow_3">#FDEDB5</color>
+    <color name="red_3">#EFA5B8</color>
+    <color name="green_3">#B4DFC2</color>
+
+    <!-- Alpha -->
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_00">#00FFFFFF</color>
+    <color name="black_20">#33000000</color>
+    <color name="black_00">#00000000</color>
 </resources>

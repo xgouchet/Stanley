@@ -1,7 +1,7 @@
 package fr.xgouchet.packageexplorer.ui.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer
 
@@ -14,22 +14,22 @@ abstract class BaseViewHolder<T>(
         val secondaryActionListener: Consumer<T>? = null
 ) : RecyclerView.ViewHolder(itemView) {
 
-    var item: T? = null
+    var boundItem: T? = null
 
 
     fun bindItem(item: T) {
-        this.item = item
+        this.boundItem = item
         onBindItem(item)
     }
 
     protected fun fireSelected() {
-        item?.let {
+        boundItem?.let {
             selectedListener?.accept(it, getTransitionView())
         }
     }
 
     protected fun fireSecondaryAction() {
-        item?.let {
+        boundItem?.let {
             secondaryActionListener?.accept(it)
         }
     }

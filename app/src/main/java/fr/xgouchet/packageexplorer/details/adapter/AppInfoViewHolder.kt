@@ -1,12 +1,9 @@
 package fr.xgouchet.packageexplorer.details.adapter
 
 import android.view.View
-import fr.xgouchet.packageexplorer.databinding.ItemInfoHeaderBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoIconBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSimpleBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleActionBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleBinding
-import fr.xgouchet.packageexplorer.databinding.ItemInfoSubtitleIconBinding
+import android.widget.ImageView
+import android.widget.TextView
+import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer
@@ -14,7 +11,7 @@ import io.reactivex.functions.Consumer
 /**
  * @author Xavier F. Gouchet
  */
-abstract class AppInfoViewHolder(
+abstract class AppInfoViewHolder<T : AppInfoViewModel>(
         itemView: View,
         listener: BiConsumer<AppInfoViewModel, View?>?,
         secondaryActionListener: Consumer<AppInfoViewModel>? = null
@@ -22,111 +19,123 @@ abstract class AppInfoViewHolder(
         itemView = itemView,
         selectedListener = listener,
         secondaryActionListener = secondaryActionListener
-)
-
-
-class AppInfoHeaderViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                              val binding: ItemInfoHeaderBinding)
-    : AppInfoViewHolder(binding.root, listener) {
+) {
 
     init {
-        binding.root.setOnClickListener {
+        itemView.setOnClickListener {
             fireSelected()
         }
     }
 
-    override fun onBindItem(item: AppInfoViewModel) {
-        binding.info = item as AppInfoHeader
-        binding.executePendingBindings()
+    final override fun onBindItem(item: AppInfoViewModel) {
+        @Suppress("UNCHECKED_CAST")
+        onBindAppInfoItem(item as T)
+    }
+
+    abstract fun onBindAppInfoItem(item: T)
+}
+
+
+class AppInfoHeaderViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?
+) : AppInfoViewHolder<AppInfoHeader>(itemView, listener) {
+
+    private val iconView: ImageView = itemView.findViewById(R.id.icon)
+    private val titleView: TextView = itemView.findViewById(R.id.title)
+    private val expandedView: ImageView = itemView.findViewById(R.id.expandable)
+
+    override fun onBindAppInfoItem(item: AppInfoHeader) {
+        titleView.text = item.header
+        iconView.setImageResource(item.icon)
+        expandedView.setImageResource(item.expandedIcon)
     }
 
 }
 
-class AppInfoSimpleViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                              val binding: ItemInfoSimpleBinding)
-    : AppInfoViewHolder(binding.root, listener) {
+class AppInfoSimpleViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?
+) : AppInfoViewHolder<AppInfoSimple>(itemView, listener) {
 
-    init {
-        binding.root.setOnClickListener {
-            fireSelected()
-        }
-    }
+    private val titleView: TextView = itemView.findViewById(R.id.title)
 
-    override fun onBindItem(item: AppInfoViewModel) {
-        binding.info = item as AppInfoSimple
-        binding.executePendingBindings()
+    override fun onBindAppInfoItem(item: AppInfoSimple) {
+        titleView.text = item.title
     }
 
 }
 
-class AppInfoWithIconViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                                val binding: ItemInfoIconBinding)
-    : AppInfoViewHolder(binding.root, listener) {
+class AppInfoWithIconViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?
+) : AppInfoViewHolder<AppInfoWithIcon>(itemView, listener) {
 
-    init {
-        binding.root.setOnClickListener {
-            fireSelected()
-        }
-    }
 
-    override fun onBindItem(item: AppInfoViewModel) {
-        binding.info = item as AppInfoWithIcon
-        binding.executePendingBindings()
-    }
+    private val iconView: ImageView = itemView.findViewById(R.id.icon)
+    private val titleView: TextView = itemView.findViewById(R.id.title)
 
-}
-
-class AppInfoWithSubtitleViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                                    val binding: ItemInfoSubtitleBinding)
-    : AppInfoViewHolder(binding.root, listener) {
-
-    init {
-        binding.root.setOnClickListener {
-            fireSelected()
-        }
-    }
-
-    override fun onBindItem(item: AppInfoViewModel) {
-        binding.info = item as AppInfoWithSubtitle
-        binding.executePendingBindings()
+    override fun onBindAppInfoItem(item: AppInfoWithIcon) {
+        titleView.text = item.title
+        iconView.setImageResource(item.icon)
     }
 
 }
 
-class AppInfoWithSubtitleAndIconViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                                           val binding: ItemInfoSubtitleIconBinding)
-    : AppInfoViewHolder(binding.root, listener) {
+class AppInfoWithSubtitleViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?
+) : AppInfoViewHolder<AppInfoWithSubtitle>(itemView, listener) {
 
-    init {
-        binding.root.setOnClickListener {
-            fireSelected()
-        }
-    }
 
-    override fun onBindItem(item: AppInfoViewModel) {
-        binding.info = item as AppInfoWithSubtitleAndIcon
-        binding.executePendingBindings()
+    private val titleView: TextView = itemView.findViewById(R.id.title)
+    private val subtitleView: TextView = itemView.findViewById(R.id.subtitle)
+
+    override fun onBindAppInfoItem(item: AppInfoWithSubtitle) {
+        titleView.text = item.title
+        subtitleView.text = item.subtitle
     }
 
 }
 
-class AppInfoWithSubtitleAndActionViewHolder(listener: BiConsumer<AppInfoViewModel, View?>?,
-                                             actionListener: Consumer<AppInfoViewModel>?,
-                                             val binding: ItemInfoSubtitleActionBinding)
-    : AppInfoViewHolder(binding.root, listener, actionListener) {
+class AppInfoWithSubtitleAndIconViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?
+) : AppInfoViewHolder<AppInfoWithSubtitleAndIcon>(itemView, listener) {
+
+
+    private val iconView: ImageView = itemView.findViewById(R.id.icon)
+    private val titleView: TextView = itemView.findViewById(R.id.title)
+    private val subtitleView: TextView = itemView.findViewById(R.id.subtitle)
+
+    override fun onBindAppInfoItem(item: AppInfoWithSubtitleAndIcon) {
+        titleView.text = item.title
+        subtitleView.text = item.subtitle
+        iconView.setImageDrawable(item.icon)
+    }
+
+}
+
+class AppInfoWithSubtitleAndActionViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?,
+        actionListener: Consumer<AppInfoViewModel>?
+) : AppInfoViewHolder<AppInfoWithSubtitleAndAction>(itemView, listener, actionListener) {
+
+    private val titleView: TextView = itemView.findViewById(R.id.title)
+    private val subtitleView: TextView = itemView.findViewById(R.id.subtitle)
+    private val actionView: TextView = itemView.findViewById(R.id.action)
+
 
     init {
-        binding.root.setOnClickListener {
-            fireSelected()
-        }
-        binding.action.setOnClickListener {
+        actionView.setOnClickListener {
             fireSecondaryAction()
         }
     }
 
-    override fun onBindItem(item: AppInfoViewModel) {
-        binding.info = item as AppInfoWithSubtitleAndAction
-        binding.executePendingBindings()
+    override fun onBindAppInfoItem(item: AppInfoWithSubtitleAndAction) {
+        titleView.text = item.title
+        subtitleView.text = item.subtitle
+        actionView.text = item.actionText
     }
-
 }

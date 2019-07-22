@@ -31,16 +31,15 @@ class CertificateAppListFragment
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.certificate_app_list, menu)
 
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.certificate_app_list, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.sort_by_title -> presenter.setSort(AppSort.TITLE)
             R.id.sort_by_package_name -> presenter.setSort(AppSort.PACKAGE_NAME)
             R.id.sort_by_install_time -> presenter.setSort(AppSort.INSTALL_TIME)

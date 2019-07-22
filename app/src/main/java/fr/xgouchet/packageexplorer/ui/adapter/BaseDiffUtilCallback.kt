@@ -1,6 +1,7 @@
 package fr.xgouchet.packageexplorer.ui.adapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
+
 
 /**
  * @author Xavier F. Gouchet

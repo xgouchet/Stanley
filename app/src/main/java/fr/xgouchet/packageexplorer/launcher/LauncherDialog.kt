@@ -3,11 +3,11 @@ package fr.xgouchet.packageexplorer.launcher
 import android.app.Dialog
 import android.content.pm.ResolveInfo
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import io.reactivex.functions.BiConsumer

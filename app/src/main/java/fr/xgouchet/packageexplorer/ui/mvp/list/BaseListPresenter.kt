@@ -5,7 +5,7 @@ import android.app.Fragment
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import io.reactivex.disposables.Disposable
-import android.support.v4.app.Fragment as FragmentV4
+import androidx.fragment.app.Fragment as FragmentX
 
 /**
  * @author Xavier F. Gouchet
@@ -31,7 +31,7 @@ abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?)
         navigator?.let {
             when (displayer) {
                 is Fragment -> it.currentActivity = displayer.activity
-                is FragmentV4 -> it.currentActivity = displayer.activity!!
+                is FragmentX -> it.currentActivity = displayer.activity!!
                 is Activity -> it.currentActivity = displayer
             }
         }

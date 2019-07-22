@@ -6,18 +6,24 @@ object Dependencies {
     object Versions {
 
         const val AndroidPlugin = "3.4.0"
-        const val AndroidSupportLibs = "28.0.0"
 
-        const val ConstraintLayout = "1.0.2"
-        const val MaterialComponents = "1.0.0-rc02"
+        const val AndroidSupportLibs = "28.0.0"
+        const val AndroidX = "1.0.0"
+        const val AndroidXArch = "2.0.0"
+        const val AndroidXNav = "2.1.0-alpha02"
+        const val AndroidXTest = "1.1.0"
+        const val AndroidMaven = "2.1"
+        const val MultiDex = "2.0.1"
+        const val ConstraintLayout = "2.0.0-beta2"
+        const val MaterialComponents = "1.1.0-alpha08"
+
         const val OssLicensesPlugin = "0.9.2"
-        const val OssLicensesLibrary = "16.0.0"
-        const val DataBindingCompiler = "3.0.0"
+        const val OssLicensesLibrary = "17.0.0"
 
         const val BuildTimeTracker = "0.11.0"
         const val DependencyVersion = "0.20.0"
         const val Detekt = "1.0.0.RC6-3"
-        const val Kotlin = "1.3.0"
+        const val Kotlin = "1.3.41"
         const val RxJava = "2.2.6"
         const val RxAndroid = "2.1.1"
         const val AboutPage = "1.2.5"
@@ -30,6 +36,22 @@ object Dependencies {
 
     object Libraries {
 
+
+        const val AndroidAppCompat = "androidx.appcompat:appcompat:${Versions.AndroidX}"
+
+        @JvmField val AndroidX = arrayOf(
+                "androidx.annotation:annotation:${Versions.AndroidX}",
+                "androidx.appcompat:appcompat:${Versions.AndroidX}",
+                "androidx.core:core-ktx:${Versions.AndroidX}",
+                "androidx.media:media:${Versions.AndroidX}"
+        )
+
+        @JvmField val AndroidUI = arrayOf(
+                "androidx.constraintlayout:constraintlayout:${Versions.ConstraintLayout}",
+                "androidx.recyclerview:recyclerview:${Versions.AndroidX}",
+                "com.google.android.material:material:${Versions.MaterialComponents}"
+        )
+
         @JvmField val AndroidSupport = arrayOf(
                 "com.android.support:support-v4:${Versions.AndroidSupportLibs}",
                 "com.android.support:appcompat-v7:${Versions.AndroidSupportLibs}",
@@ -40,7 +62,7 @@ object Dependencies {
                 "com.android.support.constraint:constraint-layout:${Versions.ConstraintLayout}"
         )
 
-        const val MaterialComponents = "com.google.android.material:material:${Versions.MaterialComponents}"
+        const val MultiDex = "androidx.multidex:multidex:${Versions.MultiDex}"
 
         @JvmField
         val Kotlin = arrayOf(
@@ -78,7 +100,5 @@ object Dependencies {
         const val Google = "https://maven.google.com"
     }
 
-    object Processors {
-        const val DataBinding = "com.android.databinding:compiler:${Versions.DataBindingCompiler}"
-    }
+    object Processors
 }

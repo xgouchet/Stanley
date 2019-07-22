@@ -27,6 +27,7 @@ android {
         versionName "2.5"
 
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
     /** The build types */
@@ -40,20 +41,23 @@ android {
         }
     }
 
-
     testOptions {
         unitTests.returnDefaultValues = true
     }
 
-    dataBinding {
-        enabled = true
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
-
 }
 
 dependencies {
 
-    implementation Dependencies.Libraries.AndroidSupport
+    // Android
+    implementation Dependencies.Libraries.AndroidX
+    implementation Dependencies.Libraries.AndroidUI
+    implementation Dependencies.Libraries.MultiDex
+
     implementation Dependencies.Libraries.Kotlin
     implementation Dependencies.Libraries.Rx
     implementation Dependencies.Libraries.OssLicences
@@ -61,5 +65,4 @@ dependencies {
     implementation Dependencies.Libraries.Timber
     implementation Dependencies.Libraries.AXml
 
-    kapt Dependencies.Processors.DataBinding
 }

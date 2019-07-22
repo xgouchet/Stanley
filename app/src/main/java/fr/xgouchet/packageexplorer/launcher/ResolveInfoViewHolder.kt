@@ -13,10 +13,11 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 
 
-class ResolveInfoViewHolder(view: View,
-                            listener: BiConsumer<ResolveInfo, View?>,
-                            val pm: PackageManager)
-    : BaseViewHolder<ResolveInfo>(itemView = view, selectedListener = listener) {
+class ResolveInfoViewHolder(
+        view: View,
+        listener: BiConsumer<ResolveInfo, View?>,
+        val pm: PackageManager
+) : BaseViewHolder<ResolveInfo>(itemView = view, selectedListener = listener) {
 
     val title: TextView by knife(R.id.text_title, view)
     val subtitle: TextView by knife(R.id.text_package_name, view)

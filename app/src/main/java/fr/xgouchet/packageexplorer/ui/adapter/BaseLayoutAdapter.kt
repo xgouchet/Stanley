@@ -1,9 +1,9 @@
 package fr.xgouchet.packageexplorer.ui.adapter
 
-import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 
 abstract class BaseLayoutAdapter<T>
     : BaseAdapter<T>() {

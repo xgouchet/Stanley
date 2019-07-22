@@ -7,15 +7,15 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v4.view.ViewCompat
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.view.ViewCompat
+import com.google.android.material.snackbar.Snackbar
 import fr.xgouchet.packageexplorer.BuildConfig
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.details.adapter.AppDetailsAdapter
@@ -50,17 +50,17 @@ class AppDetailsFragment
         ViewCompat.setNestedScrollingEnabled(view.findViewById(android.R.id.list), false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.app_details, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.app_details, menu)
 
         if (presenter.isSystemApp) {
-            menu?.findItem(R.id.action_uninstall)?.isVisible = false
-            menu?.findItem(R.id.action_play_store)?.isVisible = false
+            menu.findItem(R.id.action_uninstall)?.isVisible = false
+            menu.findItem(R.id.action_play_store)?.isVisible = false
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_app_launch -> {
                 presenter.openApplication()
                 return true

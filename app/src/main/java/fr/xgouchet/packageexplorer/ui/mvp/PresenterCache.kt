@@ -1,6 +1,6 @@
 package fr.xgouchet.packageexplorer.ui.mvp
 
-import android.support.v4.util.LruCache
+import androidx.collection.LruCache
 import timber.log.Timber
 
 object PresenterCache {

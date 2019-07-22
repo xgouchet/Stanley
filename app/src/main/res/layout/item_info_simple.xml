@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="info"
-            type="fr.xgouchet.packageexplorer.details.adapter.AppInfoSimple" />
-    </data>
-
-    <android.support.v7.widget.AppCompatTextView
+<androidx.appcompat.widget.AppCompatTextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:minHeight="48dp"
         android:padding="8dp"
-        android:text="@{info.title}"
         android:textAppearance="?android:textAppearanceListItemSmall"
-        android:textColor="@color/primary_text"
-        tools:text="Foo" />
-</layout>
+        android:textColor="@color/text_title"
+        tools:text="Foo"/>

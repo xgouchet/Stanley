@@ -1,52 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="info"
-            type="fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader" />
-    </data>
-
-    <android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?android:selectableItemBackground">
 
-        <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/title"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcVector="@{info.icon}"
-            tools:src="@drawable/ic_category_activity" />
+            tools:src="@drawable/ic_category_activity"/>
 
-        <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="start|center_vertical"
             android:singleLine="true"
-            android:text="@{info.header}"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceListItem"
             android:textColor="@color/accent"
             android:textStyle="bold"
+            android:layout_margin="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/expandable"
             app:layout_constraintStart_toEndOf="@+id/icon"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Header name" />
+            tools:text="Header name"/>
 
 
-        <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/expandable"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -54,9 +44,6 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/title"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcVector="@{info.expandedIcon}"
-            tools:src="@drawable/ic_expand_less" />
-    </android.support.constraint.ConstraintLayout>
-</layout>
+            tools:src="@drawable/ic_expand_less"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

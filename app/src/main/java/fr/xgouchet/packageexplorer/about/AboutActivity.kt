@@ -3,13 +3,13 @@ package fr.xgouchet.packageexplorer.about
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import fr.xgouchet.packageexplorer.R
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
 
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

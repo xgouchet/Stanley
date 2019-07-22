@@ -20,15 +20,6 @@
             app:elevation="@dimen/elevation_toolbar" />
     </android.support.design.widget.AppBarLayout>
 
-    <!--
-    <fragment
-        android:id="@+id/fragment_container"
-        android:name="fr.xgouchet.packageexplorer.applist.AppListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/fragment_list" />
-        -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

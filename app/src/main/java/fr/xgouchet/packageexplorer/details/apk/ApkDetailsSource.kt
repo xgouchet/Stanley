@@ -19,7 +19,7 @@ class ApkDetailsSource(context: Context,
         ObservableOnSubscribe<AppInfoViewModel> {
 
     companion object {
-        val PACKAGE_INFO_FLAGS = PackageManager.GET_ACTIVITIES
+        const val PACKAGE_INFO_FLAGS = PackageManager.GET_ACTIVITIES
                 .or(PackageManager.GET_GIDS)
                 .or(PackageManager.GET_CONFIGURATIONS)
                 .or(PackageManager.GET_INSTRUMENTATION)
@@ -28,6 +28,14 @@ class ApkDetailsSource(context: Context,
                 .or(PackageManager.GET_RECEIVERS)
                 .or(PackageManager.GET_SERVICES)
                 .or(PackageManager.GET_SIGNATURES)
+        const val PACKAGE_INFO_FLAGS_NO_SIGN = PackageManager.GET_ACTIVITIES
+                .or(PackageManager.GET_GIDS)
+                .or(PackageManager.GET_CONFIGURATIONS)
+                .or(PackageManager.GET_INSTRUMENTATION)
+                .or(PackageManager.GET_PERMISSIONS)
+                .or(PackageManager.GET_PROVIDERS)
+                .or(PackageManager.GET_RECEIVERS)
+                .or(PackageManager.GET_SERVICES)
     }
 
     override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>) {
@@ -35,6 +43,7 @@ class ApkDetailsSource(context: Context,
         try {
             val packageManager = context.packageManager
             val packageInfo = packageManager.getPackageArchiveInfo(path, PACKAGE_INFO_FLAGS)
+                    ?: packageManager.getPackageArchiveInfo(path, PACKAGE_INFO_FLAGS_NO_SIGN)
 
             extractMainInfo(emitter, packageInfo, null, File(path))
 

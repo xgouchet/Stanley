@@ -20,6 +20,16 @@ The official Stanley app is available on the [Google Play Store](https://play.go
 
 Any contributions are welcome. You can [raise an issue](https://github.com/xgouchet/Stanley/issues/new), submit a [pull request](https://github.com/xgouchet/Stanley/pulls), translate the application, or suggest new features. 
 
+
+### Latest Release : 2.5 (july 2019)
+
+ - [BUGFIX] Fix uninstall bug on Android O (26) and higher
+ - [BUGFIX] Display application minimum SDK on Android N (24) and higher
+ - [ENHANCEMENT] Launch an application from the list
+
+For more information, read the [Changelog](CHANGELOG.md).
+
+
 ## Donate
 
 This application is completely free to use, and doesn't bother you with ads. I try my best to make it as good as possible, but only do this on my free time. If you want to support my work, you can click the Donate button below.

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import fr.xgouchet.packageexplorer.BuildConfig
 import fr.xgouchet.packageexplorer.R
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
@@ -19,6 +20,7 @@ class AboutActivity : FragmentActivity() {
                 .setDescription(getString(R.string.about_description))
                 .setImage(R.drawable.about_header)
                 .addPlayStore(packageName)
+                .addItem(Element(BuildConfig.VERSION_NAME, R.drawable.ic_about_copyright))
 
                 .addGroup(getString(R.string.about_contact))
                 .addEmail(getString(R.string.about_email), getString(R.string.about_email))

@@ -64,5 +64,4 @@ dependencies {
     implementation Dependencies.Libraries.AboutPage
     implementation Dependencies.Libraries.Timber
     implementation Dependencies.Libraries.AXml
-
 }

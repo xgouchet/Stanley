@@ -6,8 +6,8 @@ import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import javax.security.cert.X509Certificate
 import kotlin.properties.Delegates.notNull
 
-class CertificateNavigator()
-    : Navigator<X509Certificate> {
+class CertificateNavigator() :
+    Navigator<X509Certificate> {
 
     override var currentActivity: Activity by notNull()
 

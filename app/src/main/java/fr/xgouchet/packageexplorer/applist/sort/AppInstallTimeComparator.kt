@@ -1,7 +1,6 @@
 package fr.xgouchet.packageexplorer.applist.sort
 
 import fr.xgouchet.packageexplorer.applist.AppViewModel
-import timber.log.Timber
 import kotlin.math.sign
 
 /**

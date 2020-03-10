@@ -9,15 +9,14 @@ import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer
 
 class AppViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppViewModel, View?>?,
-        secondaryActionListener: Consumer<AppViewModel>?
+    itemView: View,
+    listener: BiConsumer<AppViewModel, View?>?,
+    secondaryActionListener: Consumer<AppViewModel>?
 ) : BaseViewHolder<AppViewModel>(
         itemView = itemView,
         selectedListener = listener,
         secondaryActionListener = secondaryActionListener
 ) {
-
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon_app)
     private val debuggableView: View = itemView.findViewById(R.id.icon_debuggable_app)

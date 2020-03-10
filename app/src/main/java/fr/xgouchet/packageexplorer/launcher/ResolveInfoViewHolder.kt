@@ -12,11 +12,10 @@ import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 
-
 class ResolveInfoViewHolder(
-        view: View,
-        listener: BiConsumer<ResolveInfo, View?>,
-        val pm: PackageManager
+    view: View,
+    listener: BiConsumer<ResolveInfo, View?>,
+    val pm: PackageManager
 ) : BaseViewHolder<ResolveInfo>(itemView = view, selectedListener = listener) {
 
     val title: TextView by knife(R.id.text_title, view)

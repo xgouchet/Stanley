@@ -21,7 +21,6 @@ object Notebook {
     fun <P : ContextHolder> notebook(key: String, default: String): ReadWriteProperty<P, String> = StringPage(key, default)
 
     fun <P : ContextHolder> notebook(key: String, default: AppSort): ReadWriteProperty<P, AppSort> = AppSortPage(key, default)
-
 }
 
 /**
@@ -116,5 +115,4 @@ class AppSortPage<in P : ContextHolder>(val key: String, val default: AppSort) :
             return default
         }
     }
-
 }

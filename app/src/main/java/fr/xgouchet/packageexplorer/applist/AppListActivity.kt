@@ -8,8 +8,8 @@ import android.os.Bundle
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
-class AppListActivity
-    : BaseActivity<String, List<AppViewModel>, AppListPresenter, AppListFragment>() {
+class AppListActivity :
+    BaseActivity<String, List<AppViewModel>, AppListPresenter, AppListFragment>() {
 
     override val allowNullIntentData: Boolean = true
 
@@ -52,13 +52,11 @@ class AppListActivity
         unregisterReceiver(appListChangedReceiver)
     }
 
-
-    class AppListChangedReceiver(private val onUninstalled: () -> Unit)
-        : BroadcastReceiver() {
+    class AppListChangedReceiver(private val onUninstalled: () -> Unit) :
+        BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
             onUninstalled()
         }
     }
-
 }

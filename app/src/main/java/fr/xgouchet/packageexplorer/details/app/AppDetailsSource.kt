@@ -1,6 +1,5 @@
 package fr.xgouchet.packageexplorer.details.app
 
-
 import android.content.Context
 import android.content.pm.PackageManager
 import fr.xgouchet.packageexplorer.details.DetailsSource
@@ -9,13 +8,14 @@ import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import java.io.File
 
-
 /**
  * @author Xavier F. Gouchet
  */
-class AppDetailsSource(context: Context,
-                       val packageName: String)
-    : DetailsSource(context),
+class AppDetailsSource(
+    context: Context,
+    val packageName: String
+) :
+    DetailsSource(context),
         ObservableOnSubscribe<AppInfoViewModel> {
 
     companion object {
@@ -56,10 +56,8 @@ class AppDetailsSource(context: Context,
             extractProviders(emitter, packageInfo)
 
             emitter.onComplete()
-
         } catch (e: PackageManager.NameNotFoundException) {
             emitter.onError(e)
         }
     }
-
 }

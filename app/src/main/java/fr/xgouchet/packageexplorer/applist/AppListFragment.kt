@@ -19,9 +19,8 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import io.reactivex.functions.Consumer
 
-
-class AppListFragment
-    : BaseListFragment<AppViewModel, AppListPresenter>(),
+class AppListFragment :
+    BaseListFragment<AppViewModel, AppListPresenter>(),
         Consumer<AppViewModel> {
 
     override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this, this)

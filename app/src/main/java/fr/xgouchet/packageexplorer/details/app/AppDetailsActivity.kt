@@ -11,12 +11,11 @@ import fr.xgouchet.packageexplorer.details.CertificateNavigator
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
-
 /**
  * @author Xavier F. Gouchet
  */
-class AppDetailsActivity
-    : BaseActivity<AppViewModel, List<AppInfoViewModel>, AppDetailsPresenter, AppDetailsFragment>() {
+class AppDetailsActivity :
+    BaseActivity<AppViewModel, List<AppInfoViewModel>, AppDetailsPresenter, AppDetailsFragment>() {
 
     companion object {
 
@@ -27,7 +26,6 @@ class AppDetailsActivity
             intent.putExtra(EXTRA_PACKAGE_NAME, app.packageName)
             activity.startActivity(intent)
         }
-
     }
 
     private var uninstallReceiver: UninstallReceiver? = null
@@ -85,10 +83,11 @@ class AppDetailsActivity
         }
     }
 
-    class UninstallReceiver(private val watchedPackageName: String,
-                            private val onUninstalled: () -> Unit)
-        : BroadcastReceiver() {
-
+    class UninstallReceiver(
+        private val watchedPackageName: String,
+        private val onUninstalled: () -> Unit
+    ) :
+        BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
             val data = intent.data?.schemeSpecificPart

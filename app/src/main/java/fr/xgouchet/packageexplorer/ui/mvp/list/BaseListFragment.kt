@@ -1,11 +1,11 @@
 package fr.xgouchet.packageexplorer.ui.mvp.list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,8 +19,8 @@ import io.reactivex.functions.BiConsumer
 /**
  * @author Xavier F. Gouchet
  */
-abstract class BaseListFragment<T, P : ListPresenter<T>>
-    : Fragment(),
+abstract class BaseListFragment<T, P : ListPresenter<T>> :
+    Fragment(),
         ListDisplayer<T>,
         BiConsumer<T, View?> {
 
@@ -34,7 +34,6 @@ abstract class BaseListFragment<T, P : ListPresenter<T>>
     abstract val adapter: BaseAdapter<T>
     abstract val isFabVisible: Boolean
     abstract val fabIconOverride: Int?
-
 
     // region Fragment
 

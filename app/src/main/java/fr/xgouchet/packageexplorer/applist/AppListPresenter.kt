@@ -18,8 +18,8 @@ import io.reactivex.subjects.BehaviorSubject
 /**
  * @author Xavier F. Gouchet
  */
-class AppListPresenter(context: Context)
-    : BaseListPresenter<AppViewModel, AppListFragment>(AppListNavigator()),
+class AppListPresenter(context: Context) :
+    BaseListPresenter<AppViewModel, AppListFragment>(AppListNavigator()),
         ContextHolder {
 
     companion object {
@@ -82,7 +82,6 @@ class AppListPresenter(context: Context)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ onItemsLoaded(it) }, { displayer?.setError(it) })
 
-
         sortSubject.onNext(currentSort.comparator)
         filterSubject.onNext("")
         systemAppVisibilitySubject.onNext(systemAppVisible)
@@ -109,9 +108,7 @@ class AppListPresenter(context: Context)
                             { displayer?.setError(it) }
                     )
         }
-
     }
-
 
     fun setSort(sort: AppSort) {
         currentSort = sort
@@ -130,7 +127,6 @@ class AppListPresenter(context: Context)
 
     fun areSystemAppsVisible(): Boolean = systemAppVisible
 
-
     override fun itemSelected(item: AppViewModel) {
         navigator?.goToItemDetails(item)
     }
@@ -147,5 +143,4 @@ class AppListPresenter(context: Context)
             displayer?.promptActivity(resolvedInfos)
         }
     }
-
 }

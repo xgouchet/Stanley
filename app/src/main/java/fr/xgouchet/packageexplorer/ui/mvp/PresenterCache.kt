@@ -31,7 +31,6 @@ object PresenterCache {
         } else {
             return match
         }
-
     }
 
     fun dropPresenter(key: String) {
@@ -44,5 +43,4 @@ object PresenterCache {
     fun clear() {
         cache.evictAll()
     }
-
 }

@@ -21,9 +21,11 @@ import javax.security.cert.X509Certificate
 /**
  * @author Xavier F. Gouchet
  */
-class CertificateAppListPresenter(context: Context,
-                                  val certificate: X509Certificate)
-    : BaseListPresenter<AppViewModel, CertificateAppListFragment>(AppListNavigator()),
+class CertificateAppListPresenter(
+    context: Context,
+    val certificate: X509Certificate
+) :
+    BaseListPresenter<AppViewModel, CertificateAppListFragment>(AppListNavigator()),
         ContextHolder {
 
     companion object {
@@ -52,7 +54,6 @@ class CertificateAppListPresenter(context: Context,
                     }
                 }
 
-
         val sortedList = Observable.combineLatest(
                 filteredList,
                 sortSubject,
@@ -67,7 +68,6 @@ class CertificateAppListPresenter(context: Context,
                         { onItemsLoaded(it) },
                         { displayer?.setError(it) }
                 )
-
 
         sortSubject.onNext(currentSort.comparator)
     }
@@ -94,9 +94,7 @@ class CertificateAppListPresenter(context: Context,
                             { displayer?.setError(it) }
                     )
         }
-
     }
-
 
     fun setSort(sort: AppSort) {
         currentSort = sort
@@ -116,5 +114,4 @@ class CertificateAppListPresenter(context: Context,
             displayer?.promptActivity(resolvedInfos)
         }
     }
-
 }

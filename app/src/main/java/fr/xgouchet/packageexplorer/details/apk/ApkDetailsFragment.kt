@@ -25,8 +25,8 @@ import java.io.File
 /**
  * @author Xavier F. Gouchet
  */
-class ApkDetailsFragment
-    : BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>() {
+class ApkDetailsFragment :
+    BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>() {
 
     companion object {
         const val PERMISSION_REQUEST_READ_STORAGE = 1
@@ -131,4 +131,3 @@ class ApkDetailsFragment
 
     // endregion
 }
-

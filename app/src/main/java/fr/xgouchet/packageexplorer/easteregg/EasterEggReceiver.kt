@@ -8,7 +8,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import fr.xgouchet.packageexplorer.R
 
-
 class EasterEggReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {

@@ -9,10 +9,12 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseLayoutAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 
-class ResolveInfoAdapter(data: List<ResolveInfo>,
-                         val listener: BiConsumer<ResolveInfo, View?>,
-                         val pm: PackageManager)
-    : BaseLayoutAdapter<ResolveInfo>() {
+class ResolveInfoAdapter(
+    data: List<ResolveInfo>,
+    val listener: BiConsumer<ResolveInfo, View?>,
+    val pm: PackageManager
+) :
+    BaseLayoutAdapter<ResolveInfo>() {
 
     init {
         content = data

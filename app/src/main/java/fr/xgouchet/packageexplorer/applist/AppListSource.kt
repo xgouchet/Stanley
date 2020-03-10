@@ -9,8 +9,8 @@ import io.reactivex.ObservableOnSubscribe
 /**
  * @author Xavier F. Gouchet
  */
-class AppListSource(val context: Context)
-    : ObservableOnSubscribe<AppViewModel> {
+class AppListSource(val context: Context) :
+    ObservableOnSubscribe<AppViewModel> {
 
     override fun subscribe(emitter: ObservableEmitter<AppViewModel>) {
         val pm = context.packageManager

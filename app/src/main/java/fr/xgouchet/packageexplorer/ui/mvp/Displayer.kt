@@ -1,13 +1,11 @@
 package fr.xgouchet.packageexplorer.ui.mvp
 
-import android.app.Activity
-
 /**
  * @author Xavier F. Gouchet
  */
 interface Displayer<T> {
 
-    fun setPresenter(presenter : Presenter<T>)
+    fun setPresenter(presenter: Presenter<T>)
 
     fun setLoading(isLoading: Boolean = true)
 
@@ -17,4 +15,3 @@ interface Displayer<T> {
 
     fun setContent(content: T)
 }
-

@@ -20,11 +20,13 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
 import io.reactivex.ObservableEmitter
-import timber.log.Timber
 import java.io.File
 import java.security.MessageDigest
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
+import timber.log.Timber
 
 open class DetailsSource(val context: Context) {
 
@@ -36,11 +38,12 @@ open class DetailsSource(val context: Context) {
         private val HEX_CHARS = "0123456789ABCDEF".toCharArray()
     }
 
-
-    protected fun extractMainInfo(emitter: ObservableEmitter<AppInfoViewModel>,
-                                  packageInfo: PackageInfo,
-                                  applicationInfo: ApplicationInfo?,
-                                  apkFile: File?) {
+    protected fun extractMainInfo(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo,
+        applicationInfo: ApplicationInfo?,
+        apkFile: File?
+    ) {
         emitter.apply {
             onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_METADATA, PACKAGE_NAME, packageInfo.packageName))
 
@@ -85,13 +88,23 @@ open class DetailsSource(val context: Context) {
             if (apkFile != null) {
                 val sizeStr = humanReadableByteCount(apkFile.length())
                 onNext(AppInfoWithIcon(AppInfoType.INFO_TYPE_GLOBAL, "Local APK size: $sizeStr", null, R.drawable.ic_apk_size))
+
+                val nativeLibs = nativeLibraries(apkFile)
+                if (nativeLibs.isNotEmpty()) {
+                    onNext(AppInfoHeader(AppInfoType.INFO_TYPE_NATIVE, context.getString(R.string.header_type_native_libs), R.drawable.ic_category_native_libs))
+                    nativeLibs.forEach {
+                        onNext(AppInfoSimple(AppInfoType.INFO_TYPE_NATIVE, it, it))
+                    }
+                }
             }
         }
     }
 
-    protected fun extractActivities(emitter: ObservableEmitter<AppInfoViewModel>,
-                                    packageInfo: PackageInfo,
-                                    packageManager: PackageManager) {
+    protected fun extractActivities(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo,
+        packageManager: PackageManager
+    ) {
         val activities = packageInfo.activities ?: return
         val packageName = packageInfo.packageName
 
@@ -113,8 +126,10 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    protected fun extractServices(emitter: ObservableEmitter<AppInfoViewModel>,
-                                  packageInfo: PackageInfo) {
+    protected fun extractServices(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
         val services = packageInfo.services ?: return
         val packageName = packageInfo.packageName
 
@@ -128,9 +143,10 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-
-    protected fun extractProviders(emitter: ObservableEmitter<AppInfoViewModel>,
-                                   packageInfo: PackageInfo) {
+    protected fun extractProviders(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
         val providers = packageInfo.providers ?: return
         val packageName = packageInfo.packageName
 
@@ -144,8 +160,10 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    protected fun extractReceivers(emitter: ObservableEmitter<AppInfoViewModel>,
-                                   packageInfo: PackageInfo) {
+    protected fun extractReceivers(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
         val receivers = packageInfo.receivers ?: return
         val packageName = packageInfo.packageName
 
@@ -159,8 +177,10 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    protected fun extractCustomPermissions(emitter: ObservableEmitter<AppInfoViewModel>,
-                                           packageInfo: PackageInfo) {
+    protected fun extractCustomPermissions(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
 
         val permissions = packageInfo.permissions ?: return
 
@@ -181,8 +201,10 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    protected fun extractPermissions(emitter: ObservableEmitter<AppInfoViewModel>,
-                                     packageInfo: PackageInfo) {
+    protected fun extractPermissions(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
         val permissions = packageInfo.requestedPermissions ?: return
         val customPermissions = packageInfo.permissions?.toList()?.map { it.name } ?: emptyList()
 
@@ -217,8 +239,10 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    protected fun extractFeatures(emitter: ObservableEmitter<AppInfoViewModel>,
-                                  packageInfo: PackageInfo) {
+    protected fun extractFeatures(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
         val features = packageInfo.reqFeatures ?: return
 
         emitter.apply {
@@ -248,11 +272,12 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    protected fun extractSignatures(emitter: ObservableEmitter<AppInfoViewModel>,
-                                    packageInfo: PackageInfo) {
+    protected fun extractSignatures(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
         val signatures: Array<Signature> = packageInfo.signatures ?: return
         if (signatures.isEmpty()) return
-
 
         emitter.apply {
             onNext(AppInfoHeader(AppInfoType.INFO_TYPE_SIGNATURE, context.getString(R.string.header_type_signature), R.drawable.ic_category_signature))
@@ -270,8 +295,6 @@ open class DetailsSource(val context: Context) {
                 }
             }
         }
-
-
     }
 
     fun extractHumanName(certificateName: String): String {
@@ -327,7 +350,28 @@ open class DetailsSource(val context: Context) {
         return String.format("%.2f %sB", bytes / Math.pow(unit.toDouble(), exp.toDouble()), pre)
     }
 
-    fun ByteArray.toHexString(): String {
+    @Suppress("UsePropertyAccessSyntax")
+    private fun nativeLibraries(apk: File): List<String> {
+        val nativeLibs = mutableListOf<Pair<String, String>>()
+        val zis = ZipInputStream(apk.inputStream())
+        var zipEntry: ZipEntry? = zis.getNextEntry()
+        while (zipEntry != null) {
+            val path = zipEntry.name
+            val segments = path.split(File.separatorChar)
+            if (segments.size == 3 && segments[0] == "lib") {
+                nativeLibs.add(segments[2] to segments[1])
+            }
+            zipEntry = zis.getNextEntry()
+        }
+        zis.closeEntry()
+        zis.close()
+        return nativeLibs.groupBy { it.first }
+                .entries.map {
+            "${it.key} (${it.value.joinToString(", ") { it.second }})"
+        }
+    }
+
+    private fun ByteArray.toHexString(): String {
         val result = StringBuffer()
 
         forEach {

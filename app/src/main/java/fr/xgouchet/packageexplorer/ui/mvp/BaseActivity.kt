@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import fr.xgouchet.packageexplorer.R
 import timber.log.Timber
 
-
-abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
-    : AppCompatActivity()
+abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD> :
+    AppCompatActivity()
         where IntentDataI : Any,
               PresenterP : Presenter<DataD>,
               DisplayerD : Displayer<DataD>, DisplayerD : Fragment {
-
 
     abstract val allowNullIntentData: Boolean
 
@@ -93,7 +91,6 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
         outState.putString(PresenterCache.PRESENTER_KEY, key)
     }
 
-
     override fun onStop() {
         super.onStop()
         presenter.onDisplayerDetached()
@@ -125,7 +122,6 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
         setSupportActionBar(toolbar)
     }
 
-
     private fun restorePresenter(savedInstanceState: Bundle): PresenterP {
         val key = savedInstanceState.getString(PresenterCache.PRESENTER_KEY, null)
         val factory = { instantiatePresenter() }
@@ -139,5 +135,4 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD>
     }
 
     // endregion
-
 }

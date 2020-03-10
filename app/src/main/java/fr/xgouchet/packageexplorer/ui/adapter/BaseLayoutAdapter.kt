@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 
-abstract class BaseLayoutAdapter<T>
-    : BaseAdapter<T>() {
+abstract class BaseLayoutAdapter<T> :
+    BaseAdapter<T>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
         val layoutInflater = LayoutInflater.from(parent.context)

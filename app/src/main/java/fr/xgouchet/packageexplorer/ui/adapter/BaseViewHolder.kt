@@ -9,13 +9,12 @@ import io.reactivex.functions.Consumer
  * @author Xavier Gouchet
  */
 abstract class BaseViewHolder<T>(
-        itemView: View,
-        val selectedListener: BiConsumer<T, View?>? = null,
-        val secondaryActionListener: Consumer<T>? = null
+    itemView: View,
+    val selectedListener: BiConsumer<T, View?>? = null,
+    val secondaryActionListener: Consumer<T>? = null
 ) : RecyclerView.ViewHolder(itemView) {
 
     var boundItem: T? = null
-
 
     fun bindItem(item: T) {
         this.boundItem = item

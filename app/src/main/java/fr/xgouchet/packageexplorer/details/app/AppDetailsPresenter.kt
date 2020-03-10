@@ -18,15 +18,16 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.security.cert.X509Certificate
 
-
 /**
  * @author Xavier F. Gouchet
  */
-class AppDetailsPresenter(activity: Activity,
-                          certficateNavigator: Navigator<X509Certificate>,
-                          val packageName: String,
-                          val isSystemApp: Boolean)
-    : BaseDetailsPresenter<AppDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
+class AppDetailsPresenter(
+    activity: Activity,
+    certficateNavigator: Navigator<X509Certificate>,
+    val packageName: String,
+    val isSystemApp: Boolean
+) :
+    BaseDetailsPresenter<AppDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
 
     private var exportDisposable: Disposable? = null
 
@@ -52,7 +53,6 @@ class AppDetailsPresenter(activity: Activity,
                 .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
         context.startActivity(intent)
     }
-
 
     fun openUninstaller() {
         val intent = uninstallPackageIntent(packageName)

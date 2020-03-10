@@ -21,14 +21,15 @@ import io.reactivex.schedulers.Schedulers
 import java.io.File
 import javax.security.cert.X509Certificate
 
-
 /**
  * @author Xavier F. Gouchet
  */
-class ApkDetailsPresenter(activity: Activity,
-                          certficateNavigator: Navigator<X509Certificate>,
-                          private val uri: Uri)
-    : BaseDetailsPresenter<ApkDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
+class ApkDetailsPresenter(
+    activity: Activity,
+    certficateNavigator: Navigator<X509Certificate>,
+    private val uri: Uri
+) :
+    BaseDetailsPresenter<ApkDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
 
     private var localFilePath: String = ""
     private var exportDisposable: Disposable? = null
@@ -49,7 +50,6 @@ class ApkDetailsPresenter(activity: Activity,
 
         super.load(force)
     }
-
 
     override fun getDetails(): Observable<AppInfoViewModel> {
         return Single.create(CopyApkSource(context, uri))
@@ -79,7 +79,6 @@ class ApkDetailsPresenter(activity: Activity,
     fun onPermissionGranted() {
         load(true)
     }
-
 
     fun exportManifest() {
         exportDisposable = exportManifestFromApk(File(localFilePath), context)

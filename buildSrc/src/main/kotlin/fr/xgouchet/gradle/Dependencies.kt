@@ -30,12 +30,11 @@ object Dependencies {
 
         const val Leakcanary = "1.5.4"
         const val Timber = "4.7.1"
-        const val Stetho= "1.5.0"
-        const val AXml  = "v1.0.1"
+        const val Stetho = "1.5.0"
+        const val AXml = "v1.0.1"
     }
 
     object Libraries {
-
 
         const val AndroidAppCompat = "androidx.appcompat:appcompat:${Versions.AndroidX}"
 
@@ -79,7 +78,7 @@ object Dependencies {
         const val AboutPage = "com.github.medyo:android-about-page:${Versions.AboutPage}"
         const val AXml = "com.github.xgouchet:AXML:${Versions.AXml}"
 
-        const val Timber =  "com.jakewharton.timber:timber:${Versions.Timber}"
+        const val Timber = "com.jakewharton.timber:timber:${Versions.Timber}"
     }
 
     object ClassPaths {

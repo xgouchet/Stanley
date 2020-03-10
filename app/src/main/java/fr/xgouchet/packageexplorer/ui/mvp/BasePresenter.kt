@@ -1,6 +1,5 @@
 package fr.xgouchet.packageexplorer.ui.mvp
 
-
 /**
  * @author Xavier F. Gouchet
  */
@@ -23,5 +22,4 @@ open class BasePresenter<T : Any> : Presenter<T> {
     override fun load(force: Boolean) {
         // nothing to load
     }
-
 }

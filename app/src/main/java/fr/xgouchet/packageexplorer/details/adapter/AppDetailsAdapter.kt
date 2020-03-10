@@ -12,8 +12,8 @@ import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer
 
 class AppDetailsAdapter(
-        val listener: BiConsumer<AppInfoViewModel, View?>?,
-        val actionListener: Consumer<AppInfoViewModel>?
+    val listener: BiConsumer<AppInfoViewModel, View?>?,
+    val actionListener: Consumer<AppInfoViewModel>?
 ) : BaseAdapter<AppInfoViewModel>() {
 
     override fun getDiffHelper(oldContent: List<AppInfoViewModel>, newContent: List<AppInfoViewModel>): DiffUtil.Callback? {
@@ -79,5 +79,4 @@ class AppDetailsAdapter(
         private const val TYPE_SUBTITLE_ICON = 4
         private const val TYPE_SUBTITLE_ACTION = 5
     }
-
 }

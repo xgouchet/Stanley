@@ -8,25 +8,26 @@ import android.content.pm.Signature
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
-
+import timber.log.Timber
 
 /**
  * @author Xavier Gouchet
  */
-data class AppViewModel(val packageName: String = "",
-                        val title: String = "",
-                        val icon: Drawable = ColorDrawable(Color.TRANSPARENT),
-                        val installTime: Long = 0,
-                        val updateTime: Long = 0,
-                        val flags: Int = 0,
-                        val certificates: List<X509Certificate> = emptyList()) {
+data class AppViewModel(
+    val packageName: String = "",
+    val title: String = "",
+    val icon: Drawable = ColorDrawable(Color.TRANSPARENT),
+    val installTime: Long = 0,
+    val updateTime: Long = 0,
+    val flags: Int = 0,
+    val certificates: List<X509Certificate> = emptyList()
+) {
 
     val installTimeStr = DATE_FORMAT.format(Date(installTime))
     val updateTimeStr = DATE_FORMAT.format(Date(updateTime))
@@ -46,7 +47,6 @@ data class AppViewModel(val packageName: String = "",
                 Timber.e(e, "Error getting app info")
                 return null
             }
-
         }
 
         fun fromAppInfo(pm: PackageManager, pi: PackageInfo, ai: ApplicationInfo): AppViewModel {

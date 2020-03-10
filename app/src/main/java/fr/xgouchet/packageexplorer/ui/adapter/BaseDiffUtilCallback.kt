@@ -2,13 +2,14 @@ package fr.xgouchet.packageexplorer.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 
-
 /**
  * @author Xavier F. Gouchet
  */
-abstract class BaseDiffUtilCallback<T>(val oldContent: List<T>,
-                                       val newContent: List<T>)
-    : DiffUtil.Callback() {
+abstract class BaseDiffUtilCallback<T>(
+    val oldContent: List<T>,
+    val newContent: List<T>
+) :
+    DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldContent.size
     }
@@ -34,5 +35,4 @@ abstract class BaseDiffUtilCallback<T>(val oldContent: List<T>,
     abstract fun areItemsRepresentingTheSameObject(oldItem: T, newItem: T): Boolean
 
     abstract fun areItemContentsTheSame(oldItem: T, newItem: T): Boolean
-
 }

@@ -2,16 +2,9 @@ package fr.xgouchet.packageexplorer.core.utils
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.provider.Settings
-import java.io.File
-import java.io.IOException
-import java.util.zip.ZipException
-import javax.xml.parsers.ParserConfigurationException
-import javax.xml.transform.TransformerException
-
 
 fun applicationPlayStoreIntent(packageName: String): Intent {
     val uri = "https://play.google.com/store/apps/details?id=$packageName"
@@ -36,9 +29,11 @@ fun applicationLaunchIntent(packageName: String): Intent {
     return Intent.createChooser(intent, "")
 }
 
-fun getMainActivities(context: Context,
-                      packageName: String)
-        : List<ResolveInfo> {
+fun getMainActivities(
+    context: Context,
+    packageName: String
+):
+        List<ResolveInfo> {
     val intent = Intent(Intent.ACTION_MAIN)
     intent.addCategory(Intent.CATEGORY_LAUNCHER)
     intent.`package` = packageName
@@ -53,4 +48,3 @@ fun getResolvedIntent(info: ResolveInfo): Intent {
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
     return intent
 }
-

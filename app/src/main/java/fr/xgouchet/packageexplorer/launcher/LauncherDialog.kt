@@ -12,9 +12,8 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import io.reactivex.functions.BiConsumer
 
-
-class LauncherDialog
-    : DialogFragment(),
+class LauncherDialog :
+    DialogFragment(),
         BiConsumer<ResolveInfo, View?> {
 
     companion object {
@@ -55,5 +54,4 @@ class LauncherDialog
         dismiss()
         startActivity(getResolvedIntent(info))
     }
-
 }

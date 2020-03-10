@@ -10,8 +10,8 @@ import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
 
-class CertificateAppListActivity
-    : BaseActivity<X509Certificate, List<AppViewModel>, CertificateAppListPresenter, CertificateAppListFragment>() {
+class CertificateAppListActivity :
+    BaseActivity<X509Certificate, List<AppViewModel>, CertificateAppListPresenter, CertificateAppListFragment>() {
 
     companion object {
         const val EXTRA_CERTIFICATE_ENCODED = "certificate_encoded"
@@ -53,5 +53,4 @@ class CertificateAppListActivity
         super.onPostCreate(savedInstanceState)
         title = intentData?.humanReadableName()
     }
-
 }

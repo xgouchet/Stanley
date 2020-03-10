@@ -9,7 +9,6 @@ import fr.xgouchet.packageexplorer.R
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
 
-
 class AboutActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +46,5 @@ class AboutActivity : FragmentActivity() {
                 .create()
 
         setContentView(aboutPage)
-
     }
-
 }

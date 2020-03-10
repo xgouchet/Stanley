@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import fr.xgouchet.axml.CompressedXmlParser
 import io.reactivex.Observable
-import org.w3c.dom.Document
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
@@ -15,14 +14,15 @@ import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
-
+import org.w3c.dom.Document
 
 const val MANIFEST_FILE_NAME = "AndroidManifest.xml"
 
-
-fun exportManifestFromPackage(info: PackageInfo,
-                              context: Context)
-        : Observable<File> {
+fun exportManifestFromPackage(
+    info: PackageInfo,
+    context: Context
+):
+        Observable<File> {
     return Observable.fromCallable({
         val name = exportedManifestName(info.packageName)
         val apk = getPackageApk(info)
@@ -30,9 +30,11 @@ fun exportManifestFromPackage(info: PackageInfo,
     })
 }
 
-fun exportManifestFromApk(apk: File,
-                          context: Context)
-        : Observable<File> {
+fun exportManifestFromApk(
+    apk: File,
+    context: Context
+):
+        Observable<File> {
     return Observable.fromCallable({
         val name = "${apk.nameWithoutExtension}_AndroidManifest.xml"
 

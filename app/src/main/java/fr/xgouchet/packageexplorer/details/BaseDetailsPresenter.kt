@@ -6,6 +6,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
+import androidx.fragment.app.Fragment as FragmentX
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoSelectable
@@ -21,14 +22,14 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.security.cert.X509Certificate
-import androidx.fragment.app.Fragment as FragmentX
 
-abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
-                                       private val certificateNavigator: Navigator<X509Certificate>,
-                                       val context: Context)
-    : BaseListPresenter<AppInfoViewModel, D>(navigator)
+abstract class BaseDetailsPresenter<D>(
+    navigator: Navigator<AppInfoViewModel>?,
+    private val certificateNavigator: Navigator<X509Certificate>,
+    val context: Context
+) :
+    BaseListPresenter<AppInfoViewModel, D>(navigator)
         where D : ListDisplayer<AppInfoViewModel> {
-
 
     private var memoizedAppInfoList: List<AppInfoViewModel>? = null
     private var currentMask: Int = 0
@@ -110,7 +111,7 @@ abstract class BaseDetailsPresenter<D>(navigator: Navigator<AppInfoViewModel>?,
             if (selectedData != null) {
                 val clip = ClipData.newPlainText(item.getLabel(), selectedData)
                 clipboard.primaryClip = clip
-                Toast.makeText(context, "“${selectedData}” has been copied to your clipboard", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "“$selectedData” has been copied to your clipboard", Toast.LENGTH_LONG).show()
             }
         }
     }

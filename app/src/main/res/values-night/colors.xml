@@ -2,26 +2,25 @@
 <resources>
 
     <!-- Main Theme -->
-    <color name="primary">#616161</color>
-    <color name="primary_dark">#424242</color>
-    <color name="primary_light">#9E9E9E</color>
+    <color name="primary">#9E9E9E</color>
+    <color name="primary_dark">#616161</color>
+    <color name="primary_light">#F5F5F5</color>
     <color name="accent">#F44336</color>
     <!-- Drawables -->
-    <color name="fg_drawable_grey">@color/grey_2</color>
+    <color name="fg_drawable_grey">@color/grey_7</color>
     <color name="fg_drawable_green">#4CAF50</color>
     <color name="fg_drawable_red">#B71C1C</color>
     <color name="fg_drawable_gold">#FFA000</color>
 
     <!-- Text -->
-    <color name="text_title">@color/black</color>
-    <color name="text_subtitle">@color/grey_2</color>
-    <color name="text_body">@color/grey_1</color>
+    <color name="text_title">@color/white</color>
+    <color name="text_subtitle">@color/grey_7</color>
+    <color name="text_body">@color/grey_8</color>
 
 
     <!-- Common -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
 
 
     <!-- Greys -->

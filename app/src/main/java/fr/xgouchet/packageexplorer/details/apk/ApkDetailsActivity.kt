@@ -8,12 +8,11 @@ import fr.xgouchet.packageexplorer.details.CertificateNavigator
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
-
 /**
  * @author Xavier F. Gouchet
  */
-class ApkDetailsActivity
-    : BaseActivity<Uri, List<AppInfoViewModel>, ApkDetailsPresenter, ApkDetailsFragment>() {
+class ApkDetailsActivity :
+    BaseActivity<Uri, List<AppInfoViewModel>, ApkDetailsPresenter, ApkDetailsFragment>() {
 
     override val allowNullIntentData: Boolean = false
 
@@ -40,5 +39,4 @@ class ApkDetailsActivity
             title = it.getFileName(this)
         }
     }
-
 }

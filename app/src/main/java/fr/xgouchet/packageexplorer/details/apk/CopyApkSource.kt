@@ -7,10 +7,11 @@ import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe
 import java.io.File
 
-class CopyApkSource(val context: Context,
-                    val uri: Uri)
-    :
-        SingleOnSubscribe<String> {
+class CopyApkSource(
+    val context: Context,
+    val uri: Uri
+) :
+    SingleOnSubscribe<String> {
 
     override fun subscribe(emitter: SingleEmitter<String>) {
         try {
@@ -25,7 +26,6 @@ class CopyApkSource(val context: Context,
             emitter.onError(e)
         }
     }
-
 
     private fun makeLocalCopy(uri: Uri): String? {
         val cacheFolder = context.cacheDir

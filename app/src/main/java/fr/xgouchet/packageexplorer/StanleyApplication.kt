@@ -9,7 +9,6 @@ class StanleyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-
         if (BuildConfig.DEBUG) run {
 //            Stetho.initializeWithDefaults(this)
 //            Traceur.enableLogging();

@@ -12,9 +12,9 @@ import io.reactivex.functions.Consumer
  * @author Xavier F. Gouchet
  */
 abstract class AppInfoViewHolder<T : AppInfoViewModel>(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?,
-        secondaryActionListener: Consumer<AppInfoViewModel>? = null
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?,
+    secondaryActionListener: Consumer<AppInfoViewModel>? = null
 ) : BaseViewHolder<AppInfoViewModel>(
         itemView = itemView,
         selectedListener = listener,
@@ -35,10 +35,9 @@ abstract class AppInfoViewHolder<T : AppInfoViewModel>(
     abstract fun onBindAppInfoItem(item: T)
 }
 
-
 class AppInfoHeaderViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?
 ) : AppInfoViewHolder<AppInfoHeader>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
@@ -50,12 +49,11 @@ class AppInfoHeaderViewHolder(
         iconView.setImageResource(item.icon)
         expandedView.setImageResource(item.expandedIcon)
     }
-
 }
 
 class AppInfoSimpleViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?
 ) : AppInfoViewHolder<AppInfoSimple>(itemView, listener) {
 
     private val titleView: TextView = itemView.findViewById(R.id.title)
@@ -63,14 +61,12 @@ class AppInfoSimpleViewHolder(
     override fun onBindAppInfoItem(item: AppInfoSimple) {
         titleView.text = item.title
     }
-
 }
 
 class AppInfoWithIconViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?
 ) : AppInfoViewHolder<AppInfoWithIcon>(itemView, listener) {
-
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
     private val titleView: TextView = itemView.findViewById(R.id.title)
@@ -79,14 +75,12 @@ class AppInfoWithIconViewHolder(
         titleView.text = item.title
         iconView.setImageResource(item.icon)
     }
-
 }
 
 class AppInfoWithSubtitleViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?
 ) : AppInfoViewHolder<AppInfoWithSubtitle>(itemView, listener) {
-
 
     private val titleView: TextView = itemView.findViewById(R.id.title)
     private val subtitleView: TextView = itemView.findViewById(R.id.subtitle)
@@ -95,14 +89,12 @@ class AppInfoWithSubtitleViewHolder(
         titleView.text = item.title
         subtitleView.text = item.subtitle
     }
-
 }
 
 class AppInfoWithSubtitleAndIconViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?
 ) : AppInfoViewHolder<AppInfoWithSubtitleAndIcon>(itemView, listener) {
-
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
     private val titleView: TextView = itemView.findViewById(R.id.title)
@@ -113,19 +105,17 @@ class AppInfoWithSubtitleAndIconViewHolder(
         subtitleView.text = item.subtitle
         iconView.setImageDrawable(item.icon)
     }
-
 }
 
 class AppInfoWithSubtitleAndActionViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?,
-        actionListener: Consumer<AppInfoViewModel>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?,
+    actionListener: Consumer<AppInfoViewModel>?
 ) : AppInfoViewHolder<AppInfoWithSubtitleAndAction>(itemView, listener, actionListener) {
 
     private val titleView: TextView = itemView.findViewById(R.id.title)
     private val subtitleView: TextView = itemView.findViewById(R.id.subtitle)
     private val actionView: TextView = itemView.findViewById(R.id.action)
-
 
     init {
         actionView.setOnClickListener {

@@ -4,13 +4,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
-
 /**
  * @author Xavier Gouchet
  */
-abstract class BaseAdapter<T>
-    : RecyclerView.Adapter<BaseViewHolder<T>>() {
-
+abstract class BaseAdapter<T> :
+    RecyclerView.Adapter<BaseViewHolder<T>>() {
 
     protected var content: List<T> = ArrayList()
 
@@ -42,4 +40,3 @@ abstract class BaseAdapter<T>
 
     abstract fun getDiffHelper(oldContent: List<T>, newContent: List<T>): DiffUtil.Callback?
 }
-

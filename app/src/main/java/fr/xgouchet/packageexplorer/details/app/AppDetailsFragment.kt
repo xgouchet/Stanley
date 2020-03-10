@@ -26,17 +26,15 @@ import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import io.reactivex.functions.Consumer
 import java.io.File
 
-
 /**
  * @author Xavier F. Gouchet
  */
-class AppDetailsFragment
-    : BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
+class AppDetailsFragment :
+    BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
 
     override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggerd(it) })
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
-
 
     // region Fragment
 
@@ -91,7 +89,6 @@ class AppDetailsFragment
         }
     }
 
-
     // endregion
 
     // region Displayer
@@ -102,7 +99,6 @@ class AppDetailsFragment
         LauncherDialog.withData(resolvedInfos)
                 .show(transaction, null)
     }
-
 
     fun onManifestExported(dest: File) {
         val currentActivity = activity ?: return
@@ -183,5 +179,3 @@ class AppDetailsFragment
         const val PERMISSION_REQUEST_UNINSTALL = 666
     }
 }
-
-

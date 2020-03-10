@@ -14,7 +14,6 @@ object Cutelry {
 
     fun <V : View> knife(id: Int): ReadOnlyProperty<Any, V> = BreadKnife(id)
     fun <V : View> knife(id: Int, parent: View): ReadOnlyProperty<Any, V> = OysterKnife(id, parent)
-
 }
 
 @Suppress("UNCHECKED_CAST")

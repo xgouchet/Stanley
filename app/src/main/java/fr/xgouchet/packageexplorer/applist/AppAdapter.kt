@@ -8,13 +8,12 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer
 
-
 /**
  * @author Xavier F. Gouchet
  */
 class AppAdapter(
-        val listener: BiConsumer<AppViewModel, View?>?,
-        val actionListener: Consumer<AppViewModel>?
+    val listener: BiConsumer<AppViewModel, View?>?,
+    val actionListener: Consumer<AppViewModel>?
 ) : BaseLayoutAdapter<AppViewModel>() {
 
     override fun getLayoutId(viewType: Int): Int = R.layout.item_app

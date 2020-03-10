@@ -14,9 +14,8 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import io.reactivex.functions.Consumer
 
-
-class CertificateAppListFragment
-    : BaseListFragment<AppViewModel, CertificateAppListPresenter>(),
+class CertificateAppListFragment :
+    BaseListFragment<AppViewModel, CertificateAppListPresenter>(),
         Consumer<AppViewModel> {
 
     override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this, this)
@@ -30,7 +29,6 @@ class CertificateAppListFragment
 
         setHasOptionsMenu(true)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.certificate_app_list, menu)
@@ -69,5 +67,4 @@ class CertificateAppListFragment
     }
 
     // endregion
-
 }

@@ -10,7 +10,6 @@ fun Uri.isFile(): Boolean {
     return scheme == "file"
 }
 
-
 fun Uri.isContent(): Boolean {
     return scheme == "content"
 }

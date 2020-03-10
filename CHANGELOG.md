@@ -1,5 +1,12 @@
 # Changelog
 
+### 2.6 (march 2020)
+ - [BUGFIX] Handle unsigned APKs
+ - [ENHANCEMENT] Add Dark theme support
+ - [ENHANCEMENT] Display native libraries
+
+
+
 ### 2.5 (july 2019)
 
  - [BUGFIX] Fix uninstall bug on Android O (26) and higher

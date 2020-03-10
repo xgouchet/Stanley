@@ -1,0 +1,5 @@
+v3 (mar. 2020):
+
+ - Handle unsigned APKs
+ - Add Dark theme support
+ - Display native libraries

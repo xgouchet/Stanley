@@ -39,10 +39,10 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractMainInfo(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo,
-        applicationInfo: ApplicationInfo?,
-        apkFile: File?
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo,
+            applicationInfo: ApplicationInfo?,
+            apkFile: File?
     ) {
         emitter.apply {
             onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_METADATA, PACKAGE_NAME, packageInfo.packageName))
@@ -101,9 +101,9 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractActivities(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo,
-        packageManager: PackageManager
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo,
+            packageManager: PackageManager
     ) {
         val activities = packageInfo.activities ?: return
         val packageName = packageInfo.packageName
@@ -127,8 +127,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractServices(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val services = packageInfo.services ?: return
         val packageName = packageInfo.packageName
@@ -144,8 +144,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractProviders(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val providers = packageInfo.providers ?: return
         val packageName = packageInfo.packageName
@@ -161,8 +161,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractReceivers(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val receivers = packageInfo.receivers ?: return
         val packageName = packageInfo.packageName
@@ -178,8 +178,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractCustomPermissions(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
 
         val permissions = packageInfo.permissions ?: return
@@ -202,8 +202,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractPermissions(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val permissions = packageInfo.requestedPermissions ?: return
         val customPermissions = packageInfo.permissions?.toList()?.map { it.name } ?: emptyList()
@@ -240,8 +240,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractFeatures(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val features = packageInfo.reqFeatures ?: return
 
@@ -273,8 +273,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractSignatures(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val signatures: Array<Signature> = packageInfo.signatures ?: return
         if (signatures.isEmpty()) return
@@ -286,9 +286,10 @@ open class DetailsSource(val context: Context) {
                 try {
                     val cert = X509Certificate.getInstance(signature.toByteArray())
                     val name = cert.subjectDN.name
-                    val fingerprint = MessageDigest.getInstance("SHA-1").digest(cert.encoded).toHexString()
+                    val sha1 = MessageDigest.getInstance("SHA-1").digest(cert.encoded).toHexString()
+                    val sha256 = MessageDigest.getInstance("SHA-256").digest(cert.encoded).toHexString()
                     val humanName = cert.humanReadableName()
-                    val subtitle = "$name\n\nSHA-1:$fingerprint"
+                    val subtitle = "$name\n\nSHA-1:$sha1\n\nSHA-256:$sha256"
                     onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, subtitle, subtitle, context.getString(R.string.action_more), cert))
                 } catch (e: CertificateException) {
                     onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "(Unreadable signature)", signature.toCharsString(), null))
@@ -367,8 +368,8 @@ open class DetailsSource(val context: Context) {
         zis.close()
         return nativeLibs.groupBy { it.first }
                 .entries.map {
-            "${it.key} (${it.value.joinToString(", ") { it.second }})"
-        }
+                    "${it.key} (${it.value.joinToString(", ") { it.second }})"
+                }
     }
 
     private fun ByteArray.toHexString(): String {

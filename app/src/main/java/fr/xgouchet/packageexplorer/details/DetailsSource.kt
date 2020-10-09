@@ -290,8 +290,8 @@ open class DetailsSource(val context: Context) {
                     val sha256 = MessageDigest.getInstance("SHA-256").digest(cert.encoded).toHexString()
                     val humanName = cert.humanReadableName()
                     onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, name, name, context.getString(R.string.action_more), cert))
-                    onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "SHA-1", sha1Fingerprint, sha1Fingerprint))
-                    onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "SHA-256", sha256Fingerprint, sha1Fingerprint))
+                    onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "SHA-1", sha1, sha1))
+                    onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "SHA-256", sha256, sha256))
                 } catch (e: CertificateException) {
                     onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "(Unreadable signature)", signature.toCharsString(), null))
                 }

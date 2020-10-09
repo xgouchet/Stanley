@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
     }
     repositories {
         mavenCentral()
@@ -17,11 +17,11 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.41"
-    compile "com.android.tools.build:gradle:3.0.0"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
+    compile "com.android.tools.build:gradle:4.0.2"
     compile "com.github.kittinunf.fuel:fuel:1.12.0"
     compile "com.github.kittinunf.fuel:fuel-gson:1.12.0"
-    compile "com.squareup:kotlinpoet:0.7.0"
+    compile "com.squareup:kotlinpoet:1.6.0"
 }
 
 compileKotlin {

@@ -5,28 +5,31 @@ object Dependencies {
 
     object Versions {
 
-        const val AndroidPlugin = "3.4.0"
+        const val AndroidPlugin = "4.0.0"
 
-        const val AndroidSupportLibs = "28.0.0"
-        const val AndroidX = "1.0.0"
+        const val AndroidXAnnotations = "1.1.0"
+        const val AndroidXAppCompat = "1.2.0"
         const val AndroidXArch = "2.0.0"
+        const val AndroidXCore = "1.3.2"
+        const val AndroidXMedia = "1.2.0"
         const val AndroidXNav = "2.1.0-alpha02"
+        const val AndroidXRecyclerView = "1.1.0"
         const val AndroidXTest = "1.1.0"
         const val AndroidMaven = "2.1"
         const val MultiDex = "2.0.1"
-        const val ConstraintLayout = "2.0.0-beta2"
-        const val MaterialComponents = "1.1.0-alpha08"
+        const val ConstraintLayout = "2.0.2"
+        const val MaterialComponents = "1.2.1"
 
         const val OssLicensesPlugin = "0.9.2"
         const val OssLicensesLibrary = "17.0.0"
 
         const val BuildTimeTracker = "0.11.0"
-        const val DependencyVersion = "0.20.0"
-        const val Detekt = "1.0.0.RC6-3"
-        const val Kotlin = "1.3.41"
-        const val RxJava = "2.2.6"
+        const val DependencyVersion = "0.33.0"
+        const val Detekt = "1.14.1"
+        const val Kotlin = "1.4.10"
+        const val RxJava = "2.2.20"
         const val RxAndroid = "2.1.1"
-        const val AboutPage = "1.2.5"
+        const val AboutPage = "1.3.1"
 
         const val Leakcanary = "1.5.4"
         const val Timber = "4.7.1"
@@ -36,29 +39,17 @@ object Dependencies {
 
     object Libraries {
 
-        const val AndroidAppCompat = "androidx.appcompat:appcompat:${Versions.AndroidX}"
-
         @JvmField val AndroidX = arrayOf(
-                "androidx.annotation:annotation:${Versions.AndroidX}",
-                "androidx.appcompat:appcompat:${Versions.AndroidX}",
-                "androidx.core:core-ktx:${Versions.AndroidX}",
-                "androidx.media:media:${Versions.AndroidX}"
+                "androidx.annotation:annotation:${Versions.AndroidXAnnotations}",
+                "androidx.appcompat:appcompat:${Versions.AndroidXAppCompat}",
+                "androidx.core:core-ktx:${Versions.AndroidXCore}",
+                "androidx.media:media:${Versions.AndroidXMedia}"
         )
 
         @JvmField val AndroidUI = arrayOf(
                 "androidx.constraintlayout:constraintlayout:${Versions.ConstraintLayout}",
-                "androidx.recyclerview:recyclerview:${Versions.AndroidX}",
+                "androidx.recyclerview:recyclerview:${Versions.AndroidXRecyclerView}",
                 "com.google.android.material:material:${Versions.MaterialComponents}"
-        )
-
-        @JvmField val AndroidSupport = arrayOf(
-                "com.android.support:support-v4:${Versions.AndroidSupportLibs}",
-                "com.android.support:appcompat-v7:${Versions.AndroidSupportLibs}",
-                "com.android.support:support-annotations:${Versions.AndroidSupportLibs}",
-                "com.android.support:design:${Versions.AndroidSupportLibs}",
-                "com.android.support:cardview-v7:${Versions.AndroidSupportLibs}",
-                "com.android.support:recyclerview-v7:${Versions.AndroidSupportLibs}",
-                "com.android.support.constraint:constraint-layout:${Versions.ConstraintLayout}"
         )
 
         const val MultiDex = "androidx.multidex:multidex:${Versions.MultiDex}"

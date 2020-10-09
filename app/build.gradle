@@ -2,8 +2,8 @@ import fr.xgouchet.gradle.AndroidBuild
 import fr.xgouchet.gradle.Dependencies
 
 plugins {
-    id 'com.github.ben-manes.versions'
-    id "io.gitlab.arturbosch.detekt"
+    id 'com.github.ben-manes.versions' version "0.33.0"
+    id "io.gitlab.arturbosch.detekt" version "1.14.1"
 }
 
 apply plugin: 'com.android.application'
@@ -64,4 +64,16 @@ dependencies {
     implementation Dependencies.Libraries.AboutPage
     implementation Dependencies.Libraries.Timber
     implementation Dependencies.Libraries.AXml
+}
+
+def isNonStable = { String version ->
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+
+dependencyUpdates {
+    rejectVersionIf {
+        isNonStable(it.candidate.version)
+    }
 }

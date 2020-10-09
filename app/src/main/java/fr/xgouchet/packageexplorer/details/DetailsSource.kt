@@ -289,45 +289,12 @@ open class DetailsSource(val context: Context) {
                     val sha1 = MessageDigest.getInstance("SHA-1").digest(cert.encoded).toHexString()
                     val sha256 = MessageDigest.getInstance("SHA-256").digest(cert.encoded).toHexString()
                     val humanName = cert.humanReadableName()
-                    val subtitle = "$name\n\nSHA-1:$sha1\n\nSHA-256:$sha256"
-                    onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, subtitle, subtitle, context.getString(R.string.action_more), cert))
+                    onNext(AppInfoWithSubtitleAndAction(AppInfoType.INFO_TYPE_SIGNATURE, humanName, name, name, context.getString(R.string.action_more), cert))
+                    onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "SHA-1", sha1Fingerprint, sha1Fingerprint))
+                    onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "SHA-256", sha256Fingerprint, sha1Fingerprint))
                 } catch (e: CertificateException) {
                     onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SIGNATURE, "(Unreadable signature)", signature.toCharsString(), null))
                 }
-            }
-        }
-    }
-
-    fun extractHumanName(certificateName: String): String {
-        val properties = certificateName.split(Regex("(?<!\\\\),"))
-
-        var organization: String? = null
-        var name: String? = null
-        for (property in properties) {
-            val tokens = property.split("=")
-            val key = tokens[0]
-            val value = tokens[1]
-
-            if (key == "CN") {
-                name = value
-            } else if (key == "O") {
-                organization = value
-            } else if (key == "OU" && organization.isNullOrBlank()) {
-                organization = value
-            }
-        }
-
-        return if (name != null) {
-            if (organization != null) {
-                "$name ($organization) ✓"
-            } else {
-                "$name ✓"
-            }
-        } else {
-            if (organization != null) {
-                "($organization) ✓"
-            } else {
-                "Unknown ✗"
             }
         }
     }
@@ -373,16 +340,11 @@ open class DetailsSource(val context: Context) {
     }
 
     private fun ByteArray.toHexString(): String {
-        val result = StringBuffer()
-
-        forEach {
+        return joinToString(":") {
             val octet = it.toInt()
             val firstIndex = (octet and 0xF0).ushr(4)
             val secondIndex = octet and 0x0F
-            result.append(HEX_CHARS[firstIndex])
-            result.append(HEX_CHARS[secondIndex])
+            "${HEX_CHARS[firstIndex]}${HEX_CHARS[secondIndex]}"
         }
-
-        return result.toString()
     }
 }

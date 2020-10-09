@@ -12,10 +12,10 @@ import java.io.File
  * @author Xavier F. Gouchet
  */
 class ApkDetailsSource(
-    context: Context,
-    val path: String
+        context: Context,
+        val path: String
 ) :
-    DetailsSource(context),
+        DetailsSource(context),
         ObservableOnSubscribe<AppInfoViewModel> {
 
     companion object {
@@ -45,19 +45,20 @@ class ApkDetailsSource(
             val packageInfo = packageManager.getPackageArchiveInfo(path, PACKAGE_INFO_FLAGS)
                     ?: packageManager.getPackageArchiveInfo(path, PACKAGE_INFO_FLAGS_NO_SIGN)
 
-            extractMainInfo(emitter, packageInfo, null, File(path))
+            if (packageInfo != null) {
+                extractMainInfo(emitter, packageInfo, null, File(path))
 
-            extractSignatures(emitter, packageInfo)
+                extractSignatures(emitter, packageInfo)
 
-            extractFeatures(emitter, packageInfo)
-            extractCustomPermissions(emitter, packageInfo)
-            extractPermissions(emitter, packageInfo)
+                extractFeatures(emitter, packageInfo)
+                extractCustomPermissions(emitter, packageInfo)
+                extractPermissions(emitter, packageInfo)
 
-            extractActivities(emitter, packageInfo, packageManager)
-            extractServices(emitter, packageInfo)
-            extractReceivers(emitter, packageInfo)
-            extractProviders(emitter, packageInfo)
-
+                extractActivities(emitter, packageInfo, packageManager)
+                extractServices(emitter, packageInfo)
+                extractReceivers(emitter, packageInfo)
+                extractProviders(emitter, packageInfo)
+            }
             emitter.onComplete()
         } catch (e: PackageManager.NameNotFoundException) {
             emitter.onError(e)

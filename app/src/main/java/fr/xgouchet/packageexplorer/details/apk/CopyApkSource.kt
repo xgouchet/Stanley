@@ -31,7 +31,7 @@ class CopyApkSource(
         val cacheFolder = context.cacheDir
         val filename = uri.getFileName(context) ?: "unknown"
         val outPath = File(cacheFolder, filename)
-        val input = context.contentResolver.openInputStream(uri)
+        val input = context.contentResolver.openInputStream(uri) ?: return null
 
         input.use { i -> outPath.outputStream().use { i.copyTo(it) } }
 

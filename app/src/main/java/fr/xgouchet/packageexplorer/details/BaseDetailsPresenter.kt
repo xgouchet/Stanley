@@ -110,7 +110,7 @@ abstract class BaseDetailsPresenter<D>(
 
             if (selectedData != null) {
                 val clip = ClipData.newPlainText(item.getLabel(), selectedData)
-                clipboard.primaryClip = clip
+                clipboard.setPrimaryClip(clip)
                 Toast.makeText(context, "“$selectedData” has been copied to your clipboard", Toast.LENGTH_LONG).show()
             }
         }

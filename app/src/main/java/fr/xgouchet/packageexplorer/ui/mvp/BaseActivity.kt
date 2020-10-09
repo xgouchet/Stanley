@@ -66,21 +66,19 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD> 
         presenter.onDisplayerAttached(fragment, isRestored)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        if (savedInstanceState != null) {
-            if (isRestored) {
-                Timber.w("Already restored but restoring again ‽")
-                return
-            }
-            isRestored = true
-            val restoredPresenter = restorePresenter(savedInstanceState)
-            if (restoredPresenter !== presenter) {
-                presenter.onDisplayerDetached()
-                presenter = restoredPresenter
-                presenter.onDisplayerAttached(fragment, isRestored)
-            }
+        if (isRestored) {
+            Timber.w("Already restored but restoring again ‽")
+            return
+        }
+        isRestored = true
+        val restoredPresenter = restorePresenter(savedInstanceState)
+        if (restoredPresenter !== presenter) {
+            presenter.onDisplayerDetached()
+            presenter = restoredPresenter
+            presenter.onDisplayerAttached(fragment, isRestored)
         }
     }
 

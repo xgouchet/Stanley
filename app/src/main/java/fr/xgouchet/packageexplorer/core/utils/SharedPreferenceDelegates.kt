@@ -89,7 +89,7 @@ class IntPage<in P : ContextHolder>(val key: String, val default: Int) : Generic
  */
 class StringPage<in P : ContextHolder>(val key: String, val default: String) : GenericPage<P, String>() {
     override fun getPreferenceValue(preferences: SharedPreferences): String {
-        return preferences.getString(key, default)
+        return preferences.getString(key, default).orEmpty()
     }
 
     override fun saveValue(editor: SharedPreferences.Editor, value: String) {
@@ -107,7 +107,7 @@ class AppSortPage<in P : ContextHolder>(val key: String, val default: AppSort) :
     }
 
     override fun getPreferenceValue(preferences: SharedPreferences): AppSort {
-        val name = preferences.getString(key, default.name)
+        val name = preferences.getString(key, default.name).orEmpty()
 
         try {
             return AppSort.valueOf(name)

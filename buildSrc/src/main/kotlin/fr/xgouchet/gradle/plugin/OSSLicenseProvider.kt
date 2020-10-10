@@ -1,5 +1,6 @@
 package fr.xgouchet.gradle.plugin
 
+import javax.xml.parsers.DocumentBuilderFactory
 import org.gradle.api.Project
 import org.gradle.api.artifacts.component.ComponentIdentifier
 import org.gradle.api.artifacts.result.ComponentSelectionCause
@@ -8,7 +9,6 @@ import org.gradle.api.artifacts.result.ResolvedDependencyResult
 import org.gradle.maven.MavenModule
 import org.gradle.maven.MavenPomArtifact
 import org.w3c.dom.Document
-import javax.xml.parsers.DocumentBuilderFactory
 
 class OSSLicenseProvider {
 
@@ -24,7 +24,7 @@ class OSSLicenseProvider {
     // region Internal
 
     private fun getAllConfigurationsDependencies(
-            project: Project
+        project: Project
     ): List<ComponentIdentifier> {
         return project.configurations
                 .filter { it.isCanBeResolved }
@@ -39,8 +39,8 @@ class OSSLicenseProvider {
     }
 
     private fun resolvePomFiles(
-            project: Project,
-            dependencyIds: List<ComponentIdentifier>
+        project: Project,
+        dependencyIds: List<ComponentIdentifier>
     ): Map<ComponentIdentifier, String> {
         return project.dependencies
                 .createArtifactResolutionQuery()
@@ -56,8 +56,8 @@ class OSSLicenseProvider {
     }
 
     private fun listOSSDependencies(
-            dependencies: List<ComponentIdentifier>,
-            pomFilesList: Map<ComponentIdentifier, String>
+        dependencies: List<ComponentIdentifier>,
+        pomFilesList: Map<ComponentIdentifier, String>
     ): List<OSSDependency> {
         return dependencies.mapNotNull {
             val pomFilePath = pomFilesList[it]

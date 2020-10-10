@@ -19,6 +19,7 @@ object Dependencies {
         const val MultiDex = "2.0.1"
         const val ConstraintLayout = "2.0.2"
         const val MaterialComponents = "1.2.1"
+        const val Gson = "2.8.6"
 
         const val BuildTimeTracker = "0.11.0"
         const val DependencyVersion = "0.33.0"
@@ -62,6 +63,7 @@ object Dependencies {
                 "io.reactivex.rxjava2:rxandroid:${Versions.RxAndroid}"
         )
 
+        const val Gson = "com.google.code.gson:gson:${Versions.Gson}"
         const val AboutPage = "com.github.medyo:android-about-page:${Versions.AboutPage}"
         const val AXml = "com.github.xgouchet:AXML:${Versions.AXml}"
 

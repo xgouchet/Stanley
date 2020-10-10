@@ -32,7 +32,7 @@ import java.io.File
 class AppDetailsFragment :
     BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
 
-    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggerd(it) })
+    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggered(it) })
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 

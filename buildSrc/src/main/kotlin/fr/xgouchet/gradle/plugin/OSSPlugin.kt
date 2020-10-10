@@ -3,8 +3,6 @@ package fr.xgouchet.gradle.plugin
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import java.io.File
-
 
 class OSSPlugin : Plugin<Project> {
 

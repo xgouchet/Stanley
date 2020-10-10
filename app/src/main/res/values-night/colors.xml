@@ -9,7 +9,7 @@
     <color name="accent">#F44336</color>
 
     <!-- Drawables -->
-    <color name="fg_drawable_grey">@color/grey_7</color>
+    <color name="fg_drawable_grey">@color/grey_5</color>
     <color name="fg_drawable_green">#4CAF50</color>
     <color name="fg_drawable_red">#B71C1C</color>
     <color name="fg_drawable_gold">#FFA000</color>

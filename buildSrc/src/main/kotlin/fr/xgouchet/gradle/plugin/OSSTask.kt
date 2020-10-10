@@ -1,9 +1,9 @@
 package fr.xgouchet.gradle.plugin
 
+import java.io.File
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
-import java.io.File
 
 open class OSSTask : DefaultTask() {
 
@@ -37,5 +37,4 @@ open class OSSTask : DefaultTask() {
         val assetsDir = File(mainDir, "assets")
         return File(assetsDir, "oss_licenses.json")
     }
-
 }

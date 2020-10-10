@@ -38,16 +38,8 @@ compileTestKotlin {
 gradlePlugin {
     plugins {
         lokalise {
-            id = "lokalise"
-            implementationClass = "io.nea.workwell.gradle.lokalise.LokalisePlugin"
-        }
-        gyro {
-            id = "gyro"
-            implementationClass = "io.nea.workwell.gradle.gyro.GyroPlugin"
-        }
-        realm {
-            id = "realm-versioning"
-            implementationClass = "io.nea.workwell.gradle.realm.RealmVersioningPlugin"
+            id = "ossLicenses"
+            implementationClass = "fr.xgouchet.gradle.plugin.OSSPlugin"
         }
     }
 }

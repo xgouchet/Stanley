@@ -1,11 +1,15 @@
 # Changelog
 
+### 2.7 (october 2020)
+
+ - [BUGFIX] Fix Dark Mode theme
+ - [ENHANCEMENT] Display SHA-256 hash of signing certificates
+
 ### 2.6 (march 2020)
+
  - [BUGFIX] Handle unsigned APKs
  - [ENHANCEMENT] Add Dark theme support
  - [ENHANCEMENT] Display native libraries
-
-
 
 ### 2.5 (july 2019)
 

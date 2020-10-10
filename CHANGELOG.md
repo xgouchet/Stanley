@@ -4,6 +4,7 @@
 
  - [BUGFIX] Fix Dark Mode theme
  - [ENHANCEMENT] Display SHA-256 hash of signing certificates
+ - [ENHANCEMENT] Replace Google's non free OSS License activity with in-house solution
 
 ### 2.6 (march 2020)
 

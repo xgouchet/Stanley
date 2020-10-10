@@ -18,6 +18,7 @@
             android:textColor="@color/text_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
 
     <androidx.appcompat.widget.AppCompatTextView

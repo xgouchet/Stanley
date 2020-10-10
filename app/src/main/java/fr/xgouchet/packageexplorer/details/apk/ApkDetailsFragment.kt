@@ -33,7 +33,7 @@ class ApkDetailsFragment :
         const val PERMISSION_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
     }
 
-    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggerd(it) })
+    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggered(it) })
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 

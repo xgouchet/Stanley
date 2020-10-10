@@ -12,8 +12,8 @@ import java.io.File
  * @author Xavier F. Gouchet
  */
 class ApkDetailsSource(
-        context: Context,
-        val path: String
+    context: Context,
+    val path: String
 ) :
         DetailsSource(context),
         ObservableOnSubscribe<AppInfoViewModel> {

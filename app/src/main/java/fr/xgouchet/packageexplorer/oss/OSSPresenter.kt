@@ -1,38 +1,30 @@
-package fr.xgouchet.packageexplorer.details
+package fr.xgouchet.packageexplorer.oss
 
 import android.app.Activity
 import android.app.Fragment
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
-import android.widget.Toast
-import androidx.fragment.app.Fragment as FragmentX
 import fr.xgouchet.packageexplorer.R
+import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoSelectable
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
-import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
-import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import javax.security.cert.X509Certificate
 
-abstract class BaseDetailsPresenter<D>(
-    navigator: Navigator<AppInfoViewModel>?,
-    private val certificateNavigator: Navigator<X509Certificate>,
-    val context: Context
-) :
-    BaseListPresenter<AppInfoViewModel, D>(navigator)
-        where D : ListDisplayer<AppInfoViewModel> {
+class OSSPresenter(context: Context, val urlNavigator: UrlNavigator) :
+        BaseListPresenter<AppInfoViewModel, OSSFragment>(null),
+        ContextHolder {
 
-    private var memoizedAppInfoList: List<AppInfoViewModel>? = null
-    private var currentMask: Int = 0
+    override val context: Context = context.applicationContext
+
+    private var memoizedOSSList: List<AppInfoViewModel>? = null
+    private var currentMask: Int = AppInfoType.INFO_TYPE_MISC
     private var dataSubject: BehaviorSubject<List<AppInfoViewModel>> = BehaviorSubject.create()
     private var collapseMaskSubject: BehaviorSubject<Int> = BehaviorSubject.createDefault(currentMask)
 
@@ -61,38 +53,22 @@ abstract class BaseDetailsPresenter<D>(
                 )
     }
 
-    override fun onDisplayerAttached(displayer: Displayer<List<AppInfoViewModel>>, restored: Boolean) {
-
-        val activity = when (displayer) {
-            is Fragment -> displayer.activity
-            is FragmentX -> displayer.activity
-            is Activity -> displayer
-            else -> null
-        }
-        if (activity != null) certificateNavigator.currentActivity = activity
-
-        super.onDisplayerAttached(displayer, restored)
-    }
-
     override fun load(force: Boolean) {
         displayer?.let { d ->
             d.setLoading(true)
             disposable?.dispose()
 
-            val list = memoizedAppInfoList
-            if (list != null && !force) {
+            val list = memoizedOSSList
+            if (list != null) {
                 dataSubject.onNext(list)
-                return@let
             }
 
-            disposable?.dispose()
-            disposable = getDetails()
-                    .subscribeOn(Schedulers.computation())
+            disposable = Observable.create(OSSDependenciesSource(context))
+                    .subscribeOn(Schedulers.io())
                     .toList()
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             {
-                                memoizedAppInfoList = it
+                                memoizedOSSList = it
                                 dataSubject.onNext(it)
                             },
                             { displayer?.setError(it) }
@@ -100,28 +76,30 @@ abstract class BaseDetailsPresenter<D>(
         }
     }
 
+    override fun onDisplayerAttached(displayer: Displayer<List<AppInfoViewModel>>, restored: Boolean) {
+
+        val activity = when (displayer) {
+            is Fragment -> displayer.activity
+            is androidx.fragment.app.Fragment -> displayer.activity
+            is Activity -> displayer
+            else -> null
+        }
+        if (activity != null) urlNavigator.currentActivity = activity
+
+        super.onDisplayerAttached(displayer, restored)
+    }
+
     override fun itemSelected(item: AppInfoViewModel) {
         if (item is AppInfoHeader) {
             currentMask = currentMask xor item.mask
             collapseMaskSubject.onNext(currentMask)
-        } else if (item is AppInfoSelectable) {
-            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val selectedData = item.getSelectedData()
-
-            if (selectedData != null) {
-                val clip = ClipData.newPlainText(item.getLabel(), selectedData)
-                clipboard.setPrimaryClip(clip)
-                Toast.makeText(context, "“$selectedData” has been copied to your clipboard", Toast.LENGTH_LONG).show()
-            }
         }
     }
 
     fun actionTriggered(infoViewModel: AppInfoViewModel) {
         val data = (infoViewModel as? AppInfoWithSubtitleAndAction)?.actionData
-        if (data is X509Certificate) {
-            certificateNavigator.goToItemDetails(data)
+        if (data is String) {
+            urlNavigator.goToItemDetails(data)
         }
     }
-
-    abstract fun getDetails(): Observable<AppInfoViewModel>
 }

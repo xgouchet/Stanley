@@ -8,18 +8,22 @@ import fr.xgouchet.packageexplorer.R
  * @author Xavier F. Gouchet
  */
 object AppInfoType {
-    val INFO_TYPE_GLOBAL = 0x1
-    val INFO_TYPE_FEATURES_REQUIRED = 0x2
-    val INFO_TYPE_CUSTOM_PERMISSIONS = 0x4
-    val INFO_TYPE_PERMISSIONS = 0x8
-    val INFO_TYPE_ACTIVITIES = 0x10
-    val INFO_TYPE_SERVICES = 0x20
-    val INFO_TYPE_PROVIDERS = 0x40
-    val INFO_TYPE_RECEIVERS = 0x80
-    val INFO_TYPE_SIGNATURE = 0x100
-    val INFO_TYPE_NATIVE = 0x200
+    const val INFO_TYPE_GLOBAL: Int = 0x1
+    const val INFO_TYPE_FEATURES_REQUIRED: Int = 0x2
+    const val INFO_TYPE_CUSTOM_PERMISSIONS: Int = 0x4
+    const val INFO_TYPE_PERMISSIONS: Int = 0x8
+    const val INFO_TYPE_ACTIVITIES: Int = 0x10
+    const val INFO_TYPE_SERVICES: Int = 0x20
+    const val INFO_TYPE_PROVIDERS: Int = 0x40
+    const val INFO_TYPE_RECEIVERS: Int = 0x80
+    const val INFO_TYPE_SIGNATURE: Int = 0x100
+    const val INFO_TYPE_NATIVE: Int = 0x200
 
-    val INFO_TYPE_METADATA = 0x8000
+    const val INFO_TYPE_ANDROID: Int = 0x1000
+    const val INFO_TYPE_KOTLIN: Int = 0x2000
+    const val INFO_TYPE_MISC: Int = 0x4000
+
+    const val INFO_TYPE_METADATA: Int = 0x10000
 }
 
 sealed class AppInfoViewModel(
@@ -33,7 +37,7 @@ data class AppInfoHeader(
     @DrawableRes val icon: Int,
     @DrawableRes val expandedIcon: Int = R.drawable.ic_expand_less
 ) :
-    AppInfoViewModel(type, "Header {$type} “$header”")
+        AppInfoViewModel(type, "Header {$type} “$header”")
 
 interface AppInfoSelectable {
     fun getLabel(): String
@@ -45,7 +49,7 @@ data class AppInfoSimple(
     val title: String,
     val raw: String? = null
 ) :
-    AppInfoViewModel(type, "Simple {$type} “$title”"),
+        AppInfoViewModel(type, "Simple {$type} “$title”"),
         AppInfoSelectable {
     override fun getLabel(): String = title
     override fun getSelectedData(): String? = raw
@@ -57,7 +61,7 @@ data class AppInfoWithIcon(
     val raw: String? = null,
     @DrawableRes val icon: Int
 ) :
-    AppInfoViewModel(type, "Icon {$type} “$title”  $icon"),
+        AppInfoViewModel(type, "Icon {$type} “$title”  $icon"),
         AppInfoSelectable {
     override fun getLabel(): String = title
     override fun getSelectedData(): String? = raw
@@ -69,7 +73,7 @@ data class AppInfoWithSubtitle(
     val subtitle: String,
     val raw: String? = null
 ) :
-    AppInfoViewModel(type, "Subtitle {$type} “$title” / $subtitle"),
+        AppInfoViewModel(type, "Subtitle {$type} “$title” / $subtitle"),
         AppInfoSelectable {
     override fun getLabel(): String = title
     override fun getSelectedData(): String? = raw
@@ -82,7 +86,7 @@ data class AppInfoWithSubtitleAndIcon(
     val raw: String,
     val icon: Drawable?
 ) :
-    AppInfoViewModel(type, "Subtitle+Icon {$type} “$title” / $subtitle $icon"),
+        AppInfoViewModel(type, "Subtitle+Icon {$type} “$title” / $subtitle $icon"),
         AppInfoSelectable {
     override fun getLabel(): String = title
     override fun getSelectedData(): String? = raw
@@ -96,7 +100,7 @@ data class AppInfoWithSubtitleAndAction(
     val actionText: String,
     val actionData: Any?
 ) :
-    AppInfoViewModel(type, "Subtitle+Action {$type} “$title” / $subtitle $actionData"),
+        AppInfoViewModel(type, "Subtitle+Action {$type} “$title” / $subtitle $actionData"),
         AppInfoSelectable {
     override fun getLabel(): String = title
     override fun getSelectedData(): String? = raw

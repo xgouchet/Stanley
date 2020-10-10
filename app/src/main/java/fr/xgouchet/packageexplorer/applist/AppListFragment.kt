@@ -9,12 +9,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.about.AboutActivity
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.details.apk.ApkDetailsActivity
 import fr.xgouchet.packageexplorer.launcher.LauncherDialog
+import fr.xgouchet.packageexplorer.oss.OSSActivity
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import io.reactivex.functions.Consumer
@@ -79,8 +79,8 @@ class AppListFragment :
                 startActivity(Intent(activity, AboutActivity::class.java))
             }
             R.id.licenses -> {
-                OssLicensesMenuActivity.setActivityTitle(getString(R.string.activity_title_licenses))
-                startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
+//                OssLicensesMenuActivity.setActivityTitle(getString(R.string.activity_title_licenses))
+                startActivity(Intent(activity, OSSActivity::class.java))
             }
             else -> return super.onOptionsItemSelected(item)
         }

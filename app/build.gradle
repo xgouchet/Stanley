@@ -60,6 +60,7 @@ dependencies {
 
     implementation Dependencies.Libraries.Kotlin
     implementation Dependencies.Libraries.Rx
+    implementation Dependencies.Libraries.Gson
     implementation Dependencies.Libraries.AboutPage
     implementation Dependencies.Libraries.Timber
     implementation Dependencies.Libraries.AXml

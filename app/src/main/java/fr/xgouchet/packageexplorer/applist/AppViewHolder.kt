@@ -18,6 +18,7 @@ class AppViewHolder(
         secondaryActionListener = secondaryActionListener
 ) {
 
+    private val launchView: View = itemView.findViewById(R.id.action_app_launch)
     private val iconView: ImageView = itemView.findViewById(R.id.icon_app)
     private val debuggableView: View = itemView.findViewById(R.id.icon_debuggable_app)
     private val sytemAppView: View = itemView.findViewById(R.id.icon_system_app)
@@ -28,6 +29,7 @@ class AppViewHolder(
     private val updatedView: TextView = itemView.findViewById(R.id.text_update)
 
     init {
+        launchView.setOnClickListener { fireSecondaryAction() }
         itemView.setOnClickListener { fireSelected() }
     }
 

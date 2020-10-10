@@ -1,10 +1,10 @@
 package fr.xgouchet.gradle.plugin
 
 data class OSSDependency(
-        val name: String,
-        val identifier: String,
-        val license: String,
-        val sourceUrl: String?
+    val name: String,
+    val identifier: String,
+    val license: String,
+    val sourceUrl: String?
 ) {
     fun toJson(): String {
         val sourceField = if (sourceUrl != null) {

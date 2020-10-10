@@ -1,5 +1,6 @@
 package fr.xgouchet.packageexplorer.applist
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ResolveInfo
@@ -102,6 +103,14 @@ class AppListFragment :
         val transaction = supportFragmentManager.beginTransaction()
         LauncherDialog.withData(resolvedInfos)
                 .show(transaction, null)
+    }
+
+    @SuppressLint("NewApi")
+    override fun getPermissionExplanation(permission: String): Int {
+        return when (permission) {
+            AppListPresenter.PERMISSION_QUERY_PACKAGES -> R.string.permission_explanation_query_packages
+            else -> 0
+        }
     }
 
     // endregion

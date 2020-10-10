@@ -1,10 +1,14 @@
 package fr.xgouchet.packageexplorer.ui.mvp.list
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.annotation.StringRes
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +24,7 @@ import io.reactivex.functions.BiConsumer
  * @author Xavier F. Gouchet
  */
 abstract class BaseListFragment<T, P : ListPresenter<T>> :
-    Fragment(),
+        Fragment(),
         ListDisplayer<T>,
         BiConsumer<T, View?> {
 
@@ -92,4 +96,51 @@ abstract class BaseListFragment<T, P : ListPresenter<T>> :
     }
 
     // endregion
+
+    // region Permissions
+
+    fun checkPermission(permission: String): Boolean {
+        val currentActivity = activity ?: return false
+        val status = ContextCompat.checkSelfPermission(currentActivity, permission)
+        return status == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun requestPermission(permission: String, requestId: Int) {
+        val currentActivity = activity ?: return
+        if (ActivityCompat.shouldShowRequestPermissionRationale(currentActivity, permission)) {
+            explainAndRequestPermission(permission, requestId)
+        } else {
+            doRequestStoragePermission(permission, requestId)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            onPermissionGranted(requestCode)
+        } else {
+            explainAndRequestPermission(permissions.first(), requestCode)
+        }
+    }
+
+    protected open fun onPermissionGranted(requestCode: Int) {
+        presenter.onPermissionGranted(requestCode)
+    }
+
+    @StringRes
+    protected open fun getPermissionExplanation(permission: String): Int {
+        return 0
+    }
+
+    private fun doRequestStoragePermission(permission: String, requestId: Int) {
+        val res = getPermissionExplanation(permission)
+        if (res != 0) {
+            Snackbar.make(list, res, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok) { doRequestStoragePermission(permission, requestId) }
+                    .show()
+        }
+    }
+
+    private fun explainAndRequestPermission(permission: String, requestId: Int) {
+        requestPermissions(arrayOf(permission), requestId)
+    }
 }

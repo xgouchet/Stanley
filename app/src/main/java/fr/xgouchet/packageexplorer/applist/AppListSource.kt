@@ -1,7 +1,6 @@
 package fr.xgouchet.packageexplorer.applist
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
@@ -14,14 +13,20 @@ class AppListSource(val context: Context) :
 
     override fun subscribe(emitter: ObservableEmitter<AppViewModel>) {
         val pm = context.packageManager
+        val applications = pm.getInstalledApplications(0)
         val packages = pm.getInstalledPackages(PackageManager.GET_SIGNATURES or PackageManager.GET_SIGNING_CERTIFICATES)
 
-        var ai: ApplicationInfo
-        for (pi in packages) {
-            ai = pi.applicationInfo
-            if (ai == null) continue
-            val app = AppViewModel.fromAppInfo(pm, pi, ai)
+//        var ai: ApplicationInfo
+//        for (pi in packages) {
+//            ai = pi.applicationInfo
+//            if (ai == null) continue
+//            val app = AppViewModel.fromAppInfo(pm, pi, ai)
+//
+//            emitter.onNext(app)
+//        }
 
+        applications.forEach {
+            val app = AppViewModel.fromAppInfo(pm, null, it)
             emitter.onNext(app)
         }
 

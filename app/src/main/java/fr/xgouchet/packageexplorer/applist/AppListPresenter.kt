@@ -1,7 +1,12 @@
 package fr.xgouchet.packageexplorer.applist
 
+import android.Manifest
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
 import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
@@ -19,13 +24,8 @@ import io.reactivex.subjects.BehaviorSubject
  * @author Xavier F. Gouchet
  */
 class AppListPresenter(context: Context) :
-    BaseListPresenter<AppViewModel, AppListFragment>(AppListNavigator()),
+        BaseListPresenter<AppViewModel, AppListFragment>(AppListNavigator()),
         ContextHolder {
-
-    companion object {
-        val KEY_SORT = "sort"
-        val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
-    }
 
     override val context: Context = context.applicationContext
 
@@ -88,26 +88,14 @@ class AppListPresenter(context: Context) :
     }
 
     override fun load(force: Boolean) {
-        displayer?.let { d ->
-            d.setLoading(true)
-            disposable?.dispose()
-
-            val list = memoizedAppList
-            if (list != null) {
-                dataSubject.onNext(list)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!hasPermission()) {
+                requestPermission()
+                return
             }
-
-            disposable = Observable.create(AppListSource(context))
-                    .subscribeOn(Schedulers.io())
-                    .toList()
-                    .subscribe(
-                            {
-                                memoizedAppList = it
-                                dataSubject.onNext(it)
-                            },
-                            { displayer?.setError(it) }
-                    )
         }
+
+        loadWithPermission()
     }
 
     fun setSort(sort: AppSort) {
@@ -142,5 +130,54 @@ class AppListPresenter(context: Context) :
         } else {
             displayer?.promptActivity(resolvedInfos)
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun hasPermission(): Boolean {
+        val permissionStatus = ContextCompat.checkSelfPermission(context, PERMISSION_QUERY_PACKAGES)
+        return permissionStatus == PermissionChecker.PERMISSION_GRANTED
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun requestPermission() {
+        displayer?.requestPermission(PERMISSION_QUERY_PACKAGES, PERMISSION_REQUEST_QUERY_PACKAGES)
+    }
+
+    override fun onPermissionGranted(requestCode: Int) {
+        if (requestCode == PERMISSION_REQUEST_QUERY_PACKAGES) {
+            loadWithPermission()
+        }
+    }
+
+    private fun loadWithPermission() {
+        displayer?.let { d ->
+            d.setLoading(true)
+            disposable?.dispose()
+
+            val list = memoizedAppList
+            if (list != null) {
+                dataSubject.onNext(list)
+            }
+
+            disposable = Observable.create(AppListSource(context))
+                    .subscribeOn(Schedulers.io())
+                    .toList()
+                    .subscribe(
+                            {
+                                memoizedAppList = it
+                                dataSubject.onNext(it)
+                            },
+                            { displayer?.setError(it) }
+                    )
+        }
+    }
+
+    companion object {
+        const val KEY_SORT = "sort"
+        const val KEY_SYSTEM_APPS_VISIBLE = "system_app_visible"
+
+        @RequiresApi(Build.VERSION_CODES.R)
+        const val PERMISSION_QUERY_PACKAGES = Manifest.permission.QUERY_ALL_PACKAGES
+        const val PERMISSION_REQUEST_QUERY_PACKAGES = 37
     }
 }

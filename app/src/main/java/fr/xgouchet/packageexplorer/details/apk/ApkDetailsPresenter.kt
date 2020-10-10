@@ -29,7 +29,7 @@ class ApkDetailsPresenter(
     certficateNavigator: Navigator<X509Certificate>,
     private val uri: Uri
 ) :
-    BaseDetailsPresenter<ApkDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
+        BaseDetailsPresenter<ApkDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
 
     private var localFilePath: String = ""
     private var exportDisposable: Disposable? = null
@@ -73,11 +73,13 @@ class ApkDetailsPresenter(
     }
 
     private fun requestPermission() {
-        displayer?.requestStoragePermission()
+        displayer?.requestPermission(PERMISSION_READ_STORAGE, PERMISSION_REQUEST_READ_STORAGE)
     }
 
-    fun onPermissionGranted() {
-        load(true)
+    override fun onPermissionGranted(requestCode: Int) {
+        if (requestCode == PERMISSION_REQUEST_READ_STORAGE) {
+            load(true)
+        }
     }
 
     fun exportManifest() {
@@ -89,5 +91,10 @@ class ApkDetailsPresenter(
                 }, {
                     displayer?.setError(it)
                 })
+    }
+
+    companion object {
+        const val PERMISSION_READ_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
+        const val PERMISSION_REQUEST_READ_STORAGE = 3
     }
 }

@@ -35,7 +35,7 @@
     <string name="about_history_v2_7"><![CDATA[v2.7 (oct. 2020): \n
  - Fix Dark Theme \n
  - Display SHA-256 hash of signing certificates\n
- - Replace Google's non free OSS License activity with in-house solution]]></string>
+ - Replace Google\'s non free OSS License activity with in-house solution]]></string>
     <string name="about_license">License</string>
     <string name="about_mit">MIT License</string>
     <string name="about_description">An application explorer for developers</string>
@@ -89,11 +89,9 @@
 
     <string name="msg_empty_app_list">No application found</string>
 
-    <string name="permission_denied_storage_apk">We can’t read this APK file without your permission.</string>
     <string name="permission_explanation_storage_apk">To be able to open this APK, we need permission to read your external storage.</string>
-
-    <string name="permission_denied_uninstall">We can’t read this APK file without your permission.</string>
     <string name="permission_explanation_uninstall">To be able to uninstall this app, we need your permission.</string>
+    <string name="permission_explanation_query_packages">To be able to list all apps, we need your permission.</string>
 
     <string name="pref_description_show_system_apps_off">Only installed apps are displayed</string>
     <string name="pref_description_show_system_apps_on">System applications are displayed</string>

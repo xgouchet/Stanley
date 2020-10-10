@@ -22,13 +22,6 @@ fun uninstallPackageIntent(packageName: String): Intent {
     return Intent(Intent.ACTION_DELETE, packageUri)
 }
 
-fun applicationLaunchIntent(packageName: String): Intent {
-    val intent = Intent(Intent.ACTION_MAIN)
-//    intent.addCategory(Intent.CATEGORY_LAUNCHER)
-    intent.`package` = packageName
-    return Intent.createChooser(intent, "")
-}
-
 fun getMainActivities(
     context: Context,
     packageName: String

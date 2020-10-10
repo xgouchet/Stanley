@@ -3,7 +3,6 @@ package fr.xgouchet.packageexplorer.details.app
 import android.Manifest
 import android.annotation.TargetApi
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
 import android.os.Bundle
@@ -11,8 +10,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import com.google.android.material.snackbar.Snackbar
@@ -30,7 +27,7 @@ import java.io.File
  * @author Xavier F. Gouchet
  */
 class AppDetailsFragment :
-    BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
+        BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
 
     override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggered(it) })
     override val isFabVisible: Boolean = false
@@ -83,12 +80,6 @@ class AppDetailsFragment :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when (requestCode) {
-            PERMISSION_REQUEST_UNINSTALL -> handleUninstallPermissionResponse(permissions, grantResults)
-        }
-    }
-
     // endregion
 
     // region Displayer
@@ -118,6 +109,20 @@ class AppDetailsFragment :
         }
     }
 
+    override fun getPermissionExplanation(permission: String): Int {
+        return when (permission) {
+            PERMISSION_UNINSTALL -> R.string.permission_explanation_uninstall
+            else -> 0
+        }
+    }
+
+    override fun onPermissionGranted(requestCode: Int) {
+        when (requestCode) {
+            PERMISSION_REQUEST_UNINSTALL -> uninstallWithPermission()
+            else -> super.onPermissionGranted(requestCode)
+        }
+    }
+
     // endregion
 
     // region Internal
@@ -125,49 +130,17 @@ class AppDetailsFragment :
     private fun onUninstallRequested() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            checkUninstallPermission()
-        } else {
-            presenter.openUninstaller()
+            if (!checkPermission(PERMISSION_UNINSTALL)) {
+                requestPermission(PERMISSION_UNINSTALL, PERMISSION_REQUEST_UNINSTALL)
+                return
+            }
         }
+
+        uninstallWithPermission()
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
-    private fun checkUninstallPermission() {
-        val currentActivity = activity ?: return
-        if (ContextCompat.checkSelfPermission(currentActivity, PERMISSION_UNINSTALL) == PackageManager.PERMISSION_GRANTED) {
-            presenter.openUninstaller()
-        } else {
-            requestUninstallPermission()
-        }
-    }
-
-    private fun requestUninstallPermission() {
-        val currentActivity = activity ?: return
-        if (ActivityCompat.shouldShowRequestPermissionRationale(currentActivity, PERMISSION_UNINSTALL)) {
-            explainAndRequesUninstallPermission()
-        } else {
-            doRequestUninstallPermission()
-        }
-    }
-
-    private fun explainAndRequesUninstallPermission() {
-        Snackbar.make(list, R.string.permission_explanation_uninstall, Snackbar.LENGTH_INDEFINITE)
-                .setAction(android.R.string.ok) { doRequestUninstallPermission() }
-                .show()
-    }
-
-    private fun doRequestUninstallPermission() {
-        requestPermissions(arrayOf(PERMISSION_UNINSTALL), PERMISSION_REQUEST_UNINSTALL)
-    }
-
-    private fun handleUninstallPermissionResponse(permissions: Array<out String>, grantResults: IntArray) {
-        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            presenter.openUninstaller()
-        } else {
-            Snackbar.make(list, R.string.permission_denied_uninstall, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok) { doRequestUninstallPermission() }
-                    .show()
-        }
+    private fun uninstallWithPermission() {
+        presenter.openUninstaller()
     }
 
     //endregion

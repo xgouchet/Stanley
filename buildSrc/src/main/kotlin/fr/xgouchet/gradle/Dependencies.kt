@@ -29,7 +29,7 @@ object Dependencies {
         const val Kotlin = "1.4.10"
         const val RxJava = "2.2.20"
         const val RxAndroid = "2.1.1"
-        const val AboutPage = "1.3.1"
+        const val AboutPage = "1.3"
 
         const val Leakcanary = "1.5.4"
         const val Timber = "4.7.1"

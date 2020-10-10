@@ -10,7 +10,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply plugin: 'ossLicenses'
 
 android {
@@ -61,7 +60,6 @@ dependencies {
 
     implementation Dependencies.Libraries.Kotlin
     implementation Dependencies.Libraries.Rx
-    implementation Dependencies.Libraries.OssLicences
     implementation Dependencies.Libraries.AboutPage
     implementation Dependencies.Libraries.Timber
     implementation Dependencies.Libraries.AXml

@@ -13,7 +13,6 @@ buildscript {
     dependencies {
         classpath Dependencies.ClassPaths.AndroidPlugin
         classpath Dependencies.ClassPaths.KotlinPlugin
-        classpath Dependencies.ClassPaths.OssLicencesPlugin
     }
 }
 

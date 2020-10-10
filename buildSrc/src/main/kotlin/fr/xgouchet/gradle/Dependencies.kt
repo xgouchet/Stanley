@@ -20,9 +20,6 @@ object Dependencies {
         const val ConstraintLayout = "2.0.2"
         const val MaterialComponents = "1.2.1"
 
-        const val OssLicensesPlugin = "0.9.2"
-        const val OssLicensesLibrary = "17.0.0"
-
         const val BuildTimeTracker = "0.11.0"
         const val DependencyVersion = "0.33.0"
         const val Detekt = "1.14.1"
@@ -65,7 +62,6 @@ object Dependencies {
                 "io.reactivex.rxjava2:rxandroid:${Versions.RxAndroid}"
         )
 
-        const val OssLicences = "com.google.android.gms:play-services-oss-licenses:${Versions.OssLicensesLibrary}"
         const val AboutPage = "com.github.medyo:android-about-page:${Versions.AboutPage}"
         const val AXml = "com.github.xgouchet:AXML:${Versions.AXml}"
 
@@ -74,7 +70,6 @@ object Dependencies {
 
     object ClassPaths {
         const val AndroidPlugin = "com.android.tools.build:gradle:${Versions.AndroidPlugin}"
-        const val OssLicencesPlugin = "com.google.gms:oss-licenses:${Versions.OssLicensesPlugin}"
         const val KotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Kotlin}"
     }
 

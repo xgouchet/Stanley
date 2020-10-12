@@ -10,7 +10,7 @@ import android.content.pm.Signature
 import android.graphics.drawable.Drawable
 import android.os.Build
 import fr.xgouchet.packageexplorer.R
-import fr.xgouchet.packageexplorer.core.utils.humanReadableName
+import fr.xgouchet.packageexplorer.core.utils.*
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoSimple
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoType
@@ -18,7 +18,7 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithIcon
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
-import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
+import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndDetailAndIcon
 import io.reactivex.ObservableEmitter
 import java.io.File
 import java.security.MessageDigest
@@ -39,10 +39,10 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractMainInfo(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo,
-        applicationInfo: ApplicationInfo?,
-        apkFile: File?
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo,
+            applicationInfo: ApplicationInfo?,
+            apkFile: File?
     ) {
         emitter.apply {
             onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_METADATA, PACKAGE_NAME, packageInfo.packageName))
@@ -101,12 +101,13 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractActivities(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo,
-        packageManager: PackageManager
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo,
+            packageManager: PackageManager
     ) {
         val activities = packageInfo.activities ?: return
         val packageName = packageInfo.packageName
+        val androidManifestXml = exportManifestDomFromPackage(packageInfo)
 
         emitter.apply {
             onNext(AppInfoHeader(AppInfoType.INFO_TYPE_ACTIVITIES, context.getString(R.string.header_type_activities), R.drawable.ic_category_activity))
@@ -114,6 +115,7 @@ open class DetailsSource(val context: Context) {
             for (activity in activities) {
                 val name = simplifyName(activity.name, packageName)
                 val label: String = activity.loadLabel(packageManager).toString()
+                val detail = androidManifestXml.getIntentFilters(ACTIVITY_NODE_NAME, activity.name)
                 var icon: Drawable? = null
                 try {
                     val component = ComponentName(packageName, activity.name)
@@ -121,31 +123,33 @@ open class DetailsSource(val context: Context) {
                 } catch (ignore: PackageManager.NameNotFoundException) {
                 }
 
-                onNext(AppInfoWithSubtitleAndIcon(AppInfoType.INFO_TYPE_ACTIVITIES, label, name, activity.name, icon))
+                onNext(AppInfoWithSubtitleAndDetailAndIcon(AppInfoType.INFO_TYPE_ACTIVITIES, label, name, detail, activity.name, icon))
             }
         }
     }
 
     protected fun extractServices(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val services = packageInfo.services ?: return
         val packageName = packageInfo.packageName
+        val androidManifestXml = exportManifestDomFromPackage(packageInfo)
 
         emitter.apply {
             onNext(AppInfoHeader(AppInfoType.INFO_TYPE_SERVICES, context.getString(R.string.header_type_services), R.drawable.ic_category_services))
 
             for (service in services) {
                 val simplifiedName = simplifyName(service.name, packageName)
-                onNext(AppInfoSimple(AppInfoType.INFO_TYPE_SERVICES, simplifiedName, service.name))
+                val subTitle = androidManifestXml.getIntentFilters(SERVICE_NODE_NAME, service.name)
+                onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SERVICES, simplifiedName, subTitle, service.name))
             }
         }
     }
 
     protected fun extractProviders(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val providers = packageInfo.providers ?: return
         val packageName = packageInfo.packageName
@@ -161,25 +165,28 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractReceivers(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val receivers = packageInfo.receivers ?: return
         val packageName = packageInfo.packageName
+        val androidManifestXml = exportManifestDomFromPackage(packageInfo)
 
         emitter.apply {
             onNext(AppInfoHeader(AppInfoType.INFO_TYPE_RECEIVERS, context.getString(R.string.header_type_receivers), R.drawable.ic_category_receiver))
 
             for (receiver in receivers) {
                 val simplifiedName = simplifyName(receiver.name, packageName)
-                onNext(AppInfoSimple(AppInfoType.INFO_TYPE_RECEIVERS, simplifiedName, receiver.name))
+                val subTitle = androidManifestXml.getIntentFilters(BROADCAST_RECEIVER_NODE_NAME, receiver.name)
+
+                onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_RECEIVERS, simplifiedName, subTitle, receiver.name))
             }
         }
     }
 
     protected fun extractCustomPermissions(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
 
         val permissions = packageInfo.permissions ?: return
@@ -202,8 +209,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractPermissions(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val permissions = packageInfo.requestedPermissions ?: return
         val customPermissions = packageInfo.permissions?.toList()?.map { it.name } ?: emptyList()
@@ -240,8 +247,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractFeatures(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val features = packageInfo.reqFeatures ?: return
 
@@ -273,8 +280,8 @@ open class DetailsSource(val context: Context) {
     }
 
     protected fun extractSignatures(
-        emitter: ObservableEmitter<AppInfoViewModel>,
-        packageInfo: PackageInfo
+            emitter: ObservableEmitter<AppInfoViewModel>,
+            packageInfo: PackageInfo
     ) {
         val signatures: Array<Signature> = packageInfo.signatures ?: return
         if (signatures.isEmpty()) return

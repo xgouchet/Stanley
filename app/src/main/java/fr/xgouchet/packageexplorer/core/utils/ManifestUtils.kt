@@ -30,6 +30,12 @@ fun exportManifestFromPackage(
     })
 }
 
+fun exportManifestDomFromPackage(
+        info: PackageInfo
+): Document {
+    return parseManifestFile(getPackageApk(info))
+}
+
 fun exportManifestFromApk(
     apk: File,
     context: Context

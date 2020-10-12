@@ -45,7 +45,7 @@ class AppDetailsAdapter(
             }
 
             TYPE_SUBTITLE_ICON -> {
-                val root = layoutInflater.inflate(R.layout.item_info_subtitle_icon, parent, false)
+                val root = layoutInflater.inflate(R.layout.item_info_subtitle_icon_detail, parent, false)
                 return AppInfoWithSubtitleAndIconViewHolder(root, listener)
             }
 
@@ -65,7 +65,7 @@ class AppDetailsAdapter(
             is AppInfoSimple -> return TYPE_SIMPLE
             is AppInfoWithIcon -> return TYPE_ICON
             is AppInfoWithSubtitle -> return TYPE_SUBTITLE
-            is AppInfoWithSubtitleAndIcon -> return TYPE_SUBTITLE_ICON
+            is AppInfoWithSubtitleAndDetailAndIcon -> return TYPE_SUBTITLE_ICON
             is AppInfoWithSubtitleAndAction -> return TYPE_SUBTITLE_ACTION
             else -> throw IllegalArgumentException("Unknown type $item")
         }

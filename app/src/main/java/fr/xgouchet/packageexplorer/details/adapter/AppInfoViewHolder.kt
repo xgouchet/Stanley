@@ -94,15 +94,17 @@ class AppInfoWithSubtitleViewHolder(
 class AppInfoWithSubtitleAndIconViewHolder(
     itemView: View,
     listener: BiConsumer<AppInfoViewModel, View?>?
-) : AppInfoViewHolder<AppInfoWithSubtitleAndIcon>(itemView, listener) {
+) : AppInfoViewHolder<AppInfoWithSubtitleAndDetailAndIcon>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
     private val titleView: TextView = itemView.findViewById(R.id.title)
     private val subtitleView: TextView = itemView.findViewById(R.id.subtitle)
+    private val detailView: TextView = itemView.findViewById(R.id.detail)
 
-    override fun onBindAppInfoItem(item: AppInfoWithSubtitleAndIcon) {
+    override fun onBindAppInfoItem(item: AppInfoWithSubtitleAndDetailAndIcon) {
         titleView.text = item.title
         subtitleView.text = item.subtitle
+        detailView.text = item.detail
         iconView.setImageDrawable(item.icon)
     }
 }

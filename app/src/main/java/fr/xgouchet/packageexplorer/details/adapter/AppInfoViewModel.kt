@@ -79,10 +79,11 @@ data class AppInfoWithSubtitle(
     override fun getSelectedData(): String? = raw
 }
 
-data class AppInfoWithSubtitleAndIcon(
+data class AppInfoWithSubtitleAndDetailAndIcon(
     val type: Int,
     val title: String,
     val subtitle: String,
+    val detail: String,
     val raw: String,
     val icon: Drawable?
 ) :

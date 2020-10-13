@@ -36,20 +36,38 @@ data class AppInfoHeader(
     val header: String,
     @DrawableRes val icon: Int,
     @DrawableRes val expandedIcon: Int = R.drawable.ic_expand_less
-) :
-        AppInfoViewModel(type, "Header {$type} “$header”")
+) : AppInfoViewModel(type, "Header {$type} “$header”")
 
 interface AppInfoSelectable {
     fun getLabel(): String
     fun getSelectedData(): String?
 }
 
+data class AppInfoSubHeader(
+        val type: Int,
+        val header: String
+) : AppInfoViewModel(type, "SubHeader {$type} “$header”")
+
+
 data class AppInfoSimple(
-    val type: Int,
-    val title: String,
-    val raw: String? = null
+        val type: Int,
+        val title: String,
+        val raw: String? = null
 ) :
         AppInfoViewModel(type, "Simple {$type} “$title”"),
+        AppInfoSelectable {
+    override fun getLabel(): String = title
+    override fun getSelectedData(): String? = raw
+}
+
+data class AppInfoBullet(
+        val type: Int,
+        val title: String,
+        val raw: String? = null,
+        @DrawableRes val icon: Int = R.drawable.ic_bullet
+
+) :
+        AppInfoViewModel(type, "Bullet {$type} “$title”"),
         AppInfoSelectable {
     override fun getLabel(): String = title
     override fun getSelectedData(): String? = raw
@@ -79,11 +97,10 @@ data class AppInfoWithSubtitle(
     override fun getSelectedData(): String? = raw
 }
 
-data class AppInfoWithSubtitleAndDetailAndIcon(
+data class AppInfoWithSubtitleAndIcon(
     val type: Int,
     val title: String,
     val subtitle: String,
-    val detail: String,
     val raw: String,
     val icon: Drawable?
 ) :

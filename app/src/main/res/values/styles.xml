@@ -18,4 +18,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="AppTheme.TextAppearanceUltraSmall" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>

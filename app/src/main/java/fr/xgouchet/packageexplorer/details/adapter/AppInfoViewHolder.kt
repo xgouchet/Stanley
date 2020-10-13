@@ -51,6 +51,18 @@ class AppInfoHeaderViewHolder(
     }
 }
 
+class AppInfoSubHeaderViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?
+) : AppInfoViewHolder<AppInfoSubHeader>(itemView, listener) {
+
+    private val titleView: TextView = itemView.findViewById(R.id.title)
+
+    override fun onBindAppInfoItem(item: AppInfoSubHeader) {
+        titleView.text = item.header
+    }
+}
+
 class AppInfoSimpleViewHolder(
     itemView: View,
     listener: BiConsumer<AppInfoViewModel, View?>?
@@ -60,6 +72,20 @@ class AppInfoSimpleViewHolder(
 
     override fun onBindAppInfoItem(item: AppInfoSimple) {
         titleView.text = item.title
+    }
+}
+
+class AppInfoBulletViewHolder(
+        itemView: View,
+        listener: BiConsumer<AppInfoViewModel, View?>?
+) : AppInfoViewHolder<AppInfoBullet>(itemView, listener) {
+
+    private val iconView: ImageView = itemView.findViewById(R.id.icon)
+    private val titleView: TextView = itemView.findViewById(R.id.title)
+
+    override fun onBindAppInfoItem(item: AppInfoBullet) {
+        titleView.text = item.title
+        iconView.setImageResource(item.icon)
     }
 }
 
@@ -94,17 +120,15 @@ class AppInfoWithSubtitleViewHolder(
 class AppInfoWithSubtitleAndIconViewHolder(
     itemView: View,
     listener: BiConsumer<AppInfoViewModel, View?>?
-) : AppInfoViewHolder<AppInfoWithSubtitleAndDetailAndIcon>(itemView, listener) {
+) : AppInfoViewHolder<AppInfoWithSubtitleAndIcon>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
     private val titleView: TextView = itemView.findViewById(R.id.title)
     private val subtitleView: TextView = itemView.findViewById(R.id.subtitle)
-    private val detailView: TextView = itemView.findViewById(R.id.detail)
 
-    override fun onBindAppInfoItem(item: AppInfoWithSubtitleAndDetailAndIcon) {
+    override fun onBindAppInfoItem(item: AppInfoWithSubtitleAndIcon) {
         titleView.text = item.title
         subtitleView.text = item.subtitle
-        detailView.text = item.detail
         iconView.setImageDrawable(item.icon)
     }
 }

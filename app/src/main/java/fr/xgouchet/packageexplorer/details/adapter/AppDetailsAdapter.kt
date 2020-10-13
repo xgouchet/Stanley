@@ -45,13 +45,23 @@ class AppDetailsAdapter(
             }
 
             TYPE_SUBTITLE_ICON -> {
-                val root = layoutInflater.inflate(R.layout.item_info_subtitle_icon_detail, parent, false)
+                val root = layoutInflater.inflate(R.layout.item_info_subtitle_icon, parent, false)
                 return AppInfoWithSubtitleAndIconViewHolder(root, listener)
             }
 
             TYPE_SUBTITLE_ACTION -> {
                 val root = layoutInflater.inflate(R.layout.item_info_subtitle_action, parent, false)
                 return AppInfoWithSubtitleAndActionViewHolder(root, listener, actionListener)
+            }
+
+            TYPE_BULLET -> {
+                val root = layoutInflater.inflate(R.layout.item_info_bullet, parent, false)
+                return AppInfoBulletViewHolder(root, listener)
+            }
+
+            TYPE_SUB_HEADER -> {
+                val root = layoutInflater.inflate(R.layout.item_info_sub_header, parent, false)
+                return AppInfoSubHeaderViewHolder(root, listener)
             }
 
             else -> throw IllegalArgumentException("Unknown view type $viewType")
@@ -65,8 +75,10 @@ class AppDetailsAdapter(
             is AppInfoSimple -> return TYPE_SIMPLE
             is AppInfoWithIcon -> return TYPE_ICON
             is AppInfoWithSubtitle -> return TYPE_SUBTITLE
-            is AppInfoWithSubtitleAndDetailAndIcon -> return TYPE_SUBTITLE_ICON
+            is AppInfoWithSubtitleAndIcon -> return TYPE_SUBTITLE_ICON
             is AppInfoWithSubtitleAndAction -> return TYPE_SUBTITLE_ACTION
+            is AppInfoBullet -> return TYPE_BULLET
+            is AppInfoSubHeader -> return TYPE_SUB_HEADER
             else -> throw IllegalArgumentException("Unknown type $item")
         }
     }
@@ -78,5 +90,7 @@ class AppDetailsAdapter(
         private const val TYPE_SUBTITLE = 3
         private const val TYPE_SUBTITLE_ICON = 4
         private const val TYPE_SUBTITLE_ACTION = 5
+        private const val TYPE_BULLET = 6
+        private const val TYPE_SUB_HEADER = 7
     }
 }

@@ -14,44 +14,29 @@ const val BROADCAST_RECEIVER_NODE_NAME = "receiver"
 const val SERVICE_NODE_NAME = "service"
 private const val ANDROID_NAME_NODE_NAME = "android:name"
 private const val INTENT_FILTER_NODE_NAME = "intent-filter"
-private const val ACTION_NODE_NAME = "action"
-private const val CATEGORY_NODE_NAME = "category"
-private const val DATA_ANDROID_NAME = "data"
 
-fun Document.getIntentFilters(tagName: String, nameValue: String): String{
-    var result = ""
+enum class IntentFilterType(private val nodeName: String) {
+    ACTION("action"),
+    CATEGORY("category"),
+    DATA("data");
+
+    override fun toString(): String {
+        return this.nodeName
+    }
+}
+
+fun Document.getIntentFiltersByType(type: IntentFilterType, tagName: String, nameValue: String): List<String>{
     this.documentElement.getElementsByTagAndAttr(tagName, nameValue)?.let { activityNode ->
         activityNode.childNodes.findByNodeName(INTENT_FILTER_NODE_NAME)?.childNodes?.let { intentFilters ->
-            intentFilters.apply {
-                result += extractActions(findAllByNodeName(ACTION_NODE_NAME)).formatList("Actions")
-                result += extractCategories(findAllByNodeName(CATEGORY_NODE_NAME)).formatList("Categories")
-                result += extractData(findAllByNodeName(DATA_ANDROID_NAME)).formatList("Data")
-            }
+            return intentFilters.findAllByNodeName(type.toString()).mapNotNull { it.getAttrNodeValue() }
         }
     }
-
-    return result
-
+    return listOf()
 }
 
-private fun List<String>.formatList(title: String, separator: String = "\n\t●\t"): String{
-    var result = ""
-
-    if (this.isNotEmpty()){
-        result +=  "\n\n\t$title:${this.joinToString(separator = separator, prefix = separator)}"
-    }
-
-    return result
-}
 private fun Element.getElementsByTagAndAttr(tagName: String, nameValue: String): Node? {
     return this.getElementsByTagName(tagName).findByAttr(ANDROID_NAME_NODE_NAME, nameValue)
 }
-
-private fun extractData(nodeList: List<Node>) = nodeList.mapNotNull { it.getAttrNodeValue() }
-
-private fun extractCategories(nodeList: List<Node>) = nodeList.mapNotNull { it.getAttrNodeValue() }
-
-private fun extractActions(nodeList: List<Node>) = nodeList.mapNotNull { it.getAttrNodeValue() }
 
 private fun NodeList.findByAttr(name: String, value: String): Node? {
     for (i in 0 until this.length){

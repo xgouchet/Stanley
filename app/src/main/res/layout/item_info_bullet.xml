@@ -33,19 +33,34 @@
         tools:text="Foo" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/separator"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="4dp"
+        android:ellipsize="start"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        tools:text="="
+        android:textAppearance="@style/AppTheme.TextAppearanceUltraSmall"
+        android:textColor="@color/text_title"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/value"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="4dp"
         android:ellipsize="start"
         android:gravity="center_vertical"
         android:singleLine="true"
         android:textAppearance="@style/AppTheme.TextAppearanceUltraSmall"
         android:textColor="@color/text_title"
-        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintBottom_toBottomOf="@+id/separator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toTopOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/separator"
+        app:layout_constraintTop_toTopOf="@+id/separator"
         tools:text="Foo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

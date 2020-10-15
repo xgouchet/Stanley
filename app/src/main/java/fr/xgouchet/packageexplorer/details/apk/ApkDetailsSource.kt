@@ -2,6 +2,8 @@ package fr.xgouchet.packageexplorer.details.apk
 
 import android.content.Context
 import android.content.pm.PackageManager
+import fr.xgouchet.packageexplorer.core.utils.exportManifestDomFromPackage
+import fr.xgouchet.packageexplorer.core.utils.parseDocumentToManifest
 import fr.xgouchet.packageexplorer.details.DetailsSource
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import io.reactivex.ObservableEmitter
@@ -46,6 +48,8 @@ class ApkDetailsSource(
                     ?: packageManager.getPackageArchiveInfo(path, PACKAGE_INFO_FLAGS_NO_SIGN)
 
             if (packageInfo != null) {
+                androidManifestXml = exportManifestDomFromPackage(packageInfo).parseDocumentToManifest()
+
                 extractMainInfo(emitter, packageInfo, null, File(path))
 
                 extractSignatures(emitter, packageInfo)

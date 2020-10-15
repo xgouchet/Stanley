@@ -17,19 +17,35 @@
         tools:src="@drawable/ic_bullet" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/title"
+        android:id="@+id/name"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:ellipsize="start"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:ellipsize="start"
+        android:maxWidth="64dp"
         android:textAppearance="@style/AppTheme.TextAppearanceUltraSmall"
         android:textColor="@color/text_title"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="@+id/icon"
+        tools:text="Foo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/value"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="8dp"
+        android:ellipsize="start"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textAppearance="@style/AppTheme.TextAppearanceUltraSmall"
+        android:textColor="@color/text_title"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/name"
         tools:text="Foo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

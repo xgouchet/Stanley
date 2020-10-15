@@ -2,24 +2,20 @@ package fr.xgouchet.packageexplorer.details
 
 import android.content.ComponentName
 import android.content.Context
-import android.content.pm.ApplicationInfo
-import android.content.pm.FeatureInfo
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.content.pm.Signature
+import android.content.pm.*
 import android.graphics.drawable.Drawable
 import android.os.Build
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.*
 import fr.xgouchet.packageexplorer.details.adapter.*
 import io.reactivex.ObservableEmitter
+import timber.log.Timber
 import java.io.File
 import java.security.MessageDigest
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
-import timber.log.Timber
 
 open class DetailsSource(val context: Context) {
 
@@ -30,6 +26,8 @@ open class DetailsSource(val context: Context) {
 
         private val HEX_CHARS = "0123456789ABCDEF".toCharArray()
     }
+
+    protected var androidManifestXml: AndroidManifest? = null
 
     protected fun extractMainInfo(
             emitter: ObservableEmitter<AppInfoViewModel>,
@@ -116,7 +114,7 @@ open class DetailsSource(val context: Context) {
 
                 onNext(AppInfoWithSubtitleAndIcon(AppInfoType.INFO_TYPE_ACTIVITIES, label, name, activity.name, icon))
 
-                extractIntentFilters(this, packageInfo, ACTIVITY_NODE_NAME, activity.name)
+                extractIntentFilters(this, AppInfoType.INFO_TYPE_ACTIVITIES, activity.name)
 
             }
         }
@@ -134,9 +132,9 @@ open class DetailsSource(val context: Context) {
 
             for (service in services) {
                 val simplifiedName = simplifyName(service.name, packageName)
-                onNext(AppInfoWithSubtitle(AppInfoType.INFO_TYPE_SERVICES, simplifiedName, "", service.name))
+                onNext(AppInfoSimple(AppInfoType.INFO_TYPE_SERVICES, simplifiedName, service.name))
 
-                extractIntentFilters(this, packageInfo, SERVICE_NODE_NAME, service.name)
+                extractIntentFilters(this, AppInfoType.INFO_TYPE_SERVICES, service.name)
 
             }
         }
@@ -173,7 +171,7 @@ open class DetailsSource(val context: Context) {
                 val simplifiedName = simplifyName(receiver.name, packageName)
                 onNext(AppInfoSimple(AppInfoType.INFO_TYPE_RECEIVERS, simplifiedName, receiver.name))
 
-                extractIntentFilters(this, packageInfo, BROADCAST_RECEIVER_NODE_NAME, receiver.name)
+                extractIntentFilters(this, AppInfoType.INFO_TYPE_RECEIVERS, receiver.name)
             }
         }
     }
@@ -300,28 +298,20 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    private fun extractIntentFilters(observableEmitter: ObservableEmitter<AppInfoViewModel>, packageInfo: PackageInfo, tagName: String, nameValue: String) {
-        val androidManifestXml = exportManifestDomFromPackage(packageInfo)
+    private fun extractIntentFilters(observableEmitter: ObservableEmitter<AppInfoViewModel>, infoType: Int, name: String) {
+        androidManifestXml?.let { manifest ->
+            val parent = manifest.filterByName(name)
+            val intentFilters= parent.getItemsFromChildByType(ManifestType.INTENT_FILTER)
 
-        val actions = androidManifestXml.getIntentFiltersByType(IntentFilterType.ACTION, tagName, nameValue)
-        actions.ifNotEmpty {
-            observableEmitter.onNext(AppInfoSubHeader(AppInfoType.INFO_TYPE_ACTIVITIES, context.getString(R.string.intent_filter_actions)))
-        }.forEach {
-            observableEmitter.onNext(AppInfoBullet(AppInfoType.INFO_TYPE_ACTIVITIES, it, it))
-        }
-
-        val categories = androidManifestXml.getIntentFiltersByType(IntentFilterType.CATEGORY, tagName, nameValue)
-        categories.ifNotEmpty {
-            observableEmitter.onNext(AppInfoSubHeader(AppInfoType.INFO_TYPE_ACTIVITIES, context.getString(R.string.intent_filter_categories)))
-        }.forEach {
-            observableEmitter.onNext(AppInfoBullet(AppInfoType.INFO_TYPE_ACTIVITIES, it, it))
-        }
-
-        val data = androidManifestXml.getIntentFiltersByType(IntentFilterType.DATA, tagName, nameValue)
-        data.ifNotEmpty {
-            observableEmitter.onNext(AppInfoSubHeader(AppInfoType.INFO_TYPE_ACTIVITIES, context.getString(R.string.intent_filter_data)))
-        }.forEach {
-            observableEmitter.onNext(AppInfoBullet(AppInfoType.INFO_TYPE_ACTIVITIES, it, it))
+            intentFilters.formatItem().forEach { intentFilter ->
+                observableEmitter.onNext(AppInfoSubHeader(infoType, ManifestType.INTENT_FILTER))
+                intentFilter.forEach { (tagName, item) ->
+                    observableEmitter.onNext(AppInfoSubHeader(infoType, tagName))
+                    item.forEach {
+                        observableEmitter.onNext(AppInfoBullet(infoType, it.key, it.value, it.value))
+                    }
+                }
+            }
         }
     }
 
@@ -374,9 +364,7 @@ open class DetailsSource(val context: Context) {
         }
     }
 
-    private fun List<String>.ifNotEmpty(block: List<String>.() -> Unit): List<String> {
-        if (this.isNotEmpty())
-            this.block()
-        return this
-    }
 }
+
+
+

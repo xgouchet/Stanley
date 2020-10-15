@@ -65,6 +65,7 @@ data class AppInfoBullet(
         val name: String,
         val value: String,
         val raw: String? = null,
+        val separator: String = "=",
         @DrawableRes val icon: Int = R.drawable.ic_bullet
 
 ) :

@@ -2,6 +2,8 @@ package fr.xgouchet.packageexplorer.details.app
 
 import android.content.Context
 import android.content.pm.PackageManager
+import fr.xgouchet.packageexplorer.core.utils.exportManifestDomFromPackage
+import fr.xgouchet.packageexplorer.core.utils.parseDocumentToManifest
 import fr.xgouchet.packageexplorer.details.DetailsSource
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import io.reactivex.ObservableEmitter
@@ -41,6 +43,8 @@ class AppDetailsSource(
 
             val srcPath = packageInfo.applicationInfo.publicSourceDir
             val apkFile = if (srcPath != null) File(srcPath) else null
+
+            androidManifestXml = exportManifestDomFromPackage(packageInfo).parseDocumentToManifest()
 
             extractMainInfo(emitter, packageInfo, applicationInfo, apkFile)
 

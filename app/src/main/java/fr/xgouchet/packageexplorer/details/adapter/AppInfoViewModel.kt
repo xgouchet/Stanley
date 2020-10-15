@@ -62,14 +62,15 @@ data class AppInfoSimple(
 
 data class AppInfoBullet(
         val type: Int,
-        val title: String,
+        val name: String,
+        val value: String,
         val raw: String? = null,
         @DrawableRes val icon: Int = R.drawable.ic_bullet
 
 ) :
-        AppInfoViewModel(type, "Bullet {$type} “$title”"),
+        AppInfoViewModel(type, "Bullet {$type} “$value”"),
         AppInfoSelectable {
-    override fun getLabel(): String = title
+    override fun getLabel(): String = value
     override fun getSelectedData(): String? = raw
 }
 

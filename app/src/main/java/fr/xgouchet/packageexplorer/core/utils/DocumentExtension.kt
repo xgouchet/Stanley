@@ -1,7 +1,8 @@
 package fr.xgouchet.packageexplorer.core.utils
 
+import fr.xgouchet.packageexplorer.core.utils.ManifestType.ATTRS
 import org.w3c.dom.Document
-import org.w3c.dom.Element
+import org.w3c.dom.NamedNodeMap
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 
@@ -9,79 +10,96 @@ import org.w3c.dom.NodeList
  * Created by Ekrem HATİPOĞLU on 11.10.2020.
  */
 
-const val ACTIVITY_NODE_NAME = "activity"
-const val BROADCAST_RECEIVER_NODE_NAME = "receiver"
-const val SERVICE_NODE_NAME = "service"
-private const val ANDROID_NAME_NODE_NAME = "android:name"
-private const val INTENT_FILTER_NODE_NAME = "intent-filter"
 
-enum class IntentFilterType(private val nodeName: String) {
-    ACTION("action"),
-    CATEGORY("category"),
-    DATA("data");
-
-    override fun toString(): String {
-        return this.nodeName
-    }
+object ManifestType {
+    const val APPLICATION = "application"
+    const val INTENT_FILTER = "intent-filter"
+    const val ATTRS = "attrs"
 }
 
-fun Document.getIntentFiltersByType(type: IntentFilterType, tagName: String, nameValue: String): List<String>{
-    this.documentElement.getElementsByTagAndAttr(tagName, nameValue)?.let { activityNode ->
-        activityNode.childNodes.findByNodeName(INTENT_FILTER_NODE_NAME)?.childNodes?.let { intentFilters ->
-            return intentFilters.findAllByNodeName(type.toString()).mapNotNull { it.getAttrNodeValue() }
-        }
-    }
-    return listOf()
-}
 
-private fun Element.getElementsByTagAndAttr(tagName: String, nameValue: String): Node? {
-    return this.getElementsByTagName(tagName).findByAttr(ANDROID_NAME_NODE_NAME, nameValue)
-}
+data class AndroidManifest(val items: List<Item>)
+data class Item(val tagName: String, val attrs: Map<String, String>, val childList: List<Item> = listOf())
 
-private fun NodeList.findByAttr(name: String, value: String): Node? {
-    for (i in 0 until this.length){
-        val element = this.item(i)
-        element?.findByAttr(name, value)?.let {
-            return element
+fun Document.parseDocumentToManifest(): AndroidManifest {
+    val items = mutableListOf<Item>()
+
+    val applicationNode = this.documentElement.getElementsByTagName(ManifestType.APPLICATION.toString())
+    applicationNode.takeFirst {
+        childNodes.forEach {
+            items.add(extractItem())
         }
     }
 
-    return null
+    return AndroidManifest(items)
 }
 
-private fun Node.findByAttr(name: String, value: String): Node? {
-    val attributes = this.attributes
-    for (i in 0 until attributes.length){
-        val node = attributes.item(i)
-        if (node.nodeName == name && node.nodeValue == value){
-            return node
-        }
-    }
-    return null
-}
+fun AndroidManifest.filterByName(name: String) = this.items.first { it.attrs.containsValue(name) }
 
+fun List<Item>.formatItem(): List<Map<String, Map<String, String>>> {
 
-private fun NodeList.findByNodeName(name: String): Node? {
-    for (i in 0 until this.length){
-        val node = this.item(i)
-        if (node.nodeName == name){
-            return node
-        }
-    }
-    return null
-}
+    val list = mutableListOf<Map<String, Map<String, String>>>()
 
-private fun NodeList.findAllByNodeName(name: String): List<Node> {
-    val list = mutableListOf<Node>()
-    for (i in 0 until this.length){
-        val node = this.item(i)
-        if (node.nodeName == name){
-            list.add(node)
+    forEach { intentFilter ->
+        val item = mutableMapOf<String, Map<String, String>>()
+        if (intentFilter.attrs.isNotEmpty()){
+            item[ATTRS] = intentFilter.attrs
         }
+
+        intentFilter.childList.forEach { child ->
+            item[child.tagName] = child.attrs
+        }
+        list.add(item)
     }
+
     return list
 }
 
-private fun Node.getAttrNodeValue(index: Int = 0): String? {
-    return this.attributes.item(index).nodeValue
+
+fun Item.getItemsFromChildByType(type: String): List<Item> {
+    return childList.filter { it.tagName == type }
 }
+
+private fun Node.extractChildren(): List<Item> {
+    val items = mutableListOf<Item>()
+    childNodes.forEach {
+        items.add(extractItem())
+    }
+
+    return items
+}
+
+private fun Node.extractAttrs(): Map<String, String> {
+    val map = hashMapOf<String, String>()
+    attributes.forEach {
+        map[nodeName] = nodeValue
+    }
+    return map
+}
+
+private fun Node.extractItem(): Item {
+    val tagName = nodeName
+    val attrs = extractAttrs()
+    val childList = extractChildren()
+
+    return Item(tagName, attrs, childList)
+}
+
+private fun NodeList.forEach(block: Node.() -> Unit) {
+    for (i in 0 until this.length) {
+        this.item(i).block()
+    }
+}
+
+private fun NamedNodeMap.forEach(block: Node.() -> Unit) {
+    for (i in 0 until this.length) {
+        this.item(i).block()
+    }
+}
+
+private fun NodeList.takeFirst(block: Node.() -> Unit) {
+    if (this.length > 0)
+        this.item(0).block()
+}
+
+

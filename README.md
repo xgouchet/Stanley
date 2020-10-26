@@ -21,11 +21,11 @@ The official Stanley app is available on the [Google Play Store](https://play.go
 Any contributions are welcome. You can [raise an issue](https://github.com/xgouchet/Stanley/issues/new), submit a [pull request](https://github.com/xgouchet/Stanley/pulls), translate the application, or suggest new features. 
 
 
-### Latest Release : 2.5 (july 2019)
+### Latest Release : 2.7 (Oct 2020)
 
- - [BUGFIX] Fix uninstall bug on Android O (26) and higher
- - [BUGFIX] Display application minimum SDK on Android N (24) and higher
- - [ENHANCEMENT] Launch an application from the list
+ - [BUGFIX] Fix Dark Mode theme
+ - [ENHANCEMENT] Display SHA-256 hash of signing certificates
+ - [ENHANCEMENT] Replace Google's non free OSS License activity with in-house solution
 
 For more information, read the [Changelog](CHANGELOG.md).
 

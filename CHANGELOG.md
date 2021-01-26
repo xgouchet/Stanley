@@ -1,6 +1,6 @@
 # Changelog
 
-### 2.7 (october 2020)
+### 2.7 (january 2021)
 
  - [BUGFIX] Fix Dark Mode theme
  - [ENHANCEMENT] Display SHA-256 hash of signing certificates

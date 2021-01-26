@@ -44,15 +44,14 @@ interface AppInfoSelectable {
 }
 
 data class AppInfoSubHeader(
-        val type: Int,
-        val header: String
+    val type: Int,
+    val header: String
 ) : AppInfoViewModel(type, "SubHeader {$type} “$header”")
 
-
 data class AppInfoSimple(
-        val type: Int,
-        val title: String,
-        val raw: String? = null
+    val type: Int,
+    val title: String,
+    val raw: String? = null
 ) :
         AppInfoViewModel(type, "Simple {$type} “$title”"),
         AppInfoSelectable {
@@ -61,12 +60,12 @@ data class AppInfoSimple(
 }
 
 data class AppInfoBullet(
-        val type: Int,
-        val name: String,
-        val value: String,
-        val raw: String? = null,
-        val separator: String = "=",
-        @DrawableRes val icon: Int = R.drawable.ic_bullet
+    val type: Int,
+    val name: String,
+    val value: String,
+    val raw: String? = null,
+    val separator: String = "=",
+    @DrawableRes val icon: Int = R.drawable.ic_bullet
 
 ) :
         AppInfoViewModel(type, "Bullet {$type} “$value”"),

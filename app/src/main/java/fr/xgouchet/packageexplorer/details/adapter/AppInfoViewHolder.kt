@@ -52,8 +52,8 @@ class AppInfoHeaderViewHolder(
 }
 
 class AppInfoSubHeaderViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?
 ) : AppInfoViewHolder<AppInfoSubHeader>(itemView, listener) {
 
     private val titleView: TextView = itemView.findViewById(R.id.title)
@@ -76,8 +76,8 @@ class AppInfoSimpleViewHolder(
 }
 
 class AppInfoBulletViewHolder(
-        itemView: View,
-        listener: BiConsumer<AppInfoViewModel, View?>?
+    itemView: View,
+    listener: BiConsumer<AppInfoViewModel, View?>?
 ) : AppInfoViewHolder<AppInfoBullet>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)

@@ -31,7 +31,7 @@ fun exportManifestFromPackage(
 }
 
 fun exportManifestDomFromPackage(
-        info: PackageInfo
+    info: PackageInfo
 ): Document {
     return parseManifestFile(getPackageApk(info))
 }

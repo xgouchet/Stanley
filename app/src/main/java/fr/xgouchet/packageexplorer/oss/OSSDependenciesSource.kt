@@ -14,7 +14,7 @@ import io.reactivex.ObservableOnSubscribe
 import java.io.IOException
 
 class OSSDependenciesSource(val context: Context) :
-        ObservableOnSubscribe<AppInfoViewModel> {
+    ObservableOnSubscribe<AppInfoViewModel> {
 
     override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>) {
 
@@ -23,29 +23,61 @@ class OSSDependenciesSource(val context: Context) :
             val gson: Gson = GsonBuilder().create()
 
             val data = gson.fromJson(
-                    stream.reader(Charsets.UTF_8),
-                    Array<OSSDependency>::class.java
+                stream.reader(Charsets.UTF_8),
+                Array<OSSDependency>::class.java
             ).sortedBy { it.identifier }
 
             val androidX = data.filter { it.identifier.startsWith("androidx") }
             val kotlin = data.filter { it.identifier.startsWith("org.jetbrains.kotlin") }
             val misc = data.filter {
                 (!it.identifier.startsWith("org.jetbrains.kotlin")) &&
-                        (!it.identifier.startsWith("androidx"))
+                    (!it.identifier.startsWith("androidx"))
             }
 
             if (androidX.isNotEmpty()) {
-                emitter.onNext(AppInfoHeader(AppInfoType.INFO_TYPE_ANDROID, "AndroidX", R.drawable.ic_oss_android_logo))
-                androidX.forEach { emitter.onNext(convertDependency(it, AppInfoType.INFO_TYPE_ANDROID)) }
+                emitter.onNext(
+                    AppInfoHeader(
+                        AppInfoType.INFO_TYPE_ANDROID,
+                        "AndroidX",
+                        R.drawable.ic_oss_android_logo
+                    )
+                )
+                androidX.forEach {
+                    emitter.onNext(
+                        convertDependency(
+                            it,
+                            AppInfoType.INFO_TYPE_ANDROID
+                        )
+                    )
+                }
             }
 
             if (kotlin.isNotEmpty()) {
-                emitter.onNext(AppInfoHeader(AppInfoType.INFO_TYPE_KOTLIN, "Kotlin", R.drawable.ic_oss_kotlin_logo))
-                kotlin.forEach { emitter.onNext(convertDependency(it, AppInfoType.INFO_TYPE_KOTLIN)) }
+                emitter.onNext(
+                    AppInfoHeader(
+                        AppInfoType.INFO_TYPE_KOTLIN,
+                        "Kotlin",
+                        R.drawable.ic_oss_kotlin_logo
+                    )
+                )
+                kotlin.forEach {
+                    emitter.onNext(
+                        convertDependency(
+                            it,
+                            AppInfoType.INFO_TYPE_KOTLIN
+                        )
+                    )
+                }
             }
 
             if (misc.isNotEmpty()) {
-                emitter.onNext(AppInfoHeader(AppInfoType.INFO_TYPE_MISC, "Misc", R.drawable.ic_oss_package_logo))
+                emitter.onNext(
+                    AppInfoHeader(
+                        AppInfoType.INFO_TYPE_MISC,
+                        "Misc",
+                        R.drawable.ic_oss_package_logo
+                    )
+                )
                 misc.forEach { emitter.onNext(convertDependency(it, AppInfoType.INFO_TYPE_MISC)) }
             }
 
@@ -55,22 +87,14 @@ class OSSDependenciesSource(val context: Context) :
     }
 
     private fun convertDependency(ossDependency: OSSDependency, type: Int): AppInfoViewModel {
-        return if (ossDependency.sourceUrl.isNullOrBlank()) {
-            AppInfoWithSubtitle(
-                    type,
-                    ossDependency.name,
-                    "${ossDependency.identifier}\n${ossDependency.license}",
-                    ossDependency.identifier
-            )
+        val title = "${ossDependency.name} — ${ossDependency.licenseKey}"
+        val subtitle = "${ossDependency.identifier}\n${ossDependency.license}"
+        val raw = ossDependency.identifier
+        val actionData = ossDependency.sourceUrl
+        return if (actionData.isNullOrBlank()) {
+            AppInfoWithSubtitle(type, title, subtitle, raw)
         } else {
-            AppInfoWithSubtitleAndAction(
-                    type,
-                    ossDependency.name,
-                    "${ossDependency.identifier}\n${ossDependency.license}",
-                    ossDependency.identifier,
-                    "Source",
-                    ossDependency.sourceUrl
-            )
+            AppInfoWithSubtitleAndAction(type, title, subtitle, raw, "Source", actionData)
         }
     }
 }

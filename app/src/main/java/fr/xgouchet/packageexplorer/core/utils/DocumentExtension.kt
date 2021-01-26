@@ -10,13 +10,11 @@ import org.w3c.dom.NodeList
  * Created by Ekrem HATİPOĞLU on 11.10.2020.
  */
 
-
 object ManifestType {
     const val APPLICATION = "application"
     const val INTENT_FILTER = "intent-filter"
     const val ATTRS = "attrs"
 }
-
 
 data class AndroidManifest(val items: List<Item>)
 data class Item(val tagName: String, val attrs: Map<String, String>, val childList: List<Item> = listOf())
@@ -42,7 +40,7 @@ fun List<Item>.formatItem(): List<Map<String, Map<String, String>>> {
 
     forEach { intentFilter ->
         val item = mutableMapOf<String, Map<String, String>>()
-        if (intentFilter.attrs.isNotEmpty()){
+        if (intentFilter.attrs.isNotEmpty()) {
             item[ATTRS] = intentFilter.attrs
         }
 
@@ -54,7 +52,6 @@ fun List<Item>.formatItem(): List<Map<String, Map<String, String>>> {
 
     return list
 }
-
 
 fun Item.getItemsFromChildByType(type: String): List<Item> {
     return childList.filter { it.tagName == type }
@@ -101,5 +98,3 @@ private fun NodeList.takeFirst(block: Node.() -> Unit) {
     if (this.length > 0)
         this.item(0).block()
 }
-
-

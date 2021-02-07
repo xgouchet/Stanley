@@ -39,8 +39,8 @@ data class AppInfoHeader(
 ) : AppInfoViewModel(type, "Header {$type} “$header”")
 
 interface AppInfoSelectable {
-    fun getLabel(): String
-    fun getSelectedData(): String?
+    fun getClipLabel(): String
+    fun getClipData(): String?
 }
 
 data class AppInfoSubHeader(
@@ -55,23 +55,21 @@ data class AppInfoSimple(
 ) :
         AppInfoViewModel(type, "Simple {$type} “$title”"),
         AppInfoSelectable {
-    override fun getLabel(): String = title
-    override fun getSelectedData(): String? = raw
+    override fun getClipLabel(): String = title
+    override fun getClipData(): String? = raw
 }
 
 data class AppInfoBullet(
     val type: Int,
-    val name: String,
-    val value: String,
+    val content: String,
     val raw: String? = null,
-    val separator: String = "=",
     @DrawableRes val icon: Int = R.drawable.ic_bullet
 
 ) :
-        AppInfoViewModel(type, "Bullet {$type} “$value”"),
+        AppInfoViewModel(type, "Bullet {$type} “$content”"),
         AppInfoSelectable {
-    override fun getLabel(): String = value
-    override fun getSelectedData(): String? = raw
+    override fun getClipLabel(): String = content
+    override fun getClipData(): String? = raw
 }
 
 data class AppInfoWithIcon(
@@ -82,8 +80,8 @@ data class AppInfoWithIcon(
 ) :
         AppInfoViewModel(type, "Icon {$type} “$title”  $icon"),
         AppInfoSelectable {
-    override fun getLabel(): String = title
-    override fun getSelectedData(): String? = raw
+    override fun getClipLabel(): String = title
+    override fun getClipData(): String? = raw
 }
 
 data class AppInfoWithSubtitle(
@@ -94,33 +92,33 @@ data class AppInfoWithSubtitle(
 ) :
         AppInfoViewModel(type, "Subtitle {$type} “$title” / $subtitle"),
         AppInfoSelectable {
-    override fun getLabel(): String = title
-    override fun getSelectedData(): String? = raw
+    override fun getClipLabel(): String = title
+    override fun getClipData(): String? = raw
 }
 
 data class AppInfoWithSubtitleAndIcon(
     val type: Int,
     val title: String,
     val subtitle: String,
-    val raw: String,
+    val raw: String? = null,
     val icon: Drawable?
 ) :
         AppInfoViewModel(type, "Subtitle+Icon {$type} “$title” / $subtitle $icon"),
         AppInfoSelectable {
-    override fun getLabel(): String = title
-    override fun getSelectedData(): String? = raw
+    override fun getClipLabel(): String = title
+    override fun getClipData(): String? = raw
 }
 
 data class AppInfoWithSubtitleAndAction(
     val type: Int,
     val title: String,
     val subtitle: String,
-    val raw: String,
+    val raw: String? = null,
     val actionText: String,
     val actionData: Any?
 ) :
         AppInfoViewModel(type, "Subtitle+Action {$type} “$title” / $subtitle $actionData"),
         AppInfoSelectable {
-    override fun getLabel(): String = title
-    override fun getSelectedData(): String? = raw
+    override fun getClipLabel(): String = title
+    override fun getClipData(): String? = raw
 }

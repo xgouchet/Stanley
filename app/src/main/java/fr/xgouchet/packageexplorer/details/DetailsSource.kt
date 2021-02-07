@@ -322,10 +322,9 @@ open class DetailsSource(val context: Context) {
             intentFilters.formatItem().forEach { intentFilter ->
                 observableEmitter.onNext(AppInfoSubHeader(infoType, ManifestType.INTENT_FILTER))
                 intentFilter.forEach { (tagName, item) ->
-                    observableEmitter.onNext(AppInfoSubHeader(infoType, tagName))
-                    item.forEach {
-                        observableEmitter.onNext(AppInfoBullet(infoType, it.key, it.value, it.value))
-                    }
+                    val content = tagName + "\n" + item.entries.joinToString("\n") { "  ${it.key} = ${it.value}" }
+                    val raw = "<$tagName " + item.entries.joinToString(" ") { "${it.key}=\"${it.value}\"/>" }
+                    observableEmitter.onNext(AppInfoBullet(infoType, content, raw))
                 }
             }
         }

@@ -106,10 +106,10 @@ abstract class BaseDetailsPresenter<D>(
             collapseMaskSubject.onNext(currentMask)
         } else if (item is AppInfoSelectable) {
             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val selectedData = item.getSelectedData()
+            val selectedData = item.getClipData()
 
             if (selectedData != null) {
-                val clip = ClipData.newPlainText(item.getLabel(), selectedData)
+                val clip = ClipData.newPlainText(item.getClipLabel(), selectedData)
                 clipboard.setPrimaryClip(clip)
                 Toast.makeText(context, "“$selectedData” has been copied to your clipboard", Toast.LENGTH_LONG).show()
             }

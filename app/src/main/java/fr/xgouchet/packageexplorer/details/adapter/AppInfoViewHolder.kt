@@ -81,14 +81,10 @@ class AppInfoBulletViewHolder(
 ) : AppInfoViewHolder<AppInfoBullet>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
-    private val nameView: TextView = itemView.findViewById(R.id.name)
-    private val valueView: TextView = itemView.findViewById(R.id.value)
-    private val separatorView: TextView = itemView.findViewById(R.id.separator)
+    private val contentView: TextView = itemView.findViewById(R.id.content)
 
     override fun onBindAppInfoItem(item: AppInfoBullet) {
-        nameView.text = item.name
-        valueView.text = item.value
-        separatorView.text = item.separator
+        contentView.text = item.content
         iconView.setImageResource(item.icon)
     }
 }

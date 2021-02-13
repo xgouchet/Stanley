@@ -1,4 +1,4 @@
-![Stanley icon](https://github.com/xgouchet/Stanley/raw/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
+![](https://f-droid.org/repo/fr.xgouchet.packageexplorer/en-US/icon_eW2o5Gop8EXERg6pYjSfkTuhuYr1QIb4W0bApaECbKs=.png)
 
 # Stanley
 

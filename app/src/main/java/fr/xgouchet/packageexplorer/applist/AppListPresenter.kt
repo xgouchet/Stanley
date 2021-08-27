@@ -13,12 +13,12 @@ import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
 import fr.xgouchet.packageexplorer.core.utils.getMainActivities
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 /**
  * @author Xavier F. Gouchet
@@ -45,7 +45,7 @@ class AppListPresenter(context: Context) :
         val filteredList = Observable.combineLatest(
                 dataSubject,
                 filterSubject,
-                BiFunction<List<AppViewModel>, String, List<AppViewModel>> { list, filter ->
+                BiFunction { list, filter ->
                     val lowerCaseFilter = filter.toLowerCase()
                     return@BiFunction list.filter {
                         if (filter.isEmpty()) {
@@ -73,7 +73,7 @@ class AppListPresenter(context: Context) :
         val sortedList = Observable.combineLatest(
                 systemAppFilteredList,
                 sortSubject,
-                BiFunction<List<AppViewModel>, Comparator<AppViewModel>, List<AppViewModel>> { list, comp ->
+                BiFunction { list, comp ->
                     return@BiFunction list.sortedWith(comp)
                 })
 

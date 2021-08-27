@@ -2,8 +2,8 @@ package fr.xgouchet.packageexplorer.ui.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import io.reactivex.functions.BiConsumer
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.BiConsumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * @author Xavier Gouchet

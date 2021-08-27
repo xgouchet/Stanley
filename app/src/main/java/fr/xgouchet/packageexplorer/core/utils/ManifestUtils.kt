@@ -3,7 +3,9 @@ package fr.xgouchet.packageexplorer.core.utils
 import android.content.Context
 import android.content.pm.PackageInfo
 import fr.xgouchet.axml.CompressedXmlParser
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
+import org.w3c.dom.Document
+import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
@@ -14,20 +16,19 @@ import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
-import org.w3c.dom.Document
+import kotlin.system.measureNanoTime
 
 const val MANIFEST_FILE_NAME = "AndroidManifest.xml"
 
 fun exportManifestFromPackage(
     info: PackageInfo,
     context: Context
-):
-        Observable<File> {
-    return Observable.fromCallable({
+): Observable<File> {
+    return Observable.fromCallable {
         val name = exportedManifestName(info.packageName)
         val apk = getPackageApk(info)
         return@fromCallable exportManifestFromApkFile(name, apk, context)
-    })
+    }
 }
 
 fun exportManifestDomFromPackage(
@@ -36,16 +37,15 @@ fun exportManifestDomFromPackage(
     return parseManifestFile(getPackageApk(info))
 }
 
+// TODO replace with
 fun exportManifestFromApk(
     apk: File,
     context: Context
-):
-        Observable<File> {
-    return Observable.fromCallable({
+): Observable<File> {
+    return Observable.fromCallable {
         val name = "${apk.nameWithoutExtension}_AndroidManifest.xml"
-
         return@fromCallable exportManifestFromApkFile(name, apk, context)
-    })
+    }
 }
 
 private fun exportManifestFromApkFile(name: String, apk: File, context: Context): File {
@@ -77,29 +77,31 @@ private fun getPackageApk(info: PackageInfo): File {
 }
 
 private fun parseManifestFile(apkFile: File): Document {
-    var zipFile: ZipFile? = null
-    var inputStream: InputStream? = null
     var doc: Document? = null
 
-    try {
-        zipFile = ZipFile(apkFile)
-        val entries: Enumeration<out ZipEntry> = zipFile.entries()
+    val duration = measureNanoTime {
+        var inputStream: InputStream? = null
+        var zipFile: ZipFile? = null
+        try {
+            zipFile = ZipFile(apkFile)
+            val entries: Enumeration<out ZipEntry> = zipFile.entries()
 
-        val parser = CompressedXmlParser()
+            val parser = CompressedXmlParser()
 
-        while (entries.hasMoreElements()) {
-            val entry = entries.nextElement()
-            if (entry.name == MANIFEST_FILE_NAME) {
+            while (entries.hasMoreElements()) {
+                val entry = entries.nextElement()
+                if (entry.name == MANIFEST_FILE_NAME) {
 
-                inputStream = zipFile.getInputStream(entry)
-                doc = parser.parseDOM(inputStream)
-                break
+                    inputStream = zipFile.getInputStream(entry)
+                    doc = parser.parseDOM(inputStream)
+                    break
+                }
             }
+        } finally {
+            inputStream?.close()
+            zipFile?.close()
         }
-    } finally {
-        inputStream?.close()
-        zipFile?.close()
     }
-
-    return doc ?: throw FileNotFoundException("Couldn't file manifest in apk")
+    Timber.i("Parsed AndroidManifest from $apkFile in $duration ns")
+    return doc ?: throw FileNotFoundException("Couldn't find manifest in apk")
 }

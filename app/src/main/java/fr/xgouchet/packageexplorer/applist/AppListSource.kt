@@ -2,8 +2,8 @@ package fr.xgouchet.packageexplorer.applist
 
 import android.content.Context
 import android.content.pm.PackageManager
-import io.reactivex.ObservableEmitter
-import io.reactivex.ObservableOnSubscribe
+import io.reactivex.rxjava3.core.ObservableEmitter
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
 
 /**
  * @author Xavier F. Gouchet

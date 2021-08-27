@@ -1,18 +1,18 @@
 package fr.xgouchet.packageexplorer.ui.mvp.list
 
 import android.app.Activity
-import android.app.Fragment
-import androidx.fragment.app.Fragment as FragmentX
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.disposables.Disposable
+import java.lang.IllegalStateException
+import androidx.fragment.app.Fragment as FragmentX
 
 /**
  * @author Xavier F. Gouchet
  */
 abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?) :
-        ListPresenter<T>
-        where D : ListDisplayer<T> {
+    ListPresenter<T>
+    where D : ListDisplayer<T> {
 
     internal var disposable: Disposable? = null
 
@@ -30,9 +30,9 @@ abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?) :
 
         navigator?.let {
             when (displayer) {
-                is Fragment -> it.currentActivity = displayer.activity
-                is FragmentX -> it.currentActivity = displayer.activity!!
+                is FragmentX -> it.currentActivity = displayer.requireActivity()
                 is Activity -> it.currentActivity = displayer
+                else -> throw IllegalStateException("Unknown displayer type: $displayer")
             }
         }
 

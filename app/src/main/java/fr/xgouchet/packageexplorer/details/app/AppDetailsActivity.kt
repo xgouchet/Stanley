@@ -45,7 +45,12 @@ class AppDetailsActivity :
 
     override fun instantiatePresenter(): AppDetailsPresenter {
         val appViewModel = intentData ?: throw IllegalStateException("Expected non null app here")
-        return AppDetailsPresenter(this, CertificateNavigator(), appViewModel.packageName, appViewModel.isSystemApp)
+        return AppDetailsPresenter(
+            this,
+            CertificateNavigator(),
+            appViewModel.packageName,
+            appViewModel.isSystemApp
+        )
     }
 
     override fun instantiateFragment(): AppDetailsFragment {

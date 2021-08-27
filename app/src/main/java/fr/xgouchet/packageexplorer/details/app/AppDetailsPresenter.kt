@@ -12,10 +12,10 @@ import fr.xgouchet.packageexplorer.core.utils.uninstallPackageIntent
 import fr.xgouchet.packageexplorer.details.BaseDetailsPresenter
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.security.cert.X509Certificate
 
 /**

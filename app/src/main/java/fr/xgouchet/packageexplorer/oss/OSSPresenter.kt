@@ -11,46 +11,47 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class OSSPresenter(context: Context, val urlNavigator: UrlNavigator) :
-        BaseListPresenter<AppInfoViewModel, OSSFragment>(null),
-        ContextHolder {
+    BaseListPresenter<AppInfoViewModel, OSSFragment>(null),
+    ContextHolder {
 
     override val context: Context = context.applicationContext
 
     private var memoizedOSSList: List<AppInfoViewModel>? = null
     private var currentMask: Int = AppInfoType.INFO_TYPE_MISC
     private var dataSubject: BehaviorSubject<List<AppInfoViewModel>> = BehaviorSubject.create()
-    private var collapseMaskSubject: BehaviorSubject<Int> = BehaviorSubject.createDefault(currentMask)
+    private var collapseMaskSubject: BehaviorSubject<Int> =
+        BehaviorSubject.createDefault(currentMask)
 
     init {
         val filteredList = Observable.combineLatest(
-                dataSubject,
-                collapseMaskSubject,
-                BiFunction<List<AppInfoViewModel>, Int, List<AppInfoViewModel>> { list, filter ->
-                    return@BiFunction list
-                            .filter { (it is AppInfoHeader) || (it.mask and filter) == it.mask }
-                            .map {
-                                if (it is AppInfoHeader) {
-                                    return@map it.copy(expandedIcon = if ((it.mask and filter) == it.mask) R.drawable.ic_expand_less else R.drawable.ic_expand_more)
-                                } else {
-                                    return@map it
-                                }
-                            }
-                })
+            dataSubject,
+            collapseMaskSubject,
+            BiFunction { list, filter ->
+                return@BiFunction list
+                    .filter { (it is AppInfoHeader) || (it.mask and filter) == it.mask }
+                    .map {
+                        if (it is AppInfoHeader) {
+                            return@map it.copy(expandedIcon = if ((it.mask and filter) == it.mask) R.drawable.ic_expand_less else R.drawable.ic_expand_more)
+                        } else {
+                            return@map it
+                        }
+                    }
+            })
 
         val disposable = filteredList
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { onItemsLoaded(it) },
-                        { displayer?.setError(it) }
-                )
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { onItemsLoaded(it) },
+                { displayer?.setError(it) }
+            )
     }
 
     override fun load(force: Boolean) {
@@ -64,19 +65,22 @@ class OSSPresenter(context: Context, val urlNavigator: UrlNavigator) :
             }
 
             disposable = Observable.create(OSSDependenciesSource(context))
-                    .subscribeOn(Schedulers.io())
-                    .toList()
-                    .subscribe(
-                            {
-                                memoizedOSSList = it
-                                dataSubject.onNext(it)
-                            },
-                            { displayer?.setError(it) }
-                    )
+                .subscribeOn(Schedulers.io())
+                .toList()
+                .subscribe(
+                    {
+                        memoizedOSSList = it
+                        dataSubject.onNext(it)
+                    },
+                    { displayer?.setError(it) }
+                )
         }
     }
 
-    override fun onDisplayerAttached(displayer: Displayer<List<AppInfoViewModel>>, restored: Boolean) {
+    override fun onDisplayerAttached(
+        displayer: Displayer<List<AppInfoViewModel>>,
+        restored: Boolean
+    ) {
 
         val activity = when (displayer) {
             is Fragment -> displayer.activity

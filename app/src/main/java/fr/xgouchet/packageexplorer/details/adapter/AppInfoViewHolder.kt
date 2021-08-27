@@ -5,8 +5,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
-import io.reactivex.functions.BiConsumer
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.BiConsumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * @author Xavier F. Gouchet
@@ -16,9 +16,9 @@ abstract class AppInfoViewHolder<T : AppInfoViewModel>(
     listener: BiConsumer<AppInfoViewModel, View?>?,
     secondaryActionListener: Consumer<AppInfoViewModel>? = null
 ) : BaseViewHolder<AppInfoViewModel>(
-        itemView = itemView,
-        selectedListener = listener,
-        secondaryActionListener = secondaryActionListener
+    itemView = itemView,
+    selectedListener = listener,
+    secondaryActionListener = secondaryActionListener
 ) {
 
     init {

@@ -10,12 +10,12 @@ import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
 import fr.xgouchet.packageexplorer.core.utils.getMainActivities
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.security.cert.X509Certificate
 
 /**
@@ -26,7 +26,7 @@ class CertificateAppListPresenter(
     val certificate: X509Certificate
 ) :
     BaseListPresenter<AppViewModel, CertificateAppListFragment>(AppListNavigator()),
-        ContextHolder {
+    ContextHolder {
 
     companion object {
         val KEY_SORT = "sort"
@@ -45,29 +45,29 @@ class CertificateAppListPresenter(
 
     init {
         val filteredList = dataSubject
-                .map {
-                    it.filter {
-                        val match = it.certificates.firstOrNull { cert ->
-                            cert.encoded?.contentEquals(certificate.encoded) ?: false
-                        }
-                        return@filter match != null
+            .map {
+                it.filter {
+                    val match = it.certificates.firstOrNull { cert ->
+                        cert.encoded?.contentEquals(certificate.encoded) ?: false
                     }
+                    return@filter match != null
                 }
+            }
 
         val sortedList = Observable.combineLatest(
-                filteredList,
-                sortSubject,
-                BiFunction<List<AppViewModel>, Comparator<AppViewModel>, List<AppViewModel>> { list, comp ->
-                    return@BiFunction list.sortedWith(comp)
-                })
+            filteredList,
+            sortSubject,
+            BiFunction { list, comp ->
+                return@BiFunction list.sortedWith(comp)
+            })
 
         loadingDisposable = sortedList
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { onItemsLoaded(it) },
-                        { displayer?.setError(it) }
-                )
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { onItemsLoaded(it) },
+                { displayer?.setError(it) }
+            )
 
         sortSubject.onNext(currentSort.comparator)
     }
@@ -84,15 +84,15 @@ class CertificateAppListPresenter(
             }
 
             disposable = Observable.create(AppListSource(context))
-                    .subscribeOn(Schedulers.io())
-                    .toList()
-                    .subscribe(
-                            {
-                                memoizedAppList = it
-                                dataSubject.onNext(it)
-                            },
-                            { displayer?.setError(it) }
-                    )
+                .subscribeOn(Schedulers.io())
+                .toList()
+                .subscribe(
+                    {
+                        memoizedAppList = it
+                        dataSubject.onNext(it)
+                    },
+                    { displayer?.setError(it) }
+                )
         }
     }
 

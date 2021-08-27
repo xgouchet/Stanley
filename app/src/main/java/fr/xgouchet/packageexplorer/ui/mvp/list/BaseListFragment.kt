@@ -18,15 +18,15 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.Presenter
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.functions.BiConsumer
 
 /**
  * @author Xavier F. Gouchet
  */
 abstract class BaseListFragment<T, P : ListPresenter<T>> :
-        Fragment(),
-        ListDisplayer<T>,
-        BiConsumer<T, View?> {
+    Fragment(),
+    ListDisplayer<T>,
+    BiConsumer<T, View?> {
 
     internal val list: RecyclerView by knife(android.R.id.list)
     private val loading: ProgressBar by knife(R.id.loading)
@@ -41,7 +41,11 @@ abstract class BaseListFragment<T, P : ListPresenter<T>> :
 
     // region Fragment
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         return view
     }
@@ -114,7 +118,11 @@ abstract class BaseListFragment<T, P : ListPresenter<T>> :
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             onPermissionGranted(requestCode)
         } else {
@@ -135,8 +143,13 @@ abstract class BaseListFragment<T, P : ListPresenter<T>> :
         val res = getPermissionExplanation(permission)
         if (res != 0) {
             Snackbar.make(list, res, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok) { doRequestStoragePermission(permission, requestId) }
-                    .show()
+                .setAction(android.R.string.ok) {
+                    doRequestStoragePermission(
+                        permission,
+                        requestId
+                    )
+                }
+                .show()
         }
     }
 

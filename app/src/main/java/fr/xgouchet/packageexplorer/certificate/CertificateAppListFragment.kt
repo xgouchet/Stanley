@@ -12,11 +12,11 @@ import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.launcher.LauncherDialog
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 
 class CertificateAppListFragment :
     BaseListFragment<AppViewModel, CertificateAppListPresenter>(),
-        Consumer<AppViewModel> {
+    Consumer<AppViewModel> {
 
     override val adapter: BaseAdapter<AppViewModel> = AppAdapter(this, this)
     override val isFabVisible: Boolean = false

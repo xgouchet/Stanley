@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.DiffUtil
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.adapter.BaseLayoutAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
-import io.reactivex.functions.BiConsumer
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.BiConsumer
+import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * @author Xavier F. Gouchet

@@ -3,15 +3,14 @@ package fr.xgouchet.packageexplorer.details.apk
 import android.content.Context
 import android.net.Uri
 import fr.xgouchet.packageexplorer.core.utils.getFileName
-import io.reactivex.SingleEmitter
-import io.reactivex.SingleOnSubscribe
+import io.reactivex.rxjava3.core.SingleEmitter
+import io.reactivex.rxjava3.core.SingleOnSubscribe
 import java.io.File
 
 class CopyApkSource(
     val context: Context,
     val uri: Uri
-) :
-    SingleOnSubscribe<String> {
+) : SingleOnSubscribe<String> {
 
     override fun subscribe(emitter: SingleEmitter<String>) {
         try {

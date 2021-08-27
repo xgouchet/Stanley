@@ -6,7 +6,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
-import androidx.fragment.app.Fragment as FragmentX
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoHeader
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoSelectable
@@ -16,12 +15,13 @@ import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
 import fr.xgouchet.packageexplorer.ui.mvp.list.ListDisplayer
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.security.cert.X509Certificate
+import androidx.fragment.app.Fragment as FragmentX
 
 abstract class BaseDetailsPresenter<D>(
     navigator: Navigator<AppInfoViewModel>?,
@@ -29,39 +29,43 @@ abstract class BaseDetailsPresenter<D>(
     val context: Context
 ) :
     BaseListPresenter<AppInfoViewModel, D>(navigator)
-        where D : ListDisplayer<AppInfoViewModel> {
+    where D : ListDisplayer<AppInfoViewModel> {
 
     private var memoizedAppInfoList: List<AppInfoViewModel>? = null
     private var currentMask: Int = 0
     private var dataSubject: BehaviorSubject<List<AppInfoViewModel>> = BehaviorSubject.create()
-    private var collapseMaskSubject: BehaviorSubject<Int> = BehaviorSubject.createDefault(currentMask)
+    private var collapseMaskSubject: BehaviorSubject<Int> =
+        BehaviorSubject.createDefault(currentMask)
 
     init {
         val filteredList = Observable.combineLatest(
-                dataSubject,
-                collapseMaskSubject,
-                BiFunction<List<AppInfoViewModel>, Int, List<AppInfoViewModel>> { list, filter ->
-                    return@BiFunction list
-                            .filter { (it is AppInfoHeader) || (it.mask and filter) == it.mask }
-                            .map {
-                                if (it is AppInfoHeader) {
-                                    return@map it.copy(expandedIcon = if ((it.mask and filter) == it.mask) R.drawable.ic_expand_less else R.drawable.ic_expand_more)
-                                } else {
-                                    return@map it
-                                }
-                            }
-                })
+            dataSubject,
+            collapseMaskSubject,
+            BiFunction<List<AppInfoViewModel>, Int, List<AppInfoViewModel>> { list, filter ->
+                return@BiFunction list
+                    .filter { (it is AppInfoHeader) || (it.mask and filter) == it.mask }
+                    .map {
+                        if (it is AppInfoHeader) {
+                            return@map it.copy(expandedIcon = if ((it.mask and filter) == it.mask) R.drawable.ic_expand_less else R.drawable.ic_expand_more)
+                        } else {
+                            return@map it
+                        }
+                    }
+            })
 
         val disposable = filteredList
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { onItemsLoaded(it) },
-                        { displayer?.setError(it) }
-                )
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { onItemsLoaded(it) },
+                { displayer?.setError(it) }
+            )
     }
 
-    override fun onDisplayerAttached(displayer: Displayer<List<AppInfoViewModel>>, restored: Boolean) {
+    override fun onDisplayerAttached(
+        displayer: Displayer<List<AppInfoViewModel>>,
+        restored: Boolean
+    ) {
 
         val activity = when (displayer) {
             is Fragment -> displayer.activity
@@ -87,16 +91,16 @@ abstract class BaseDetailsPresenter<D>(
 
             disposable?.dispose()
             disposable = getDetails()
-                    .subscribeOn(Schedulers.computation())
-                    .toList()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            {
-                                memoizedAppInfoList = it
-                                dataSubject.onNext(it)
-                            },
-                            { displayer?.setError(it) }
-                    )
+                .subscribeOn(Schedulers.computation())
+                .toList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        memoizedAppInfoList = it
+                        dataSubject.onNext(it)
+                    },
+                    { displayer?.setError(it) }
+                )
         }
     }
 
@@ -111,7 +115,11 @@ abstract class BaseDetailsPresenter<D>(
             if (selectedData != null) {
                 val clip = ClipData.newPlainText(item.getClipLabel(), selectedData)
                 clipboard.setPrimaryClip(clip)
-                Toast.makeText(context, "“$selectedData” has been copied to your clipboard", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "“$selectedData” has been copied to your clipboard",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

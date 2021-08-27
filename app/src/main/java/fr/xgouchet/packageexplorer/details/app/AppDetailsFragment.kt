@@ -20,16 +20,17 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.launcher.LauncherDialog
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.Consumer
 import java.io.File
 
 /**
  * @author Xavier F. Gouchet
  */
 class AppDetailsFragment :
-        BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
+    BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
 
-    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggered(it) })
+    override val adapter: BaseAdapter<AppInfoViewModel> =
+        AppDetailsAdapter(this, { presenter.actionTriggered(it) })
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 
@@ -88,7 +89,7 @@ class AppDetailsFragment :
         val supportFragmentManager = activity?.supportFragmentManager ?: return
         val transaction = supportFragmentManager.beginTransaction()
         LauncherDialog.withData(resolvedInfos)
-                .show(transaction, null)
+            .show(transaction, null)
     }
 
     fun onManifestExported(dest: File) {
@@ -102,7 +103,7 @@ class AppDetailsFragment :
         val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
         if (resolved.isEmpty()) {
             Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
-                    .show()
+                .show()
         } else {
             val chooser = Intent.createChooser(intent, null)
             currentActivity.startActivity(chooser)

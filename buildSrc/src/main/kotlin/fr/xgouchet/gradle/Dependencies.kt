@@ -25,8 +25,8 @@ object Dependencies {
         const val DependencyVersion = "0.33.0"
         const val Detekt = "1.14.1"
         const val Kotlin = "1.4.10"
-        const val RxJava = "2.2.20"
-        const val RxAndroid = "2.1.1"
+        const val RxJava = "3.0.0"
+        const val RxAndroid = "3.0.0"
         const val AboutPage = "1.3"
 
         const val Leakcanary = "1.5.4"
@@ -59,8 +59,8 @@ object Dependencies {
         )
         @JvmField
         val Rx = arrayOf(
-                "io.reactivex.rxjava2:rxjava:${Versions.RxJava}",
-                "io.reactivex.rxjava2:rxandroid:${Versions.RxAndroid}"
+                "io.reactivex.rxjava3:rxjava:${Versions.RxJava}",
+                "io.reactivex.rxjava3:rxandroid:${Versions.RxAndroid}"
         )
 
         const val Gson = "com.google.code.gson:gson:${Versions.Gson}"

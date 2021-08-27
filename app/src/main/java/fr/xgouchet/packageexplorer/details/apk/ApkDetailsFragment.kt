@@ -16,16 +16,16 @@ import fr.xgouchet.packageexplorer.details.adapter.AppDetailsAdapter
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
-import io.reactivex.functions.Consumer
 import java.io.File
 
 /**
  * @author Xavier F. Gouchet
  */
 class ApkDetailsFragment :
-        BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>() {
+    BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>() {
 
-    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this, Consumer { presenter.actionTriggered(it) })
+    override val adapter: BaseAdapter<AppInfoViewModel> =
+        AppDetailsAdapter(this, { presenter.actionTriggered(it) })
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 
@@ -74,7 +74,7 @@ class ApkDetailsFragment :
         val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
         if (resolved.isEmpty()) {
             Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
-                    .show()
+                .show()
         } else {
             val chooser = Intent.createChooser(intent, null)
             currentActivity.startActivity(chooser)

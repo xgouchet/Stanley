@@ -8,19 +8,25 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.details.AppDetailsDiffUtilCallback
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
-import io.reactivex.functions.BiConsumer
-import io.reactivex.functions.Consumer
+import io.reactivex.rxjava3.functions.BiConsumer
+import io.reactivex.rxjava3.functions.Consumer
 
 class AppDetailsAdapter(
     val listener: BiConsumer<AppInfoViewModel, View?>?,
     val actionListener: Consumer<AppInfoViewModel>?
 ) : BaseAdapter<AppInfoViewModel>() {
 
-    override fun getDiffHelper(oldContent: List<AppInfoViewModel>, newContent: List<AppInfoViewModel>): DiffUtil.Callback? {
+    override fun getDiffHelper(
+        oldContent: List<AppInfoViewModel>,
+        newContent: List<AppInfoViewModel>
+    ): DiffUtil.Callback? {
         return AppDetailsDiffUtilCallback(oldContent, newContent)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<AppInfoViewModel> {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<AppInfoViewModel> {
         val layoutInflater = LayoutInflater.from(parent.context)
 
         when (viewType) {

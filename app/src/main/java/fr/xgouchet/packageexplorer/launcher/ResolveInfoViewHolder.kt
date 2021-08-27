@@ -10,7 +10,7 @@ import android.widget.TextView
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.functions.BiConsumer
 
 class ResolveInfoViewHolder(
     view: View,

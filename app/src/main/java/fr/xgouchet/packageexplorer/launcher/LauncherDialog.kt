@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.functions.BiConsumer
 
 class LauncherDialog :
     DialogFragment(),
-        BiConsumer<ResolveInfo, View?> {
+    BiConsumer<ResolveInfo, View?> {
 
     companion object {
         const val KEY_DATA = "data_resolve_info"
@@ -34,20 +34,21 @@ class LauncherDialog :
     private lateinit var adapter: ResolveInfoAdapter
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val currentActivity = activity!!
+        val currentActivity = requireActivity()
         recyclerView = RecyclerView(currentActivity)
 
         @Suppress("UNCHECKED_CAST")
-        data = arguments?.getParcelableArray(KEY_DATA)?.toList() as List<ResolveInfo>? ?: emptyList()
+        data =
+            arguments?.getParcelableArray(KEY_DATA)?.toList() as List<ResolveInfo>? ?: emptyList()
         adapter = ResolveInfoAdapter(data, this, currentActivity.packageManager)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(currentActivity)
         // TODO add listener
 
         return AlertDialog.Builder(currentActivity)
-                .setTitle(R.string.dialog_title_launcher)
-                .setView(recyclerView)
-                .create()
+            .setTitle(R.string.dialog_title_launcher)
+            .setView(recyclerView)
+            .create()
     }
 
     override fun accept(info: ResolveInfo, view: View?) {

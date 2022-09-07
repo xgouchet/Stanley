@@ -6,8 +6,8 @@ import fr.xgouchet.packageexplorer.core.utils.exportManifestDomFromPackage
 import fr.xgouchet.packageexplorer.core.utils.parseDocumentToManifest
 import fr.xgouchet.packageexplorer.details.DetailsSource
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
-import io.reactivex.ObservableEmitter
-import io.reactivex.ObservableOnSubscribe
+import io.reactivex.rxjava3.core.ObservableEmitter
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import java.io.File
 
 /**
@@ -18,7 +18,7 @@ class AppDetailsSource(
     val packageName: String
 ) :
     DetailsSource(context),
-        ObservableOnSubscribe<AppInfoViewModel> {
+    ObservableOnSubscribe<AppInfoViewModel> {
 
     companion object {
         val PACKAGE_INFO_FLAGS = PackageManager.GET_ACTIVITIES

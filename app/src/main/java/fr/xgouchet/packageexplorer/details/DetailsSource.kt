@@ -26,7 +26,7 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithIcon
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
-import io.reactivex.ObservableEmitter
+import io.reactivex.rxjava3.core.ObservableEmitter
 import java.io.File
 import java.security.MessageDigest
 import java.util.zip.ZipEntry

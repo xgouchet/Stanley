@@ -8,6 +8,7 @@ local.properties
 .gradle/
 
 # User-specific configurations
+buildSrc/.idea/
 .idea/.name
 .idea/assetWizardSettings.xml
 .idea/compiler.xml

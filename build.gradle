@@ -8,7 +8,6 @@ buildscript {
         maven { url "https://jitpack.io" }
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://maven.google.com" }
-        jcenter()
     }
     dependencies {
         classpath Dependencies.ClassPaths.AndroidPlugin
@@ -23,7 +22,6 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://maven.google.com" }
-        jcenter()
     }
 }
 

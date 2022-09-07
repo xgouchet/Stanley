@@ -12,6 +12,7 @@ buildscript {
     dependencies {
         classpath Dependencies.ClassPaths.AndroidPlugin
         classpath Dependencies.ClassPaths.KotlinPlugin
+        classpath 'com.android.tools.build:gradle:7.2.2'
     }
 }
 

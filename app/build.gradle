@@ -3,7 +3,7 @@ import fr.xgouchet.gradle.Dependencies
 
 plugins {
     id 'com.github.ben-manes.versions' version "0.33.0"
-    id "io.gitlab.arturbosch.detekt" version "1.14.1"
+    id "io.gitlab.arturbosch.detekt" version "1.21.0"
 }
 
 apply plugin: 'com.android.application'
@@ -14,17 +14,16 @@ apply plugin: 'ossLicenses'
 
 android {
 
-    compileSdkVersion AndroidBuild.TargetSdk
-    buildToolsVersion AndroidBuild.BuildTools
-
     defaultConfig {
+        compileSdk AndroidBuild.TargetSdk
+        buildToolsVersion = AndroidBuild.BuildTools
 
         minSdkVersion AndroidBuild.MinSdk
         targetSdkVersion AndroidBuild.TargetSdk
 
         applicationId "fr.xgouchet.packageexplorer"
-        versionCode 19
-        versionName "2.7"
+        versionCode 20
+        versionName "2.8"
 
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

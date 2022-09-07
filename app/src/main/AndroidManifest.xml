@@ -16,7 +16,8 @@
 
         <activity
             android:name=".applist.AppListActivity"
-            android:label="@string/activity_title_appList">
+            android:label="@string/activity_title_appList"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -78,7 +79,9 @@
         </provider>
 
         <!-- Receivers -->
-        <receiver android:name=".easteregg.EasterEggReceiver">
+        <receiver
+            android:name=".easteregg.EasterEggReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SECRET_CODE" />
                 <data

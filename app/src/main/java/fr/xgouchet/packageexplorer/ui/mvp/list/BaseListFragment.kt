@@ -118,6 +118,7 @@ abstract class BaseListFragment<T, P : ListPresenter<T>> :
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

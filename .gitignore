@@ -24,6 +24,7 @@ buildSrc/.idea/
 .idea/tasks.xml
 .idea/vcs.xml
 .idea/workspace.xml
+.idea/inspectionProfiles
 *.iml
 
 # old code

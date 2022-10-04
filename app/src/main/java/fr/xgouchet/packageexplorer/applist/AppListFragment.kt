@@ -88,6 +88,7 @@ class AppListFragment :
         return true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             OPEN_APK_REQUEST -> onOpenApkResult(resultCode, data)

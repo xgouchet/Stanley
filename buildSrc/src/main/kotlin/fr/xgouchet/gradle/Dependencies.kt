@@ -17,7 +17,7 @@ object Dependencies {
         const val Stetho = "1.5.0"
         // end unused
 
-        const val AndroidPlugin = "7.2.2"
+        const val AndroidPlugin = "7.3.0"
         const val AndroidXAnnotations = "1.4.0"
         const val AndroidXAppCompat = "1.5.0"
         const val AndroidXCore = "1.8.0"

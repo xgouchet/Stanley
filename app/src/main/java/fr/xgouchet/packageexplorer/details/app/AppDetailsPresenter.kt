@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import fr.xgouchet.packageexplorer.core.utils.applicationInfoIntent
 import fr.xgouchet.packageexplorer.core.utils.applicationPlayStoreIntent
+import fr.xgouchet.packageexplorer.core.utils.exportBinaryManifestFromPackage
 import fr.xgouchet.packageexplorer.core.utils.exportManifestFromPackage
 import fr.xgouchet.packageexplorer.core.utils.getMainActivities
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
@@ -88,5 +89,22 @@ class AppDetailsPresenter(
                 }, {
                     displayer?.setError(it)
                 })
+    }
+
+    fun exportBinaryManifest() {
+        val packageInfo = try {
+            context.packageManager.getPackageInfo(packageName, 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            displayer?.setError(e)
+            return
+        }
+        exportDisposable = exportBinaryManifestFromPackage(packageInfo, context)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                displayer?.onBinaryManifestExported(packageInfo, it)
+            }, {
+                displayer?.setError(it)
+            })
     }
 }

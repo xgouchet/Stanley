@@ -3,6 +3,7 @@ package fr.xgouchet.packageexplorer.details.app
 import android.Manifest
 import android.annotation.TargetApi
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.os.Build
 import android.os.Bundle
@@ -20,7 +21,6 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.launcher.LauncherDialog
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
-import io.reactivex.rxjava3.functions.Consumer
 import java.io.File
 
 /**
@@ -47,6 +47,10 @@ class AppDetailsFragment :
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (BuildConfig.DEBUG) {
+            inflater.inflate(R.menu.app_debug_details, menu)
+        }
+
         inflater.inflate(R.menu.app_details, menu)
 
         if (presenter.isSystemApp) {
@@ -77,6 +81,10 @@ class AppDetailsFragment :
                 presenter.exportManifest()
                 return true
             }
+            R.id.action_extract_bin_manifest -> {
+                presenter.exportBinaryManifest()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -99,6 +107,27 @@ class AppDetailsFragment :
         val uri = FileProvider.getUriForFile(currentActivity, BuildConfig.APPLICATION_ID, dest)
         intent.setDataAndType(uri, "text/xml")
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+
+        val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
+        if (resolved.isEmpty()) {
+            Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
+                .show()
+        } else {
+            val chooser = Intent.createChooser(intent, null)
+            currentActivity.startActivity(chooser)
+        }
+    }
+
+    fun onBinaryManifestExported(packageInfo: PackageInfo, dest: File) {
+        val currentActivity = activity ?: return
+
+        val intent = Intent(Intent.ACTION_SEND)
+        val uri = FileProvider.getUriForFile(currentActivity, BuildConfig.APPLICATION_ID, dest)
+        intent.type = "plain/text"
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Manifest from ${packageInfo.packageName}:${packageInfo.versionName}")
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        intent.putExtra(Intent.EXTRA_TEXT, "Sent from Stanley ${BuildConfig.APPLICATION_ID}:${BuildConfig.VERSION_NAME}")
 
         val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
         if (resolved.isEmpty()) {

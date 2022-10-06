@@ -45,6 +45,7 @@
     <string name="action_app_info">System Application Info</string>
     <string name="action_launch">Launch</string>
     <string name="action_manifest">Export Manifest</string>
+    <string name="action_bin_manifest">Export Binary Manifest</string>
     <string name="action_open">Open</string>
     <string name="action_play_store">Open in Play Store</string>
     <string name="action_uninstall">Uninstall</string>

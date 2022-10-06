@@ -11,11 +11,13 @@ local.properties
 buildSrc/.idea/
 .idea/.name
 .idea/assetWizardSettings.xml
-.idea/compiler.xml
 .idea/caches/build_file_checksums.ser
 .idea/caches/gradle_models.ser
+.idea/compiler.xml
 .idea/copyright/profiles_settings.xml
 .idea/encodings.xml
+.idea/gradle.xml
+.idea/inspectionProfiles
 .idea/jarRepositories.xml
 .idea/libraries/
 .idea/misc.xml
@@ -24,7 +26,6 @@ buildSrc/.idea/
 .idea/tasks.xml
 .idea/vcs.xml
 .idea/workspace.xml
-.idea/inspectionProfiles
 *.iml
 
 # old code

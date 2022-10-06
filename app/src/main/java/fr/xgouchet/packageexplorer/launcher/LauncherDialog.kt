@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import io.reactivex.rxjava3.functions.BiConsumer
+import java.util.Optional
 
 class LauncherDialog :
     DialogFragment(),
-    BiConsumer<ResolveInfo, View?> {
+    BiConsumer<ResolveInfo, Optional<View>> {
 
     companion object {
         const val KEY_DATA = "data_resolve_info"
@@ -38,8 +39,7 @@ class LauncherDialog :
         recyclerView = RecyclerView(currentActivity)
 
         @Suppress("UNCHECKED_CAST")
-        data =
-            arguments?.getParcelableArray(KEY_DATA)?.toList() as List<ResolveInfo>? ?: emptyList()
+        data = arguments?.getParcelableArray(KEY_DATA)?.toList() as List<ResolveInfo>? ?: emptyList()
         adapter = ResolveInfoAdapter(data, this, currentActivity.packageManager)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(currentActivity)
@@ -51,7 +51,7 @@ class LauncherDialog :
             .create()
     }
 
-    override fun accept(info: ResolveInfo, view: View?) {
+    override fun accept(info: ResolveInfo, view: Optional<View>) {
         dismiss()
         startActivity(getResolvedIntent(info))
     }

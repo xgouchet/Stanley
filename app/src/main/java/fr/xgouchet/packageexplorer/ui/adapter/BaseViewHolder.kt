@@ -4,13 +4,14 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.rxjava3.functions.BiConsumer
 import io.reactivex.rxjava3.functions.Consumer
+import java.util.Optional
 
 /**
  * @author Xavier Gouchet
  */
-abstract class BaseViewHolder<T>(
+abstract class BaseViewHolder<T : Any>(
     itemView: View,
-    val selectedListener: BiConsumer<T, View?>? = null,
+    val selectedListener: BiConsumer<T, Optional<View>>? = null,
     val secondaryActionListener: Consumer<T>? = null
 ) : RecyclerView.ViewHolder(itemView) {
 
@@ -22,8 +23,8 @@ abstract class BaseViewHolder<T>(
     }
 
     protected fun fireSelected() {
-        boundItem?.let {
-            selectedListener?.accept(it, getTransitionView())
+        boundItem?.let { item ->
+                selectedListener?.accept(item, getTransitionView())
         }
     }
 
@@ -33,7 +34,7 @@ abstract class BaseViewHolder<T>(
         }
     }
 
-    protected open fun getTransitionView(): View? = null
+    protected open fun getTransitionView(): Optional<View> = Optional.empty()
 
     protected abstract fun onBindItem(item: T)
 }

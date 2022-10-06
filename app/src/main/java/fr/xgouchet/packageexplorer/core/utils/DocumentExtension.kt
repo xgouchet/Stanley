@@ -32,7 +32,7 @@ fun Document.parseDocumentToManifest(): AndroidManifest {
     return AndroidManifest(items)
 }
 
-fun AndroidManifest.filterByName(name: String) = this.items.first { it.attrs.containsValue(name) }
+fun AndroidManifest.filterByName(name: String) = this.items.firstOrNull { it.attrs.containsValue(name) }
 
 fun List<Item>.formatItem(): List<Map<String, Map<String, String>>> {
 
@@ -68,7 +68,7 @@ private fun Node.extractChildren(): List<Item> {
 
 private fun Node.extractAttrs(): Map<String, String> {
     val map = hashMapOf<String, String>()
-    attributes.forEach {
+    attributes?.forEach {
         map[nodeName] = nodeValue
     }
     return map

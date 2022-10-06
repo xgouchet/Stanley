@@ -29,6 +29,7 @@
     <string name="android.hardware.type.automotive">Android Auto</string>
     <string name="android.hardware.type.television">Android TV</string>
     <string name="android.hardware.type.watch">Android Wear</string>
+    <string name="android.hardware.type.pc">Chromebook</string>
 
     <!-- Location -->
     <string name="android.hardware.location">Location</string>
@@ -80,10 +81,10 @@
 
     <!-- Misc -->
     <string name="android.hardware.fingerprint">Read Fingerprint</string>
+    <string name="android.hardware.flash">Use flash light</string>
     <string name="android.hardware.gamepad">Game controller input</string>
     <string name="android.hardware.consumerir">Infra-Red communication</string>
     <string name="android.hardware.opengles.aep">OpenGL ES Android Extension Pack</string>
-
 
     <!-- Software -->
     <string name="android.software.app_widgets">App widgets</string>

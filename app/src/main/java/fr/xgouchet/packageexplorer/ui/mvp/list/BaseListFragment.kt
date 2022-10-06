@@ -19,14 +19,15 @@ import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.Presenter
 import io.reactivex.rxjava3.functions.BiConsumer
+import java.util.Optional
 
 /**
  * @author Xavier F. Gouchet
  */
-abstract class BaseListFragment<T, P : ListPresenter<T>> :
+abstract class BaseListFragment<T : Any, P : ListPresenter<T>> :
     Fragment(),
     ListDisplayer<T>,
-    BiConsumer<T, View?> {
+    BiConsumer<T, Optional<View>> {
 
     internal val list: RecyclerView by knife(android.R.id.list)
     private val loading: ProgressBar by knife(R.id.loading)
@@ -93,9 +94,9 @@ abstract class BaseListFragment<T, P : ListPresenter<T>> :
 
     // endregion
 
-    // region BiConsumer<T, View?>
+    // region BiConsumer<T, Optional<View>>
 
-    override fun accept(t: T, v: View?) {
+    override fun accept(t: T, v: Optional<View>) {
         presenter.itemSelected(t)
     }
 

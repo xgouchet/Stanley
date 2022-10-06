@@ -10,9 +10,10 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
 import io.reactivex.rxjava3.functions.Consumer
+import java.util.Optional
 
 class AppDetailsAdapter(
-    val listener: BiConsumer<AppInfoViewModel, View?>?,
+    val listener: BiConsumer<AppInfoViewModel, Optional<View>>?,
     val actionListener: Consumer<AppInfoViewModel>?
 ) : BaseAdapter<AppInfoViewModel>() {
 

@@ -1,5 +1,6 @@
 package fr.xgouchet.packageexplorer.details.app
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import fr.xgouchet.packageexplorer.core.utils.exportManifestDomFromPackage
@@ -21,19 +22,21 @@ class AppDetailsSource(
     ObservableOnSubscribe<AppInfoViewModel> {
 
     companion object {
+        @Suppress("DEPRECATION")
         val PACKAGE_INFO_FLAGS = PackageManager.GET_ACTIVITIES
-                .or(PackageManager.GET_GIDS)
-                .or(PackageManager.GET_CONFIGURATIONS)
-                .or(PackageManager.GET_INSTRUMENTATION)
-                .or(PackageManager.GET_PERMISSIONS)
-                .or(PackageManager.GET_PROVIDERS)
-                .or(PackageManager.GET_RECEIVERS)
-                .or(PackageManager.GET_SERVICES)
-                .or(PackageManager.GET_SIGNATURES)
+            .or(PackageManager.GET_GIDS)
+            .or(PackageManager.GET_CONFIGURATIONS)
+            .or(PackageManager.GET_INSTRUMENTATION)
+            .or(PackageManager.GET_PERMISSIONS)
+            .or(PackageManager.GET_PROVIDERS)
+            .or(PackageManager.GET_RECEIVERS)
+            .or(PackageManager.GET_SERVICES)
+            .or(PackageManager.GET_SIGNATURES)
 
         const val APP_INFO_FLAGS = PackageManager.GET_META_DATA
     }
 
+    @SuppressLint("PackageManagerGetSignatures")
     override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>) {
 
         try {

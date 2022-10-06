@@ -2,6 +2,7 @@
 
 ### 2.8 (upcoming)
  - [BUGFIX] Fix the invalid install/update dates (see #61)
+ - [ENHANCEMENT] Display more information for native JNI libraries 
 
 ### 2.7 (january 2021)
 

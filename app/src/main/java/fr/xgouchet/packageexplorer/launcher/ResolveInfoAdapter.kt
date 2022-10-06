@@ -8,10 +8,11 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.adapter.BaseLayoutAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
+import java.util.Optional
 
 class ResolveInfoAdapter(
     data: List<ResolveInfo>,
-    val listener: BiConsumer<ResolveInfo, View?>,
+    val listener: BiConsumer<ResolveInfo, Optional<View>>,
     val pm: PackageManager
 ) :
     BaseLayoutAdapter<ResolveInfo>() {

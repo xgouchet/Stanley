@@ -7,10 +7,11 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
 import io.reactivex.rxjava3.functions.Consumer
+import java.util.Optional
 
 class AppViewHolder(
     itemView: View,
-    listener: BiConsumer<AppViewModel, View?>?,
+    listener: BiConsumer<AppViewModel, Optional<View>>?,
     secondaryActionListener: Consumer<AppViewModel>?
 ) : BaseViewHolder<AppViewModel>(
         itemView = itemView,
@@ -46,7 +47,7 @@ class AppViewHolder(
         updatedView.text = item.updateTimeStr
     }
 
-    override fun getTransitionView(): View? {
-        return iconView
+    override fun getTransitionView(): Optional<View> {
+        return Optional.of(iconView)
     }
 }

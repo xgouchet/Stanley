@@ -11,10 +11,11 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
+import java.util.Optional
 
 class ResolveInfoViewHolder(
     view: View,
-    listener: BiConsumer<ResolveInfo, View?>,
+    listener: BiConsumer<ResolveInfo, Optional<View>>,
     val pm: PackageManager
 ) : BaseViewHolder<ResolveInfo>(itemView = view, selectedListener = listener) {
 

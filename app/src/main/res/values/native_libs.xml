@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="native_lib_group_aesgcm">AES/GCM (Cryptography)</string>
+    <string name="native_lib_group_arcore">ARCore (VR/AR)</string>
+    <string name="native_lib_group_conscrypt">Conscrypt  (Cryptography)</string>
+    <string name="native_lib_group_cppshared">Advanced C++ (Dev)</string>
+    <string name="native_lib_group_crashlytics">Crashlytics (Crash Report)</string>
+    <string name="native_lib_group_hermes">Hermes (JS Engine)</string>
+    <string name="native_lib_group_mobilecoin">MobileCoin (Payment)</string>
+    <string name="native_lib_group_renderscript">RenderScript (Image processing)</string>
+    <string name="native_lib_group_ringrtc">RingRTC calls over WebRTC (Network)</string>
+    <string name="native_lib_group_sentry">Sentry (Crash Report)</string>
+    <string name="native_lib_group_sqlcipher">Encrypted SQL Database (Cryptography)</string>
+    <string name="native_lib_group_sqlite">SQLite (Database)</string>
+
+    <string name="native_lib_group_unknown">Other native libraries</string>
+</resources>

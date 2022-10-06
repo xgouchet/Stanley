@@ -7,13 +7,14 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
 import io.reactivex.rxjava3.functions.Consumer
+import java.util.Optional
 
 /**
  * @author Xavier F. Gouchet
  */
 abstract class AppInfoViewHolder<T : AppInfoViewModel>(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?,
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?,
     secondaryActionListener: Consumer<AppInfoViewModel>? = null
 ) : BaseViewHolder<AppInfoViewModel>(
     itemView = itemView,
@@ -37,7 +38,7 @@ abstract class AppInfoViewHolder<T : AppInfoViewModel>(
 
 class AppInfoHeaderViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?
 ) : AppInfoViewHolder<AppInfoHeader>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
@@ -53,7 +54,7 @@ class AppInfoHeaderViewHolder(
 
 class AppInfoSubHeaderViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?
 ) : AppInfoViewHolder<AppInfoSubHeader>(itemView, listener) {
 
     private val titleView: TextView = itemView.findViewById(R.id.title)
@@ -65,7 +66,7 @@ class AppInfoSubHeaderViewHolder(
 
 class AppInfoSimpleViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?
 ) : AppInfoViewHolder<AppInfoSimple>(itemView, listener) {
 
     private val titleView: TextView = itemView.findViewById(R.id.title)
@@ -77,7 +78,7 @@ class AppInfoSimpleViewHolder(
 
 class AppInfoBulletViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?
 ) : AppInfoViewHolder<AppInfoBullet>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
@@ -91,7 +92,7 @@ class AppInfoBulletViewHolder(
 
 class AppInfoWithIconViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?
 ) : AppInfoViewHolder<AppInfoWithIcon>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
@@ -105,7 +106,7 @@ class AppInfoWithIconViewHolder(
 
 class AppInfoWithSubtitleViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?
 ) : AppInfoViewHolder<AppInfoWithSubtitle>(itemView, listener) {
 
     private val titleView: TextView = itemView.findViewById(R.id.title)
@@ -119,7 +120,7 @@ class AppInfoWithSubtitleViewHolder(
 
 class AppInfoWithSubtitleAndIconViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?
 ) : AppInfoViewHolder<AppInfoWithSubtitleAndIcon>(itemView, listener) {
 
     private val iconView: ImageView = itemView.findViewById(R.id.icon)
@@ -135,7 +136,7 @@ class AppInfoWithSubtitleAndIconViewHolder(
 
 class AppInfoWithSubtitleAndActionViewHolder(
     itemView: View,
-    listener: BiConsumer<AppInfoViewModel, View?>?,
+    listener: BiConsumer<AppInfoViewModel, Optional<View>>?,
     actionListener: Consumer<AppInfoViewModel>?
 ) : AppInfoViewHolder<AppInfoWithSubtitleAndAction>(itemView, listener, actionListener) {
 

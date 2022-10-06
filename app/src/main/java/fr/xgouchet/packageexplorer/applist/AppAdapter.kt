@@ -7,12 +7,13 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseLayoutAdapter
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
 import io.reactivex.rxjava3.functions.Consumer
+import java.util.Optional
 
 /**
  * @author Xavier F. Gouchet
  */
 class AppAdapter(
-    val listener: BiConsumer<AppViewModel, View?>?,
+    val listener: BiConsumer<AppViewModel, Optional<View>>?,
     val actionListener: Consumer<AppViewModel>?
 ) : BaseLayoutAdapter<AppViewModel>() {
 

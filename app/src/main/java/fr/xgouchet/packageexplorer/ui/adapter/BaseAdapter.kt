@@ -7,7 +7,7 @@ import java.util.ArrayList
 /**
  * @author Xavier Gouchet
  */
-abstract class BaseAdapter<T> :
+abstract class BaseAdapter<T : Any> :
     RecyclerView.Adapter<BaseViewHolder<T>>() {
 
     protected var content: List<T> = ArrayList()

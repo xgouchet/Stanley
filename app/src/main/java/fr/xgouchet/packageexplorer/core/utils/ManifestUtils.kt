@@ -8,6 +8,8 @@ import org.w3c.dom.Document
 import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 import java.util.Enumeration
 import java.util.zip.ZipEntry
@@ -28,6 +30,17 @@ fun exportManifestFromPackage(
         val name = exportedManifestName(info.packageName)
         val apk = getPackageApk(info)
         return@fromCallable exportManifestFromApkFile(name, apk, context)
+    }
+}
+
+fun exportBinaryManifestFromPackage(
+    info: PackageInfo,
+    context: Context
+): Observable<File> {
+    return Observable.fromCallable {
+        val name = exportedManifestName(info.packageName)
+        val apk = getPackageApk(info)
+        return@fromCallable exportBinaryManifestFromApkFile(name, apk, context)
     }
 }
 
@@ -55,6 +68,24 @@ private fun exportManifestFromApkFile(name: String, apk: File, context: Context)
     return destFile
 }
 
+private fun exportBinaryManifestFromApkFile(name: String, apk: File, context: Context): File {
+    val destFile = File(context.cacheDir, name)
+    var fos: FileOutputStream? = null
+    withBinaryManifest<Unit>(apk) { inS ->
+        try {
+            fos = FileOutputStream(destFile)
+            fos?.let { inS.copyTo(it) }
+        } finally {
+            try {
+                fos?.close()
+            } catch (e: IOException) {
+                Timber.e(e, "Failed to close output stream")
+            }
+        }
+    }
+    return destFile
+}
+
 private fun writeXml(doc: Document, output: File) {
     val transformerFactory = TransformerFactory.newInstance()
     val transformer = transformerFactory.newTransformer()
@@ -77,7 +108,13 @@ private fun getPackageApk(info: PackageInfo): File {
 }
 
 private fun parseManifestFile(apkFile: File): Document {
-    var doc: Document? = null
+    return withBinaryManifest(apkFile) {
+        CompressedXmlParser().parseDOM(it)
+    }
+}
+
+private fun <T : Any> withBinaryManifest(apkFile: File, op: (InputStream) -> T): T {
+    var result: T? = null
 
     val duration = measureNanoTime {
         var inputStream: InputStream? = null
@@ -85,15 +122,12 @@ private fun parseManifestFile(apkFile: File): Document {
         try {
             zipFile = ZipFile(apkFile)
             val entries: Enumeration<out ZipEntry> = zipFile.entries()
-
-            val parser = CompressedXmlParser()
-
             while (entries.hasMoreElements()) {
                 val entry = entries.nextElement()
                 if (entry.name == MANIFEST_FILE_NAME) {
 
                     inputStream = zipFile.getInputStream(entry)
-                    doc = parser.parseDOM(inputStream)
+                    result = op(inputStream)
                     break
                 }
             }
@@ -103,5 +137,5 @@ private fun parseManifestFile(apkFile: File): Document {
         }
     }
     Timber.i("Parsed AndroidManifest from $apkFile in $duration ns")
-    return doc ?: throw FileNotFoundException("Couldn't find manifest in apk")
+    return result ?: throw FileNotFoundException("Couldn't find manifest in apk")
 }

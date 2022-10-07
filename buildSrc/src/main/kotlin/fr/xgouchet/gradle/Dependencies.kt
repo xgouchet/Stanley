@@ -32,7 +32,6 @@ object Dependencies {
         const val RxAndroid = "3.0.0"
         const val AboutPage = "1.3"
         const val Timber = "4.7.1"
-        const val AXml = "v1.0.1"
     }
 
     object Libraries {
@@ -66,7 +65,6 @@ object Dependencies {
 
         const val Gson = "com.google.code.gson:gson:${Versions.Gson}"
         const val AboutPage = "com.github.medyo:android-about-page:${Versions.AboutPage}"
-        const val AXml = "com.github.xgouchet:AXML:${Versions.AXml}"
 
         const val Timber = "com.jakewharton.timber:timber:${Versions.Timber}"
     }

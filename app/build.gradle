@@ -66,7 +66,6 @@ dependencies {
     implementation Dependencies.Libraries.Gson
     implementation Dependencies.Libraries.AboutPage
     implementation Dependencies.Libraries.Timber
-    implementation Dependencies.Libraries.AXml
 }
 
 def isNonStable = { String version ->

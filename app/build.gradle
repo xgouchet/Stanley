@@ -1,15 +1,13 @@
 import fr.xgouchet.gradle.AndroidBuild
-import fr.xgouchet.gradle.Dependencies
 
 plugins {
-    id 'com.github.ben-manes.versions' version "0.33.0"
-    id "io.gitlab.arturbosch.detekt" version "1.21.0"
+    alias libs.plugins.kotlin.android
+    alias libs.plugins.kotlin.kapt
+    alias libs.plugins.detekt
+    alias libs.plugins.dependency.versions
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'ossLicenses'
 
 android {
@@ -55,17 +53,16 @@ android {
 }
 
 dependencies {
-
     // Android
-    implementation Dependencies.Libraries.AndroidX
-    implementation Dependencies.Libraries.AndroidUI
-    implementation Dependencies.Libraries.MultiDex
+    implementation libs.bundles.androidx
+    implementation libs.bundles.android.ui
+    implementation libs.multidex
 
-    implementation Dependencies.Libraries.Kotlin
-    implementation Dependencies.Libraries.Rx
-    implementation Dependencies.Libraries.Gson
-    implementation Dependencies.Libraries.AboutPage
-    implementation Dependencies.Libraries.Timber
+    implementation libs.bundles.kotlin
+    implementation libs.bundles.rx
+    implementation libs.gson
+    implementation libs.aboutpage
+    implementation libs.timber
 }
 
 def isNonStable = { String version ->

@@ -1,18 +1,8 @@
-import fr.xgouchet.gradle.Dependencies
-
 buildscript {
-
     repositories {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://maven.google.com" }
-    }
-    dependencies {
-        classpath Dependencies.ClassPaths.AndroidPlugin
-        classpath Dependencies.ClassPaths.KotlinPlugin
-        classpath 'com.android.tools.build:gradle:7.3.0'
     }
 }
 
@@ -21,13 +11,9 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://maven.google.com" }
     }
 }
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-

@@ -1,0 +1,33 @@
+version: 2.1
+orbs:
+  android: circleci/android@2.1.2
+jobs:
+  detekt:
+    executor:
+      name: android/android-docker
+      tag: 2022.08.1
+    steps:
+      - checkout
+      - run:
+          name: "Call detekt task"
+          command: "./gradlew :app:detekt"
+  ktlint:
+    executor:
+      name: android/android-docker
+      tag: 2022.08.1
+    steps:
+      - checkout
+      - run:
+          name: "Download ktlint tool"
+          command: "curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.47.1/ktlint && chmod a+x ktlint"
+      - run:
+          name: "Call ktlint tool"
+          command: "./ktlint -F \"**/*.kt\""
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  static-analysis:
+    jobs:
+      - detekt
+      - ktlint

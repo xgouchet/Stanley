@@ -21,15 +21,16 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
 import javax.security.cert.X509Certificate
 
-/**
- * @author Xavier F. Gouchet
- */
 class ApkDetailsPresenter(
     activity: Activity,
     certficateNavigator: Navigator<X509Certificate>,
     private val uri: Uri
 ) :
-        BaseDetailsPresenter<ApkDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
+    BaseDetailsPresenter<ApkDetailsFragment>(
+        null,
+        certficateNavigator,
+        activity.applicationContext
+    ) {
 
     private var localFilePath: String = ""
     private var exportDisposable: Disposable? = null
@@ -53,22 +54,25 @@ class ApkDetailsPresenter(
 
     override fun getDetails(): Observable<AppInfoViewModel> {
         return Single.create(CopyApkSource(context, uri))
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
-                .doOnSuccess { localFilePath = it }
-                .flatMapObservable { path -> Observable.create(ApkDetailsSource(context, path)) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext {
-                    if (it.mask == AppInfoType.INFO_TYPE_METADATA) {
-                        if (it is AppInfoWithSubtitle) {
-                            if (it.title == DetailsSource.PACKAGE_NAME) (displayer as ApkDetailsFragment).setPackageName(it.subtitle)
-                        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.computation())
+            .doOnSuccess { localFilePath = it }
+            .flatMapObservable { path -> Observable.create(ApkDetailsSource(context, path)) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext {
+                if (it.mask == AppInfoType.INFO_TYPE_METADATA) {
+                    if (it is AppInfoWithSubtitle) {
+                        if (it.title == DetailsSource.PACKAGE_NAME) (displayer as ApkDetailsFragment).setPackageName(
+                            it.subtitle
+                        )
                     }
                 }
+            }
     }
 
     private fun hasPermission(): Boolean {
-        val permissionStatus = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val permissionStatus =
+            ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
         return permissionStatus == PermissionChecker.PERMISSION_GRANTED
     }
 
@@ -84,13 +88,13 @@ class ApkDetailsPresenter(
 
     fun exportManifest() {
         exportDisposable = exportManifestFromApk(File(localFilePath), context)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    displayer?.onManifestExported(it)
-                }, {
-                    displayer?.setError(it)
-                })
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                displayer?.onManifestExported(it)
+            }, {
+                displayer?.setError(it)
+            })
     }
 
     companion object {

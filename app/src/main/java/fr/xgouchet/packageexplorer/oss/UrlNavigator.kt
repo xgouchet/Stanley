@@ -15,12 +15,6 @@ class UrlNavigator : Navigator<String> {
         currentActivity.startActivity(intent)
     }
 
-    override fun goToItemEdition(item: String) {
-    }
-
-    override fun goToItemCreation() {
-    }
-
     override fun goBack() {
         currentActivity.finish()
     }

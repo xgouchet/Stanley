@@ -21,9 +21,7 @@ import fr.xgouchet.packageexplorer.ui.mvp.Presenter
 import io.reactivex.rxjava3.functions.BiConsumer
 import java.util.Optional
 
-/**
- * @author Xavier F. Gouchet
- */
+@Suppress("TooManyFunctions")
 abstract class BaseListFragment<T : Any, P : ListPresenter<T>> :
     Fragment(),
     ListDisplayer<T>,

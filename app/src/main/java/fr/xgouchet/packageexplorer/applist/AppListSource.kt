@@ -6,9 +6,6 @@ import android.os.Build
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
 
-/**
- * @author Xavier F. Gouchet
- */
 class AppListSource(val context: Context) :
     ObservableOnSubscribe<AppViewModel> {
 
@@ -19,10 +16,10 @@ class AppListSource(val context: Context) :
         val packages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             pm.getInstalledPackages(PackageManager.GET_SIGNATURES or PackageManager.GET_SIGNING_CERTIFICATES)
         } else {
-            pm.getInstalledPackages(PackageManager.GET_SIGNATURES )
+            pm.getInstalledPackages(PackageManager.GET_SIGNATURES)
         }
 
-        applications.forEach {ai ->
+        applications.forEach { ai ->
             val pi = packages.firstOrNull() {
                 it.packageName == ai.packageName
             }

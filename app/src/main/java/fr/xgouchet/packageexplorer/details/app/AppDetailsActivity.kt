@@ -11,15 +11,12 @@ import fr.xgouchet.packageexplorer.details.CertificateNavigator
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
-/**
- * @author Xavier F. Gouchet
- */
 class AppDetailsActivity :
     BaseActivity<AppViewModel, List<AppInfoViewModel>, AppDetailsPresenter, AppDetailsFragment>() {
 
     companion object {
 
-        val EXTRA_PACKAGE_NAME = "package_name"
+        const val EXTRA_PACKAGE_NAME = "package_name"
 
         fun startWithApp(activity: Activity, app: AppViewModel) {
             val intent = Intent(activity, AppDetailsActivity::class.java)
@@ -44,7 +41,9 @@ class AppDetailsActivity :
     }
 
     override fun instantiatePresenter(): AppDetailsPresenter {
-        val appViewModel = intentData ?: throw IllegalStateException("Expected non null app here")
+        val appViewModel = intentData
+        checkNotNull(appViewModel)
+
         return AppDetailsPresenter(
             this,
             CertificateNavigator(),
@@ -58,7 +57,9 @@ class AppDetailsActivity :
     }
 
     override fun getPresenterKey(): String {
-        val appViewModel = intentData ?: throw IllegalStateException("Expected non null app here")
+        val appViewModel = intentData
+        checkNotNull(appViewModel)
+        
         return "app_details/${appViewModel.packageName}"
     }
 

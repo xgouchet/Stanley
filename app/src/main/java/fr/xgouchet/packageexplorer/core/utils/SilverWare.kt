@@ -7,9 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-/**
- * @author Xavier F. Gouchet
- */
 object Cutelry {
 
     fun <V : View> knife(id: Int): ReadOnlyProperty<Any, V> = BreadKnife(id)
@@ -20,12 +17,12 @@ object Cutelry {
 class BreadKnife<out V : View>(val id: Int) : ReadOnlyProperty<Any, V> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): V {
-        if (thisRef is Activity) {
-            return thisRef.findViewById(id) as V
+        return if (thisRef is Activity) {
+            thisRef.findViewById(id) as V
         } else if (thisRef is Fragment) {
-            return thisRef.view?.findViewById(id) as V
+            thisRef.view?.findViewById(id) as V
         } else if (thisRef is RecyclerView.ViewHolder) {
-            return thisRef.itemView?.findViewById(id) as V
+            thisRef.itemView.findViewById(id) as V
         } else {
             throw IllegalArgumentException("Can't find view by id in instance $thisRef")
         }

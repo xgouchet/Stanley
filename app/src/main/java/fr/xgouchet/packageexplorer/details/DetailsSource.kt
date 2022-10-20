@@ -1,5 +1,6 @@
 package fr.xgouchet.packageexplorer.details
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.ApplicationInfo
@@ -29,12 +30,14 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
 import io.reactivex.rxjava3.core.ObservableEmitter
 import java.io.File
 import java.security.MessageDigest
+import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
 import timber.log.Timber
 
+@Suppress("TooManyFunctions", "MagicNumber")
 open class DetailsSource(val context: Context) {
 
     companion object {
@@ -70,140 +73,160 @@ open class DetailsSource(val context: Context) {
                 )
             )
 
-            val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                packageInfo.longVersionCode
-            } else {
-                @Suppress("DEPRECATION")
-                packageInfo.versionCode.toLong()
-            }
-            onNext(
-                AppInfoSimple(
-                    AppInfoType.INFO_TYPE_GLOBAL,
-                    "Version Code : $versionCode"
-                )
-            )
-            onNext(
-                AppInfoSimple(
-                    AppInfoType.INFO_TYPE_GLOBAL,
-                    "Version Name : “${packageInfo.versionName}”"
-                )
-            )
+            extractPackageAndVersion(packageInfo)
 
             if (applicationInfo != null) {
-                onNext(
-                    AppInfoSimple(
-                        AppInfoType.INFO_TYPE_GLOBAL,
-                        "Target SDK : ${applicationInfo.targetSdkVersion}"
-                    )
-                )
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    onNext(
-                        AppInfoSimple(
-                            AppInfoType.INFO_TYPE_GLOBAL,
-                            "Min SDK : ${applicationInfo.minSdkVersion}"
-                        )
-                    )
-                }
-
-                if ((applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0) {
-                    onNext(
-                        AppInfoWithIcon(
-                            AppInfoType.INFO_TYPE_GLOBAL,
-                            "System app",
-                            null,
-                            R.drawable.ic_flag_system_app
-                        )
-                    )
-                }
-                if ((applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-                    onNext(
-                        AppInfoWithIcon(
-                            AppInfoType.INFO_TYPE_GLOBAL,
-                            "Debug version",
-                            null,
-                            R.drawable.ic_flag_debuggable
-                        )
-                    )
-                }
-                if ((applicationInfo.flags and ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
-                    onNext(
-                        AppInfoWithIcon(
-                            AppInfoType.INFO_TYPE_GLOBAL,
-                            "Installed on external storage",
-                            null,
-                            R.drawable.ic_flag_external_location
-                        )
-                    )
-                }
-                if ((applicationInfo.flags and ApplicationInfo.FLAG_LARGE_HEAP) != 0) {
-                    onNext(
-                        AppInfoWithIcon(
-                            AppInfoType.INFO_TYPE_GLOBAL,
-                            "Requires large heap",
-                            null,
-                            R.drawable.ic_flag_large_heap
-                        )
-                    )
-                }
+                extractAppInfo(applicationInfo)
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                var installLocation: String? = null
-                when (packageInfo.installLocation) {
-                    PackageInfo.INSTALL_LOCATION_AUTO -> installLocation = "Install Location : Auto"
-                    PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY -> installLocation =
-                        "Install Location : Internal"
-                    PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL -> installLocation =
-                        "Install Location : External (if possible)"
-                }
-                if (installLocation != null) {
-                    onNext(
-                        AppInfoWithIcon(
-                            AppInfoType.INFO_TYPE_GLOBAL,
-                            installLocation,
-                            null,
-                            R.drawable.ic_flag_storage
-                        )
-                    )
-                }
-            }
+            extractInstallInfo(packageInfo)
 
             if (apkFile != null) {
-                val sizeStr = humanReadableByteCount(apkFile.length())
+                extractApkInfo(apkFile)
+            }
+        }
+    }
+
+    private fun ObservableEmitter<AppInfoViewModel>.extractAppInfo(
+        applicationInfo: ApplicationInfo
+    ) {
+        onNext(
+            AppInfoSimple(
+                AppInfoType.INFO_TYPE_GLOBAL,
+                "Target SDK : ${applicationInfo.targetSdkVersion}"
+            )
+        )
+
+        onNext(
+            AppInfoSimple(
+                AppInfoType.INFO_TYPE_GLOBAL,
+                "Min SDK : ${applicationInfo.minSdkVersion}"
+            )
+        )
+
+        if ((applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0) {
+            onNext(
+                AppInfoWithIcon(
+                    AppInfoType.INFO_TYPE_GLOBAL,
+                    "System app",
+                    null,
+                    R.drawable.ic_flag_system_app
+                )
+            )
+        }
+        if ((applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
+            onNext(
+                AppInfoWithIcon(
+                    AppInfoType.INFO_TYPE_GLOBAL,
+                    "Debug version",
+                    null,
+                    R.drawable.ic_flag_debuggable
+                )
+            )
+        }
+        if ((applicationInfo.flags and ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
+            onNext(
+                AppInfoWithIcon(
+                    AppInfoType.INFO_TYPE_GLOBAL,
+                    "Installed on external storage",
+                    null,
+                    R.drawable.ic_flag_external_location
+                )
+            )
+        }
+        if ((applicationInfo.flags and ApplicationInfo.FLAG_LARGE_HEAP) != 0) {
+            onNext(
+                AppInfoWithIcon(
+                    AppInfoType.INFO_TYPE_GLOBAL,
+                    "Requires large heap",
+                    null,
+                    R.drawable.ic_flag_large_heap
+                )
+            )
+        }
+    }
+
+    private fun ObservableEmitter<AppInfoViewModel>.extractInstallInfo(
+        packageInfo: PackageInfo
+    ) {
+        var installLocation: String? = null
+        when (packageInfo.installLocation) {
+            PackageInfo.INSTALL_LOCATION_AUTO -> installLocation = "Install Location : Auto"
+            PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY -> installLocation =
+                "Install Location : Internal"
+            PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL -> installLocation =
+                "Install Location : External (if possible)"
+        }
+        if (installLocation != null) {
+            onNext(
+                AppInfoWithIcon(
+                    AppInfoType.INFO_TYPE_GLOBAL,
+                    installLocation,
+                    null,
+                    R.drawable.ic_flag_storage
+                )
+            )
+        }
+    }
+
+    private fun ObservableEmitter<AppInfoViewModel>.extractApkInfo(
+        apkFile: File
+    ) {
+        val sizeStr = humanReadableByteCount(apkFile.length())
+        onNext(
+            AppInfoWithIcon(
+                AppInfoType.INFO_TYPE_GLOBAL,
+                "Local APK size: $sizeStr",
+                null,
+                R.drawable.ic_apk_size
+            )
+        )
+
+        val nativeLibraries = nativeLibraries(apkFile)
+        if (nativeLibraries.isNotEmpty()) {
+            onNext(
+                AppInfoHeader(
+                    AppInfoType.INFO_TYPE_NATIVE,
+                    context.getString(R.string.header_type_native_libs),
+                    R.drawable.ic_category_native_libs
+                )
+            )
+            val nativeLibGroups = nativeLibraries.groupBy { it.group }
+            nativeLibGroups.forEach { (group, list) ->
                 onNext(
-                    AppInfoWithIcon(
-                        AppInfoType.INFO_TYPE_GLOBAL,
-                        "Local APK size: $sizeStr",
-                        null,
-                        R.drawable.ic_apk_size
+                    AppInfoSubHeader(
+                        AppInfoType.INFO_TYPE_NATIVE,
+                        context.getString(group)
                     )
                 )
-
-                val nativeLibraries = nativeLibraries(apkFile)
-                if (nativeLibraries.isNotEmpty()) {
-                    onNext(
-                        AppInfoHeader(
-                            AppInfoType.INFO_TYPE_NATIVE,
-                            context.getString(R.string.header_type_native_libs),
-                            R.drawable.ic_category_native_libs
-                        )
-                    )
-                    val nativeLibGroups = nativeLibraries.groupBy { it.group }
-                    nativeLibGroups.forEach { (group, list) ->
-                        onNext(
-                            AppInfoSubHeader(
-                                AppInfoType.INFO_TYPE_NATIVE,
-                                context.getString(group)
-                            )
-                        )
-                        list.forEach { lib ->
-                            onNext(AppInfoSimple(AppInfoType.INFO_TYPE_NATIVE, lib.description()))
-                        }
-                    }
+                list.forEach { lib ->
+                    onNext(AppInfoSimple(AppInfoType.INFO_TYPE_NATIVE, lib.description()))
                 }
             }
         }
+    }
+
+    private fun ObservableEmitter<AppInfoViewModel>.extractPackageAndVersion(
+        packageInfo: PackageInfo
+    ) {
+        val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            packageInfo.longVersionCode
+        } else {
+            @Suppress("DEPRECATION")
+            packageInfo.versionCode.toLong()
+        }
+        onNext(
+            AppInfoSimple(
+                AppInfoType.INFO_TYPE_GLOBAL,
+                "Version Code : $versionCode"
+            )
+        )
+        onNext(
+            AppInfoSimple(
+                AppInfoType.INFO_TYPE_GLOBAL,
+                "Version Name : “${packageInfo.versionName}”"
+            )
+        )
     }
 
     protected fun extractActivities(
@@ -438,24 +461,7 @@ open class DetailsSource(val context: Context) {
             )
 
             for (feature in features) {
-                val info = if (feature.name == null) {
-                    val maj = feature.reqGlEsVersion shr 16
-                    val min = feature.reqGlEsVersion and 0xFFFF
-                    "OpenGL ES v$maj.$min"
-                } else {
-                    val stringRes =
-                        context.resources.getIdentifier(
-                            feature.name.lowercase(),
-                            "string",
-                            context.packageName
-                        )
-                    if (stringRes == 0) {
-                        Timber.w("Unable to find description for <\"${feature.name}\">")
-                        feature.name
-                    } else {
-                        context.getString(stringRes)
-                    }
-                }
+                val info = getFeatureName(feature)
 
                 if (feature.flags == FeatureInfo.FLAG_REQUIRED) {
                     onNext(
@@ -467,6 +473,27 @@ open class DetailsSource(val context: Context) {
                 } else {
                     onNext(AppInfoSimple(AppInfoType.INFO_TYPE_FEATURES_REQUIRED, info))
                 }
+            }
+        }
+    }
+
+    @SuppressLint("DiscouragedApi")
+    private fun getFeatureName(feature: FeatureInfo): String {
+        return if (feature.name == null) {
+            val maj = feature.reqGlEsVersion shr 16
+            val min = feature.reqGlEsVersion and 0xFFFF
+            "OpenGL ES v$maj.$min"
+        } else {
+            val stringRes = context.resources.getIdentifier(
+                feature.name.lowercase(),
+                "string",
+                context.packageName
+            )
+            if (stringRes == 0) {
+                Timber.w("Unable to find description for <\"${feature.name}\">")
+                feature.name
+            } else {
+                context.getString(stringRes)
             }
         }
     }
@@ -523,6 +550,7 @@ open class DetailsSource(val context: Context) {
                         )
                     )
                 } catch (e: CertificateException) {
+                    Timber.w("Can't read package signature", e)
                     onNext(
                         AppInfoWithSubtitle(
                             AppInfoType.INFO_TYPE_SIGNATURE,
@@ -573,14 +601,15 @@ open class DetailsSource(val context: Context) {
     }
 
     private fun simplifyName(name: String?, packageName: String?): String {
-        if (name == null) return "?"
-        if (packageName == null) return name
-
-        if (name.startsWith(packageName)) {
-            return name.substring(packageName.length)
+        return if (name == null) {
+            "?"
+        } else if (packageName == null) {
+            name
+        } else if (name.startsWith(packageName)) {
+            name.substring(packageName.length)
+        } else {
+            name
         }
-
-        return name
     }
 
     private fun humanReadableByteCount(bytes: Long): String {
@@ -588,7 +617,12 @@ open class DetailsSource(val context: Context) {
         if (bytes < unit) return "$bytes B"
         val exp = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
         val pre = "KMGTPE"[exp - 1]
-        return String.format("%.2f %sB", bytes / Math.pow(unit.toDouble(), exp.toDouble()), pre)
+        return String.format(
+            Locale.US,
+            "%.2f %sB",
+            bytes / Math.pow(unit.toDouble(), exp.toDouble()),
+            pre
+        )
     }
 
     private fun nativeLibraries(apk: File): Collection<NativeLibrary> {

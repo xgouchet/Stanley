@@ -8,9 +8,6 @@ import fr.xgouchet.packageexplorer.details.CertificateNavigator
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
-/**
- * @author Xavier F. Gouchet
- */
 class ApkDetailsActivity :
     BaseActivity<Uri, List<AppInfoViewModel>, ApkDetailsPresenter, ApkDetailsFragment>() {
 
@@ -21,7 +18,9 @@ class ApkDetailsActivity :
     }
 
     override fun instantiatePresenter(): ApkDetailsPresenter {
-        val uri = intentData ?: throw IllegalStateException("Intent data should not be null")
+        val uri = intentData
+        checkNotNull(uri)
+        
         return ApkDetailsPresenter(this, CertificateNavigator(), uri)
     }
 

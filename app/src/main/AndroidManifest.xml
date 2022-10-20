@@ -5,7 +5,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 
     <application
@@ -27,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".applist.CertificateAppListActivity"
+            android:name=".certificate.CertificateAppListActivity"
             android:enabled="true"
             android:exported="false"
             android:label="@string/activity_title_certificateAppList" />
@@ -62,7 +63,7 @@
             android:name=".about.AboutActivity"
             android:label="@string/activity_title_about"
             android:theme="@style/Theme.AppCompat.Light"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".oss.OSSActivity"
@@ -80,22 +81,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/shareable_paths" />
         </provider>
-
-        <!-- Receivers -->
-        <receiver
-            android:name=".easteregg.EasterEggReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SECRET_CODE" />
-                <data
-                    android:host="7826539"
-                    android:scheme="android_secret_code" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SECRET_CODE" />
-                <data android:scheme="android_secret_code" />
-            </intent-filter>
-        </receiver>
 
     </application>
 

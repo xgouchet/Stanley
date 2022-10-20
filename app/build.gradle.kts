@@ -64,6 +64,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     jvmTarget = "11"
+    config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
 }
 
 // endregion

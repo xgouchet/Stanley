@@ -7,9 +7,6 @@ import io.reactivex.rxjava3.disposables.Disposable
 import java.lang.IllegalStateException
 import androidx.fragment.app.Fragment as FragmentX
 
-/**
- * @author Xavier F. Gouchet
- */
 abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?) :
     ListPresenter<T>
     where D : ListDisplayer<T> {
@@ -32,7 +29,7 @@ abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?) :
             when (displayer) {
                 is FragmentX -> it.currentActivity = displayer.requireActivity()
                 is Activity -> it.currentActivity = displayer
-                else -> throw IllegalStateException("Unknown displayer type: $displayer")
+                else -> throw UnsupportedOperationException("Unknown displayer type: $displayer")
             }
         }
 

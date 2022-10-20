@@ -19,16 +19,17 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.security.cert.X509Certificate
 
-/**
- * @author Xavier F. Gouchet
- */
 class AppDetailsPresenter(
     activity: Activity,
     certficateNavigator: Navigator<X509Certificate>,
     val packageName: String,
     val isSystemApp: Boolean
 ) :
-    BaseDetailsPresenter<AppDetailsFragment>(null, certficateNavigator, activity.applicationContext) {
+    BaseDetailsPresenter<AppDetailsFragment>(
+        null,
+        certficateNavigator,
+        activity.applicationContext
+    ) {
 
     private var exportDisposable: Disposable? = null
 
@@ -40,24 +41,24 @@ class AppDetailsPresenter(
 
     override fun getDetails(): Observable<AppInfoViewModel> {
         return Observable.create(AppDetailsSource(context, packageName))
-                .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.io())
     }
 
     fun openAppInfo() {
         val intent = applicationInfoIntent(packageName)
-                .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+            .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
         context.startActivity(intent)
     }
 
     fun openPlayStore() {
         val intent = applicationPlayStoreIntent(packageName)
-                .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+            .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
         context.startActivity(intent)
     }
 
     fun openUninstaller() {
         val intent = uninstallPackageIntent(packageName)
-                .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+            .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
         context.startActivity(intent)
     }
 
@@ -82,13 +83,13 @@ class AppDetailsPresenter(
             return
         }
         exportDisposable = exportManifestFromPackage(packageInfo, context)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    displayer?.onManifestExported(it)
-                }, {
-                    displayer?.setError(it)
-                })
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                displayer?.onManifestExported(it)
+            }, {
+                displayer?.setError(it)
+            })
     }
 
     fun exportBinaryManifest() {

@@ -11,20 +11,10 @@ class StanleyApplication : Application() {
         super.onCreate()
 
         if (BuildConfig.DEBUG) run {
-//            Stetho.initializeWithDefaults(this)
-//            Traceur.enableLogging();
-//            LeakCanary.install(this)
-            try {
-                Class.forName("dalvik.system.CloseGuard")
-                    .getMethod("setEnabled", Boolean::class.javaPrimitiveType)
-                    .invoke(null, true)
-            } catch (e: ReflectiveOperationException) {
-                throw RuntimeException(e)
-            }
+            Class.forName("dalvik.system.CloseGuard")
+                .getMethod("setEnabled", Boolean::class.javaPrimitiveType).invoke(null, true)
             StrictMode.setVmPolicy(
-                StrictMode.VmPolicy.Builder(StrictMode.getVmPolicy())
-                    .detectLeakedClosableObjects()
-                    .build()
+                StrictMode.VmPolicy.Builder(StrictMode.getVmPolicy()).detectAll().build()
             )
             Timber.plant(Timber.DebugTree())
         }

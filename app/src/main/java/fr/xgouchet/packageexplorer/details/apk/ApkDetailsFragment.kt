@@ -18,9 +18,6 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import java.io.File
 
-/**
- * @author Xavier F. Gouchet
- */
 class ApkDetailsFragment :
     BaseListFragment<AppInfoViewModel, ApkDetailsPresenter>() {
 

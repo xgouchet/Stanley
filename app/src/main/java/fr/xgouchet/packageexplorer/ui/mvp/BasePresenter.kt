@@ -1,8 +1,5 @@
 package fr.xgouchet.packageexplorer.ui.mvp
 
-/**
- * @author Xavier F. Gouchet
- */
 open class BasePresenter<T : Any> : Presenter<T> {
 
     var displayer: Displayer<T>? = null

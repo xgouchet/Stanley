@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import fr.xgouchet.packageexplorer.R
 import timber.log.Timber
 
+@Suppress("TooManyFunctions")
 abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD> :
     AppCompatActivity()
-        where IntentDataI : Any,
-              PresenterP : Presenter<DataD>,
-              DisplayerD : Displayer<DataD>, DisplayerD : Fragment {
+    where IntentDataI : Any,
+          PresenterP : Presenter<DataD>,
+          DisplayerD : Displayer<DataD>, DisplayerD : Fragment {
 
     abstract val allowNullIntentData: Boolean
 
@@ -45,13 +46,14 @@ abstract class BaseActivity<IntentDataI, DataD, out PresenterP, out DisplayerD> 
             isRestored = true
             presenter = restorePresenter(savedInstanceState)
             @Suppress("UNCHECKED_CAST")
-            fragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as DisplayerD
+            fragment =
+                supportFragmentManager.findFragmentById(R.id.fragment_container) as DisplayerD
         } else {
             presenter = instantiatePresenter()
             val displayer = instantiateFragment()
             supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, displayer)
-                    .commit()
+                .add(R.id.fragment_container, displayer)
+                .commit()
             fragment = displayer
         }
     }

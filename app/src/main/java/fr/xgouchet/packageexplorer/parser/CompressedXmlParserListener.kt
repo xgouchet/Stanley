@@ -39,7 +39,7 @@ interface CompressedXmlParserListener {
      * of this object after startElement returns is undefined
      */
     fun startElement(
-        identifier : Identifier,
+        identifier: Identifier,
         attributes: Collection<Attribute>
     )
 
@@ -48,7 +48,7 @@ interface CompressedXmlParserListener {
      *
      * @param identifier  the element identifier
      */
-    fun endElement(identifier : Identifier)
+    fun endElement(identifier: Identifier)
 
     /**
      * Receive notification of text.

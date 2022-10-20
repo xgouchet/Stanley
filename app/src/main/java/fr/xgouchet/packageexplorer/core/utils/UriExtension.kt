@@ -15,19 +15,21 @@ fun Uri.isContent(): Boolean {
 }
 
 fun Uri.getFileName(context: Context): String? {
-
-    if (isFile()) {
-        return File(path).name
+    val uriPath = path
+    return if (isFile() && uriPath != null) {
+        File(uriPath).name
+    } else if (!isContent()) {
+        null
+    } else {
+        context.resolveFileName(this)
     }
+}
 
-    if (!isContent()) {
-        return null
-    }
-
+private fun Context.resolveFileName(uri: Uri): String? {
     var cursor: Cursor? = null
     var name: String? = null
     try {
-        cursor = context.contentResolver.query(this, null, null, null, null)
+        cursor = contentResolver.query(uri, null, null, null, null)
         cursor?.let {
             val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             if (cursor.moveToFirst()) {
@@ -37,6 +39,5 @@ fun Uri.getFileName(context: Context): String? {
     } finally {
         cursor?.close()
     }
-
     return name
 }

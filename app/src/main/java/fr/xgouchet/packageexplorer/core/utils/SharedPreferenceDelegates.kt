@@ -6,21 +6,24 @@ import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import java.lang.ref.WeakReference
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
+import timber.log.Timber
 
 /**
  * This provide field delegates to ease the link between a view and a class
- *
- * @author Xavier F. Gouchet
  */
 object Notebook {
 
-    fun <P : ContextHolder> notebook(key: String, default: Boolean): ReadWriteProperty<P, Boolean> = BooleanPage(key, default)
+    fun <P : ContextHolder> page(key: String, default: Boolean): ReadWriteProperty<P, Boolean> =
+        BooleanPage(key, default)
 
-    fun <P : ContextHolder> notebook(key: String, default: Int): ReadWriteProperty<P, Int> = IntPage(key, default)
+    fun <P : ContextHolder> page(key: String, default: Int): ReadWriteProperty<P, Int> =
+        IntPage(key, default)
 
-    fun <P : ContextHolder> notebook(key: String, default: String): ReadWriteProperty<P, String> = StringPage(key, default)
+    fun <P : ContextHolder> page(key: String, default: String): ReadWriteProperty<P, String> =
+        StringPage(key, default)
 
-    fun <P : ContextHolder> notebook(key: String, default: AppSort): ReadWriteProperty<P, AppSort> = AppSortPage(key, default)
+    fun <P : ContextHolder> page(key: String, default: AppSort): ReadWriteProperty<P, AppSort> =
+        AppSortPage(key, default)
 }
 
 /**
@@ -44,7 +47,7 @@ abstract class GenericPage<in P : ContextHolder, T : Any> : ReadWriteProperty<P,
         memoized = WeakReference(value)
 
         val editor = getSharedPreferences(thisRef.context)
-                .edit()
+            .edit()
         saveValue(editor, value)
         editor.apply()
     }
@@ -54,14 +57,18 @@ abstract class GenericPage<in P : ContextHolder, T : Any> : ReadWriteProperty<P,
     abstract fun getPreferenceValue(preferences: SharedPreferences): T
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences("${context.packageName}_preferences", Context.MODE_PRIVATE)
+        return context.getSharedPreferences(
+            "${context.packageName}_preferences",
+            Context.MODE_PRIVATE
+        )
     }
 }
 
 /**
  * A Boolean delegate reading from / writing to the default shared preferences
  */
-class BooleanPage<in P : ContextHolder>(val key: String, val default: Boolean) : GenericPage<P, Boolean>() {
+class BooleanPage<in P : ContextHolder>(val key: String, val default: Boolean) :
+    GenericPage<P, Boolean>() {
     override fun getPreferenceValue(preferences: SharedPreferences): Boolean {
         return preferences.getBoolean(key, default)
     }
@@ -87,7 +94,8 @@ class IntPage<in P : ContextHolder>(val key: String, val default: Int) : Generic
 /**
  * A String delegate reading from / writing to the default shared preferences
  */
-class StringPage<in P : ContextHolder>(val key: String, val default: String) : GenericPage<P, String>() {
+class StringPage<in P : ContextHolder>(val key: String, val default: String) :
+    GenericPage<P, String>() {
     override fun getPreferenceValue(preferences: SharedPreferences): String {
         return preferences.getString(key, default).orEmpty()
     }
@@ -100,7 +108,8 @@ class StringPage<in P : ContextHolder>(val key: String, val default: String) : G
 /**
  * An Enum delegate reading from / writing to the default shared preferences
  */
-class AppSortPage<in P : ContextHolder>(val key: String, val default: AppSort) : GenericPage<P, AppSort>() {
+class AppSortPage<in P : ContextHolder>(val key: String, val default: AppSort) :
+    GenericPage<P, AppSort>() {
 
     override fun saveValue(editor: SharedPreferences.Editor, value: AppSort) {
         editor.putString(key, value.name)
@@ -112,6 +121,7 @@ class AppSortPage<in P : ContextHolder>(val key: String, val default: AppSort) :
         try {
             return AppSort.valueOf(name)
         } catch (e: IllegalArgumentException) {
+            Timber.w("Can't get enum value for '$name'", e)
             return default
         }
     }

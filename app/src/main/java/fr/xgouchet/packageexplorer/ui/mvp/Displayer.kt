@@ -1,8 +1,5 @@
 package fr.xgouchet.packageexplorer.ui.mvp
 
-/**
- * @author Xavier F. Gouchet
- */
 interface Displayer<T> {
 
     fun setPresenter(presenter: Presenter<T>)

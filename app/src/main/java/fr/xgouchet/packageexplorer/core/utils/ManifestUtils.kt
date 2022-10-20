@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package fr.xgouchet.packageexplorer.core.utils
 
 import android.content.Context
@@ -51,7 +53,6 @@ fun exportManifestDomFromPackage(
     return parseManifestFile(getPackageApk(info))
 }
 
-// TODO replace with
 fun exportManifestFromApk(
     apk: File,
     context: Context

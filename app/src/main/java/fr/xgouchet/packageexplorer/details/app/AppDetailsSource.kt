@@ -11,9 +11,6 @@ import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import java.io.File
 
-/**
- * @author Xavier F. Gouchet
- */
 class AppDetailsSource(
     context: Context,
     val packageName: String

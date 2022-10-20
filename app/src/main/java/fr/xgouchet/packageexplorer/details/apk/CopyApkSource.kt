@@ -6,6 +6,8 @@ import fr.xgouchet.packageexplorer.core.utils.getFileName
 import io.reactivex.rxjava3.core.SingleEmitter
 import io.reactivex.rxjava3.core.SingleOnSubscribe
 import java.io.File
+import java.io.IOException
+import timber.log.Timber
 
 class CopyApkSource(
     val context: Context,
@@ -20,8 +22,8 @@ class CopyApkSource(
             } else {
                 emitter.onError(NullPointerException("Oups"))
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (e: IOException) {
+            Timber.e("Error copying the apk locally", e)
             emitter.onError(e)
         }
     }

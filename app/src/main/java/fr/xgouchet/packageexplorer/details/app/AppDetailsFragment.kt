@@ -23,14 +23,12 @@ import fr.xgouchet.packageexplorer.ui.adapter.BaseAdapter
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListFragment
 import java.io.File
 
-/**
- * @author Xavier F. Gouchet
- */
-class AppDetailsFragment :
-    BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
+@Suppress("TooManyFunctions")
+class AppDetailsFragment : BaseListFragment<AppInfoViewModel, AppDetailsPresenter>() {
 
-    override val adapter: BaseAdapter<AppInfoViewModel> =
-        AppDetailsAdapter(this, { presenter.actionTriggered(it) })
+    override val adapter: BaseAdapter<AppInfoViewModel> = AppDetailsAdapter(this) {
+        presenter.actionTriggered(it)
+    }
     override val isFabVisible: Boolean = false
     override val fabIconOverride: Int? = null
 
@@ -61,32 +59,15 @@ class AppDetailsFragment :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_app_launch -> {
-                presenter.openApplication()
-                return true
-            }
-            R.id.action_app_info -> {
-                presenter.openAppInfo()
-                return true
-            }
-            R.id.action_play_store -> {
-                presenter.openPlayStore()
-                return true
-            }
-            R.id.action_uninstall -> {
-                onUninstallRequested()
-                return true
-            }
-            R.id.action_manifest -> {
-                presenter.exportManifest()
-                return true
-            }
-            R.id.action_extract_bin_manifest -> {
-                presenter.exportBinaryManifest()
-                return true
-            }
+            R.id.action_app_launch -> presenter.openApplication()
+            R.id.action_app_info -> presenter.openAppInfo()
+            R.id.action_play_store -> presenter.openPlayStore()
+            R.id.action_uninstall -> onUninstallRequested()
+            R.id.action_manifest -> presenter.exportManifest()
+            R.id.action_extract_bin_manifest -> presenter.exportBinaryManifest()
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+        return true
     }
 
     // endregion
@@ -96,8 +77,7 @@ class AppDetailsFragment :
     fun promptActivity(resolvedInfos: List<ResolveInfo>) {
         val supportFragmentManager = activity?.supportFragmentManager ?: return
         val transaction = supportFragmentManager.beginTransaction()
-        LauncherDialog.withData(resolvedInfos)
-            .show(transaction, null)
+        LauncherDialog.withData(resolvedInfos).show(transaction, null)
     }
 
     fun onManifestExported(dest: File) {
@@ -110,8 +90,7 @@ class AppDetailsFragment :
 
         val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
         if (resolved.isEmpty()) {
-            Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
-                .show()
+            Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG).show()
         } else {
             val chooser = Intent.createChooser(intent, null)
             currentActivity.startActivity(chooser)
@@ -124,15 +103,20 @@ class AppDetailsFragment :
         val intent = Intent(Intent.ACTION_SEND)
         val uri = FileProvider.getUriForFile(currentActivity, BuildConfig.APPLICATION_ID, dest)
         intent.type = "plain/text"
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Manifest from ${packageInfo.packageName}:${packageInfo.versionName}")
+        intent.putExtra(
+            Intent.EXTRA_SUBJECT,
+            "Manifest from ${packageInfo.packageName}:${packageInfo.versionName}"
+        )
         intent.putExtra(Intent.EXTRA_STREAM, uri)
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-        intent.putExtra(Intent.EXTRA_TEXT, "Sent from Stanley ${BuildConfig.APPLICATION_ID}:${BuildConfig.VERSION_NAME}")
+        intent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Sent from Stanley ${BuildConfig.APPLICATION_ID}:${BuildConfig.VERSION_NAME}"
+        )
 
         val resolved = currentActivity.packageManager.queryIntentActivities(intent, 0)
         if (resolved.isEmpty()) {
-            Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG)
-                .show()
+            Snackbar.make(list, R.string.error_exported_manifest, Snackbar.LENGTH_LONG).show()
         } else {
             val chooser = Intent.createChooser(intent, null)
             currentActivity.startActivity(chooser)

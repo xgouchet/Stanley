@@ -1,6 +1,7 @@
 package fr.xgouchet.packageexplorer.oss
 
 import android.content.Context
+import androidx.annotation.DrawableRes
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import fr.xgouchet.packageexplorer.R
@@ -12,6 +13,7 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import java.io.IOException
+import timber.log.Timber
 
 class OSSDependenciesSource(val context: Context) :
     ObservableOnSubscribe<AppInfoViewModel> {
@@ -34,55 +36,40 @@ class OSSDependenciesSource(val context: Context) :
                     (!it.identifier.startsWith("androidx"))
             }
 
-            if (androidX.isNotEmpty()) {
-                emitter.onNext(
-                    AppInfoHeader(
-                        AppInfoType.INFO_TYPE_ANDROID,
-                        "AndroidX",
-                        R.drawable.ic_oss_android_logo
-                    )
-                )
-                androidX.forEach {
-                    emitter.onNext(
-                        convertDependency(
-                            it,
-                            AppInfoType.INFO_TYPE_ANDROID
-                        )
-                    )
-                }
-            }
+            emitDependencies(
+                emitter,
+                Group(AppInfoType.INFO_TYPE_ANDROID, "AndroidX", R.drawable.ic_oss_android_logo),
+                androidX
+            )
 
-            if (kotlin.isNotEmpty()) {
-                emitter.onNext(
-                    AppInfoHeader(
-                        AppInfoType.INFO_TYPE_KOTLIN,
-                        "Kotlin",
-                        R.drawable.ic_oss_kotlin_logo
-                    )
-                )
-                kotlin.forEach {
-                    emitter.onNext(
-                        convertDependency(
-                            it,
-                            AppInfoType.INFO_TYPE_KOTLIN
-                        )
-                    )
-                }
-            }
+            emitDependencies(
+                emitter,
+                Group(AppInfoType.INFO_TYPE_KOTLIN, "Kotlin", R.drawable.ic_oss_kotlin_logo),
+                kotlin
+            )
 
-            if (misc.isNotEmpty()) {
-                emitter.onNext(
-                    AppInfoHeader(
-                        AppInfoType.INFO_TYPE_MISC,
-                        "Misc",
-                        R.drawable.ic_oss_package_logo
-                    )
-                )
-                misc.forEach { emitter.onNext(convertDependency(it, AppInfoType.INFO_TYPE_MISC)) }
-            }
+            emitDependencies(
+                emitter,
+                Group(AppInfoType.INFO_TYPE_MISC, "Misc", R.drawable.ic_oss_package_logo),
+                misc
+            )
 
             emitter.onComplete()
         } catch (e: IOException) {
+            Timber.e("Error listing OSS dependencies", e)
+        }
+    }
+
+    private fun emitDependencies(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        group: Group,
+        dependencies: List<OSSDependency>
+    ) {
+        if (dependencies.isNotEmpty()) {
+            emitter.onNext(AppInfoHeader(group.id, group.name, group.icon))
+            dependencies.forEach {
+                emitter.onNext(convertDependency(it, group.id))
+            }
         }
     }
 
@@ -97,4 +84,10 @@ class OSSDependenciesSource(val context: Context) :
             AppInfoWithSubtitleAndAction(type, title, subtitle, raw, "Source", actionData)
         }
     }
+
+    data class Group(
+        val id: Int,
+        val name: String,
+        @DrawableRes val icon: Int
+    )
 }

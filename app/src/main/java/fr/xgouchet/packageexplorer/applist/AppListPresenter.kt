@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
-import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
+import fr.xgouchet.packageexplorer.core.utils.Notebook.page
 import fr.xgouchet.packageexplorer.core.utils.getMainActivities
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
@@ -19,18 +19,17 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.BiFunction
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import java.util.Locale
 
-/**
- * @author Xavier F. Gouchet
- */
+@Suppress("TooManyFunctions")
 class AppListPresenter(context: Context) :
-        BaseListPresenter<AppViewModel, AppListFragment>(AppListNavigator()),
-        ContextHolder {
+    BaseListPresenter<AppViewModel, AppListFragment>(AppListNavigator()),
+    ContextHolder {
 
     override val context: Context = context.applicationContext
 
-    private var currentSort: AppSort by notebook(KEY_SORT, AppSort.TITLE)
-    private var systemAppVisible: Boolean by notebook(KEY_SYSTEM_APPS_VISIBLE, false)
+    private var currentSort: AppSort by page(KEY_SORT, AppSort.TITLE)
+    private var systemAppVisible: Boolean by page(KEY_SYSTEM_APPS_VISIBLE, false)
 
     private var memoizedAppList: List<AppViewModel>? = null
 
@@ -43,44 +42,46 @@ class AppListPresenter(context: Context) :
 
     init {
         val filteredList = Observable.combineLatest(
-                dataSubject,
-                filterSubject,
-                BiFunction { list, filter ->
-                    val lowerCaseFilter = filter.toLowerCase()
-                    return@BiFunction list.filter {
-                        if (filter.isEmpty()) {
-                            return@filter true
-                        } else {
-                            return@filter it.title.toLowerCase().contains(lowerCaseFilter) || it.packageName.toLowerCase().contains(lowerCaseFilter)
-                        }
-                    }
-                })
-
-        val systemAppFilteredList = Observable.combineLatest(
-                filteredList,
-                systemAppVisibilitySubject,
-                BiFunction<List<AppViewModel>, Boolean, List<AppViewModel>> { list, system ->
-                    return@BiFunction list.filter {
-                        if (system) {
-                            return@filter true
-                        } else {
-                            return@filter (it.flags and ApplicationInfo.FLAG_SYSTEM) == 0
-                        }
+            dataSubject,
+            filterSubject,
+            BiFunction { list, filter ->
+                val lowerCaseFilter = filter.lowercase(Locale.getDefault())
+                return@BiFunction list.filter {
+                    if (filter.isEmpty()) {
+                        return@filter true
+                    } else {
+                        return@filter it.title.lowercase(Locale.getDefault())
+                            .contains(lowerCaseFilter) || it.packageName.lowercase(Locale.getDefault())
+                            .contains(lowerCaseFilter)
                     }
                 }
+            })
+
+        val systemAppFilteredList = Observable.combineLatest(
+            filteredList,
+            systemAppVisibilitySubject,
+            BiFunction<List<AppViewModel>, Boolean, List<AppViewModel>> { list, system ->
+                return@BiFunction list.filter {
+                    if (system) {
+                        return@filter true
+                    } else {
+                        return@filter (it.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+                    }
+                }
+            }
         )
 
         val sortedList = Observable.combineLatest(
-                systemAppFilteredList,
-                sortSubject,
-                BiFunction { list, comp ->
-                    return@BiFunction list.sortedWith(comp)
-                })
+            systemAppFilteredList,
+            sortSubject,
+            BiFunction { list, comp ->
+                return@BiFunction list.sortedWith(comp)
+            })
 
         loadingDisposable = sortedList
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ onItemsLoaded(it) }, { displayer?.setError(it) })
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ onItemsLoaded(it) }, { displayer?.setError(it) })
 
         sortSubject.onNext(currentSort.comparator)
         filterSubject.onNext("")
@@ -160,15 +161,15 @@ class AppListPresenter(context: Context) :
             }
 
             disposable = Observable.create(AppListSource(context))
-                    .subscribeOn(Schedulers.io())
-                    .toList()
-                    .subscribe(
-                            {
-                                memoizedAppList = it
-                                dataSubject.onNext(it)
-                            },
-                            { displayer?.setError(it) }
-                    )
+                .subscribeOn(Schedulers.io())
+                .toList()
+                .subscribe(
+                    {
+                        memoizedAppList = it
+                        dataSubject.onNext(it)
+                    },
+                    { displayer?.setError(it) }
+                )
         }
     }
 

@@ -1,14 +1,14 @@
-package fr.xgouchet.packageexplorer.applist
+package fr.xgouchet.packageexplorer.certificate
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import fr.xgouchet.packageexplorer.certificate.CertificateAppListFragment
-import fr.xgouchet.packageexplorer.certificate.CertificateAppListPresenter
+import fr.xgouchet.packageexplorer.applist.AppViewModel
 import fr.xgouchet.packageexplorer.core.utils.humanReadableName
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
+import timber.log.Timber
 
 class CertificateAppListActivity :
     BaseActivity<X509Certificate, List<AppViewModel>, CertificateAppListPresenter, CertificateAppListFragment>() {
@@ -32,6 +32,7 @@ class CertificateAppListActivity :
         val cert = try {
             X509Certificate.getInstance(encoded)
         } catch (e: CertificateException) {
+            Timber.e("Can't get certificate from intent", e)
             null
         }
         return cert

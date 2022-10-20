@@ -9,9 +9,6 @@ import io.reactivex.rxjava3.functions.BiConsumer
 import io.reactivex.rxjava3.functions.Consumer
 import java.util.Optional
 
-/**
- * @author Xavier F. Gouchet
- */
 abstract class AppInfoViewHolder<T : AppInfoViewModel>(
     itemView: View,
     listener: BiConsumer<AppInfoViewModel, Optional<View>>?,

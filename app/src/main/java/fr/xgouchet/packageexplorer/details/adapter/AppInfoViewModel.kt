@@ -4,9 +4,6 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import fr.xgouchet.packageexplorer.R
 
-/**
- * @author Xavier F. Gouchet
- */
 object AppInfoType {
     const val INFO_TYPE_GLOBAL: Int = 0x1
     const val INFO_TYPE_FEATURES_REQUIRED: Int = 0x2
@@ -53,8 +50,8 @@ data class AppInfoSimple(
     val title: String,
     val raw: String? = null
 ) :
-        AppInfoViewModel(type, "Simple {$type} “$title”"),
-        AppInfoSelectable {
+    AppInfoViewModel(type, "Simple {$type} “$title”"),
+    AppInfoSelectable {
     override fun getClipLabel(): String = title
     override fun getClipData(): String? = raw
 }
@@ -66,8 +63,8 @@ data class AppInfoBullet(
     @DrawableRes val icon: Int = R.drawable.ic_bullet
 
 ) :
-        AppInfoViewModel(type, "Bullet {$type} “$content”"),
-        AppInfoSelectable {
+    AppInfoViewModel(type, "Bullet {$type} “$content”"),
+    AppInfoSelectable {
     override fun getClipLabel(): String = content
     override fun getClipData(): String? = raw
 }
@@ -78,8 +75,8 @@ data class AppInfoWithIcon(
     val raw: String? = null,
     @DrawableRes val icon: Int
 ) :
-        AppInfoViewModel(type, "Icon {$type} “$title”  $icon"),
-        AppInfoSelectable {
+    AppInfoViewModel(type, "Icon {$type} “$title”  $icon"),
+    AppInfoSelectable {
     override fun getClipLabel(): String = title
     override fun getClipData(): String? = raw
 }
@@ -90,8 +87,8 @@ data class AppInfoWithSubtitle(
     val subtitle: String,
     val raw: String? = null
 ) :
-        AppInfoViewModel(type, "Subtitle {$type} “$title” / $subtitle"),
-        AppInfoSelectable {
+    AppInfoViewModel(type, "Subtitle {$type} “$title” / $subtitle"),
+    AppInfoSelectable {
     override fun getClipLabel(): String = title
     override fun getClipData(): String? = raw
 }
@@ -103,8 +100,8 @@ data class AppInfoWithSubtitleAndIcon(
     val raw: String? = null,
     val icon: Drawable?
 ) :
-        AppInfoViewModel(type, "Subtitle+Icon {$type} “$title” / $subtitle $icon"),
-        AppInfoSelectable {
+    AppInfoViewModel(type, "Subtitle+Icon {$type} “$title” / $subtitle $icon"),
+    AppInfoSelectable {
     override fun getClipLabel(): String = title
     override fun getClipData(): String? = raw
 }
@@ -117,8 +114,8 @@ data class AppInfoWithSubtitleAndAction(
     val actionText: String,
     val actionData: Any?
 ) :
-        AppInfoViewModel(type, "Subtitle+Action {$type} “$title” / $subtitle $actionData"),
-        AppInfoSelectable {
+    AppInfoViewModel(type, "Subtitle+Action {$type} “$title” / $subtitle $actionData"),
+    AppInfoSelectable {
     override fun getClipLabel(): String = title
     override fun getClipData(): String? = raw
 }

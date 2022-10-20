@@ -21,7 +21,7 @@ object PresenterCache {
             @Suppress("UNCHECKED_CAST")
             match = cache.get(key) as P
         } catch (e: ClassCastException) {
-            Timber.w("Presenter found for key $key, but type doesn't match expected.")
+            Timber.w("Presenter found for key $key, but type doesn't match expected.", e)
         }
 
         if (match == null) {

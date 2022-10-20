@@ -4,8 +4,10 @@ import java.io.IOException
 import java.io.InputStream
 import java.lang.Boolean.toString
 import java.text.DecimalFormat
+import java.util.Locale
 import timber.log.Timber
 
+@Suppress("TooManyFunctions", "MagicNumber")
 class CompressedXmlParser {
 
     private lateinit var listener: CompressedXmlParserListener
@@ -177,7 +179,7 @@ class CompressedXmlParser {
      *  * 8th word : index of id attribute (0 if none)
      * @return the size of this token, in bytes
      */
-    private fun parseStartTag(chunkStartIndex: Int) : Int {
+    private fun parseStartTag(chunkStartIndex: Int): Int {
         val chunkSize = data.getLEWord(wordIndex(chunkStartIndex, 1))
         val uriIdx = data.getLEWord(wordIndex(chunkStartIndex, 4))
         val nameIdx = data.getLEWord(wordIndex(chunkStartIndex, 5))
@@ -355,18 +357,15 @@ class CompressedXmlParser {
             TYPE_FLOAT -> res = java.lang.Float.intBitsToFloat(data).toString()
             TYPE_INT, TYPE_FLAGS -> res = data.toString()
             TYPE_BOOL -> res = toString(data != 0)
-            TYPE_COLOR, TYPE_COLOR2 -> res = String.format("#%08X", data)
-            TYPE_ID_REF -> res = String.format("@id/0x%08X", data)
-            TYPE_ATTR_REF -> res = String.format("?id/0x%08X", data)
+            TYPE_COLOR, TYPE_COLOR2 -> res = String.format(Locale.US, "#%08X", data)
+            TYPE_ID_REF -> res = String.format(Locale.US, "@id/0x%08X", data)
+            TYPE_ATTR_REF -> res = String.format(Locale.US, "?id/0x%08X", data)
             else -> {
                 Timber.w(
-                    "Unknown attribute type 0x${type.toString(16)} with data 0x${
-                        data.toString(
-                            16
-                        )
-                    }"
+                    "Unknown attribute type 0x${type.toString(16)} " +
+                        "with data 0x${data.toString(16)}"
                 )
-                res = String.format("%08X/0x%08X", type, data)
+                res = String.format(Locale.US, "%08X/0x%08X", type, data)
             }
         }
         return res

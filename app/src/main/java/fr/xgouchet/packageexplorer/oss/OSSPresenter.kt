@@ -38,7 +38,12 @@ class OSSPresenter(context: Context, val urlNavigator: UrlNavigator) :
                     .filter { (it is AppInfoHeader) || (it.mask and filter) == it.mask }
                     .map {
                         if (it is AppInfoHeader) {
-                            return@map it.copy(expandedIcon = if ((it.mask and filter) == it.mask) R.drawable.ic_expand_less else R.drawable.ic_expand_more)
+                            val expandedIcon = if ((it.mask and filter) == it.mask) {
+                                R.drawable.ic_expand_less
+                            } else {
+                                R.drawable.ic_expand_more
+                            }
+                            return@map it.copy(expandedIcon = expandedIcon)
                         } else {
                             return@map it
                         }

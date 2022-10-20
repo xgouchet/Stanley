@@ -2,9 +2,6 @@ package fr.xgouchet.packageexplorer.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 
-/**
- * @author Xavier F. Gouchet
- */
 abstract class BaseDiffUtilCallback<T>(
     val oldContent: List<T>,
     val newContent: List<T>

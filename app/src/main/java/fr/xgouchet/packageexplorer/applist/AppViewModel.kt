@@ -52,23 +52,26 @@ data class AppViewModel(
         fun fromAppInfo(pm: PackageManager, pi: PackageInfo?, ai: ApplicationInfo): AppViewModel {
             val signatures: Array<Signature> = pi?.signatures ?: emptyArray()
             val certificates = signatures
-                    .map {
-                        try {
-                            X509Certificate.getInstance(it.toByteArray())
-                        } catch (e: CertificateException) {
-                            null
-                        }
+                .map {
+                    try {
+                        X509Certificate.getInstance(it.toByteArray())
+                    } catch (e: CertificateException) {
+                        Timber.w("Can't read package signature", e)
+                        null
                     }
-                    .filter { it != null }
-                    .toTypedArray()
+                }
+                .filter { it != null }
+                .toTypedArray()
 
-            return AppViewModel(packageName = ai.packageName,
-                    title = pm.getApplicationLabel(ai).toString(),
-                    icon = pm.getApplicationIcon(ai),
-                    installTime = pi?.firstInstallTime ?: 0,
-                    updateTime = pi?.lastUpdateTime ?: 0,
-                    flags = ai.flags,
-                    certificates = listOfNotNull(*certificates)
+            @Suppress("SpreadOperator")
+            return AppViewModel(
+                packageName = ai.packageName,
+                title = pm.getApplicationLabel(ai).toString(),
+                icon = pm.getApplicationIcon(ai),
+                installTime = pi?.firstInstallTime ?: 0,
+                updateTime = pi?.lastUpdateTime ?: 0,
+                flags = ai.flags,
+                certificates = listOfNotNull(*certificates)
             )
         }
 

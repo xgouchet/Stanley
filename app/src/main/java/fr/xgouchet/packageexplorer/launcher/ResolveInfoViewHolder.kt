@@ -12,6 +12,7 @@ import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
 import java.util.Optional
+import timber.log.Timber
 
 class ResolveInfoViewHolder(
     view: View,
@@ -35,6 +36,7 @@ class ResolveInfoViewHolder(
         try {
             iconDrawable = pm.getActivityIcon(component)
         } catch (e: PackageManager.NameNotFoundException) {
+            Timber.e("Can't find icon for package ${item.activityInfo.packageName}", e)
             iconDrawable = icon.context.resources.getDrawable(R.drawable.ic_no_launcher)
         }
         icon.setImageDrawable(iconDrawable)

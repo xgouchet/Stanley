@@ -30,45 +30,45 @@ class AppDetailsAdapter(
     ): BaseViewHolder<AppInfoViewModel> {
         val layoutInflater = LayoutInflater.from(parent.context)
 
-        when (viewType) {
+        return when (viewType) {
             TYPE_HEADER -> {
                 val root = layoutInflater.inflate(R.layout.item_info_header, parent, false)
-                return AppInfoHeaderViewHolder(root, listener)
+                AppInfoHeaderViewHolder(root, listener)
             }
 
             TYPE_SIMPLE -> {
                 val root = layoutInflater.inflate(R.layout.item_info_simple, parent, false)
-                return AppInfoSimpleViewHolder(root, listener)
+                AppInfoSimpleViewHolder(root, listener)
             }
 
             TYPE_ICON -> {
                 val root = layoutInflater.inflate(R.layout.item_info_icon, parent, false)
-                return AppInfoWithIconViewHolder(root, listener)
+                AppInfoWithIconViewHolder(root, listener)
             }
 
             TYPE_SUBTITLE -> {
                 val root = layoutInflater.inflate(R.layout.item_info_subtitle, parent, false)
-                return AppInfoWithSubtitleViewHolder(root, listener)
+                AppInfoWithSubtitleViewHolder(root, listener)
             }
 
             TYPE_SUBTITLE_ICON -> {
                 val root = layoutInflater.inflate(R.layout.item_info_subtitle_icon, parent, false)
-                return AppInfoWithSubtitleAndIconViewHolder(root, listener)
+                AppInfoWithSubtitleAndIconViewHolder(root, listener)
             }
 
             TYPE_SUBTITLE_ACTION -> {
                 val root = layoutInflater.inflate(R.layout.item_info_subtitle_action, parent, false)
-                return AppInfoWithSubtitleAndActionViewHolder(root, listener, actionListener)
+                AppInfoWithSubtitleAndActionViewHolder(root, listener, actionListener)
             }
 
             TYPE_BULLET -> {
                 val root = layoutInflater.inflate(R.layout.item_info_bullet, parent, false)
-                return AppInfoBulletViewHolder(root, listener)
+                AppInfoBulletViewHolder(root, listener)
             }
 
             TYPE_SUB_HEADER -> {
                 val root = layoutInflater.inflate(R.layout.item_info_sub_header, parent, false)
-                return AppInfoSubHeaderViewHolder(root, listener)
+                AppInfoSubHeaderViewHolder(root, listener)
             }
 
             else -> throw IllegalArgumentException("Unknown view type $viewType")
@@ -77,16 +77,15 @@ class AppDetailsAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        when (item) {
-            is AppInfoHeader -> return TYPE_HEADER
-            is AppInfoSimple -> return TYPE_SIMPLE
-            is AppInfoWithIcon -> return TYPE_ICON
-            is AppInfoWithSubtitle -> return TYPE_SUBTITLE
-            is AppInfoWithSubtitleAndIcon -> return TYPE_SUBTITLE_ICON
-            is AppInfoWithSubtitleAndAction -> return TYPE_SUBTITLE_ACTION
-            is AppInfoBullet -> return TYPE_BULLET
-            is AppInfoSubHeader -> return TYPE_SUB_HEADER
-            else -> throw IllegalArgumentException("Unknown type $item")
+        return when (item) {
+            is AppInfoHeader -> TYPE_HEADER
+            is AppInfoSimple -> TYPE_SIMPLE
+            is AppInfoWithIcon -> TYPE_ICON
+            is AppInfoWithSubtitle -> TYPE_SUBTITLE
+            is AppInfoWithSubtitleAndIcon -> TYPE_SUBTITLE_ICON
+            is AppInfoWithSubtitleAndAction -> TYPE_SUBTITLE_ACTION
+            is AppInfoBullet -> TYPE_BULLET
+            is AppInfoSubHeader -> TYPE_SUB_HEADER
         }
     }
 

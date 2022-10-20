@@ -6,7 +6,7 @@ import fr.xgouchet.packageexplorer.applist.AppListSource
 import fr.xgouchet.packageexplorer.applist.AppViewModel
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
 import fr.xgouchet.packageexplorer.core.utils.ContextHolder
-import fr.xgouchet.packageexplorer.core.utils.Notebook.notebook
+import fr.xgouchet.packageexplorer.core.utils.Notebook.page
 import fr.xgouchet.packageexplorer.core.utils.getMainActivities
 import fr.xgouchet.packageexplorer.core.utils.getResolvedIntent
 import fr.xgouchet.packageexplorer.ui.mvp.list.BaseListPresenter
@@ -18,23 +18,20 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.security.cert.X509Certificate
 
-/**
- * @author Xavier F. Gouchet
- */
 class CertificateAppListPresenter(
     context: Context,
-    val certificate: X509Certificate
+    private val certificate: X509Certificate
 ) :
     BaseListPresenter<AppViewModel, CertificateAppListFragment>(AppListNavigator()),
     ContextHolder {
 
     companion object {
-        val KEY_SORT = "sort"
+        const val KEY_SORT = "sort"
     }
 
     override val context: Context = context.applicationContext
 
-    private var currentSort: AppSort by notebook(KEY_SORT, AppSort.TITLE)
+    private var currentSort: AppSort by page(KEY_SORT, AppSort.TITLE)
 
     private var memoizedAppList: List<AppViewModel>? = null
 

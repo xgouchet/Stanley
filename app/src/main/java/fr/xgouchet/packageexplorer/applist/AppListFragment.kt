@@ -62,7 +62,6 @@ class AppListFragment :
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.sort_by_title -> presenter.setSort(AppSort.TITLE)
             R.id.sort_by_package_name -> presenter.setSort(AppSort.PACKAGE_NAME)
@@ -103,7 +102,7 @@ class AppListFragment :
         val supportFragmentManager = activity?.supportFragmentManager ?: return
         val transaction = supportFragmentManager.beginTransaction()
         LauncherDialog.withData(resolvedInfos)
-                .show(transaction, null)
+            .show(transaction, null)
     }
 
     @SuppressLint("NewApi")

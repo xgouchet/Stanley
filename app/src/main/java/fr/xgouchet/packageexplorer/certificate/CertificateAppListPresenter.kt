@@ -56,7 +56,8 @@ class CertificateAppListPresenter(
             sortSubject,
             BiFunction { list, comp ->
                 return@BiFunction list.sortedWith(comp)
-            })
+            }
+        )
 
         loadingDisposable = sortedList
             .subscribeOn(Schedulers.computation())

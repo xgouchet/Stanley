@@ -62,9 +62,11 @@ class ApkDetailsPresenter(
             .doOnNext {
                 if (it.mask == AppInfoType.INFO_TYPE_METADATA) {
                     if (it is AppInfoWithSubtitle) {
-                        if (it.title == DetailsSource.PACKAGE_NAME) (displayer as ApkDetailsFragment).setPackageName(
-                            it.subtitle
-                        )
+                        if (it.title == DetailsSource.PACKAGE_NAME) {
+                            (displayer as ApkDetailsFragment).setPackageName(
+                                it.subtitle
+                            )
+                        }
                     }
                 }
             }

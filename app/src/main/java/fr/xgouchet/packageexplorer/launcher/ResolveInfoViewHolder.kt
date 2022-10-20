@@ -11,8 +11,8 @@ import fr.xgouchet.packageexplorer.R
 import fr.xgouchet.packageexplorer.core.utils.Cutelry.knife
 import fr.xgouchet.packageexplorer.ui.adapter.BaseViewHolder
 import io.reactivex.rxjava3.functions.BiConsumer
-import java.util.Optional
 import timber.log.Timber
+import java.util.Optional
 
 class ResolveInfoViewHolder(
     view: View,
@@ -29,7 +29,6 @@ class ResolveInfoViewHolder(
     }
 
     override fun onBindItem(item: ResolveInfo) {
-
         val component = ComponentName(item.activityInfo.packageName, item.activityInfo.name)
         val info = pm.getActivityInfo(component, 0)
         var iconDrawable: Drawable

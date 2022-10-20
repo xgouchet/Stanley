@@ -6,9 +6,9 @@ import android.os.Bundle
 import fr.xgouchet.packageexplorer.applist.AppViewModel
 import fr.xgouchet.packageexplorer.core.utils.humanReadableName
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
+import timber.log.Timber
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
-import timber.log.Timber
 
 class CertificateAppListActivity :
     BaseActivity<X509Certificate, List<AppViewModel>, CertificateAppListPresenter, CertificateAppListFragment>() {

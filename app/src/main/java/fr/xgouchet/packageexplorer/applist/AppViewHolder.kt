@@ -14,9 +14,9 @@ class AppViewHolder(
     listener: BiConsumer<AppViewModel, Optional<View>>?,
     secondaryActionListener: Consumer<AppViewModel>?
 ) : BaseViewHolder<AppViewModel>(
-        itemView = itemView,
-        selectedListener = listener,
-        secondaryActionListener = secondaryActionListener
+    itemView = itemView,
+    selectedListener = listener,
+    secondaryActionListener = secondaryActionListener
 ) {
 
     private val launchView: View = itemView.findViewById(R.id.action_app_launch)

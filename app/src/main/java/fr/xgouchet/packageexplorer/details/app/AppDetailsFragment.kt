@@ -142,7 +142,6 @@ class AppDetailsFragment : BaseListFragment<AppInfoViewModel, AppDetailsPresente
     // region Internal
 
     private fun onUninstallRequested() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!checkPermission(PERMISSION_UNINSTALL)) {
                 requestPermission(PERMISSION_UNINSTALL, PERMISSION_REQUEST_UNINSTALL)

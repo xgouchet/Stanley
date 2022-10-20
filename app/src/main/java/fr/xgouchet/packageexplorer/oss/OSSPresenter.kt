@@ -48,7 +48,8 @@ class OSSPresenter(context: Context, val urlNavigator: UrlNavigator) :
                             return@map it
                         }
                     }
-            })
+            }
+        )
 
         val disposable = filteredList
             .subscribeOn(Schedulers.computation())
@@ -86,7 +87,6 @@ class OSSPresenter(context: Context, val urlNavigator: UrlNavigator) :
         displayer: Displayer<List<AppInfoViewModel>>,
         restored: Boolean
     ) {
-
         val activity = when (displayer) {
             is Fragment -> displayer.activity
             is androidx.fragment.app.Fragment -> displayer.activity

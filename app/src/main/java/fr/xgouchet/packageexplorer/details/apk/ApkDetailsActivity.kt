@@ -20,7 +20,7 @@ class ApkDetailsActivity :
     override fun instantiatePresenter(): ApkDetailsPresenter {
         val uri = intentData
         checkNotNull(uri)
-        
+
         return ApkDetailsPresenter(this, CertificateNavigator(), uri)
     }
 

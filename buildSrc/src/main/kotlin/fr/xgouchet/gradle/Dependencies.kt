@@ -37,30 +37,31 @@ object Dependencies {
     object Libraries {
 
         @JvmField val AndroidX = arrayOf(
-                "androidx.annotation:annotation:${Versions.AndroidXAnnotations}",
-                "androidx.appcompat:appcompat:${Versions.AndroidXAppCompat}",
-                "androidx.core:core-ktx:${Versions.AndroidXCore}",
-                "androidx.media:media:${Versions.AndroidXMedia}"
+            "androidx.annotation:annotation:${Versions.AndroidXAnnotations}",
+            "androidx.appcompat:appcompat:${Versions.AndroidXAppCompat}",
+            "androidx.core:core-ktx:${Versions.AndroidXCore}",
+            "androidx.media:media:${Versions.AndroidXMedia}"
         )
 
         @JvmField val AndroidUI = arrayOf(
-                "androidx.constraintlayout:constraintlayout:${Versions.ConstraintLayout}",
-                "androidx.recyclerview:recyclerview:${Versions.AndroidXRecyclerView}",
-                "com.google.android.material:material:${Versions.MaterialComponents}"
+            "androidx.constraintlayout:constraintlayout:${Versions.ConstraintLayout}",
+            "androidx.recyclerview:recyclerview:${Versions.AndroidXRecyclerView}",
+            "com.google.android.material:material:${Versions.MaterialComponents}"
         )
 
         const val MultiDex = "androidx.multidex:multidex:${Versions.MultiDex}"
 
         @JvmField
         val Kotlin = arrayOf(
-                "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.Kotlin}",
-                "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.Kotlin}",
-                "org.jetbrains.kotlin:kotlin-reflect:${Versions.Kotlin}"
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.Kotlin}",
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.Kotlin}",
+            "org.jetbrains.kotlin:kotlin-reflect:${Versions.Kotlin}"
         )
+
         @JvmField
         val Rx = arrayOf(
-                "io.reactivex.rxjava3:rxjava:${Versions.RxJava}",
-                "io.reactivex.rxjava3:rxandroid:${Versions.RxAndroid}"
+            "io.reactivex.rxjava3:rxjava:${Versions.RxJava}",
+            "io.reactivex.rxjava3:rxandroid:${Versions.RxAndroid}"
         )
 
         const val Gson = "com.google.code.gson:gson:${Versions.Gson}"

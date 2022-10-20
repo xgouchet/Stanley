@@ -55,7 +55,8 @@ class AppListPresenter(context: Context) :
                             .contains(lowerCaseFilter)
                     }
                 }
-            })
+            }
+        )
 
         val systemAppFilteredList = Observable.combineLatest(
             filteredList,
@@ -76,7 +77,8 @@ class AppListPresenter(context: Context) :
             sortSubject,
             BiFunction { list, comp ->
                 return@BiFunction list.sortedWith(comp)
-            })
+            }
+        )
 
         loadingDisposable = sortedList
             .subscribeOn(Schedulers.computation())

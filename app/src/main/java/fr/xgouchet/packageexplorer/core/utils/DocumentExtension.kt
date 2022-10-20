@@ -35,7 +35,6 @@ fun Document.parseDocumentToManifest(): AndroidManifest {
 fun AndroidManifest.filterByName(name: String) = this.items.firstOrNull { it.attrs.containsValue(name) }
 
 fun List<Item>.formatItem(): List<Map<String, Map<String, String>>> {
-
     val list = mutableListOf<Map<String, Map<String, String>>>()
 
     forEach { intentFilter ->
@@ -95,6 +94,7 @@ private fun NamedNodeMap.forEach(block: Node.() -> Unit) {
 }
 
 private fun NodeList.takeFirst(block: Node.() -> Unit) {
-    if (this.length > 0)
+    if (this.length > 0) {
         this.item(0).block()
+    }
 }

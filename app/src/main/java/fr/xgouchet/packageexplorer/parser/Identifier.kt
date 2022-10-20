@@ -10,7 +10,7 @@ data class Identifier(
         return if (namespaceUri == null) {
             "Identifier(“$localName”)"
         } else {
-            "Identifier(“${qualifiedName}”, $namespaceUri)"
+            "Identifier(“$qualifiedName”, $namespaceUri)"
         }
     }
 }

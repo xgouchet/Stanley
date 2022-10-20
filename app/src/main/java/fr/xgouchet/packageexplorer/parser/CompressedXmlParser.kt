@@ -1,11 +1,11 @@
 package fr.xgouchet.packageexplorer.parser
 
+import timber.log.Timber
 import java.io.IOException
 import java.io.InputStream
 import java.lang.Boolean.toString
 import java.text.DecimalFormat
 import java.util.Locale
-import timber.log.Timber
 
 @Suppress("TooManyFunctions", "MagicNumber")
 class CompressedXmlParser {
@@ -336,7 +336,10 @@ class CompressedXmlParser {
             "$prefix:$localName"
         }
         return Identifier(
-            localName, uri, prefix, qname
+            localName,
+            uri,
+            prefix,
+            qname
         )
     }
 

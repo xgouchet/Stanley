@@ -35,7 +35,6 @@ class AppDetailsSource(
 
     @SuppressLint("PackageManagerGetSignatures")
     override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>) {
-
         try {
             val packageManager = context.packageManager
             val packageInfo = packageManager.getPackageInfo(packageName, PACKAGE_INFO_FLAGS)

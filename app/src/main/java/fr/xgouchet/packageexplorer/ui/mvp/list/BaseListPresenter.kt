@@ -4,7 +4,6 @@ import android.app.Activity
 import fr.xgouchet.packageexplorer.ui.mvp.Displayer
 import fr.xgouchet.packageexplorer.ui.mvp.Navigator
 import io.reactivex.rxjava3.disposables.Disposable
-import java.lang.IllegalStateException
 import androidx.fragment.app.Fragment as FragmentX
 
 abstract class BaseListPresenter<T, D>(val navigator: Navigator<T>?) :

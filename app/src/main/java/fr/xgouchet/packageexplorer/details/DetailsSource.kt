@@ -28,6 +28,7 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndIcon
 import io.reactivex.rxjava3.core.ObservableEmitter
+import timber.log.Timber
 import java.io.File
 import java.security.MessageDigest
 import java.util.Locale
@@ -35,7 +36,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
-import timber.log.Timber
 
 @Suppress("TooManyFunctions", "MagicNumber")
 open class DetailsSource(val context: Context) {
@@ -152,10 +152,12 @@ open class DetailsSource(val context: Context) {
         var installLocation: String? = null
         when (packageInfo.installLocation) {
             PackageInfo.INSTALL_LOCATION_AUTO -> installLocation = "Install Location : Auto"
-            PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY -> installLocation =
-                "Install Location : Internal"
-            PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL -> installLocation =
-                "Install Location : External (if possible)"
+            PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY ->
+                installLocation =
+                    "Install Location : Internal"
+            PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL ->
+                installLocation =
+                    "Install Location : External (if possible)"
         }
         if (installLocation != null) {
             onNext(
@@ -360,7 +362,6 @@ open class DetailsSource(val context: Context) {
         emitter: ObservableEmitter<AppInfoViewModel>,
         packageInfo: PackageInfo
     ) {
-
         val permissions = packageInfo.permissions ?: return
 
         emitter.apply {
@@ -502,7 +503,6 @@ open class DetailsSource(val context: Context) {
         emitter: ObservableEmitter<AppInfoViewModel>,
         packageInfo: PackageInfo
     ) {
-
         val signatures: MutableSet<Signature> = signatures(packageInfo)
         if (signatures.isEmpty()) return
 

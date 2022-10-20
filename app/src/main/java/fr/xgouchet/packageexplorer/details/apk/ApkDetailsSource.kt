@@ -38,7 +38,6 @@ class ApkDetailsSource(
     }
 
     override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>) {
-
         try {
             val packageManager = context.packageManager
             val packageInfo = packageManager.getPackageArchiveInfo(path, PACKAGE_INFO_FLAGS)

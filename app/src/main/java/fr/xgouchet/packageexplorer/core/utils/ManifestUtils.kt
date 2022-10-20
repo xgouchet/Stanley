@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo
 import fr.xgouchet.packageexplorer.parser.CompressedXmlDomListener
 import fr.xgouchet.packageexplorer.parser.CompressedXmlParser
 import io.reactivex.rxjava3.core.Observable
+import org.w3c.dom.Document
+import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -20,8 +22,6 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 import kotlin.system.measureNanoTime
-import org.w3c.dom.Document
-import timber.log.Timber
 
 const val MANIFEST_FILE_NAME = "AndroidManifest.xml"
 
@@ -129,7 +129,6 @@ private fun <T : Any> withBinaryManifest(apkFile: File, op: (InputStream) -> T):
             while (entries.hasMoreElements()) {
                 val entry = entries.nextElement()
                 if (entry.name == MANIFEST_FILE_NAME) {
-
                     inputStream = zipFile.getInputStream(entry)
                     result = op(inputStream)
                     break

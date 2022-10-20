@@ -6,5 +6,5 @@ enum class AppSort(val comparator: Comparator<AppViewModel>) {
     TITLE(AppTitleComparator),
     PACKAGE_NAME(AppPackageNameComparator),
     INSTALL_TIME(AppInstallTimeComparator),
-    UPDATE_TIME(AppUpdateTimeComparator),
+    UPDATE_TIME(AppUpdateTimeComparator)
 }

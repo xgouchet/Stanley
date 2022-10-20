@@ -24,7 +24,7 @@ abstract class BaseViewHolder<T : Any>(
 
     protected fun fireSelected() {
         boundItem?.let { item ->
-                selectedListener?.accept(item, getTransitionView())
+            selectedListener?.accept(item, getTransitionView())
         }
     }
 

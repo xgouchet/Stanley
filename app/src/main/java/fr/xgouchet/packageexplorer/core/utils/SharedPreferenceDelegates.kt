@@ -3,10 +3,10 @@ package fr.xgouchet.packageexplorer.core.utils
 import android.content.Context
 import android.content.SharedPreferences
 import fr.xgouchet.packageexplorer.applist.sort.AppSort
+import timber.log.Timber
 import java.lang.ref.WeakReference
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
-import timber.log.Timber
 
 /**
  * This provide field delegates to ease the link between a view and a class

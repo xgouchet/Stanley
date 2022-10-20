@@ -41,7 +41,7 @@ data class NativeLibrary(
             "libsentry-android.so" to R.string.native_lib_group_sentry,
             "libsentry.so" to R.string.native_lib_group_sentry,
             "libsqlcipher.so" to R.string.native_lib_group_sqlcipher,
-            "libsqlite.so" to R.string.native_lib_group_sqlite,
+            "libsqlite.so" to R.string.native_lib_group_sqlite
         )
 
         fun from(fileName: String): NativeLibrary {

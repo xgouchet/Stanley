@@ -1,9 +1,9 @@
 package fr.xgouchet.gradle.plugin
 
-import java.io.File
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import java.io.File
 
 open class OSSTask : DefaultTask() {
 
@@ -21,11 +21,11 @@ open class OSSTask : DefaultTask() {
 
         outputFile.printWriter().use { writer ->
             writer.println(
-                    dependencies.joinToString(
-                            separator = ",\n    ",
-                            prefix = "[\n    ",
-                            postfix = "\n]"
-                    ) { it.toJson() }
+                dependencies.joinToString(
+                    separator = ",\n    ",
+                    prefix = "[\n    ",
+                    postfix = "\n]"
+                ) { it.toJson() }
             )
         }
     }

@@ -1,10 +1,9 @@
 package fr.xgouchet.packageexplorer.parser
 
-import java.util.Stack
-import javax.xml.parsers.DocumentBuilderFactory
 import org.w3c.dom.Document
 import org.w3c.dom.Node
-import timber.log.Timber
+import java.util.Stack
+import javax.xml.parsers.DocumentBuilderFactory
 
 class CompressedXmlDomListener : CompressedXmlParserListener {
 

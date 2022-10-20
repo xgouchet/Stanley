@@ -59,7 +59,7 @@ class AppDetailsActivity :
     override fun getPresenterKey(): String {
         val appViewModel = intentData
         checkNotNull(appViewModel)
-        
+
         return "app_details/${appViewModel.packageName}"
     }
 

@@ -22,12 +22,12 @@ data class OSSDependency(
             "\"sourceUrl\":null"
         }
         return "{" +
-                "\"name\":\"$name\", " +
-                "\"identifier\":\"$identifier\", " +
-                "\"license\":\"$license\"," +
-                "\"licenseKey\":\"$licenseKey\"," +
-                sourceField +
-                "}"
+            "\"name\":\"$name\", " +
+            "\"identifier\":\"$identifier\", " +
+            "\"license\":\"$license\"," +
+            "\"licenseKey\":\"$licenseKey\"," +
+            sourceField +
+            "}"
     }
 
     companion object {

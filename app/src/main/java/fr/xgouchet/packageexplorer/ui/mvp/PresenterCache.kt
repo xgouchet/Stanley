@@ -36,7 +36,10 @@ object PresenterCache {
     fun dropPresenter(key: String) {
         val removed = cache.remove(key)
         if (removed == null) {
-            Timber.i("Removing presenter for key $key, but none was found. Was it pruned, or never saved ?")
+            Timber.i(
+                "Removing presenter for key $key, but none was found. " +
+                    "Was it pruned, or never saved ?"
+            )
         }
     }
 

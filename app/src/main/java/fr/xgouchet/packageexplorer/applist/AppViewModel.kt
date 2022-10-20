@@ -8,13 +8,13 @@ import android.content.pm.Signature
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import timber.log.Timber
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
-import timber.log.Timber
 
 /**
  * @author Xavier Gouchet

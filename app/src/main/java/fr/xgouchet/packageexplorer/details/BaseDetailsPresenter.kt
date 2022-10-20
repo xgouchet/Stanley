@@ -56,7 +56,8 @@ abstract class BaseDetailsPresenter<D>(
                             return@map it
                         }
                     }
-            })
+            }
+        )
 
         val disposable = filteredList
             .subscribeOn(Schedulers.computation())
@@ -71,7 +72,6 @@ abstract class BaseDetailsPresenter<D>(
         displayer: Displayer<List<AppInfoViewModel>>,
         restored: Boolean
     ) {
-
         val activity = when (displayer) {
             is Fragment -> displayer.activity
             is FragmentX -> displayer.activity

@@ -5,9 +5,9 @@ import android.net.Uri
 import fr.xgouchet.packageexplorer.core.utils.getFileName
 import io.reactivex.rxjava3.core.SingleEmitter
 import io.reactivex.rxjava3.core.SingleOnSubscribe
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
-import timber.log.Timber
 
 class CopyApkSource(
     val context: Context,

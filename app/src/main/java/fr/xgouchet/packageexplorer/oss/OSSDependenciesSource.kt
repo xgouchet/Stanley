@@ -12,14 +12,13 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitle
 import fr.xgouchet.packageexplorer.details.adapter.AppInfoWithSubtitleAndAction
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import java.io.IOException
 import timber.log.Timber
+import java.io.IOException
 
 class OSSDependenciesSource(val context: Context) :
     ObservableOnSubscribe<AppInfoViewModel> {
 
     override fun subscribe(emitter: ObservableEmitter<AppInfoViewModel>) {
-
         try {
             val stream = context.assets.open("oss_licenses.json")
             val gson: Gson = GsonBuilder().create()

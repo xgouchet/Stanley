@@ -26,7 +26,7 @@ fun getMainActivities(
     context: Context,
     packageName: String
 ):
-        List<ResolveInfo> {
+    List<ResolveInfo> {
     val intent = Intent(Intent.ACTION_MAIN)
     intent.addCategory(Intent.CATEGORY_LAUNCHER)
     intent.`package` = packageName

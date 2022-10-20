@@ -5,7 +5,7 @@ import fr.xgouchet.packageexplorer.details.adapter.AppInfoViewModel
 import fr.xgouchet.packageexplorer.ui.mvp.BaseActivity
 
 class OSSActivity :
-        BaseActivity<Any, List<AppInfoViewModel>, OSSPresenter, OSSFragment>() {
+    BaseActivity<Any, List<AppInfoViewModel>, OSSPresenter, OSSFragment>() {
 
     override val allowNullIntentData: Boolean = true
 

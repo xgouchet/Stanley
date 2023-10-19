@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/fab_margin"
             android:visibility="invisible"
             tools:src="@drawable/ic_menu_play_store"
             tools:visibility="visible"/>
@@ -28,8 +28,8 @@
     <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/loading"
             style="?android:attr/progressBarStyleLarge"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
             android:layout_gravity="center"
             android:indeterminate="true"
             android:visibility="gone"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/fab_margin"
             android:gravity="center_horizontal"
             android:text="@string/msg_empty_app_list"
             android:textAppearance="?android:textAppearanceLarge"

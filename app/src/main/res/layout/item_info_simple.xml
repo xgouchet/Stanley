@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:minHeight="48dp"
-        android:padding="8dp"
+        android:minHeight="@dimen/_48dp"
+        android:padding="@dimen/elevation_fab"
         android:textAppearance="?android:textAppearanceListItemSmall"
         android:textColor="@color/text_title"
         tools:text="Foo"/>

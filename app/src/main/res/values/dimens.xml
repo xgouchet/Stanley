@@ -3,7 +3,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">200dp</dimen>
     <dimen name="item_width">200dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
 
     <dimen name="toolbar_padding">6dp</dimen>
 
@@ -12,4 +11,16 @@
     <dimen name="elevation_fab">8dp</dimen>
 
     <dimen name="corner_radius_card">8dp</dimen>
+
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="_24dp">24dp</dimen>
+    <dimen name="_48dp">48dp</dimen>
+    <dimen name="_64dp">64dp</dimen>
+
+    <!--text size-->
+
+    <dimen name="_12sp">12sp</dimen>
+    <dimen name="_14sp">14sp</dimen>
+
+
 </resources>

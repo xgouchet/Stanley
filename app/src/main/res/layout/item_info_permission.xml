@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:singleLine="true"
-            android:ellipsize="start"
-            android:gravity="center_vertical"
-            android:textAppearance="?android:textAppearanceListItemSmall"
-            android:textColor="@color/text_subtitle"
-            tools:text="com.google.android.googleapps.permission.GOOGLE_AUTH.blogger"/>
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/elevation_fab"
+        android:ellipsize="start"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textAppearance="?android:textAppearanceListItemSmall"
+        android:textColor="@color/text_subtitle"
+        tools:text="com.google.android.googleapps.permission.GOOGLE_AUTH.blogger" />
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/sub_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/info"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_subtitle"
-            android:textSize="14sp"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+        android:id="@+id/sub_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info"
+        android:layout_marginStart="@dimen/elevation_fab"
+        android:layout_marginLeft="@dimen/elevation_fab"
+        android:layout_marginEnd="@dimen/elevation_fab"
+        android:layout_marginRight="@dimen/elevation_fab"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_subtitle"
+        android:textSize="@dimen/_14sp"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 </RelativeLayout>

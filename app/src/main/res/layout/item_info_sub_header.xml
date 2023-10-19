@@ -12,8 +12,8 @@
     android:textAppearance="@style/AppTheme.TextAppearanceUltraSmall"
     android:textColor="@color/accent"
     android:textStyle="bold"
-    android:paddingStart="16dp"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
+    android:paddingStart="@dimen/fab_margin"
+    android:layout_marginHorizontal="@dimen/elevation_fab"
+    android:layout_marginVertical="@dimen/elevation_toolbar"
     tools:text="Sub Header name"
     tools:ignore="RtlSymmetry" />

@@ -9,9 +9,9 @@
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/elevation_fab"
             android:ellipsize="start"
             android:gravity="start|center_vertical"
             android:singleLine="true"
@@ -24,13 +24,13 @@
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subtitle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/elevation_fab"
             android:gravity="start|center_vertical"
             android:textAppearance="?android:textAppearanceListItemSmall"
             android:textColor="@color/text_subtitle"
-            android:textSize="14sp"
+            android:textSize="@dimen/_14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

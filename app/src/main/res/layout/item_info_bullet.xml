@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp"
+    android:padding="@dimen/elevation_toolbar"
     android:background="?android:selectableItemBackground">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="@dimen/fab_margin"
+        android:layout_height="@dimen/fab_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_bullet" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/content"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/elevation_fab"
         android:ellipsize="start"
         android:gravity="center_vertical"
-        android:maxWidth="64dp"
+        android:maxWidth="@dimen/_64dp"
         android:textAppearance="@style/AppTheme.TextAppearanceUltraSmall"
         android:textColor="@color/text_title"
         app:layout_constraintStart_toEndOf="@+id/icon"

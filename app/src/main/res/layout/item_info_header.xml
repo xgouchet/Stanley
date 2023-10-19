@@ -4,14 +4,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/_48dp"
         android:background="?android:selectableItemBackground">
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
+            android:layout_width="@dimen/24dp"
+            android:layout_height="@dimen/24dp"
+            android:layout_margin="@dimen/elevation_fab"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -19,7 +19,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="start|center_vertical"
@@ -28,7 +28,7 @@
             android:textAppearance="?android:textAppearanceListItem"
             android:textColor="@color/accent"
             android:textStyle="bold"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/elevation_fab"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/expandable"
             app:layout_constraintStart_toEndOf="@+id/icon"
@@ -38,10 +38,10 @@
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/expandable"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="@dimen/24dp"
+            android:layout_height="@dimen/24dp"
+            android:layout_margin="@dimen/elevation_fab"
+            android:layout_marginEnd="@dimen/elevation_fab"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

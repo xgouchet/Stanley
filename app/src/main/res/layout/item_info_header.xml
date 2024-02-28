@@ -9,8 +9,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icon"
-            android:layout_width="@dimen/24dp"
-            android:layout_height="@dimen/24dp"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
             android:layout_margin="@dimen/elevation_fab"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,8 +38,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/expandable"
-            android:layout_width="@dimen/24dp"
-            android:layout_height="@dimen/24dp"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
             android:layout_margin="@dimen/elevation_fab"
             android:layout_marginEnd="@dimen/elevation_fab"
             app:layout_constraintBottom_toBottomOf="parent"

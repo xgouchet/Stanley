@@ -58,6 +58,8 @@ class AppDetailsSource(
             extractReceivers(emitter, packageInfo)
             extractProviders(emitter, packageInfo)
 
+            extractTechnologies(emitter, packageInfo)
+
             emitter.onComplete()
         } catch (e: PackageManager.NameNotFoundException) {
             emitter.onError(e)

@@ -7,6 +7,7 @@
     <!-- Standard Permissions -->
     <string name="android.permission.ACCEPT_HANDOVER">Continue a call which was started in another app</string>
     <string name="android.permission.ACCESS_BACKGROUND_LOCATION">Access location in the background</string>
+    <string name="android.permission.ACCESS_BLOBS_ACROSS_USERS">Access data blobs across users</string>
     <string name="android.permission.ACCESS_CHECKIN_PROPERTIES">Access checkin properties</string>
     <string name="android.permission.ACCESS_COARSE_LOCATION">Approximate (network-based) location</string>
     <string name="android.permission.ACCESS_FINE_LOCATION">Precise (GPS) location</string>
@@ -38,8 +39,9 @@
     <string name="android.permission.BIND_CARRIER_MESSAGING_SERVICE">Bind to carrier messaging services</string>
     <string name="android.permission.BIND_CARRIER_SERVICES">Bind to carrier services</string>
     <string name="android.permission.BIND_CHOOSER_TARGET_SERVICE">Choose target service</string>
-    <string name="android.permission.BIND_CONTROLS">Bind third party controls</string>
+    <string name="android.permission.BIND_COMPANION_DEVICE_SERVICE">Required by any CompanionDeviceServices to ensure that only the system can bind to it</string>
     <string name="android.permission.BIND_CONDITION_PROVIDER_SERVICE">Bind to a condition provider service</string>
+    <string name="android.permission.BIND_CONTROLS">Bind third party controls</string>
     <string name="android.permission.BIND_DEVICE_ADMIN">Interact with a device admin</string>
     <string name="android.permission.BIND_DREAM_SERVICE">Daydream service</string>
     <string name="android.permission.BIND_INCALL_SERVICE">InCall service</string>
@@ -55,6 +57,7 @@
     <string name="android.permission.BIND_TELECOM_CONNECTION_SERVICE">Telecom connection service</string>
     <string name="android.permission.BIND_TEXT_SERVICE">Bind to a text service</string>
     <string name="android.permission.BIND_TV_INPUT">TV Input</string>
+    <string name="android.permission.BIND_TV_INTERACTIVE_APP">Required by a TvInteractiveAppService to ensure that only the system can bind to it</string>
     <string name="android.permission.BIND_VISUAL_VOICEMAIL_SERVICE">Bind to a visual voicemail service</string>
     <string name="android.permission.BIND_VOICE_INTERACTION">Voice interaction service</string>
     <string name="android.permission.BIND_VPN_SERVICE">Bind to a VPN service</string>
@@ -67,6 +70,7 @@
     <string name="android.permission.BLUETOOTH_PRIVILEGED">Pair with Bluetooth devices without user interactions</string>
     <string name="android.permission.BLUETOOTH_SCAN">Discover and pair nearby Bluetooth devices</string>
     <string name="android.permission.BODY_SENSORS">Access data from sensors that the user uses to measure what is happening inside his/her body, such as heart rate</string>
+    <string name="android.permission.BODY_SENSORS_BACKGROUND">Access data from sensors that the user uses to measure what is happening inside their body</string>
     <string name="android.permission.BRICK">Permanently disable device</string>
     <string name="android.permission.BROADCAST_PACKAGE_REMOVED">Send package removed broadcast</string>
     <string name="android.permission.BROADCAST_SMS">Send SMS-received broadcast</string>
@@ -92,6 +96,7 @@
 
     <string name="android.permission.DELETE_CACHE_FILES">Delete other apps\' caches</string>
     <string name="android.permission.DELETE_PACKAGES">Delete apps</string>
+    <string name="android.permission.DELIVER_COMPANION_MESSAGES">Deliver companion messages to system</string>
     <string name="android.permission.DEVICE_POWER">Power device on or off</string>
     <string name="android.permission.DIAGNOSTIC">Read/write to resources owned by diag</string>
     <string name="android.permission.DISABLE_KEYGUARD">Disable your screen lock</string>
@@ -105,6 +110,18 @@
     <string name="android.permission.FORCE_BACK">Force app to close</string>
     <string name="android.permission.FORCE_STOP_PACKAGES">Force stop other apps</string>
     <string name="android.permission.FOREGROUND_SERVICE">Start a service in the foreground</string>
+    <string name="android.permission.FOREGROUND_SERVICE_CAMERA">Start a service in the foreground with the type "camera"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE">Start a service in the foreground with the type "connectedDevice"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_DATA_SYNC">Start a service in the foreground with the type "dataSync"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_HEALTH">Start a service in the foreground with the type "health"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_LOCATION">Start a service in the foreground with the type "location"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK">Start a service in the foreground with the type "mediaPlayback"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION">Start a service in the foreground with the type "mediaProjection"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_MICROPHONE">Start a service in the foreground with the type "microphone"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_PHONE_CALL">Start a service in the foreground with the type "phoneCall"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING">Start a service in the foreground with the type "remoteMessaging"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE">Start a service in the foreground with the type "specialUse"</string>
+    <string name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED">Start a service in the foreground with the type "systemExempted"</string>
 
     <string name="android.permission.GET_ACCOUNTS">Find accounts on the device</string>
     <string name="android.permission.GET_ACCOUNTS_PRIVILEGED">>Find accounts on the device</string>
@@ -114,6 +131,8 @@
     <string name="android.permission.GLOBAL_SEARCH">Global search</string>
 
     <string name="android.permission.HARDWARE_TEST">Test hardware</string>
+    <string name="android.permission.HIDE_OVERLAY_WINDOWS">Prevent non-system-overlay windows from being drawn on top of it</string>
+    <string name="android.permission.HIGH_SAMPLING_RATE_SENSORS">Access sensor data with a sampling rate greater than 200 Hz</string>
 
     <string name="android.permission.INJECT_EVENTS">Press keys and control buttons</string>
     <string name="android.permission.INSTALL_LOCATION_PROVIDER">Permission to install a location provider</string>
@@ -121,12 +140,13 @@
     <string name="android.permission.INSTALL_SHORTCUT">Install shortcuts in Launcher</string>
     <string name="android.permission.INSTANT_APP_FOREGROUND_SERVICE">Allows an instant app to create foreground services</string>
     <string name="android.permission.INTERACT_ACROSS_PROFILES">Allows interaction across profiles in the same profile group</string>
-    <string name="android.permission.INTERACT_ACROSS_USERS">Allows the app to perform actions across different users on the device.</string>
+    <string name="android.permission.INTERACT_ACROSS_USERS">Perform actions across different users on the device</string>
     <string name="android.permission.INTERNAL_SYSTEM_WINDOW">Display unauthorized windows</string>
     <string name="android.permission.INTERNET">Full network access</string>
 
     <string name="android.permission.KILL_BACKGROUND_PROCESSES">Close other apps</string>
 
+    <string name="android.permission.LAUNCH_MULTI_PANE_SETTINGS_DEEP_LINK">Show a custom Activity embedded in the Settings app.</string>
     <string name="android.permission.LOADER_USAGE_STATS">Allows a data loader to read a package\'s access logs</string>
     <string name="android.permission.LOCATION_HARDWARE">Use location features in hardware, such as the geofencing api</string>
 
@@ -134,8 +154,12 @@
     <string name="android.permission.MANAGE_APP_TOKENS">Manage app tokens</string>
     <string name="android.permission.MANAGE_DOCUMENTS">Manage access to documents, usually as part of a document picker</string>
     <string name="android.permission.MANAGE_EXTERNAL_STORAGE">Get broad access to external storage in scoped storage</string>
+    <string name="android.permission.MANAGE_MEDIA">Modify and delete media files on this device or any connected storage device without user confirmation</string>
+    <string name="android.permission.MANAGE_ONGOING_CALLS">Query ongoing call details and manage ongoing calls</string>
     <string name="android.permission.MANAGE_OWN_CALLS">Allows a calling application which manages it own calls</string>
     <string name="android.permission.MANAGE_USB">Manage preferences and permissions for USB devices</string>
+    <string name="android.permission.MANAGE_WIFI_INTERFACES">Get notified when a Wi-Fi interface request cannot be satisfied without tearing down one or more other interfaces, and provide a decision whether to approve the request or reject it</string>
+    <string name="android.permission.MANAGE_WIFI_NETWORK_SELECTION">Manage Wi-Fi network selection related features such as enable or disable global auto-join, modify connectivity scan intervals, and approve Wi-Fi Direct connections</string>
     <string name="android.permission.MASTER_CLEAR">Reset system to factory defaults</string>
     <string name="android.permission.MEDIA_CONTENT_CONTROL">Know what content is playing and control its playback</string>
     <string name="android.permission.MODIFY_AUDIO_SETTINGS">Change your audio settings</string>
@@ -143,19 +167,24 @@
     <string name="android.permission.MOUNT_FORMAT_FILESYSTEMS">Erase SD Card</string>
     <string name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS">Access SD Card filesystem</string>
 
+    <string name="android.permission.NEARBY_WIFI_DEVICES">Required to be able to advertise and connect to nearby devices via Wi-Fi</string>
     <string name="android.permission.NFC">Control Near Field Communication</string>
     <string name="android.permission.NFC_PREFERRED_PAYMENT_INFO">Receive NFC preferred payment service information</string>
     <string name="android.permission.NFC_TRANSACTION_EVENT">Receive NFC transaction events</string>
 
+    <string name="android.permission.OVERRIDE_WIFI_CONFIG">Modify any wifi configuration, even if created by another application</string>
+
     <string name="android.permission.PACKAGE_USAGE_STATS">Collect component usage statistics</string>
     <string name="android.permission.PERSISTENT_ACTIVITY">Make app always run</string>
-    <string name="android.permission.POST_NOTIFICATIONS">Allows an app to post notifications</string>
-    <string name="android.permission.PROCESS_OUTGOING_CALLS">Reroute outgoing calls</string>
+    <string name="android.permission.POST_NOTIFICATIONS">Post notifications</string>
     <string name="android.permission.PREVENT_POWER_KEY">Prevents power button to switch the screen off</string>
+    <string name="android.permission.PROCESS_OUTGOING_CALLS">Reroute outgoing calls</string>
 
     <string name="android.permission.QUERY_ALL_PACKAGES">Query any installed app on the device</string>
 
     <string name="android.permission.RAISED_THREAD_PRIORITY">Required to enable certain features that require high processing priority</string>
+    <string name="android.permission.READ_ASSISTANT_APP_SEARCH_DATA">Query over global data in AppSearch that\'s visible to the ASSISTANT role</string>
+    <string name="android.permission.READ_BASIC_PHONE_STATE">Read only access to phone state with a non dangerous permission, including the information like cellular network type, software version</string>
     <string name="android.permission.READ_CALENDAR">Read calendar events plus confidential information</string>
     <string name="android.permission.READ_CALL_LOG">Read call log</string>
     <string name="android.permission.READ_CALL_STATE">Read call state</string>
@@ -164,11 +193,13 @@
     <string name="android.permission.READ_DEVICE_CONFIG">Read the device configuration</string>
     <string name="android.permission.READ_EXTERNAL_STORAGE">Read the contents of your SD card</string>
     <string name="android.permission.READ_FRAME_BUFFER">Read frame buffer</string>
+    <string name="android.permission.READ_HOME_APP_SEARCH_DATA">Query over global data in AppSearch that\'s visible to the HOME role</string>
     <string name="android.permission.READ_INPUT_STATE">Record what you type and actions you take</string>
     <string name="android.permission.READ_LOGS">Read sensitive log data</string>
     <string name="android.permission.READ_MEDIA_AUDIO">Read audio files from external storage</string>
     <string name="android.permission.READ_MEDIA_IMAGES">Read image files from external storage</string>
     <string name="android.permission.READ_MEDIA_VIDEO">Read video files from external storage</string>
+    <string name="android.permission.READ_NEARBY_STREAMING_POLICY">Read nearby streaming policy</string>
     <string name="android.permission.READ_PHONE_NUMBERS">Read the device\'s phone number(s)</string>
     <string name="android.permission.READ_PHONE_STATE">Read phone status and identity</string>
     <string name="android.permission.READ_PRECISE_PHONE_STATE">Read precise phone state</string>
@@ -188,16 +219,23 @@
     <string name="android.permission.RECORD_AUDIO">Record audio</string>
     <string name="android.permission.REMOVE_TASKS">Stop running apps</string>
     <string name="android.permission.REORDER_TASKS">Reorder running apps</string>
+    <string name="android.permission.REQUEST_COMPANION_PROFILE_APP_STREAMING">Request to be associated with a virtual display capable of streaming Android applications</string>
+    <string name="android.permission.REQUEST_COMPANION_PROFILE_AUTOMOTIVE_PROJECTION">Request to be associated with a vehicle head unit capable of automotive projection</string>
+    <string name="android.permission.REQUEST_COMPANION_PROFILE_WATCH">Request to be associated with a device as a "watch"</string>
+    <string name="android.permission.REQUEST_COMPANION_PROFILE_COMPUTER">Request request to be associated with a computer to share functionality and/or data with other devices, such as notifications, photos and media </string>
     <string name="android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND">Allows a companion app to run in the background</string>
+    <string name="android.permission.REQUEST_COMPANION_START_FOREGROUND_SERVICES_FROM_BACKGROUND">Allows a companion app to start a foreground service from the background</string>
+    <string name="android.permission.REQUEST_COMPANION_SELF_MANAGED">Create a "self-managed" association</string>
     <string name="android.permission.REQUEST_COMPANION_USE_DATA_IN_BACKGROUND">Allows a companion app to use data in the background</string>
     <string name="android.permission.REQUEST_DELETE_PACKAGES">Request uninstalling apps</string>
     <string name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS">Request ignore battery optimizations</string>
     <string name="android.permission.REQUEST_INSTALL_PACKAGES">Request installing apps</string>
-    <string name="android.permission.RESTART_PACKAGES">Restart applications</string>
+    <string name="android.permission.REQUEST_OBSERVE_COMPANION_DEVICE_PRESENCE">Subscribe to notifications about the presence status change of their associated companion device</string>
     <string name="android.permission.REQUEST_PASSWORD_COMPLEXITY">Request the screen lock complexity and prompt users to update the screen lock to a certain complexity level</string>
+    <string name="android.permission.RESTART_PACKAGES">Restart applications</string>
     <string name="android.permission.RETRIEVE_WINDOW_CONTENT">Retrieve screen content</string>
 
-    <string name="android.permission.SCHEDULE_EXACT_ALARM">Allows application to use exact alarm.</string>
+    <string name="android.permission.SCHEDULE_EXACT_ALARM">Allows application to use exact alarm</string>
     <string name="android.permission.SEND_RESPOND_VIA_MESSAGE">Handle the respond-via-message action during incoming calls</string>
     <string name="android.permission.SEND_SMS">Send SMS messages</string>
     <string name="android.permission.SET_ACTIVITY_WATCHER">Watch and control how activities are started globally in the system</string>
@@ -216,20 +254,25 @@
     <string name="android.permission.SIGNAL_PERSISTENT_PROCESSES">Send Linux signals to apps</string>
     <string name="android.permission.SMS_FINANCIAL_TRANSACTIONS">Read filtered sms messages</string>
     <string name="android.permission.START_ANY_ACTIVITY">Start any activity</string>
-    <string name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND">Allows application to start foreground services from the background at any time.</string>
+    <string name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND">Start foreground services from the background at any time</string>
+    <string name="android.permission.START_VIEW_APP_FEATURES">Allows the holder to start the screen with a list of app features</string>
     <string name="android.permission.START_VIEW_PERMISSION_USAGE">Start the permission usage screen for an app</string>
     <string name="android.permission.STATUS_BAR">Disable or modify status bar</string>
     <string name="android.permission.SUBSCRIBED_FEEDS_READ">Read subscribed feeds</string>
     <string name="android.permission.SUBSCRIBED_FEEDS_WRITE">Write subscribed feeds</string>
+    <string name="android.permission.SUBSCRIBE_TO_KEYGUARD_LOCKED_STATE">Subscribe to keyguard locked (i.e., showing) state</string>
     <string name="android.permission.SYSTEM_ALERT_WINDOW">Draw over other apps</string>
 
     <string name="android.permission.TRANSMIT_IR">Transmit Infrared messages</string>
 
     <string name="android.permission.UPDATE_DEVICE_STATS">Update device statistics</string>
+    <string name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION">Indicate the system that user action should not be required for an app update</string>
     <string name="android.permission.USE_BIOMETRIC">Use device supported biometric modalities</string>
     <string name="android.permission.USE_CREDENTIALS">Use accounts on the device</string>
+    <string name="android.permission.USE_EXACT_ALARM">Use exact alarms without needing to request this permission from the user.</string>
     <string name="android.permission.USE_FINGERPRINT">Use fingerprint hardware</string>
     <string name="android.permission.USE_FULL_SCREEN_INTENT">Use full screen notification intents</string>
+    <string name="android.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER">Read device identifiers and use ICC based authentication like EAP-AKA</string>
     <string name="android.permission.USE_SIP">Make/receive Internet calls</string>
 
     <string name="android.permission.VIBRATE">Control vibration</string>

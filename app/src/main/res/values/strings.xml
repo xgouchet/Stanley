@@ -76,6 +76,7 @@
     <string name="header_type_signature">Signing certificates</string>
     <string name="header_type_uses_permissions">Requested Permissions</string>
     <string name="header_type_native_libs">Native Libraries</string>
+    <string name="header_type_technologies">Technologies used (βετ⍺)</string>
 
     <string name="menu_about">About…</string>
     <string name="menu_hide_system_apps">Hide system apps</string>

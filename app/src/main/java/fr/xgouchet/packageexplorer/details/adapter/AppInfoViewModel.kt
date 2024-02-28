@@ -15,6 +15,7 @@ object AppInfoType {
     const val INFO_TYPE_RECEIVERS: Int = 0x80
     const val INFO_TYPE_SIGNATURE: Int = 0x100
     const val INFO_TYPE_NATIVE: Int = 0x200
+    const val INFO_TYPE_TECHNOLOGIES: Int = 0x400
 
     const val INFO_TYPE_ANDROID: Int = 0x1000
     const val INFO_TYPE_KOTLIN: Int = 0x2000

@@ -32,8 +32,7 @@ import timber.log.Timber
 import java.io.File
 import java.security.MessageDigest
 import java.util.Locale
-import java.util.zip.ZipEntry
-import java.util.zip.ZipInputStream
+import java.util.zip.ZipFile
 import javax.security.cert.CertificateException
 import javax.security.cert.X509Certificate
 
@@ -155,6 +154,7 @@ open class DetailsSource(val context: Context) {
             PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY ->
                 installLocation =
                     "Install Location : Internal"
+
             PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL ->
                 installLocation =
                     "Install Location : External (if possible)"
@@ -478,6 +478,97 @@ open class DetailsSource(val context: Context) {
         }
     }
 
+    protected fun extractTechnologies(
+        emitter: ObservableEmitter<AppInfoViewModel>,
+        packageInfo: PackageInfo
+    ) {
+        var usesFlutter = false
+        var usesReactNative = false
+        var usesFirebase = false
+        var usesSentry = false
+
+        packageInfo.activities?.forEach {
+            if (it.name.startsWith("io.flutter.plugins")) {
+                usesFlutter = true
+            }
+            if (it.name == "com.facebook.react.devsupport.DevSettingsActivity") {
+                usesReactNative = true
+            }
+        }
+
+        packageInfo.services?.forEach {
+            if (it.name.startsWith("io.flutter.plugins.")) {
+                usesFlutter = true
+            }
+            if (it.name.startsWith("com.google.firebase.")) {
+                usesFirebase = true
+            }
+            if (it.name.startsWith("io.sentry.android.")) {
+                usesSentry = true
+            }
+        }
+
+        packageInfo.receivers?.forEach {
+            if (it.name.startsWith("io.flutter.plugins.")) {
+                usesFlutter = true
+            }
+        }
+
+        packageInfo.providers?.forEach {
+            if (it.name == "com.reactnativecommunity.webview.RNCWebViewFileProvider") {
+                usesReactNative = true
+            }
+        }
+
+
+        emitter.apply {
+            onNext(
+                AppInfoHeader(
+                    AppInfoType.INFO_TYPE_TECHNOLOGIES,
+                    context.getString(R.string.header_type_technologies),
+                    R.drawable.ic_category_feature
+                )
+            )
+
+            if (usesFlutter) {
+                onNext(
+                    AppInfoSimple(
+                        AppInfoType.INFO_TYPE_TECHNOLOGIES,
+                        "Flutter"
+                    )
+                )
+            }
+
+            if (usesReactNative) {
+                onNext(
+                    AppInfoSimple(
+                        AppInfoType.INFO_TYPE_TECHNOLOGIES,
+                        "React Native"
+                    )
+                )
+            }
+            if (usesSentry) {
+                onNext(
+                    AppInfoSimple(
+                        AppInfoType.INFO_TYPE_TECHNOLOGIES,
+                        "Sentry"
+                    )
+                )
+            }
+            if (usesFirebase) {
+                onNext(
+                    AppInfoSimple(
+                        AppInfoType.INFO_TYPE_TECHNOLOGIES,
+                        "Firebase"
+                    )
+                )
+            }
+        }
+
+
+        // Phonegap / Ionic / Cordova / Capacitor ?
+    }
+
     @SuppressLint("DiscouragedApi")
     private fun getFeatureName(feature: FeatureInfo): String {
         return if (feature.name == null) {
@@ -627,11 +718,11 @@ open class DetailsSource(val context: Context) {
 
     private fun nativeLibraries(apk: File): Collection<NativeLibrary> {
         val nativeLibs = mutableMapOf<String, NativeLibrary>()
-        val zis = ZipInputStream(apk.inputStream())
-        var zipEntry: ZipEntry? = zis.nextEntry
-        while (zipEntry != null) {
-            val path = zipEntry.name
-            val segments = path.split(File.separatorChar)
+        val zipFile = ZipFile(apk)
+        val entries = zipFile.entries()
+        while (entries.hasMoreElements()) {
+            val zipEntry = entries.nextElement()
+            val segments = zipEntry.name.split(File.separatorChar)
             if (segments.size == 3 && segments[0] == "lib") {
                 val fileName = segments[2]
                 val arch = segments[1]
@@ -643,10 +734,8 @@ open class DetailsSource(val context: Context) {
                     nativeLibs[fileName] = NativeLibrary.from(fileName, arch)
                 }
             }
-            zipEntry = zis.nextEntry
         }
-        zis.closeEntry()
-        zis.close()
+        zipFile.close()
 
         nativeLibs.values.filter { it.group == R.string.native_lib_group_unknown }
             .forEach {

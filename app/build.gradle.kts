@@ -21,6 +21,15 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    signingConfigs {
+	    release {
+		    storeFile System.getenv("STORE_FILE")
+		    storePassword System.getenv("STORE_PASSWORD")
+		    keyAlias System.getenv("KEY_ALIAS")
+		    keyPassword System.getenv("KEY_PASSWORD")
+	    }
+    }
+
     namespace = "fr.xgouchet.packageexplorer"
 
     buildTypes {
